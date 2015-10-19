@@ -1,0 +1,9 @@
+config VIDEO_OWL_LCDC
+	tristate "OWL lcd controller support"
+	---help---
+	  Actions OWL Soc lcd controller support.
+
+	  Say Y here if you need it in your system.
+	  If unsure, say Y.
+
+	  To compile this driver as a module, choose M here.

@@ -1,0 +1,11 @@
+prefix=/home/local/ACTIONS/xiehaocheng/workspace/lib/lib64/directfb
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: ++DFB
+Description: C++ binding for DirectFB
+Version: 1.7.6
+Requires: directfb
+Libs: -L${libdir} -l++dfb
+Cflags: -I${prefix}/include/++dfb

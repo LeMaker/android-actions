@@ -1,0 +1,5 @@
+#!/bin/sh
+
+dd if=/dev/zero of=./uboot_fill.bin bs=1 count=$( expr $( expr $( expr $(stat -c%s $1) + 511 ) / 512 ) \* 512 )
+dd if=./uboot_fill.bin of=$1 bs=1 skip=$(stat -c%s $1) seek=$(stat -c%s $1)
+rm ./uboot_fill.bin

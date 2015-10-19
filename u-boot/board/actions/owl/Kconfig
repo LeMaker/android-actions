@@ -1,0 +1,43 @@
+if TARGET_ATM7059
+config SYS_BOARD
+	default "owl"
+
+config SYS_VENDOR
+	default "actions"
+
+config SYS_SOC
+	default "owl"
+
+config SYS_CONFIG_NAME
+	default "atm7059"
+
+endif
+if TARGET_S500
+config SYS_BOARD
+	default "owl"
+
+config SYS_VENDOR
+	default "actions"
+
+config SYS_SOC
+	default "owl"
+
+config SYS_CONFIG_NAME
+	default "s500"
+
+endif
+
+if TARGET_S500_UPGRADE
+config SYS_BOARD
+	default "owl"
+
+config SYS_VENDOR
+	default "actions"
+
+config SYS_SOC
+	default "owl"
+
+config SYS_CONFIG_NAME
+	default "s500_upgrade"
+
+endif

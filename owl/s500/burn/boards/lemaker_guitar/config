@@ -1,0 +1,3 @@
+KERNEL_BURN_DTS=lemaker_guitar_probatch
+KERNEL_BURN_DEFCONFIG=actduino_s500_probatch_defconfig
+UBOOT_BURN_DEFCONFIG=actduino_s500_upgrade_defconfig

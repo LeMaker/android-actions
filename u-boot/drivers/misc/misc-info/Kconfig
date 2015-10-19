@@ -1,0 +1,6 @@
+config MISC_INFO
+	bool "Enable MISC INFO ACCESS Driver"
+	help
+	  The Misc info access driver save the hardware information like
+	  serial no, wifi mac etc.
+

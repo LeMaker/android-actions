@@ -1,0 +1,45 @@
+config VIDEO_OWL_DSS
+	tristate "OWL Display Subsystem support"
+	---help---
+	  Actions OWL Soc Display Subsystem support.
+
+	  Say Y here if you need it in your system.
+	  If unsure, say Y.
+
+	  To compile this driver as a module, choose M here.
+
+config VIDEO_OWL_DE_ATM7059
+	bool "ATM7059 Display Engine"
+	depends on VIDEO_OWL_DSS
+	---help---
+	  Say Y here if you need support ATM7059 DE.
+
+	  If unsure, say Y.
+
+config VIDEO_OWL_DE_ATM9009
+	bool "ATM9009 Display Engine"
+	depends on VIDEO_OWL_DSS
+	---help---
+	  Say Y here if you need support ATM9009 DE.
+
+	  If unsure, say Y.
+
+config VIDEO_OWL_MMU_SUPPORT
+	bool "OWL DE MMU Support"
+	depends on VIDEO_OWL_DE_ATM9009 || VIDEO_OWL_DE_ATM7059
+	---help---
+	  Actions OWL Soc Display Engine MMU support.
+
+	  Say Y here if you need MMU function.
+
+	  If unsure, say Y.
+
+config VIDEO_OWL_MMU_ION_SUPPORT
+	bool "OWL DE MMU ION Support"
+	depends on VIDEO_OWL_MMU_SUPPORT
+	---help---
+	  Actions OWL Soc Display Engine MMU ION support
+
+	  Say Y here if you need MMU ION function.
+
+	  If unsure, say Y.

@@ -1,0 +1,9 @@
+config VIDEO_OWL_DSI
+	tristate "OWL dsi support"
+	depends on ARCH_OWL
+	---help---
+	  Say Y here if you need dsi controller in your system.
+
+	  If unsure, say Y.
+
+	  To compile this driver as a module, choose M here.

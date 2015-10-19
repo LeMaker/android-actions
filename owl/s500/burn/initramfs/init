@@ -1,0 +1,15 @@
+#!/bin/busybox sh
+
+/bin/busybox echo "--== init script ==--"
+/bin/busybox mount  -t devtmpfs devtmpfs /dev
+/bin/busybox mount -t proc proc /proc >/dev/null 2>&1
+/bin/busybox mount -t sysfs sys /sys >/dev/null 2>&1
+/bin/busybox mount -t debugfs none /sys/kernel/debug >/dev/null 2>&1
+
+/bin/busybox --install
+
+mkdir -p /lib/modules/$(awk '{ print $3 }' /proc/version)
+
+source /etc/init.d/rcS &
+
+exec setsid cttyhack /bin/sh 

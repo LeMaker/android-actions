@@ -1,0 +1,13 @@
+config VIDEO_OWL_NO_DVI
+	bool "video no dvi"
+
+config VIDEO_OWL_HDMI
+	tristate "OWL hdmi support"
+	---help---
+	  Actions OWL Soc hdmi controller support.
+
+	  Say Y here if you need it in your system.
+	  If unsure, say Y.
+
+	  To compile this driver as a module, choose M here.
+

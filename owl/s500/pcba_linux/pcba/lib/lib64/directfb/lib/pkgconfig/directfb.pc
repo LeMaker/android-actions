@@ -1,0 +1,13 @@
+prefix=/home/local/ACTIONS/xiehaocheng/workspace/lib/lib64/directfb
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+water=runs
+
+Name: DirectFB
+Description: Graphics and windowing library for the Linux frame buffer device
+Version: 1.7.6
+Requires:  fusion direct
+Libs: -L${libdir} -ldirectfb -lpthread 
+Libs.private: -L${libdir} -lm -ldl 
+Cflags: -D_REENTRANT -I${prefix}/include/directfb

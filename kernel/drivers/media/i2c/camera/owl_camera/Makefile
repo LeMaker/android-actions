@@ -1,0 +1,1 @@
+obj-$(CONFIG_OWL7059_CAMERA)	+= owl_camera.o 

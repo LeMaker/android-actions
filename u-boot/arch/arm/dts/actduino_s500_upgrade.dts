@@ -1,0 +1,17 @@
+/dts-v1/;
+
+/include/ "actduino.dtsi"
+/ {
+	model = "Actions GS705A board";
+	compatible = "actions,gs705a", "actions,atm7059a";
+
+	clock:0b0160000 {
+		compatible = "actions,owl-clk";
+		core_pll = <0x311>;
+		dev_pll = <0x1164>;
+		bus_pll = <0x1c710000>;
+		display_pll = <0x164>;
+		bus1_pll = <0x2e004>;
+		clk_spead = <0x0>;
+	};
+};

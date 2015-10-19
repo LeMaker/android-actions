@@ -1,0 +1,30 @@
+config SND_SOC_OWL
+	tristate
+	depends on SND_SOC
+
+config SND_SOC_ATC2603A 
+	tristate
+	depends on SND_SOC_OWL
+
+config SND_SOC_ATC2603C 
+	tristate
+	depends on SND_SOC_OWL	
+
+config SND_SOC_HDMI_OWL
+	tristate
+	depends on SND_SOC_OWL
+
+config SND_SOC_DAI_OWL
+	tristate
+	depends on SND_SOC_OWL
+
+config SND_SOC_ALL_PMU_OWL
+	tristate "SoC Audio support for all pmus owl board"
+	select SND_SOC_OWL
+	select SND_SOC_HDMI_OWL
+	select SND_SOC_DAI_OWL
+	select SND_SOC_ATC2603A
+	select SND_SOC_ATC2603C
+	help
+	  Say Y if you want to add support for SoC audio on atc2603a-based
+	  ATM7059 board.	  

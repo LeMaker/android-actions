@@ -1,0 +1,36 @@
+#!/bin/sh
+
+P=`pwd`
+cd ${P}/..
+PM=`pwd`
+
+FW_NAME=$3
+
+echo $FW_NAME
+cd ${P}
+
+IMAGE_CFG_FILE=$1
+IMAGE_OUTPUT_DIR=$2
+
+CUR_TIME=`date "+%y%m%d"`
+sed -i "s/VER = .*$/VER = \"3.10.37.$CUR_TIME\";/g" $IMAGE_CFG_FILE
+
+if [ -f ../tools/fw_maker/maker_install.run ];then
+	mkdir -p ../tools/fw_maker/Output
+	cd ../tools/fw_maker && ./maker_install.run && cd $P
+	MAKER_BIN=../tools/fw_maker/Output/PyMaker.pyo
+	echo "python -O $MAKER_BIN -c ./$IMAGE_CFG_FILE -o $IMAGE_OUTPUT_DIR/tmp.fw --mf 1"
+	python -O $MAKER_BIN -c ./$IMAGE_CFG_FILE -o $IMAGE_OUTPUT_DIR/tmp.fw --mf 1
+fi
+
+if [ -f ../tools/fw_maker/Maker.exe ];then
+	MAKER_BIN=../tools/fw_maker/Maker.exe
+	wine $MAKER_BIN -c $IMAGE_CFG_FILE -o $IMAGE_OUTPUT_DIR/tmp.fw
+fi
+
+MAKER_BIN=../tools/fw_maker/Output/CompoundFW 
+
+$MAKER_BIN -fi:$IMAGE_OUTPUT_DIR/tmp.fw -fo:$IMAGE_OUTPUT_DIR/$FW_NAME.fw
+rm $IMAGE_OUTPUT_DIR/tmp.fw
+
+exit 0

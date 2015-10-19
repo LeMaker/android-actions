@@ -1,0 +1,6 @@
+config RTL8188ETV
+	tristate "Realtek rtl8188etv/eus USB WiFi"
+	depends on USB
+	---help---
+	  Help message of rtl8188etv/eus
+

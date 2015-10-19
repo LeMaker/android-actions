@@ -1,0 +1,10 @@
+# /etc/profile: profile file for ash shell
+
+echo "Processing /etc/profile..."
+
+export LD_LIBRARY_PATH=/lib:/usr/lib:$LD_LIBRARY_PATH
+
+echo "Processing /etc/profile Done"
+
+
+

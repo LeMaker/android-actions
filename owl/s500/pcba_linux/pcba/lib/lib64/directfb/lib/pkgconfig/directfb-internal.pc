@@ -1,0 +1,11 @@
+prefix=/home/local/ACTIONS/xiehaocheng/workspace/lib/lib64/directfb
+exec_prefix=${prefix}
+moduledir=${exec_prefix}/lib/directfb-1.7-6
+moduledirname=directfb-1.7-6
+includedir=${prefix}/include/directfb-internal
+
+Name: DirectFB-Internal
+Description: Third party module support package for DirectFB.
+Version: 1.7.6
+Requires: directfb = 1.7.6
+Cflags: -D_GNU_SOURCE  -I${prefix}/include/directfb-internal

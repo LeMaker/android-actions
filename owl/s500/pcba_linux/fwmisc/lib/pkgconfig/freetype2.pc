@@ -1,0 +1,12 @@
+prefix="/home/local/ACTIONS/xuyingfei/pcb/lib"
+exec_prefix="/home/local/ACTIONS/xuyingfei/pcb/lib"
+libdir="/home/local/ACTIONS/xuyingfei/pcb/lib/lib"
+includedir="/home/local/ACTIONS/xuyingfei/pcb/lib/include"
+
+Name: FreeType 2
+Description: A free, high-quality, and portable font engine.
+Version: 16.1.10
+Requires:
+Libs: -L${libdir} -lfreetype
+Libs.private:   
+Cflags: -I${includedir}/freetype2 -I${includedir}

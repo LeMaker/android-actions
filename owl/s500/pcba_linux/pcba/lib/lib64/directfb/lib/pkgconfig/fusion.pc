@@ -1,0 +1,11 @@
+prefix=/home/local/ACTIONS/xiehaocheng/workspace/lib/lib64/directfb
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Fusion IPC
+Description: High Level IPC Mechanisms
+Version: 1.7.6
+Requires: direct
+Libs: -L${libdir} -lfusion
+Cflags: -I${prefix}/include/directfb

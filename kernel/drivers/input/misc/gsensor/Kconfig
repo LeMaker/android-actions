@@ -1,0 +1,105 @@
+#
+# Input misc drivers configuration
+#
+menuconfig INPUT_GSENSOR
+	bool "Actions Gsensor devices"
+	help
+	  Say Y here, and a list of miscellaneous input drivers will be displayed.
+	  Everything that didn't fit into the other categories is here. This option
+	  doesn't affect the kernel.
+
+	  If unsure, say Y.
+
+if INPUT_GSENSOR
+
+config GSENSOR_DETECT
+	tristate "gsensor_detect support"
+	depends on I2C
+	help
+	  Support the gsensor auto detect as an input device
+	  detect the gsesnor automatically.
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called gsensor_detect.
+
+config GSENSOR_BMA222
+	tristate "bma222 support"
+	depends on I2C
+	help
+	  Support the bma222 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called bma222.
+	  
+config GSENSOR_STK8312
+	tristate "stk8312 support"
+	depends on I2C
+	help
+	  Support the stk8312 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called stk8312.
+	  
+config GSENSOR_STK8313
+	tristate "stk8313 support"
+	depends on I2C
+	help
+	  Support the stk8313 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called stk8313.
+	  
+config GSENSOR_MC3236
+	tristate "mc3236 support"
+	depends on I2C
+	help
+	  Support the mc3236 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called bma250_dummy.
+	  
+config GSENSOR_MC3230
+	tristate "mc3230 support"
+	depends on I2C
+	help
+	  Support the mc3230 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called bma250_dummy.
+	  
+config GSENSOR_MC3232
+	tristate "mc3232 support"
+	depends on I2C
+	help
+	  Support the mc3232 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called mc3232.
+	  
+config GSENSOR_MMA7660
+	tristate "mma7660 support"
+	depends on I2C
+	help
+	  Support the mma7660 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called mma7660.
+	  
+config GSENSOR_KIONIX
+       tristate "kionix support"
+       depends on I2C
+       help
+         Support the kionix as an input device
+
+         To compile this driver as a module, choose M here: the module
+         will be called kionix.
+
+config GSENSOR_MIR3DA
+	tristate "mir3da support"
+	depends on I2C
+	help
+	  Support the mir3da as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called mir3da.
+endif

@@ -1,0 +1,24 @@
+#
+# Input misc drivers configuration
+#
+menuconfig INPUT_LIGHT_GSENSOR
+	bool "Light sensor devices"
+	help
+	  Say Y here, and a list of miscellaneous input drivers will be displayed.
+	  Everything that didn't fit into the other categories is here. This option
+	  doesn't affect the kernel.
+
+	  If unsure, say Y.
+
+if INPUT_LIGHT_GSENSOR
+
+config LIGHT_GSENSOR_LTR301
+	tristate "lightsensor ltr301 support"
+	depends on I2C
+	help
+	  Support the lightsensor ltr301 as an input device
+
+	  To compile this driver as a module, choose M here: the module
+	  will be called ltr301.
+
+endif

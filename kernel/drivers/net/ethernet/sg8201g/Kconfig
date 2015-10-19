@@ -1,0 +1,5 @@
+config NET_VENDOR_SG8201G
+	tristate "Actions Ethernet driver(SG8021G)"
+	default n
+	---help---
+		enable Actions Semi 520X ethernet driver

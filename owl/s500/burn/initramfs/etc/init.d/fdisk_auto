@@ -1,0 +1,12 @@
+#!/bin/sh
+cd /dev/
+mknod acte1 b 93 33
+dd if=/dev/zero of=/dev/acte bs=1024 count=1
+    fdisk /dev/acte <<EOF
+    n
+    p
+    1
+    1
+    
+    w
+    EOF

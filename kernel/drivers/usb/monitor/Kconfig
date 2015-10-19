@@ -1,0 +1,23 @@
+#
+# USB Monitor configuration
+#
+
+config USB_ACTIONS_MON
+	tristate "USB Actions Monitor"
+	depends on ARCH_OWL
+	help
+	  If you select this option, a component which captures the USB traffic
+	  between peripheral-specific drivers and HC drivers will be built.
+	  For more information, see <file:Documentation/usb/usbmon.txt>.
+
+	  If unsure, say Y, if allowed, otherwise M.
+
+config USB_PLATFORM_LINUX
+	tristate "USB Monitor For Linux"
+	depends on ARCH_OWL && USB_ACTIONS_MON
+	help
+	  If you select this option usb monitor just detect usb plug in/out ,sent uevent & open
+	  or close usb controller.
+	  if not , usb monitor will support android system by sent uevent to vold;
+
+	  If unsure, say Y, if allowed, otherwise M.	  

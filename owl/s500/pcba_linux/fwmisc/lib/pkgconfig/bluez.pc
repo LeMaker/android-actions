@@ -1,0 +1,10 @@
+prefix=/home/local/ACTIONS/xuyingfei/pcb/lib
+exec_prefix=${prefix}
+libdir=/home/local/ACTIONS/xuyingfei/pcb/lib/lib
+includedir=${prefix}/include
+ 
+Name: BlueZ
+Description: Bluetooth protocol stack for Linux
+Version: 4.93
+Libs: -L${libdir} -lbluetooth
+Cflags: -I${includedir}

@@ -1,0 +1,224 @@
+isp dts config：
+
+第一步：
+leopard\build\gs703a\config\dts
+
+添加如下内容：
+	aliases {
+    ...
+		isp0 = &isp0;
+	};
+	
+	isp0: isp@b0270000 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		compatible = "actions,gl5203-isp";
+		reg = <0xb0270000 0x400>;
+		interrupts = < 0 12 0x4 >;
+	};
+	
+	当前只支持一个isp host，如果支持两个，则需要再添加上面两个类似的内容，
+	因为两个isp有regs是共享的，所以在支持第二个host时，地址可以稍微改变一下，
+	对驱动而已，并没有用到这里提供寄存器范围的值。
+	
+	注意：上述aliases中的isp0，其0表示为第一个isp host，sensor 驱动的
+	struct soc_camera_link.bus_id使用的就是该值，在sensor的dts配置中，
+	其默认值为0；
+	
+	支持两个isp时，可改为：
+	aliases {
+    ...
+		isp0 = &isp0;
+		isp1 = &isp1;
+	};
+	
+	isp0: isp@b0270000 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		compatible = "actions,gl5203-isp";
+		reg = <0xb0270000 0x400>;
+		interrupts = < 0 12 0x4 >;
+	};
+	isp1: isp@b02701ec {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		compatible = "actions,gl5203-isp";
+		reg = <0xb02701ec 0x214>;
+		interrupts = < 0 12 0x4 >;
+	};
+
+第二步：
+build\gs703a\config\boards\board_type\dts （board_type为具体的版型，例如：
+liger_fpga）：
+
+添加的内容：
+pinctrl相关部分：
+  pinctrl@b01b0040 {
+          pinctrl-names = "default";
+          pinctrl-0 = <&state_default>;
+          
+          /* the format of isp state name: channel + pin + bus type(pin function) */
+          /* channel: isp0/isp1, pin: csi/bt/sens1, bus type: dvp/mipi */
+          isp0_state_csi_dvp: isp0_csi_dvp {
+                  isp0_csi_dvp_mfp {
+                          asoc,groups = "mfp3_31", "mfp3_29_28", "mfp3_15_14", "mfp3_13_12";
+                          asoc,function = "sens0";
+                  };
+          };
+
+          isp0_state_csi_mipi: isp0_csi_mipi {
+                  isp0_csi_mipi_mfp {
+                          asoc,groups = "mfp3_29_28", "mfp3_15_14";
+                          asoc,function = "mipi_csi";
+                  };
+                  isp0_csi_mipi_clkout_mfp {
+                          asoc,groups = "mfp3_31";
+                          asoc,function = "sens0";
+                  };
+          };
+
+          isp0_state_bt_dvp: isp0_bt_dvp {
+                  isp0_bt_dvp_mfp {
+                          asoc,groups = "mfp0_31_29", "mfp0_28_26", "mfp0_25_24", "mfp0_23_22", "mfp0_21_20";
+                          asoc,function = "sens0";
+                  };
+                  isp0_bt_dvp_clkout_mfp {
+                          asoc,groups = "mfp3_31";
+                          asoc,function = "sens0";
+                  };
+          };
+
+          isp1_state_csi_dvp: isp1_csi_dvp {
+                  isp1_csi_dvp_mfp {
+                          asoc,groups = "mfp3_29_28", "mfp3_15_14", "mfp3_11_10", "mfp3_3_2";
+                          asoc,function = "sens1";
+                  };
+          };
+
+          isp1_state_csi_mipi: isp1_csi_mipi {
+                  /* should not select it when 'isp0_state_csi_mipi' is selected, and vice versa */
+                  isp1_csi_mipi_mfp {
+                          asoc,groups = "mfp3_29_28", "mfp3_15_14";
+                          asoc,function = "mipi_csi";
+                  };
+                  isp1_csi_mipi_clkout_mfp {
+                          asoc,groups = "mfp3_3_2";
+                          asoc,function = "sens1";
+                  };
+          };
+
+          isp1_state_sens1_dvp: isp1_sens1_dvp {
+                  isp1_sens1_dvp_mfp {
+                          asoc,groups = "mfp3_11_10", "mfp3_9_7", "mfp3_6_4", "mfp3_3_2", "mfp3_1_0";
+                          asoc,function = "sens1";
+                  };
+          };
+
+  }
+  
+关系图：
+
+channel        PIN       BUS TYPE
+
+                     /-- DVP
+         /---- CSI -|
+        /            \-- MIPI   (1)
+sens0 -|
+        \
+         \---- BT  -| -- DVP
+
+                     /-- DVP
+         /---- CSI -|
+        /            \-- MIPI    (2)
+sens1 -|
+        \
+         \---- P_SEN1 -|-- DVP
+
+注意：MIPI（1,2）只能由一个channel，因为PIN组是一样的（当前的PIN是在probe时配置的）；
+
+注释中已经说明了isp pinctrl的命名规则，从选择的pin组名字上可以获得具体的配置信息；
+SOC上有两个ISP channel，在软件上可对应两个host，对于channel0（或者sens0）有两组pin可以使用，
+一是CSI，二是BT，当使用CSI 组pin时，总线可以配置为DVP和MIPI，而如果使用BT，则数据总线只能是
+DVP；对于channel1（或者sens0）也有两组pin可以使用，一是CSI，二是P_SEN1，如果使用CSI组pin，
+数据总线类型可以选择DVP或者MIPI，如果使用P_SEN1，则数据总线只能是DVP；从上面可以看出对于CSI
+组pin而言，支持两种数据总线类型，由于两个channel只能有一个可以使用CSI组pin，故如果两个channel
+同时使用，则仅有一个channel的数据总线为MIPI；
+这里有一个问题：在选择一组pin配置时，例如isp0_state_bt_dvp，由于其bt组的pin已经提供了pclk，
+故需要关闭sens0_pclk提供的pclk[mfp_ctl3.sens0_pclk]，即设置为非0值，但是不知道设置为何值比较好，
+因为一旦在pinctrl里使用，会导致其他相应的模块无法使用，这需要pinctrl模组做相应的处理，但目前
+每个pin只能有一个模块使用，这在pinctrl里没有反应出来，如果不关闭，则isp无法正常工作；
+如果使用MIPI，其实pinctrl配置是一样的（可能需要关闭不同的pclk，但目前还没反应出来），且只能有
+一个channel可以使用，此时提供两个，是让isp driver知道当前使用了哪个channel；
+
+	isp@b0270000 {
+		avdd-src = "regulator";  /* only: "gpio", "regulator" */
+
+		avdd-gpios = <&gpio 14 0>; /* GPIOA14, 0: high, 1: low only when vbus-src is "gpio" */
+
+		avdd-regulator = "LDO1"; /* only when vbus-src is "regulator" */
+		avdd-regulator-scope = <2800000 2810000>;  /* uV */
+		dvdd-regulator = "LDO7";
+		dvdd-regulator-scope = <1800000 1810000>;  /* uV */
+
+		sensors = "dual"; /* "dual", "front" or "rear" */
+		pwdn-rear-gpios = <&gpio 119 0>; /* GPIOC23 */
+		pwdn-front-gpios = <&gpio 120 0>; /* GPIOC24 */
+		reset-gpios = <&gpio 121 0>; /* GPIOC25 */
+
+		status = "okay"; /* create platform-device */
+	};
+	该配置包含两部分：一是电源相关，二是gpio相关；每个isp host都需要独立的配置，
+	因为各个isp host都需要为挂在其上的sensor提供avdd，dvdd等电压，以及前后摄像头
+	的power gpio和reset gpio配置。
+	
+	各项配置的说明：
+	avdd-src： 说明avdd是哪种方式提供，目前只有gpio，和regulator两种方式，
+	           如果是gpio方式，则仅需要配置avdd-gpios，此时gpio是作为打开avdd
+	           的开关；否则仅需要avdd-regulator和avdd-regulator-scope，
+	           说明需要使用那个regulator，及其使用的范围；
+	           此两种是互斥的。
+	dvdd-regulator：使用的regulator，该名字由regulator 驱动决定，故要和其一致；
+	dvdd-regulator-scope： 该regulator的范围；
+	sensors：表明当前host使用的sensor情况，有三种：单摄像头时包括前置和后置，
+	         及双摄像头；
+	pwdn-rear-gpios：后置摄像头的power gpio配置，"dual" or "rear"时使用；
+	pwdn-front-gpios：前置摄像头的power gpio配置，"dual" or "front"时使用；
+  reset-gpios：摄像头的reset gpio配置，均使用；
+
+  status：设置为okay，系统会自动为该isp创建platform-device。
+
+  支持双host时，需添加的配置为，此时不能支持3D模式：
+	isp@b02701ec {
+    ... // 同上
+		status = "okay"; /* create platform-device */
+	};
+	注意：---基本上不会有双host的需求---
+
+
+第三步：
+	如果支持双host，驱动需要的改动为：
+	两个isp host使用同一个isr，故在probe时，需要在全局变量里保存当前分配的
+	struct gl5203_camera_dev结构体，并在isr中根据preline pending来决定使用
+	哪个gl5203_camera_dev，以选中不同的videobuf队列；且isr只能注册一次；
+
+	从应用场景而言，基本上不会创建两个host：当前支持的前后摄像头均不会同时使用，
+	一个host即可满足；除非前后摄像头同时使用，否则无需创建两个host；
+	对于3D而言，才会同时使用两个channel，但在数据上硬件会把两个数据流合并为一个，软件
+	上也就只使用一个host；
+	
+GPIO 管理的说明：
+  在5202上，poweroff/on reset的gpio是由sensor driver申请并配置的，且在poweroff/on
+时都会分配和释放，此做法有点不妥，而且不利于sensor driver的复用。
+  对于同一款sensor，可以作为前置摄像头，也可以作为后置摄像头，既可以在demo上使用，
+也可以在evb等上使用，在不同的板子上，会涉及到不同的gpio配置；
+  最重要的一点是，gpio不是由sensor决定的，而是由版型决定的，对于同一个版型，可以
+使用不同款的sensor，只要保证pin序列和插槽的一致即可，因而放在sensor driver不合理，
+最好是放在版型的公共代码中，或者直接放在isp driver内。
+  放在sensor dirver中，不利于sensor driver的移植，而且会有重复配置操作，而放在isp
+driver中统一管理，会比较简单些。
+  把gpio的申请和释放，放在isp driver内，会导致一个问题，因为这些gpio的使用是在
+struct soc_camera_link中，其一般定义在sensor driver，以便sensor的可替代性。故对于
+gpio的操作接口，主要为poweron/off和reset，需要对sensor driver可见，因而放在了kernel
+的版型代码内，即arch/arm/mach-liger/isp_pwd.c文件；
+                                                    
+                                            yunchf，2013-05-20

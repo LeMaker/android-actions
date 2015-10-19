@@ -1,0 +1,16 @@
+#
+# ACTIONS's MISC INFO ACCESS driver for save important data like serial num,
+# wifi mac etc.
+#
+menu "ACTIONS MISC INFO ACCESS DRIVER"
+config MISC_INFO
+	tristate "Misc info access driver"
+	default y
+	help
+	  The Misc info access driver save the hardware information like
+	  serial no, wifi mac etc.
+	  Each function can be configured and enabled/disabled
+	  dynamically from userspace through a debugfs interface.
+
+	  If unsure, say "y".
+endmenu

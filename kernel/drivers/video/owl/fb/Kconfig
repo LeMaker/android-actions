@@ -1,0 +1,21 @@
+config FB_COLOR_MODE_XRGB32
+	bool "use xrgb32 color mode, default is xbgr32"
+
+config FB_MAP_TO_DE
+	bool "map fb to de"
+	
+config FB_DEFAULT_MIRROR_TO_HDMI
+	bool "mirror fb to hdmi as default"
+
+config VIDEO_OWL_FB
+	tristate "OWL framebuffer support"
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	---help---
+	  Actions OWL Soc framebuffer support.
+
+	  Say Y here if you need it in your system.
+	  If unsure, say Y.
+
+	  To compile this driver as a module, choose M here.

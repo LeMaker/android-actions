@@ -1,0 +1,11 @@
+config VIDEO_ACTIONS_VDE
+	tristate "Asoc Video decoder support"
+	depends on ARCH_OWL
+	---help---
+	  Say Y here if you need video decoder support to your system.
+
+	  If unsure, say N.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called vde_drv.ko.
+

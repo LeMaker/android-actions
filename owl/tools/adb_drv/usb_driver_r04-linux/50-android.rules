@@ -1,0 +1,2 @@
+SUBSYSTEM=="usb|usb_device", SYSFS{idVendor}=="10d6", MODE="0660",GROUP="plugdev" 
+SUBSYSTEM=="usb|usb_device", ATTR{idVendor}=="10d6", ATTR{idProduct}=="0c02", SYMLINK+="Android_adb" 

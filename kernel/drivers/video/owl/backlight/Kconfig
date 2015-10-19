@@ -1,0 +1,10 @@
+config VIDEO_OWL_PWM_BACKLIGHT
+	tristate "OWL PWM backlight support"
+	---help---
+	  Actions OWL Soc PWM backlight support.
+
+	  Say Y here if you need pwm backligh in your system.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called owl_pwm_bl.ko.
+

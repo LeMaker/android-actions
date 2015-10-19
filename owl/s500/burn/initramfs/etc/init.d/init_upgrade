@@ -1,0 +1,157 @@
+#!/bin/sh
+
+BOOTDEV=`cat /proc/bootdev`
+
+DISKDEV=''
+DISKSIZE=''
+
+set_disk(){
+	case $BOOTDEV in
+	sd0 )
+		DISKDEV=/dev/mmcblk0
+		DISKSIZE=`cat /sys/block/mmcblk0/size`
+		;;
+	sd2 )
+		DISKDEV=/dev/mmcblk0
+		DISKSIZE=`cat /sys/block/mmcblk0/size`
+		;;
+	nand )
+		
+		;;
+	nor )
+		DISKDEV=/dev/mtdblock0
+		;;
+	* )
+		echo "ignore, not boot write"
+		;;
+	esac
+}
+
+#set -x
+ln_blockdev(){
+	sdev=${DISKDEV}p$1
+	echo "ln -s $sdev $2"
+	ln -s $sdev $2
+}
+
+handle_mkgpt(){
+	PART_CFG_PATH=/usr/mbr_info.bin
+	echo "disk size sector ${DISKSIZE}"
+	mkgpt ${PART_CFG_PATH} ${DISKDEV} ${DISKSIZE}
+	ret="$?"
+	echo "mkgpt return  ${ret}"
+	if [ ${ret} -ne 0 ] 
+	then
+		#return for adfuserver check 
+		echo  ${ret} > /usr/flash_check
+		echo "mkgpt fail"
+	else
+		sleep 2
+		ln_blockdev   1   /dev/acta
+		ln_blockdev   2   /dev/actb
+		ln_blockdev   3   /dev/actc
+		ln_blockdev   4   /dev/actd
+		ln_blockdev   5   /dev/acte
+		ln_blockdev   6   /dev/actf
+		ln_blockdev   7   /dev/actg
+		ln_blockdev   8   /dev/acth
+		ln_blockdev   9   /dev/acti
+		ln_blockdev   10  /dev/actj
+		ln_blockdev   11  /dev/actk
+		ln_blockdev   12  /dev/actl
+		echo  0 > /usr/flash_check
+	fi
+}
+
+format_diskall(){
+	need_format=`cat /sys/devices/b0400000.usb/dwc3.0/gadget/gadget-lun0/need_format`
+	echo "format disk,need_format=$need_format"
+	if [ $need_format -ne 0 ] 
+	then
+		echo "format disk, del boot"
+		dd if=/dev/zero of=${DISKDEV} bs=1024 seek=0 count=4
+		dd if=/dev/zero of=${DISKDEV} bs=1024 seek=2048 count=4
+	fi
+}
+
+handle_install_flash(){	
+	format_diskall
+	if [ ${DISKSIZE} != '' ]
+	then
+		handle_mkgpt
+	else
+		echo  0 > /usr/flash_check
+	fi	
+	echo finish_install_flash > /proc/adfus_proc
+	return 0
+}
+
+handle_write_phy() {
+	echo "handle_write_phy"
+	source /etc/init.d/wboot.sh ${BOOTDEV} ${DISKDEV}
+	sync
+	echo finish_write_phy > /proc/adfus_proc
+	return 0
+}
+
+format_disk() {
+	echo "handle_format"
+	fs_name=`cat /sys/devices/b0400000.usb/dwc3.0/gadget/gadget-lun0/format_fs_name`
+	disk_name=`cat /sys/devices/b0400000.usb/dwc3.0/gadget/gadget-lun0/format_disk_name`
+	disk_label=`cat /sys/devices/b0400000.usb/dwc3.0/gadget/gadget-lun0/format_disk_label`
+	echo $fs_name
+	echo $disk_name
+	if [ "$fs_name" = "ext4" ]
+	then
+		echo "---use mke2fs ----"
+		mke2fs -j -t $fs_name $disk_name -L $disk_label
+	elif  [ "$fs_name" = "raw" ]
+	then
+		echo "---raw ,not format ---"
+	else
+		echo "---use mkfs.vfat ---"
+		mkfs.vfat $disk_name -n NONAME && sync
+	fi
+	sync
+}
+
+handle_format(){
+	if [ ${DISKSIZE} != '' ] 
+	then
+		format_disk
+	fi
+	echo finish_format > /proc/adfus_proc
+	return 0
+}
+
+handle_finish() {
+	echo "handle_finish"
+	echo finish_ok > /proc/adfus_proc
+	return 0
+}
+
+isrunning=1
+sleep 3
+set_disk
+until [[ $isrunning -le 0 ]];do
+	CONTEXT=`cat /proc/adfus_proc`
+#	echo $CONTEXT
+	case $CONTEXT in
+	install_flash )
+		handle_install_flash
+		;;
+	write_phy )
+		handle_write_phy
+		;;
+	format )
+		handle_format
+		;;
+	finish )
+		handle_finish
+		;;
+	* )
+#		echo "ignore"
+		;;
+	esac
+	sleep 1
+done;

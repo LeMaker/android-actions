@@ -1,0 +1,4 @@
+注意:该代码同时支持stk8312与stk8313两款gsensor，
+需要添加一个宏来区别是stk8312还是stk8313，
+该宏定义在stk831x.c文件中如#define CONFIG_SENSORS_STK8312和#defineCONFIG_SENSORS_STK8313来区别，
+客户可根据需要编译哪款gsensor来打开对应的宏定义。

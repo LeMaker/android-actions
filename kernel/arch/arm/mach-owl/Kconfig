@@ -1,0 +1,179 @@
+comment "Owl configurations"
+	depends on ARCH_OWL
+
+choice
+	prompt "Owl Board Type"
+	depends on ARCH_OWL
+	default MACH_OWL
+
+config MACH_OWL
+	boolean "Actions owl board"
+	depends on ARCH_OWL
+	select ARCH_HAS_CPUFREQ
+	select ARCH_REQUIRE_GPIOLIB
+	select PINCTRL
+	select USE_OF
+	select NEON
+	select VFP
+	select ARM_GIC
+	select CPU_V7
+	select HAVE_ARM_SCU if SMP
+	select HAVE_ARM_TWD if LOCAL_TIMERS
+	select HAVE_SMP
+	select VIRT_TO_BUS
+	select OWL_CLOSE_PATCH
+        help
+          board configuration for actions gs703a fpga, evb, etc.
+
+endchoice
+
+config OWL_DEBUG_IRQ_STACK
+	boolean "Enable Actions irq stack debugger"
+	depends on ARCH_OWL
+	help
+	  Enable Actions irq stack debugger, say Y.  Otherwise, say N.
+	  
+config SERIAL_OWL
+	boolean "Enable Actions SoCs' UART Support"
+	depends on ARCH_OWL
+	select SERIAL_CORE
+	help
+	  If you have a ARM-based Actions SoC
+	  and you want to use serial ports, say Y.  Otherwise, say N.
+
+config SERIAL_OWL_CONSOLE
+	boolean "Enable Actions SoCs serial console"
+	depends on SERIAL_OWL
+	select SERIAL_CORE_CONSOLE
+	help
+	  If you have a ARM-based  Actions SoC
+	  and you want to use serial console, say Y. Otherwise, say N.
+
+config CONFIG_HOTPLUG_OWL
+	boolean "Enable cpu auto hotplug according to cpu loading"
+	depends on ARCH_OWL && CONFIG_HOTPLUG_CPU && CONFIG_ARM_OWL_CPUFREQ
+	help
+	  If you want to enable cpu auto hotplug according to cpu loading, 
+	  say Y. Otherwise, say N.
+	  
+config OWL_CONSOLE_KEEP_ON
+	boolean "Keep on Actions SoCs serial console"
+	depends on SERIAL_OWL_CONSOLE
+	help
+	  If you want to get more print from
+	  serial console for debug, say Y. Otherwise, say N.
+
+config GPIO_OWL
+	boolean "Enable Actions SoCs GPIO"
+	depends on GPIOLIB
+	help
+	  If you have a ARM-based  Actions SoC
+	  and you want to use GPIO, say Y. Otherwise, say N.
+
+config GPU_RESERVED_SIZE
+    int "Reserved memory for GPU (Mbytes)"
+	default "64"
+	depends on ARCH_OWL
+	help
+	  The default reserver value is 32M RAM. Change this if you know what you
+	  are doing.
+
+config ION_RESERVED_SIZE
+    int "Reserved memory for ION (Mbytes)"
+	default "64"
+	depends on ION || ION_OWL
+	help
+	  The default reserver value is 64M RAM. Change this if you know what you
+	  are doing.
+
+config FB_RESERVED_SIZE
+    int "Reserved memory for Framebuffer (Mbytes)"
+	default "32"
+	depends on ARCH_OWL
+	help
+	  The default reserver value is 32M RAM. Change this if you know what you
+	  are doing.
+
+config I2C_OWL
+	tristate "Actions Actions SOC I2C"
+	depends on ARCH_OWL
+	help
+	  Enable the use of the I2C bus controllers on the Actions SOC Verify
+	  If you don't know what to do here, say N.
+
+config I2C_OWL_BUS0
+	tristate "Actions SOC I2C0"
+	depends on I2C_OWL
+	help
+	  Enable the use of the I2C bus 0 controllers on the Actions SOC Verify
+	  If you don't know what to do here, say N.
+
+config I2C_OWL_BUS1
+	tristate "Actions SOC I2C1"
+	depends on I2C_OWL
+	help
+	  Enable the use of the I2C bus 1 controllers on the Actions SOC Verify
+	  If you don't know what to do here, say N.
+
+config I2C_OWL_BUS2
+	tristate "Actions SOC I2C2"
+	depends on I2C_OWL
+	help
+	  Enable the use of the I2C bus 2 controllers on the Actions SOC Verify
+	  If you don't know what to do here, say N.
+
+config I2C_OWL_BUS3
+        tristate "Actions SOC I2C3"
+        depends on I2C_OWL
+        help
+          Enable the use of the I2C bus 3 controllers on the Actions SOC Verify
+          If you don't know what to do here, say N.
+
+config PINCTRL_OWL
+	bool "Actions SOC pin controller driver"
+	depends on ARCH_OWL
+	select PINCTRL
+	select PINMUX
+	select PINCONF
+	help
+	  Pin controller driver for Actions SOC
+
+config ACTIONS_SOC_CAMERA
+	tristate "SoC camera support"
+	depends on VIDEO_V4L2 && HAS_DMA && I2C
+	select VIDEOBUF_GEN
+	select VIDEOBUF2_CORE
+	select VIDEOBUF_DMA_CONTIG
+	select VIDEOBUF2_DMA_CONTIG
+	help
+	  SoC Camera is a common API to several cameras, not connecting
+	  over a bus like PCI or USB. For example some i2c camera connected
+	  directly to the data bus of an SoC.
+
+config FB_ACTIONS
+	tristate "Actions framebuffer support"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	---help---
+	This enables support for the ACTIONS framebuffer in the kernel .
+
+config BACKLIGHT_ACTIONS
+	tristate "Actions backlight"
+	select BACKLIGHT_CLASS_DEVICE
+	select ACT_BACKLIGHT
+  ---help---
+	This enables support for the ACTIONS backlight in the kernel .
+
+config CPUFREQ_ACTIONS
+	bool "Actions cpufreq"
+	select CPU_FREQ
+	select CPU_FREQ_TABLE
+  help
+    This enables support for the ACTIONS cpufreq driver. Selecting
+    this will NOT enable coresponding Actions driver. It just helps
+    to select the necessary kernel configs for the out-kernel drivers.
+
+config OWL_CLOSE_PATCH
+	bool

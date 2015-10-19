@@ -1,0 +1,4 @@
+source "drivers/video/owl/displays/lcdc/Kconfig"
+source "drivers/video/owl/displays/dsi/Kconfig"
+source "drivers/video/owl/displays/hdmi/Kconfig"
+#source "drivers/video/owl/displays/edp/Kconfig"

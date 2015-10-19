@@ -1,0 +1,97 @@
+#!/bin/busybox sh
+
+/bin/busybox echo "--== PCBA Linux init script  ==--"
+
+/bin/busybox mount -t devtmpfs devtmpfs /dev
+/bin/busybox mount -t proc proc /proc >/dev/null 2>&1
+/bin/busybox mount -t sysfs sys /sys >/dev/null 2>&1
+/bin/busybox mount -t debugfs none /sys/kernel/debug >/dev/null 2>&1
+
+
+/bin/busybox --install
+
+echo 0 > /proc/sys/kernel/printk
+
+#echo "performance" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+#hotplug
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+
+
+boot_dev=`cat /proc/bootdev`
+echo --------------- boot dev is $boot_dev      ---------------------
+if [ $boot_dev == nand ]; then
+	echo "bootdevice is nand"
+   insmod /lib/modules/nandcore.ko
+   insmod /lib/modules/virnand.ko
+   insmod /lib/modules/nandunit.ko
+   insmod /lib/modules/nandreq.ko
+   insmod /lib/modules/nandelv.ko
+   insmod /lib/modules/nanddisk.ko
+elif [ $boot_dev == sd0 ]; then 
+	echo "bootdevice is sd0 (external sd)"
+else
+	echo "bootdevice is sd2 (mmc)"
+fi
+
+mkdir -p /mnt/remotedisk
+mkdir -p /system
+mkdir -p /misc
+
+checkcnt=0
+while [ ! -d /dev/mmcblk0p1 ] && [ $checkcnt -lt 10 ];do
+	sleep 1
+	let checkcnt=$checkcnt+1
+done    
+
+
+mount -t vfat /dev/mmcblk0p1 /misc
+
+
+insmod /misc/modules/atc260x_cap_gauge.ko
+insmod /misc/modules/pvrsrvkm.ko
+insmod /misc/modules/dc_owl.ko
+
+# camera
+insmod /misc/modules/flashlight.ko
+source insmod_camera.sh owl
+
+#tp
+#source insmod_ctp.sh
+
+#hdmi
+#insmod /misc/modules/hdmi.ko
+
+#key
+insmod /misc/modules/atc260x-adckeypad.ko
+insmod /misc/modules/atc260x-irkeypad.ko
+
+#gsensor
+source insmod_gsensor.sh
+
+#bluetooth
+insmod /misc/modules/rtk_btusb_8723bu.ko
+
+#wifi
+#insmod /misc/modules/8723bs-vq0.ko
+insmod /misc/modules/wlan_8723bu.ko
+
+#ethernet
+insmod /misc/modules/ethernet.ko
+
+# set lib path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/misc/lib
+export DFBARGS=module-dir=/misc/lib/directfb-1.6-0
+
+# scan & generate device node
+mdev -s
+
+source wlan.sh &
+
+mkdir -p /mnt/uhost
+
+echo 1 > /sys/class/graphics/fb0/mirror_to_hdmi
+echo 1 > /sys/monitor/usb_port/config/run
+
+/bin/pcba_linux &
+exec setsid cttyhack /bin/sh 

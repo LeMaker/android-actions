@@ -1,0 +1,328 @@
+﻿/dts-v1/;
+
+/include/ "actduino_probatch.dtsi"
+
+/ {
+	model = "Actions GS705A board";
+	compatible = "actions,gs705a", "actions,atm7059a";
+
+	/*default*/
+	chosen {
+		bootargs = "earlyprintk clk_ignore_unused selinux=0";
+	};
+
+	reserved {
+		tiny {
+			fb_heap_size = <4>;
+			kinfo_heap_size = <1>;
+			carveout_heap_size = <40>;
+			dma_heap_size = <128>;
+		};
+		normal {
+			fb_heap_size = <8>;
+			kinfo_heap_size = <1>;
+			carveout_heap_size = <244>;
+			dma_heap_size = <128>;
+		};
+	};
+    
+
+	
+	pinctrl@b01b0040 {
+		pinctrl-names = "default";
+		pinctrl-0 = <&state_default>;
+
+		state_default: pinctrl_default {
+		};
+
+		serial0_state_default: serial0_default{
+			serial_0{
+				actions,groups = "mfp2_2_0","mfp3_21_19";
+				actions,function = "uart0";
+			};
+		};
+
+		serial1_state_default: serial1_default{
+			serial_1{
+				actions,groups = "mfp2_13_11";
+				actions,function = "uart1";
+			};
+		};
+
+		serial2_state_default: serial2_default{
+			serial_2{
+				actions,groups = "mfp2_23","mfp2_22","uart2_dummy";
+				actions,function = "uart2";
+			};
+		};
+
+		serial3_state_default: serial3_default{
+			serial_3{
+				actions,groups = "mfp2_21","mfp2_20","uart3_dummy";
+				actions,function = "uart3";
+			};
+		};
+
+		serial4_state_default: serial4_default{
+			serial_4{
+				actions,groups = "uart4_dummy";
+				actions,function = "uart4";
+			};
+		};
+
+		serial5_state_default: serial5_default{
+			serial_5{
+				actions,groups = "mfp2_19_17","mfp2_16_14";
+				actions,function = "uart5";
+			};
+		};
+
+		serial6_state_default: serial6_default{
+			serial_6{
+				actions,groups = "mfp0_18_16_eth_txd0", "mfp0_18_16_eth_txd1";
+				actions,function = "uart6";
+			};
+		};
+
+		mmc_share_uart_state: mmc_share_uart {
+			sd0_mfp_cmd_clk {
+				actions,groups = "mfp2_8_7", "mfp2_6_5";
+				actions,function = "sd0";
+			};
+
+			sd0_pull_d0_d3_cmd {
+				actions,pins = "P_SD0_CMD";
+				actions,pull = <2>;
+			};	
+			
+			sd0_pull_clk {
+				actions,pins = "P_SD0_CLK";
+				actions,pull = <0>;
+			};
+			
+			sd0_d0_d3_cmd_clk_paddrv  {
+				actions,groups  = "paddrv1_19_18","paddrv1_17_16";
+				actions,paddrv  = <1>; /*level 1，范围0~3*/ 			
+			};
+			
+			// 如果以后使用uart2请修改这个地方到uart2配置，现在默认是uart5
+			serial_5 {
+				actions,groups = "mfp2_19_17","mfp2_16_14";
+				actions,function = "uart5";   
+			};
+		};
+		
+		mmc0_state_default: mmc0_default {
+			sd0_mfp_d0_d3_cmd_clk {
+				actions,groups = "mfp2_19_17", "mfp2_16_14", "mfp2_13_11", "mfp2_8_7", "mfp2_6_5";
+				actions,function = "sd0";
+			};
+
+			sd0_pull_d0_d3_cmd {
+				actions,pins = "P_SD0_D0", "P_SD0_D1", "P_SD0_D2", "P_SD0_D3", "P_SD0_CMD";
+				actions,pull = <2>;
+			};
+
+			sd0_pull_clk {
+				actions,pins = "P_SD0_CLK";
+				actions,pull = <0>;
+			};
+			
+			sd0_d0_d3_cmd_clk_paddrv  {
+				actions,groups  = "paddrv1_23_22","paddrv1_19_18","paddrv1_17_16";
+				actions,paddrv  = <3>; /*level 1，范围0~3*/ 			
+			};
+		};
+
+		mmc1_state_default: mmc1_default {
+			sd1_mfp_d0_d3_cmd_clk {
+				actions,groups = "mfp2_10_9", "mfp2_4_3", "sd1_dummy";
+				actions,function = "sd1";
+			};
+
+			sd1_pull_d0_d3_cmd {
+				actions,pins = "P_SD1_D0", "P_SD1_D1", "P_SD1_D2", "P_SD1_D3", "P_SD1_CMD";
+				actions,pull = <2>;
+			};
+			sd1_d0_d3_cmd_clk_paddrv  {
+				actions,groups  = "paddrv1_21_20","paddrv1_15_14","paddrv1_13_12";
+				actions,paddrv  = <2>; /*level 1，范围0~2*/ 			
+			};
+		};
+	
+		mmc2_state_default: mmc2_default {
+			sd2_mfp_d0_d3_cmd_clk {
+				actions,groups = "mfp3_3";
+				actions,function = "sd2";
+			};
+
+			sd2_pull_d0_d3_cmd {
+				actions,pins = "P_DNAND_D0","P_DNAND_D1","P_DNAND_D2","P_DNAND_D3","P_DNAND_D4","P_DNAND_D5","P_DNAND_D6","P_DNAND_D7","P_DNAND_RDBN";
+				actions,pull = <2>;
+			};
+
+		};
+
+		i2c0_state_default: i2c0_default {/* i2c0 use default pin	*/
+			i2c0_default_mfp {
+				actions,groups = "mfp3_18_16";
+				actions,function = "i2c0";
+			};
+
+			i2c0_default_paddrv {
+				actions,groups = "paddrv2_24_23";
+				actions,paddrv = <0>;/*level 1*/
+			};
+
+			i2c0_default_pull_up {
+				actions,pins = "P_I2C0_SCLK","P_I2C0_SDATA";
+				actions,pull = <2>; /*pull up*/
+			};
+		};
+	};
+
+	serial@b0120000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial0_state_default>;
+		status = "disabled";
+	};
+
+	serial@b0122000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial1_state_default>;
+		status = "disabled";
+	};
+
+	serial@b0124000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial2_state_default>;
+		status = "disabled";
+	};
+
+	/*for BT*/
+	serial@b0126000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial3_state_default>;
+		status = "okay";
+	};
+
+	serial@b0128000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial4_state_default>;
+		status = "disabled";
+	};
+
+	serial@b012a000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial5_state_default>;
+		status = "disabled";
+		sdio_uart_supported;
+	};
+
+	serial@b012c000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial6_state_default>;
+		status = "disabled";
+	};
+
+	i2c@b0170000 {
+		i2c_num = <0>;
+		clock-frequency = <400000>;
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&i2c0_state_default>;
+		#address-cells = <1>;
+		#size-cells = <0>;	
+		
+		/* atc2603c (5307) */
+		atc260x: atc2603c@65 {
+			compatible = "actions,atc2603c";
+			reg = <0x65>;
+			interrupt-parent = <&sirq>;
+			interrupts =< 2 0x4 >;
+			interrupt-controller;
+			#interrupt-cells = <1>;
+
+			losc_32k_output_enable = <1>;    /* enable/disable output 32.768K clock via I2S_MCLK1 pin */
+			losc_32k_output_voltage = <18>;  /* select voltage scale of the 32.768K clock output, 18:1.8v, 31:3.1v */
+
+			pm {
+				compatible = "actions,atc2603c-pm";	/* reboot shutdown use it */
+			};
+
+			switch1:switch1{
+				compatible = "actions,atc2603c-switch1","actions,atc2603c-switch";
+				regulator-name = "switch1";
+				regulator-min-microvolt  = <3000000>;
+				regulator-max-microvolt = <3300000>;
+			};
+		};
+	};
+	
+	i2c@b0174000 {
+		status = "disabled";
+	};
+
+	i2c@b0178000 {
+		status = "disabled";
+	};
+
+	i2c@b017c000 {
+		status = "disabled";
+	};
+
+	spi@b0200000 {
+		status = "disabled";
+	};
+
+	spi@b0204000 {
+		status = "disabled";
+	};
+	
+	spi@b0208000 {
+		status = "disabled";
+	};
+
+	spi@b020c000 {
+		status = "disabled";
+	};
+
+	mmc@b0230000 {
+		pinctrl-names = "default","share_uart2_5";
+		pinctrl-0 = <&mmc0_state_default>;
+		pinctrl-1 = <&mmc_share_uart_state>;
+
+		card_type = "memory";  /* only: "memory", "wifi", or "emmc" */
+		card_detect_mode = "gpio";  /* only: "sirq", "gpio", or "command" */
+		card_detect_gpios = <&gpio 117 0>; /*86v S500 GPIOD21 */  
+		interrupts = < 0 42 0x4 >;
+
+		status = "okay";
+
+		sd_vcc = "switch1";
+	};
+
+	mmc@b0234000 {
+		status = "disabled";
+	};
+
+	mmc@b0238000 {
+		pinctrl-names = "default";
+		pinctrl-0 = <&mmc2_state_default>;
+		card_type = "emmc";  /* only: "memory", "wifi", or "emmc" */
+		status = "okay";
+	};
+
+	usb@b0400000 {
+		usb_serialnumber_config = <1>; /* config serialnumber string format, 0: unified ascii; 1:unified unicode; 2:nounified unicode; 3: nounified ascii*/
+		usb_hs_output_strength = <2>; /*defaut:2,range:0~7; 0:min,7:max;usb high speed(2.0)transmitter output strength*/
+		status = "okay";
+	};
+};

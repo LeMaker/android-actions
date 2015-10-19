@@ -1,0 +1,7 @@
+make -C /harddisk3/lichi/gs705a/leopard/build/gs703a/out_atm7059tc_hr820ac/kernel ARCH=arm CROSS_COMPILE=/opt/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/bin/arm-none-linux-gnueabi- \
+		EXTRA_CFLAGS="" M=/harddisk3/lichi/gs705a/leopard/platform/drivers/camera/isp modules
+make[1]: Entering directory `/harddisk3/lichi/gs705a/leopard/build/gs703a/out_atm7059tc_hr820ac/kernel'
+  CC [M]  /harddisk3/lichi/gs705a/leopard/platform/drivers/camera/isp/gl5203_camera.o
+  CC [M]  /harddisk3/lichi/gs705a/leopard/platform/drivers/camera/isp/bisp.o
+  CC [M]  /harddisk3/lichi/gs705a/leopard/platform/drivers/camera/isp/gl5206_camera.o
+make[1]: Leaving directory `/harddisk3/lichi/gs705a/leopard/build/gs703a/out_atm7059tc_hr820ac/kernel'

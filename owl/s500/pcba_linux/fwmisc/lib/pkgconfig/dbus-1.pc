@@ -1,0 +1,17 @@
+prefix=/home/local/ACTIONS/xuyingfei/pcb/lib
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+system_bus_default_address=unix:path=/home/local/ACTIONS/xuyingfei/pcb/lib/var/run/dbus/system_bus_socket
+sysconfdir=/home/local/ACTIONS/xuyingfei/pcb/lib/etc
+session_bus_services_dir=/home/local/ACTIONS/xuyingfei/pcb/lib/share/dbus-1/services
+system_bus_services_dir=/home/local/ACTIONS/xuyingfei/pcb/lib/share/dbus-1/system-services
+interfaces_dir=/home/local/ACTIONS/xuyingfei/pcb/lib/share/dbus-1/interfaces
+daemondir=/home/local/ACTIONS/xuyingfei/pcb/lib/bin
+
+Name: dbus
+Description: Free desktop message bus
+Version: 1.6.12
+Libs: -L${libdir} -ldbus-1
+Libs.private: -lpthread -lrt 
+Cflags: -I${includedir}/dbus-1.0 -I${libdir}/dbus-1.0/include 

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+cd $1
+[ -e bin ] || mkdir bin
+[ -e boot ] || mkdir boot
+[ -e dev ] || mkdir dev
+#[ -e etc ] || mkdir etc
+#[ -e etc/init.d ] || mkdir etc/init.d
+[ -e home ] || mkdir home
+[ -e lib ] || mkdir lib
+[ -e lib/modules ] || mkdir lib/modules
+[ -e mnt ] || mkdir mnt
+[ -e proc ] || mkdir proc
+[ -e root ] || mkdir root
+[ -e sbin ] || mkdir sbin
+[ -e sys ] || mkdir sys
+[ -e tmp ] || mkdir tmp
+[ -e usr ] || mkdir usr
+[ -e usr/bin ] || mkdir usr/bin
+[ -e usr/lib ] || mkdir usr/lib
+[ -e usr/sbin ] || mkdir usr/sbin
+[ -e var ] || mkdir var

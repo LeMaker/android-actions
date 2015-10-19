@@ -1,0 +1,11 @@
+config VIDEO_ACTIONS_VCE
+	tristate "Asoc Video encoder support"
+	depends on ARCH_OWL
+	---help---
+	  Say Y here if you need video recoder support to your system.
+
+	  If unsure, say N.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called vce_drv.ko.
+

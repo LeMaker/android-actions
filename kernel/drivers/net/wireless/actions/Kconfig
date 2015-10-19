@@ -1,0 +1,25 @@
+config BROADCOM_WIFI_BT
+	tristate "Broadcom 4329/30 wireless cards support"
+	---help---
+	  This module adds support for wireless adapters based on
+	  Broadcom 4329/30 chipset.
+
+config RTL8723BS
+	tristate "Realtek rtl8723bs wireless modules cards support"
+	---help---
+	  This module adds support for wireless adapters based on
+	  sdio.
+	  
+config RTL8723BS_VQ0
+	tristate "Realtek rtl8723bs-vq0 wireless modules cards support"
+	---help---
+	  This module adds support for wireless adapters based on
+	  sdio.
+	  
+config RTL8723BU
+	tristate "Realtek rtl8723bu wireless modules cards support"
+	---help---
+	  This module adds support for wireless adapters based on
+	  usb.
+
+source "drivers/net/wireless/actions/rtl8188etv/Kconfig"

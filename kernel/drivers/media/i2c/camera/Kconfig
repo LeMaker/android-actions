@@ -1,0 +1,24 @@
+#
+# Actions CPU si or isp driver and the camera sensors of Actions support 
+#
+# 
+
+source "drivers/media/i2c/camera/gc2035/Kconfig"
+source "drivers/media/i2c/camera/gc0308/Kconfig"
+source "drivers/media/i2c/camera/gc2155/Kconfig"
+source "drivers/media/i2c/camera/gc0312/Kconfig"
+source "drivers/media/i2c/camera/gc2145/Kconfig"
+source "drivers/media/i2c/camera/gc0328/Kconfig"
+source "drivers/media/i2c/camera/gc0329/Kconfig"
+source "drivers/media/i2c/camera/sp0a19/Kconfig"
+source "drivers/media/i2c/camera/hi257/Kconfig"
+source "drivers/media/i2c/camera/hi708/Kconfig"
+source "drivers/media/i2c/camera/ov5640/Kconfig"
+source "drivers/media/i2c/camera/sp2519/Kconfig"
+source "drivers/media/i2c/camera/ov2686/Kconfig"
+source "drivers/media/i2c/camera/soc5140/Kconfig"
+source "drivers/media/i2c/camera/sp0718/Kconfig"
+source "drivers/media/i2c/camera/siv121du/Kconfig"
+source "drivers/media/i2c/camera/flashlight/Kconfig"
+source "drivers/media/i2c/camera/owl_camera/Kconfig"
+source "drivers/media/i2c/camera/sensor_detect/Kconfig"
