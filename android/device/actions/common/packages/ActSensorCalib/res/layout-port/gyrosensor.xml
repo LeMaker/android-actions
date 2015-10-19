@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+		android:layout_weight="5" >
+		<TextView
+			android:id="@+id/mTipsInfo_gyrosensor"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10sp"
+			android:text="@string/info_gyrosensor_tips"
+			android:textSize="25sp" />
+
+		<TextView
+			android:id="@+id/mTextView_gyro_x"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10sp"
+			android:gravity="center|left"
+			android:textSize="25sp"
+			android:textStyle="bold"
+			android:typeface="serif" />
+		<TextView
+			android:id="@+id/mTextView_gyro_y"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10sp"
+			android:gravity="center|left"
+			android:textSize="25sp"
+			android:textStyle="bold"
+			android:typeface="serif" />
+		<TextView
+			android:id="@+id/mTextView_gyro_z"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10sp"
+			android:gravity="center|left"
+			android:textSize="25sp"
+			android:textStyle="bold"
+			android:typeface="serif" />
+		<TextView
+			android:id="@+id/mTextView_gyro_accuracy"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10sp"
+			android:gravity="center|left"
+			android:textSize="25sp"
+			android:textStyle="bold"
+			android:typeface="serif" />
+	</LinearLayout>
+	
+	 <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30sp" 
+		android:layout_marginBottom="100sp">
+
+
+        <Button
+            android:id="@+id/gyro_buttonCalib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/gyro_buttonCalib_name" />
+
+        <Button
+            android:id="@+id/gyro_buttonReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/gyro_buttonReset_name" />
+    </LinearLayout>
+
+</LinearLayout>

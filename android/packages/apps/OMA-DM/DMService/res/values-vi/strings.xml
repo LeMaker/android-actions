@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Quản lý thiết bị</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Tin nhắn hệ thống</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">OK</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Từ chối</string>
+    <string name="dm_session_button_confirm">Cập nhật</string>
+    <string name="dm_session_button_reject">Hủy</string>
+    <string name="dm_session_confirmation_title">Cập nhật hệ thống</string>
+    <string name="dm_session_confirmation_message">Cập nhật hệ thống cho điện thoại của bạn khả dụng</string>
+    <string name="dm_session_confirmation_notification_label">Cập nhật hệ thống</string>
+    <string name="dm_session_confirmation_notification_message">Yêu cầu phiên DM mới</string>
+    <string name="dm_session_information_notification_label">Cập nhật hệ thống</string>
+    <string name="dm_session_information_notification_message1">Máy chủ đã khởi chạy yêu cầu</string>
+    <string name="dm_session_information_notification_message2_success">Thiết bị đã hoàn thành yêu cầu của máy chủ</string>
+    <string name="dm_session_information_notification_message2_fail">Thiết bị không hoàn thành yêu cầu của máy chủ</string>
+
+</resources>

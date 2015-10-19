@@ -1,0 +1,14 @@
+This directory contains files needed to generate DM Tree files. To add or 
+modify tree:
+1. Unzip Dmt.zip
+2. Make necessary changes to metadata files under Dmt/ directory
+3. Zip them to a new Dmt.zip
+4. Run "make" to generate tree files, which also copy them to "assets" directory of DMService
+
+File list
+---------
+Makefile - invokes generateDMT tool to generate tree files and copy them to DMService "assets" directory.
+fstab - DM tree file list; used by generateDMT tool
+event.dat - should be empty but file is needed by native DM engine
+dmt_data - duplicate directory containing same tree files as "assets".
+Dmt.zip - DM tree metadata files

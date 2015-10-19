@@ -1,0 +1,12 @@
+|4VGA|~yuv420sp|r30|1|d3
+|8incandescent|d1|p|d5|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0012
+//DESCRIPTION: Camera HAL  shall support image capture with predefined white balance setting: Incandescent mode.
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0
+

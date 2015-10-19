@@ -1,0 +1,20 @@
+|4VGA|~yuv420sp|r30||9H264|vmp4|-AMR_NB|]64K
+|lQCIF|6|d10|2
+|lQVGA|6|d10|2
+|lVGA|6|d10|2
+|lWVGA|6|d10|2
+|lD1NTSC|6|d10|2
+|lD1PAL|6|d10|2
+|lHD|6|d10|2
+|lFULLHD|6|d10|2
+|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0133
+//DESCRIPTION: Video capture in multiple resolutions, switch between each of them – Without VNF, Without VSTAB  Resolutions: QCIF QVGA, VGA, WVGA, D1-NTSC, D1-PAL, HD720, HD1080 Format: YUV420 NV12
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

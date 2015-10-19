@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Device Management</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">System Message</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">OK</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Reject</string>
+    
+    <string name="dm_session_button_confirm">Update</string>
+    <string name="dm_session_button_reject">Cancel</string>
+    <string name="dm_session_confirmation_title">System Update</string>
+    <string name="dm_session_confirmation_message">System update for your phone is available</string>
+    <string name="dm_session_confirmation_notification_label">System Update</string>
+    <string name="dm_session_confirmation_notification_message">New DM session request</string>
+    <!-- <string name="dm_session_information_notification_label">System Update</string>
+    <string name="dm_session_information_notification_message1">Server has initiated a request</string>
+    <string name="dm_session_information_notification_message2_success">Device has completed server\'s request</string>
+    <string name="dm_session_information_notification_message2_fail">Device failed to complete server\'s request</string> -->
+    <string name="dm_session_information_notification_label">Network Update</string>
+    <string name="dm_session_information_notification_message1">The network is preparing service.</string>
+    <string name="dm_session_information_notification_message2_success">Network update successful</string>
+    <string name="dm_session_information_notification_message2_fail">Network update failed</string>
+
+</resources>

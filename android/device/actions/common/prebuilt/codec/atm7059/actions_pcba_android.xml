@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tests>
+ <TestCase id="-1">
+        <name>AUTO_START</name>
+         <!--第一次开机自启动-->
+        <usable>FALSE</usable>
+    </TestCase>
+	
+	 <TestCase id="-1">
+        <name>AUTO_RECORD</name>
+         <!--自动开始录音-->
+        <usable>FALSE</usable>
+    </TestCase>
+	 <TestCase id="0">
+        <name>DDR</name>
+         <!--DDR容量测试  请注意都是使用大写-->
+        <usable>TRUE</usable>
+    </TestCase>
+	
+    <TestCase id="1">
+        <name>MEMORY</name>
+        <!--NAND容量测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+    <TestCase id="2">
+        <name>WIFI</name>
+         <!--wifi模组测试 -->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+    <TestCase id="3">
+        <name>GSENSOR</name>
+         <!-- 重力传感器-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+    <TestCase id="4">
+        <name>CAMERA</name>
+         <!-- 摄像头-->
+        <usable>TRUE</usable>
+    </TestCase>
+     
+     <TestCase id="5">
+        <name>BLUETOOTH</name>
+        <!-- 蓝牙-->
+        <usable>TRUE</usable>
+    </TestCase>
+     
+    <TestCase id="6">
+        <name>RTC</name>
+        <!-- RTC时间测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="7">
+        <name>TFCARD</name>
+        <!-- TF卡插拔测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="8">
+        <name>UHOST</name>
+        <!-- UHOST 插拔测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="9">
+        <name>USB</name>
+        <!-- USB连接测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="10">
+        <name>HDMI</name>
+        <!-- hdmi 插拔显示测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="11">
+        <name>HEADSET</name>
+        <!-- 耳机插拔测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+      <TestCase id="12">
+        <name>KEY</name>
+        <!-- 音量键按键测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+      <TestCase id="13">
+        <name>MOUSE</name>
+        <!-- 鼠标连接测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+	
+     <TestCase id="14">
+        <name>CALIBBUTTON</name>
+        <!-- 是否显示校准按钮-->
+        <usable>FALSE</usable>
+    </TestCase>
+     <TestCase id="15">
+        <name>INGRARED</name>
+        <!-- 红外测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="16">
+        <name>ETHERNET</name>
+        <!-- 以太网测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+    <TestCase id="17">
+        <name>USB2.0</name>
+        <!-- USB2.0测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+</Tests>

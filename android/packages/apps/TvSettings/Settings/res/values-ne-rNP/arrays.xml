@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="wifi_status">
+    <item msgid="6120109946893037801"></item>
+    <item msgid="5210943529756743284">"स्क्यान गर्दै..."</item>
+    <item msgid="7895190850044173217">"जडान हुँदै..."</item>
+    <item msgid="7589307602609991992">"प्रमाणित गर्दै..."</item>
+    <item msgid="7439429469102224627">"IP ठेगाना पत्ता लगाउँदै ..."</item>
+    <item msgid="7079865889809010740">"जोडिएको"</item>
+    <item msgid="8018480471737227053">"निलम्बित"</item>
+    <item msgid="9110004131358099530">"जडान हटाइँदै ..."</item>
+    <item msgid="2366780999250675263">"विच्छेद भएको"</item>
+    <item msgid="944848437579938960">"असफल"</item>
+    <item msgid="6501589509838730555">"अवरूद्ध गरियो"</item>
+    <item msgid="1877062378387320625">"अस्थायी रूपमा कमजोर जडान बेवास्ता गर्दै"</item>
+  </string-array>
+  <string-array name="wifi_status_with_ssid">
+    <item msgid="8339598300796362026"></item>
+    <item msgid="4703591207522320165">"स्क्यान गर्दै..."</item>
+    <item msgid="7351421574703844779">"<xliff:g id="NETWORK_NAME">%1$s</xliff:g>सँग जडान हुँदै..."</item>
+    <item msgid="874502389678205660">"<xliff:g id="NETWORK_NAME">%1$s</xliff:g>को साथ प्रमाणित गर्दै…"</item>
+    <item msgid="7964187733783647040">"<xliff:g id="NETWORK_NAME">%1$s</xliff:g>बाट IP ठेगाना प्राप्त गर्दै…"</item>
+    <item msgid="4990222034464002805">"<xliff:g id="NETWORK_NAME">%1$s</xliff:g>सँग जडित छ"</item>
+    <item msgid="5347651564202902346">"निलम्बित"</item>
+    <item msgid="4812777464932254477">"<xliff:g id="NETWORK_NAME">%1$s</xliff:g>बाट जडान विच्छेद गर्दै..."</item>
+    <item msgid="4985746712759777559">"विच्छेद भएको"</item>
+    <item msgid="6482743140170037710">"असफल"</item>
+    <item msgid="7486075980265993798">"अवरूद्ध गरियो"</item>
+    <item msgid="6842213039083339420">"अस्थायी रूपमा कमजोर जडान बेवास्ता गर्दै"</item>
+  </string-array>
+  <string-array name="sleep_timeout_entries">
+    <item msgid="1213527366819650274">"५ मिनेट"</item>
+    <item msgid="3695675702735844029">"१० मिनेट"</item>
+    <item msgid="5742541267966746817">"१५ मिनेट"</item>
+    <item msgid="4333958225402992378">"३० मिनेट"</item>
+    <item msgid="3103819305854192542">"१ घण्टा"</item>
+  </string-array>
+  <string-array name="screen_off_timeout_entries">
+    <item msgid="8244337465472020927">"३० मिनेट"</item>
+    <item msgid="1001586019759702505">"१ घण्टा"</item>
+    <item msgid="5216959047515554188">"३ घण्टा"</item>
+    <item msgid="4152882798140628647">"६ घण्टा"</item>
+    <item msgid="412984226950404956">"१२ घण्टा"</item>
+    <item msgid="2178434662173258997">"कहिले पनि होइन"</item>
+  </string-array>
+  <string-array name="debug_hw_overdraw_entries">
+    <item msgid="6733816499120044964">"बन्द गर्नुहोस्"</item>
+    <item msgid="8974325215258674273">"overdraw क्षेत्रहरू देखाउनुहोस्"</item>
+    <item msgid="5877416885028854162">"overdraw  काउन्टर देखाउनुहोस्"</item>
+  </string-array>
+  <string-array name="hdmi_optimization_entries">
+    <item msgid="3490064566563023094">"राम्रो रिजोलुसन"</item>
+    <item msgid="8319005042985738916">"सबैभन्दा उचित फ्रेमरेट"</item>
+  </string-array>
+  <string-array name="captioning_typeface_selector_titles">
+    <item msgid="4410581208185456276">"पूर्वनिर्धारित"</item>
+    <item msgid="9033306684422202101">"Sans-serif"</item>
+    <item msgid="1864985245839120339">"Sans-serif condensed"</item>
+    <item msgid="2707402752636362906">"सन्स-सेरिफ मोनोस्पेस"</item>
+    <item msgid="4549910217342216388">"सेरिफ"</item>
+    <item msgid="4764344884232052861">"सेरिफ मोनोस्पेस"</item>
+    <item msgid="8561996903323025702">"आरामदायक"</item>
+    <item msgid="8403638572764467550">"जोडिएको लेखाइ"</item>
+    <item msgid="5560655268137500927">"लघु दीर्घाक्षर"</item>
+  </string-array>
+  <string-array name="captioning_font_size_selector_titles">
+    <item msgid="4304493614734189861">"ज्यादै साना"</item>
+    <item msgid="1694402928400844023">"सानो"</item>
+    <item msgid="1235495470844109970">"सामान्य"</item>
+    <item msgid="481223375568095790">"ठूलो"</item>
+    <item msgid="8614563351231073075">"ज्यादै ठूलो"</item>
+  </string-array>
+  <string-array name="captioning_edge_type_selector_titles">
+    <item msgid="5333047169042840730">"कुनै पनि होइन"</item>
+    <item msgid="7663488423233018922">"रूपरेखा"</item>
+    <item msgid="7891048730741670843">"ड्रप छाया"</item>
+    <item msgid="6613725572146700438">"उठायो"</item>
+    <item msgid="1007736533206905292">"निराश"</item>
+  </string-array>
+  <string-array name="captioning_opacity_selector_titles">
+    <item msgid="7311196539184412021">"२५%"</item>
+    <item msgid="4609292560884303243">"५०%"</item>
+    <item msgid="1626485489418859846">"७५%"</item>
+    <item msgid="1811192455405034366">"१००%"</item>
+  </string-array>
+  <string-array name="captioning_preset_selector_titles">
+    <item msgid="7937747884375690010">"कालोमा सेतो"</item>
+    <item msgid="5187532965364561774">"सेतोमा कालो"</item>
+    <item msgid="7275908232441066633">"कालोमा पहेलो"</item>
+    <item msgid="3907210401785295669">"नीलोमा पहेँलो"</item>
+    <item msgid="7050475937183962123">"अनुकूलन"</item>
+  </string-array>
+</resources>

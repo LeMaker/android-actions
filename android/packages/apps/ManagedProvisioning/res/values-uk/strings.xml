@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Адміністратор пристрою"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Помилка"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Налаштування профілю"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Ваша організація контролює й захищає цей профіль. Ви контролюєте все інше на пристрої."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Доcтуп до цього профілю потрібен буде такому додатку:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Налаштувати"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Налаштування робочого профілю…"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Адміністратор може відстежувати та контролювати налаштування, корпоративний доступ, додатки й дані, пов’язані з цим профілем, зокрема інформацію про активність у мережі чи місцезнаходження пристрою."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Адміністратор може відстежувати та контролювати налаштування, корпоративний доступ, додатки й дані, пов’язані з цим пристроєм, зокрема інформацію про активність у мережі чи місцезнаходження пристрою."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Зв’яжіться з адміністратором, щоб дізнатися більше, зокрема про політику конфіденційності вашої організації."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Докладніше"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Скасувати"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"ОК"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Робочий профіль"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"На вашому пристрої вже є робочий профіль. Видалити його?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Справді видалити цей робочий профіль? Усі його дані буде видалено."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Видалити"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Скасувати"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Щоб продовжити налаштування робочого профілю, потрібно зашифрувати пристрій. Це може зайняти деякий час."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Скасувати"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Зашифрувати"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Шифрування завершено"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Торкніться, щоб продовжити налаштування робочого профілю"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Не вдалося налаштувати робочий профіль. Зв’яжіться з ІТ-відділом або повторіть спробу пізніше."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Ваш пристрій не підтримує робочі профілі"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Робочі профілі має налаштовувати власник пристрою"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Цей додаток запуску не підтримує ваш робочий профіль. Потрібно вибрати сумісний додаток запуску."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Скасувати"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Користувач робочого пристрою"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Налаштування пристрою"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Обробка даних для налаштування…"</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"З’єднання з Wi-Fi…"</string>
+    <string name="progress_download" msgid="4995057798189799156">"Завантаження додатка адміністратора…"</string>
+    <string name="progress_install" msgid="9169411715762296097">"Встановлення додатка адміністратора…"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Налаштування власника пристрою…"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Припинити налаштування?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Припинити налаштування й видалити дані пристрою?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Скасувати"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"ОК"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Скинути"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Не вдалося налаштувати пристрій. Зв’яжіться з ІТ-відділом."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Цей пристрій уже налаштовано"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Не вдалося під’єднатися до мережі Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Не вдалося скористатися додатком адміністратора через помилку перевірки контрольної суми. Зв’яжіться з ІТ-відділом."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Не вдалося завантажити додаток адміністратора"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Неможливо скористатися додатком адміністратора. У ньому немає певних компонентів або його пошкоджено. Зв’яжіться з ІТ-відділом."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Не вдалося встановити додаток адміністратора"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Додаток адміністратора не встановлено на вашому пристрої"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Припинити налаштування?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Справді припинити налаштування?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Ні"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Так"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Скасування…"</string>
+</resources>

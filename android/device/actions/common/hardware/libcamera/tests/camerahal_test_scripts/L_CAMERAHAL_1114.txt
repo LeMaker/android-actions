@@ -1,0 +1,14 @@
+|A1|4VGA|~yuv420sp|r30|'100|$jpeg|1
+|512MP|d2|p|d8
+|'10|d2|p|d8
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0113
+//DESCRIPTION: Thumbnail Quality  Factor adjustment – High Quality Image Capture View finder resolution: 640 x 480 View finder format: YUV420 SP Image Format – JPEG
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

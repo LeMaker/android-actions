@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">传感器</string>
+    <string name="buttonCalib_name">重力校准</string>
+    <string name="buttonReset_name">清除校准</string>
+    <string name="gyro_buttonCalib_name">陀螺校准</string>
+    <string name="gyro_buttonReset_name">清除校准</string>
+    <string name="info_reset">清除校准数据</string>
+    <string name="info_calib">保存校准数据</string>
+    <string name="info_tips">将此装置水平放置, 点击校准按钮。</string>
+    <string name="info_gyrosensor_tips">将此装置水平放置, 点击校准按钮。</string>
+    <string name="gSeneor_activity_name">重力传感器</string>
+    <string name="gyroSeneor_activity_name">陀螺仪</string>
+    <string name="compassSeneor_activity_name">磁力计</string>
+    <string name="info_compasssensor_tips">请按下图动画校准磁力计，直到accuracy值为3。</string>
+</resources>

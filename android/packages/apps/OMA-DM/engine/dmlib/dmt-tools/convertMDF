@@ -1,0 +1,112 @@
+#!/bin/bash
+#====================================================================================================
+#
+# Script Name: convertMDF
+#
+# General Description: This script calls the necessary tools to convert between the old (text-based)
+#					  meta-data format and the new (binary) format.
+#
+#====================================================================================================
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#====================================================================================================
+
+# Do some checking on our environment - we need Java present
+
+if [ -z "$JAVA_HOME" ]
+then
+  echo "Environment variable JAVA_HOME needs to be set!"
+  exit 1
+fi
+
+# Define our root dir and make a dummy parm.txt
+
+BASEFILE=`basename $1 .mdf`
+ROOTDIR=./Dmt
+mkdir $ROOTDIR
+CURRPARM=$ROOTDIR/parm.txt
+cp -f /dev/null $CURRPARM
+echo "type:node" >> $CURRPARM
+echo "access:Get,Add,Replace,Delete" >> $CURRPARM
+ 
+# Make sure we have a Unix mdf file, not a DOS one!
+
+dos2unix $1 2> /dev/null
+
+# Begin building the Dmt file structure
+
+echo "Building tree from $1..."
+
+exec < $1
+
+while read line
+do
+  # Check for comment lines
+
+  echo $line | grep -E '^[[:space:]]*#' > /dev/null
+  COMMENTLINE=$?
+
+  # Check for parens
+
+  if echo $line | grep '^\[' > /dev/null
+  then
+    # We've encountered a new node - begin node creation
+
+    CURRDIR=`echo $line | sed "s/\[//g" | sed "s/\]//g" | sed "s/*/[]/g"`
+    if [ "$CURRDIR" = "." ]
+    then
+      CURRDIR=$ROOTDIR
+    else
+      CURRDIR=$ROOTDIR$CURRDIR 
+      #echo "Making dir: $CURRDIR"
+      mkdir -p "$CURRDIR"
+    fi
+
+    CURRPARM=$CURRDIR/parm.txt
+    cp -f /dev/null "$CURRPARM"
+  elif [ "$line" != "" -a "$COMMENTLINE" -ne 0 ]
+  then
+    # Populate the parm.txt file with data
+   
+    echo "$line" >> "$CURRPARM"
+  fi
+
+done
+
+# Call the DMTValidator to make sure we have good data
+
+echo "Validating DMT structure..."
+
+$JAVA_HOME/bin/java -classpath lib/GenTool.jar:lib/joda-time-1.1.jar:lib/jakarta-regexp-1.4.jar DMTValidator -d Dmt
+
+if [ $? -eq 1 ]
+then
+  echo "Please fix the errors above before continuing..."
+  echo "Cleaning up on abort..."
+  rm -rf $ROOTDIR
+  exit 1
+fi
+
+# Now call the Gen tool to build the binary MDF
+
+echo "Calling Gen tool to convert to binary MDF..."
+
+$JAVA_HOME/bin/java -classpath lib/GenTool.jar:lib/joda-time-1.1.jar:lib/jakarta-regexp-1.4.jar Gen -d Dmt -mdfconvert 2> /tmp/java.run.out.$$
+
+# Cleanup our Dmt directory
+
+echo "Cleaning up..."
+
+rm -rf $ROOTDIR
+mv -f root.bmdf $BASEFILE.bmdf

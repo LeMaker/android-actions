@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Beállítások"</string>
+    <string name="title_activity_main">"Bagoly frissítés"</string>
+    <string name="update_online">"Online frissítés"</string>
+    <string name="update_native">"Helyi frissítés"</string>
+    <string name="goto_recovery">"Visszaad a Recovery frissítési módot?"</string>
+    <string name="progress_dialog_title">"Összekötő"</string>
+    <string name="not_connect">"Nem csatlakozik a hálózathoz"</string>
+    <string name="progress_dialog_mgs">"Ellenőrzi a frissítést, kérjük várjon..."</string>
+    <string name="connect_server_wrong">"Szerver foglalt, próbálkozzon újra a kapcsolatot"</string>
+    <string name="current_system_isnew">"A jelenlegi rendszer verziója a legfrissebb"</string>
+    <string name="sure">"Biztos"</string>
+    <string name="cancel">"Mégsem"</string>
+    <string name="update_message">"Megtalált a frissített verziót, tölteni le?"</string>
+    <string name="update_title">"Új verzió frissítések"</string>
+    <string name="download">"Letöltés"</string>
+    <string name="update_rightnow">"Frissíteni most"</string>
+    <string name="start_download">"Elkezdi letölteni a frissítési csomagot"</string>
+    <string name="update_package">"Frissítés csomag"</string>
+    <string name="download_complete">"Letöltés teljes"</string>
+    <string name="download_fail">"Letöltés sikertelen"</string>
+    <string name="md5_check_fail">"MD5 paritási hiba"</string>
+    <string name="update_package_downloaded">"Frissítési csomag letöltés teljesített"</string>
+    <string name="finish_download">"Frissítési csomag letöltés teljesített"</string>
+    <string name="update_notice">"\n indul OTA frissítjés:\n A frissítési folyamat, az intézkedés nem lehet megszakítani, készítsen biztonsági mentést az adatok"</string>
+    <string name="cancel_download">"Törölni a letöltést?"</string>
+    <string name="wait_downloading">"Letöltés, kérem várjon..."</string>
+    <string name="download_update_file">"Nincs frissítési fájlt az SD kártyán könyvtár, online frissítés letölthető a frissítés fájlt"</string>
+    <string name="return_native_update">"Frissítési csomag megvan, kérjük, megye vissza a helyi frissítési"</string>
+    <string name="have_update">"Ellenőrizee a rendszer frissítése"</string>
+    <string name="notification_update">"Kérjük a beállításokban bagoly frissítést valásszon."</string>
+    <string name="download_notice">"Kérjük tartsa a hálózati forglamot, letöltés közben, ne nyissa ki az USB kapcsolat"</string>
+    <string name="apk_title">"Bagoly fríssítés V1.0"</string>
+    <string name="checkbox_title">"Frissítési lekérdezés automatikusan"</string>
+    <string name="checkbox_summary">"Akadálytalan nem automatikusan csatlakozik a szerverhez."</string>
+    <string name="checkfrequency_title">"Beállítja a vizsgálat ciklust"</string>
+    <string name="checkfrequency_summary">"Viszgálat ciklusa"</string>
+    <string name="day">"Nap"</string>
+    <string name="battery_low">"Akkumulátor alacsony"</string>
+    <string name="battery_notify">"Kérjük, telepítse a frissítést, ha az akkumulátor 50% felett van."</string>
+</resources>

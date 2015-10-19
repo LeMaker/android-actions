@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"설정"</string>
+    <string name="title_activity_main">"올빼미 업그레이드"</string>
+    <string name="update_online">"온라인 업그레이드"</string>
+    <string name="update_native">"현지 업그레이드"</string>
+    <string name="goto_recovery">"Recovery업그레이드 방식 회복?"</string>
+    <string name="progress_dialog_title">"연결중"</string>
+    <string name="not_connect">"네트 미연결"</string>
+    <string name="progress_dialog_mgs">"업데이트 정보 검사중, 잠간만…"</string>
+    <string name="connect_server_wrong">"서버 사용중, 잠시후 시도"</string>
+    <string name="current_system_isnew">"현재 시스템은 최신 버전"</string>
+    <string name="sure">"확인"</string>
+    <string name="cancel">"취소"</string>
+    <string name="update_message">"최신버전, 다운로드 여부?"</string>
+    <string name="update_title">"최신 버전 갱신 내용"</string>
+    <string name="download">"다운로드"</string>
+    <string name="update_rightnow">"즉시 업그레이드"</string>
+    <string name="start_download">"업그레이드팩 다운로드 시작"</string>
+    <string name="update_package">"업그레이드팩  "</string>
+    <string name="download_complete">"다운로드 완성"</string>
+    <string name="download_fail">"다운로드 실패"</string>
+    <string name="md5_check_fail">"MD4 체크 오류"</string>
+    <string name="update_package_downloaded">"업그레이드 팩 다운로드 이미 완료"</string>
+    <string name="finish_download">"업그레이드 팩 다운로드 완료"</string>
+    <string name="update_notice">"\n OTA업그레이드 시작:\n업그레이드중，차단할수없음，데이터 백업하기\n"</string>
+    <string name="cancel_download">"다운로드 취소여부?"</string>
+    <string name="wait_downloading">"다운로드중, 잠간만…"</string>
+    <string name="download_update_file">"SDCard루트 목록에 갱신 서류가 없음, 온라인 업그레이드 및 갱신 서류를 다운로드"</string>
+    <string name="return_native_update">"현지에 업그레이드 팩이있음, 현지 업그레이드로 가기"</string>
+    <string name="have_update">"시스템 갱신을 검사"</string>
+    <string name="notification_update">"설정 포인트에 진입후 올빼미를 클릭 및 업그레이드"</string>
+    <string name="download_notice">"원활한 네트를 유지하며 다운로드중 USB연결하지 말기"</string>
+    <string name="apk_title">"올빼미 업그레이드 V1.1"</string>
+    <string name="checkbox_title">"자동 검색 갱신"</string>
+    <string name="checkbox_summary">"선택사항을 취소하여 서버 자동 방문을 차단"</string>
+    <string name="checkfrequency_title">"검색 주기 설정"</string>
+    <string name="checkfrequency_summary">"검색 주기:"</string>
+    <string name="day">"일"</string>
+    <string name="battery_low">"배터리 부족"</string>
+    <string name="battery_notify">"배터리50%이상시 갱신 설치"</string>
+</resources>

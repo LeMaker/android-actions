@@ -1,0 +1,53 @@
+
+<wap-provisioningdoc version="1.1">
+
+  <characteristic type="APPLICATION" >
+    <parm name="APPID"  value="w4" ></parm>
+    <parm name="NAME"  value="VH_MMS" ></parm>
+    <parm name="TO-PROXY"  value="101.101.101.101"></parm>
+    <parm name="ADDR" value="VH_MMS_url "></parm>
+  </characteristic>
+
+  <characteristic type="PXLOGICAL" >
+    <parm name="PROXY-ID"  value="101.101.101.101" ></parm>
+    <parm name="NAME"  value="VH_MMS_Proxy_Name" ></parm>
+    
+    <characteristic type="PXPHYSICAL" >
+      <parm name="PHYSICAL-PROXY-ID" value="VH_MMS_PxPhys" ></parm>
+      <parm name="PXADDR"  value="101.101.101.101" ></parm>
+      <parm name="PXADDRTYPE"  value="IPV4"></parm>
+      <parm name="TO-NAPID"  value="VH_MMS_NAP" ></parm>
+      
+      <characteristic type="PORT" >
+        <parm name="PORTNBR"  value="9999"></parm>
+        <parm name="SERVICE"  value="CO-WSP"></parm>
+      </characteristic>
+    </characteristic>
+
+    <characteristic type="PXAUTHINFO">
+      <parm name="PXAUTH-TYPE" value="HTTP-BASIC"/>
+      <parm name="PXAUTH-ID" value="VH_MMS_PXUID"/>
+      <parm name="PXAUTH-PW" value="VH_MMS_PXPWD"/>
+    </characteristic>
+
+  </characteristic>
+
+
+  <characteristic type="NAPDEF" >
+    <parm name="NAPID"  value="VH_MMS_NAP" ></parm>
+    <parm name="NAME"  value="VH_MMS_NAP" ></parm>
+    <parm name="BEARER"  value="GSM-GPRS" ></parm>
+    <parm name="NAP-ADDRESS"  value="201.201.201.11"></parm>
+    <parm name="DNS-ADDR"  value="201.201.201.201" ></parm>
+    <parm name="DNS-ADDR"  value="202.202.202.202" ></parm>
+    <parm name="NAP-ADDRTYPE" value="IPv4">
+
+
+    <characteristic type="NAPAUTHINFO" >
+      <parm name="AUTHTYPE"  value="PAP" ></parm>
+      <parm name="AUTHNAME"  value="VH_MMS_NAPUID" ></parm>
+      <parm name="AUTHSECRET"  value="VH_MMS_NAPPWD" ></parm>
+    </characteristic>
+  </characteristic>
+  
+</wap-provisioningdoc>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dm_account_info">
+        <!-- <item>AccName, ServerID, Addr, AddrType, PortNbr, ConRef, ServerName, AuthPref, ServerPW, ServerNonce, UserName, ClientPW, ClientNonce, ProxyAddr, ProxyPortNbr</item> -->
+    </string-array>
+</resources>

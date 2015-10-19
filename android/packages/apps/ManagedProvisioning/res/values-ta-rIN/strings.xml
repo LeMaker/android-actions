@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"சாதன ஃப்ரோவிஷனர்"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"அச்சச்சோ!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"உங்கள் சுயவிவரத்தை அமைக்கவும்"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"உங்கள் நிறுவனம், இந்தச் சுயவிவரத்தைக் கட்டுப்படுத்தி, அதைப் பாதுகாப்பாக வைக்கிறது. உங்கள் சாதனத்தில் இருந்து எல்லாவற்றையும் கட்டுப்படுத்தலாம்."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"பின்வரும் பயன்பாடு இந்தச் சுயவிவரத்தை அணுக வேண்டும்:"</string>
+    <string name="set_up" msgid="7012862095553564169">"அமை"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"பணி சுயவிவரத்தை அமைக்கிறது..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"நெட்வொர்க் செயல்பாடு, சாதன இடத் தகவல் உட்பட சுயவிவரத்துடன் தொடர்புடைய அமைப்புகள், நிறுவன அணுகல், பயன்பாடுகள் மற்றும் தரவு ஆகியவற்றை உங்கள் நிர்வாகியால் கண்காணிக்கவும் நிர்வகிக்கவும் முடியும்."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"உங்கள் நிர்வாகியால் நெட்வொர்க் செயல்பாடு, சாதனத்தின் இருப்பிடத் தகவல் உட்பட இந்தச் சாதனத்துடன் தொடர்புடைய அமைப்புகள், நிறுவன அணுகல், பயன்பாடுகள் மற்றும் தரவைக் கண்காணிக்கவும் நிர்வகிக்கவும் முடியும்."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"உங்கள் நிறுவனத்தின் தனியுரிமைக் கொள்கைகள் உட்பட, கூடுதல் தகவலுக்கு நிர்வாகியைத் தொடர்புகொள்ளவும்."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"மேலும் அறிக"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"ரத்துசெய்"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"சரி"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"பணி சுயவிவரம்"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"சாதனத்தில் ஏற்கனவே பணி சுயவிவரத்தை வைத்துள்ளீர்கள். அதை அகற்றவா?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"பணி சுயவிவரத்தை நிச்சயமாக அகற்றவா? இதன் எல்லா தரவும் நீக்கப்படும் என்பதை நினைவில் கொள்ளவும்."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"அகற்று"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"ரத்துசெய்"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"பணி சுயவிவரம் அமைப்பதைத் தொடர, சாதனத்தை மறையாக்க வேண்டும். அதற்குச் சிறிது நேரம் ஆகலாம்."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"ரத்துசெய்"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"மறையாக்கு"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"குறியாக்கம் முடிந்தது"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"உங்கள் பணி சுயவிவரத்தை அமைப்பதைத் தொடரத் தொடவும்"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"பணி சுயவிவரத்தை அமைக்க முடியவில்லை. IT துறையைத் தொடர்புகொள்ளவும் அல்லது பிறகு முயலவும்."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"பணி சுயவிவரங்களைச் சாதனம் ஆதரிக்காது"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"பணி சுயவிவரங்களைச் சாதன உரிமையாளர் தான் அமைக்க வேண்டும்"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"இந்தத் துவக்கி பயன்பாடு, பணி சுயவிவரத்தை ஆதரிக்கவில்லை. பொருந்தும் துவக்கிக்கு மாற்ற வேண்டும்."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"ரத்துசெய்"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"சரி"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"பணியிடச் சாதனத்தின் பயனர்"</string>
+    <string name="setup_device" msgid="6725265673245816366">"சாதனத்தை அமை"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"அமைவு தரவைச் செயல்படுத்துகிறது..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"வைஃபை உடன் இணைக்கிறது..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"நிர்வாகப் பயன்பாட்டை இறக்குகிறது..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"நிர்வாகப் பயன்பாட்டை நிறுவுகிறது..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"சாதன உரிமையாளரை அமைக்கிறது..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"அமைப்பதை நிறுத்தவா?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"அமைவை நிறுத்தி, சாதன தரவை அழிக்கவா?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"ரத்துசெய்"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"சரி"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"மீட்டமை"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"சாதனத்தை அமைக்க முடியவில்லை. IT துறையைத் தொடர்புகொள்ளவும்."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"சாதனம் ஏற்கனவே அமைக்கப்பட்டுள்ளது"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"வைஃபை உடன் இணைக்க முடியவில்லை"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"செக்-சம் பிழைக் காரணமாக நிர்வாகப் பயன்பாட்டைப் பயன்படுத்த முடியவில்லை. IT துறையைத் தொடர்புகொள்ளவும்."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"நிர்வாகிப் பயன்பாட்டை இறக்க முடியவில்லை"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"நிர்வாகப் பயன்பாட்டைப் பயன்படுத்த முடியவில்லை. இதில் கூறுகள் இல்லாமல் இருக்கலாம் அல்லது இது சேதமடைந்து இருக்கலாம். IT துறையைத் தொடர்புகொள்ளவும்."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"நிர்வாகிப் பயன்பாட்டை நிறுவ முடியவில்லை"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"சாதனத்தில் நிர்வாகிப் பயன்பாடு நிறுவப்படவில்லை"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"அமைப்பதை நிறுத்தவா?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"அமைப்பதை நிச்சயமாக நிறுத்தவா?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"வேண்டாம்"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"ஆம்"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"ரத்துசெய்கிறது..."</string>
+</resources>

@@ -1,0 +1,9 @@
+mcc,mnc,operator_name,country_name,account_type,service_name,gprs_access_point_name,ap_requires_auth,ppp_auth_type,ppp_auth_name,ppp_auth_secret,dns_1,dns_2,nap_addr_type,bearer,proxy,proxy_addr_type,port,proxy_type,proxy_requires_auth,proxy_auth_name,proxy_auth_secret,proxy_auth_type,homepage_url
+310,170,Cingular,USA,prepaid,Br_Cingular_Service,mms.base.com,1,PAP,base,base,,,ALPHA,GSM-GPRS,172.031.198.037,IPV4,9201,CO-WSP,0,,,,http://wap.base.com/
+310,170,Cingular,USA,postpaid,Br_Cingular_Service,mms.base.com,1,PAP,base,base,,,ALPHA,GSM-GPRS,172.031.198.037,IPV4,5080,OTA-HTTP-TO,0,,,,http://wap.base.com/
+310,170,T-Mobile,Canada,prepaid,Br_T_Mobile_Service,media.com,1,PAP,wapuser1,wap,,,ALPHA,GSM-GPRS,010.128.001.069,IPV4,9201,CO-WSP,0,,,,http://ztar.clearmode.com/
+310,170,T-Mobile,Canada,postpaid,Br_T_Mobile_Service,media.com,1,PAP,wapuser1,wap,,,ALPHA,GSM-GPRS,010.128.001.069,IPV4,80,OTA-HTTP-TO,0,,,,http://ztar.clearmode.com/
+311,015,T-Mobile1,Canada,prepaid,Br_T_Mobile1_Service,media.com,1,PAP,wapuser1,wap,,,ALPHA,GSM-GPRS,010.128.001.069,IPV4,9201,CO-WSP,0,,,,http://ztar.clearmode.com/
+311,15,T-Mobile1,Canada,postpaid,Br_T_Mobile1_Service,media.com,1,PAP,wapuser1,wap,,,ALPHA,GSM-GPRS,010.128.001.069,IPV4,80,OTA-HTTP-TO,0,,,,http://ztar.clearmode.com/
+312,00,CMCC,Canada,prepaid,Br_CMCC_Service,media.com,1,PAP,wapuser1,wap,,,ALPHA,GSM-GPRS,010.128.001.069,IPV4,80,OTA-HTTP-TO,0,,,,http://ztar.clearmode.com/
+312,00,CMCC,Canada,postpaid,Br_CMCC_Service,media.com,1,PAP,wapuser1,wap,,,ALPHA,GSM-GPRS,010.128.001.069,IPV4,80,OTA-HTTP-TO,0,,,,http://ztar.clearmode.com/

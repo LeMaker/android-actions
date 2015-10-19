@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Kalibracja czujnika G"</string>
+    <string name="buttonCalib_name">"Uruchom kalibrację"</string>
+    <string name="buttonReset_name">"Usuń kalibrację"</string>
+    <string name="info_reset">"Usuń dane kalibracji "</string>
+    <string name="info_calib">"Zapisano dane kalibracji"</string>
+    <string name="info_tips">"Proszę umieścić urządzenie na równej powierzchni w nieruchomej pozycji"</string>
+</resources>

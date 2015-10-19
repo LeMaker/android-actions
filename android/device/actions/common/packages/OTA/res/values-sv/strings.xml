@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Inställningar"</string>
+    <string name="title_activity_main">"Uggla Uppgradering"</string>
+    <string name="update_online">"Online Uppgradering"</string>
+    <string name="update_native">"Lokal Uppgradering"</string>
+    <string name="goto_recovery">"Återställ till Återhämtning Uppgraderingsläge"</string>
+    <string name="progress_dialog_title">"Nätverk i"</string>
+    <string name="not_connect">"Inte ansluten till nätverket"</string>
+    <string name="progress_dialog_mgs">"Söka efter uppdateringar, var god vänta ..."</string>
+    <string name="connect_server_wrong">"Servern är upptagen, försök  anslutningen igen"</string>
+    <string name="current_system_isnew">"Det nuvarande systemet versionen är uppdaterad"</string>
+    <string name="sure">"OK"</string>
+    <string name="cancel">"Avboka"</string>
+    <string name="update_message">"Kontrollera till en nyare version, om du vill ladda ner?"</string>
+    <string name="update_title">"Ny version uppdateringar"</string>
+    <string name="download">"Ladda ner"</string>
+    <string name="update_rightnow">"Uppgradera nu"</string>
+    <string name="start_download">"Börja att ladda ner Uppgraderingspaket"</string>
+    <string name="update_package">"Uppgraderingspaket"</string>
+    <string name="download_complete">"Nedladdningen är klar"</string>
+    <string name="download_fail">"Nedladdningen misslyckades"</string>
+    <string name="md5_check_fail">"MD5 Paritetsfel"</string>
+    <string name="update_package_downloaded">"Uppgraderingspaket har laddats ner"</string>
+    <string name="finish_download">"Uppgraderingspaket är klart nedladdat"</string>
+    <string name="update_notice">"\n Starta OTA uppgradering:Under \n uppgraderingsprocessen kan åtgärden inte avbrytas, ska du säkerhetskopiera dina data.\n "</string>
+    <string name="cancel_download">"Vare sig att avbryta nedladdningen?"</string>
+    <string name="wait_downloading">"Laddar, var god vänta ..."</string>
+    <string name="download_update_file">"Ingen uppdatering fil i  SD-korts katalog, uppgradera online för att ladda ner uppdateringsfilen"</string>
+    <string name="return_native_update">"Lokala uppgraderingspaket redan finns, återgå till lokala uppgraderingen"</string>
+    <string name="have_update">"Kontrollera om systemuppdateringar"</string>
+    <string name="notification_update">"Gå till inställningsapplikation och klicka på Uggla Uppgradering"</string>
+    <string name="download_notice">"Vänligen hålla nätverkstrafiken. Öppna inte USB-anslutning under Nedladdningen"</string>
+    <string name="apk_title">"Uggla Uppgradering V1.0"</string>
+    <string name="checkbox_title">"Automatisk kontroll efter uppdateringar"</string>
+    <string name="checkbox_summary">"Avmarkera så kan inte automatiskt länka till nätverk"</string>
+    <string name="checkfrequency_title">"Ställ förfrågan cykeln"</string>
+    <string name="checkfrequency_summary">"Förfrågan cykel:"</string>
+    <string name="day">"Dag"</string>
+    <string name="battery_low">"Svagt batteri"</string>
+    <string name="battery_notify">"Vänligen installera uppdateringen när batteriet är över 50%"</string>
+</resources>

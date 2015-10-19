@@ -1,0 +1,161 @@
+#!/bin/bash
+#====================================================================================================
+#
+# Script Name: runDMTTest
+#
+# General Description: This script generate general test cases, create test directory, execute all
+#                      test cases and provide result
+#
+#====================================================================================================
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#====================================================================================================
+usage () {
+  echo ""
+  echo "========================================================================================="
+  echo ""
+  echo "Usage : "
+  echo ""
+  echo "   runDMTTest fstab Dmt.zip"
+  echo ""
+  echo "Sample:"
+  echo ""
+  echo "  ./runDMTTest /home/e32569/DMT/fstab /home/e32569/DMT/Dmt.zip"
+  echo "=========================================================================================="
+  echo ""
+}
+# validate parameters
+if [ "$#" -ne 2 ]
+then
+  echo ""
+  echo "    Missing requered parameters!!! "
+  usage
+  exit 1
+fi
+
+export LANG=en_US
+export LANGVAR=en_US
+unset LC_ALL
+export LC_CTYPE="en_US.UTF-8"
+
+
+FSTAB_FILE="$1"
+DMT_ZIP="$2"
+CURRENTDIR=`pwd`
+OUTPUTDIR=$CURRENTDIR/test
+TEST_FILE=$OUTPUTDIR/tests.txt
+ERRORS_FILE=$OUTPUTDIR/errors.txt
+RESULT_FILE=$OUTPUTDIR/result.txt
+
+CREATEPKGDIR=/vobs/linuxjava/device_mgmt/dm/core/src/linux_java/buildscripts
+TMP_FOLDER=/tmp/pckg.lj.`whoami`
+TEST_TREE_PATH=$TMP_FOLDER/samples/dmt_data
+TEST_RUN_PATH=$TMP_FOLDER/samples
+
+
+# Do some checking on our environment - we need java & unzip present
+
+if [ -z "$JAVA_HOME" ]
+then
+  echo "Environment variable JAVA_HOME needs to be set!"
+  exit 1
+fi
+
+unzip > /dev/null
+
+if [ "$?" -ne 0 ]
+then
+  echo "Couldn't find unzip - please install it, or put it on your PATH."
+  exit 1
+fi
+
+
+# fstab is reduered file, test if fstab exists and readable
+if [ ! -r $FSTAB_FILE ]
+then
+  echo "Cannot find fstab file with path: $FSTAB_FILE"
+  exit 1
+fi
+
+# fstab is reduered file, test if fstab exists and readable
+if [ ! -r $DMT_ZIP ]
+then
+  echo "Cannot find Dmt.zip file with path: $DMT_ZIP"
+  exit 1
+fi
+
+# Remove output directory if exists
+if [ -d "$OUTPUTDIR" ]
+then
+  echo "Removing output directory ..."
+  rm -rf $OUTPUTDIR
+fi
+
+mkdir $OUTPUTDIR
+
+echo "Unzipping files. Please wait..."
+rm -rf Dmt
+unzip -o $DMT_ZIP > /dev/null;
+
+echo ""
+echo "Generate test file..."
+$JAVA_HOME/bin/java -classpath lib/DMTTest.jar com.mot.treetest.TreeTest testgen `pwd`/Dmt $TEST_FILE
+
+if [ $? -eq 1 ]
+  then
+    echo "An error occured during generation test file..."
+    echo "Cleaning on abort..."
+    rm -rf Dmt
+    rm -rf $OUTPUTDIR
+    exit 1
+fi
+
+#read $dummy
+
+echo ""
+echo "Create package..."
+cd $CREATEPKGDIR
+./createPackage -d
+
+#read $dummy
+
+echo "Generate DM tree ... "
+cd $CURRENTDIR
+./generateDMT -fstab $FSTAB_FILE $DMT_ZIP
+
+#read $dummy
+
+echo ""
+echo "Replace DM tree in the test package ... "
+rm -f $TEST_TREE_PATH/*
+cp -f $CURRENTDIR/treedata/* $TEST_TREE_PATH
+
+echo "Run DMT test..."
+cd $TEST_RUN_PATH
+./run_test <$TEST_FILE >$RESULT_FILE
+
+#read $dummy
+
+echo "Parse and analyze test result..."
+cd $CURRENTDIR
+$JAVA_HOME/bin/java -classpath lib/DMTTest.jar com.mot.treetest.TreeTest testrun $RESULT_FILE $ERRORS_FILE
+
+echo "Cleaning all temporary files..."
+rm -rf Dmt
+
+exit 0
+
+
+
+

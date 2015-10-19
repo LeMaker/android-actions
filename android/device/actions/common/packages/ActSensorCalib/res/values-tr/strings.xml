@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"G Sensör Kalibrasyon"</string>
+    <string name="buttonCalib_name">"Kalibrasyon çalıştırın"</string>
+    <string name="buttonReset_name">"Kalibrasyon silin"</string>
+    <string name="info_reset">"Kalibrasyon dataları silindi"</string>
+    <string name="info_calib">"Kalibrasyon dataları kaydedildi"</string>
+    <string name="info_tips">" lütfen cihazı yüzey bir yer üzerinde koyun ve ayarlama düğmeye basın."</string>
+</resources>

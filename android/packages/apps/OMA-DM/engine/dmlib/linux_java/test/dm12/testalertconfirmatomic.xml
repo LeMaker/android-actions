@@ -1,0 +1,48 @@
+	<SyncML xmlns="SYNCML:SYNCML1.2">
+	<SyncHdr>
+	<VerDTD>1.2</VerDTD>
+	<VerProto>DM/1.2</VerProto>
+	<SessionID>11</SessionID>
+	<MsgID>1</MsgID>
+	<Target>
+	<LocURI>SampleClient</LocURI>
+	</Target>
+	<Source>
+	<LocURI>mot.manage</LocURI>
+	</Source>
+	<RespURI>http://199.1.88.66/Scts?4Eq5AA==</RespURI>
+	<Meta>
+	<MaxMsgSize xmlns="syncml:metinf">20000</MaxMsgSize>
+	</Meta>
+	</SyncHdr>
+	<SyncBody>
+
+<Atomic>
+<CmdID>1</CmdID>
+
+	<Alert>
+	<CmdID>2</CmdID>
+	<Data>1101</Data>
+	<Item><Data>MAXDT=15DR=1</Data></Item>
+	<Item>
+	<Data>Testing Confirmation Alert</Data>
+	</Item>
+	</Alert>
+
+  <Replace> 
+   <CmdID>3</CmdID>
+   <Meta>
+    <Format xmlns="syncml:metinf">chr</Format>
+    <Type xmlns="syncml:metinf">text/plain</Type>
+   </Meta>
+   <Item>
+   <Target><LocURI>./DevDetail/Bearer/GSM</LocURI></Target>
+   <Data>test</Data>
+  </Item>
+ </Replace>
+
+</Atomic>
+
+	<Final/>
+	</SyncBody>
+	</SyncML>

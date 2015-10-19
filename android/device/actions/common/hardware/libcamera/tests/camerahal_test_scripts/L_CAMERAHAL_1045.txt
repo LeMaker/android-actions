@@ -1,0 +1,16 @@
+|A1|4VGA|~yuv420sp|r30|9H264|vmp4|-AMR_NB|]64K|lVGA|6|d10|2
+|4VGA|~yuv420sp|r30|55MP|1|d5|p|d5|2
+|4VGA|~yuv420sp|r30|9H264|vmp4|-AMR_NB|]64K|lVGA|6|d10|2
+|4VGA|~yuv420sp|r30|55MP|1|d5|p|d5|2
+|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0045
+//DESCRIPTION: Record video and capture an image alternatively
+//     AUTHOR: Ivpetrov
+//MODIFIED BY: Emilian Peev
+//       DATE: 18.08.2010
+//    VERSION: 1.0
+

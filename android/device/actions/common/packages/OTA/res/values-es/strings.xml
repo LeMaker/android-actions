@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Ajuste"</string>
+    <string name="title_activity_main">"Actualización de búho"</string>
+    <string name="update_online">"Actualización en línea"</string>
+    <string name="update_native">"Actualización local"</string>
+    <string name="goto_recovery">"¿Restaurar a modo de actualización de recuperación?"</string>
+    <string name="progress_dialog_title">"En conexión de redes"</string>
+    <string name="not_connect">"No conectado a la red"</string>
+    <string name="progress_dialog_mgs">"Comprobando para saber si hay actualizaciones, espere por favor…"</string>
+    <string name="connect_server_wrong">"El servidor está ocupado, revisa por favor la conexión"</string>
+    <string name="current_system_isnew">"La versión actual del sistema es actualizada"</string>
+    <string name="sure">"Confirmar"</string>
+    <string name="update_message">"¿Compruebe la versión actualizada, si quiere descargar?"</string>
+    <string name="update_title">"Actualizaciones de la nueva versión"</string>
+    <string name="download">"Descarga"</string>
+    <string name="update_rightnow">"Actualizar ahora"</string>
+    <string name="start_download">"Empezar a descargar el paquete de actualización"</string>
+    <string name="update_package">"Paquete de actualización"</string>
+    <string name="download_complete">"La descarga es completa"</string>
+    <string name="download_fail">"No se pudo descargar"</string>
+    <string name="md5_check_fail">"Error de paridad MD5"</string>
+    <string name="update_package_downloaded">"Paquete de actualización se ha descargado"</string>
+    <string name="finish_download">"Paquete de actualización se termina descargando"</string>
+    <string name="update_notice">"\nStart OTA actualizar:\n El proceso de la actualización, la acción no se puede interrumpir, sostiene por favor sus datos.\n"</string>
+    <string name="cancel_download">"¿Si desea cancelar la descarga?"</string>
+    <string name="wait_downloading">"Espere, descargando..."</string>
+    <string name="download_update_file">"Ningún archivo de actualización en el directorio de SDCard, actualización en línea para descargar el archivo de actualización"</string>
+    <string name="return_native_update">"La actualización local existente del paquete, por favor devuelva a la actualización local"</string>
+    <string name="have_update">"Comprobación de actualizaciones del sistema"</string>
+    <string name="notification_update">"Aplicación de ajustes, haga clic en buho para actualización"</string>
+    <string name="download_notice">"Por favor mantenga el tráfico de red, el proceso de descarga, por favor, no abra la conexión USB"</string>
+    <string name="apk_title">"Actualización de búhoV1.0"</string>
+    <string name="checkbox_title">"Restauración automática de la pregunta"</string>
+    <string name="checkbox_summary">"Desmarque no require el acceso al servidor y la red automaticamente"</string>
+    <string name="checkfrequency_title">"Programar el ciclo de consulta"</string>
+    <string name="checkfrequency_summary">"Ciclo de consulta:"</string>
+    <string name="day">"Día"</string>
+    <string name="battery_low">"Batería baja"</string>
+    <string name="battery_notify">"por favor instale la actualización cuando la batería está por encima del 50% "</string>
+</resources>

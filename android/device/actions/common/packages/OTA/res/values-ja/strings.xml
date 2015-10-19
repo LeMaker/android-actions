@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"設定"</string>
+    <string name="title_activity_main">"フクロウ（Owl）アップグレード"</string>
+    <string name="update_online">"オンラインアップグレード"</string>
+    <string name="update_native">"ローカルアップグレード"</string>
+    <string name="goto_recovery">"リカバリーアップグレードモードに回復する？"</string>
+    <string name="progress_dialog_title">"インタネット接続中"</string>
+    <string name="not_connect">"インタネットに接続していない"</string>
+    <string name="progress_dialog_mgs">"情報を検査して更新中、お待ちください。"</string>
+    <string name="connect_server_wrong">"サーバーが忙しい、接続し直してください。"</string>
+    <string name="current_system_isnew">"目前のシステムバージョンは最新的である。"</string>
+    <string name="sure">"確定"</string>
+    <string name="cancel">"キャンセル"</string>
+    <string name="update_message">"最新のバージョンを検出しました、ダウンロードしますか。"</string>
+    <string name="update_title">"新バージョンのアップデータ内容"</string>
+    <string name="download">"ダウンロード"</string>
+    <string name="update_rightnow">"直ぐにアップグレードする"</string>
+    <string name="start_download">"アップグレードパッケージをダウンロードする"</string>
+    <string name="update_package">"アップグレードパッケージ"</string>
+    <string name="download_complete">"ダウンロード終了"</string>
+    <string name="download_fail">"ダウンロード失敗"</string>
+    <string name="md5_check_fail">"MD5パリティエラー"</string>
+    <string name="update_package_downloaded">"アップグレードパッケージはダウンロード終了"</string>
+    <string name="finish_download">"アップグレードパッケージはダウンロード終了"</string>
+    <string name="update_notice">"\nOTAアップグレードスタート:\nアップグレード中、動作は中断できない、データをバックアップして置いてください。\n"</string>
+    <string name="cancel_download">"ダウンロードをキャンセルしますか？"</string>
+    <string name="wait_downloading">"ダウンロード中、お待ちください…"</string>
+    <string name="download_update_file">"SDCardのルートディレクトリには更新ファイルがなく、オンラインでファイルをダウンロードして更新してください"</string>
+    <string name="return_native_update">"ローカルアップグレードパッケージが存在してあり、ローカルアップグレードに戻してください。"</string>
+    <string name="have_update">"システムアップデートがある"</string>
+    <string name="notification_update">"設定アプリケーションに入りowlアップグレードをクリックしてください"</string>
+    <string name="download_notice">"インタネットの接続を維持して、ダウンロードする間に、USB接続を起動しないでください"</string>
+    <string name="apk_title">"Owl アップグレードV1.0"</string>
+    <string name="checkbox_title">"自動検査更新"</string>
+    <string name="checkbox_summary">"チェックをキャセルすれば、自動にインタネットに接続してサーバへのアクセスが停止されます"</string>
+    <string name="checkfrequency_title">"インクエリーサイクルを設定する"</string>
+    <string name="checkfrequency_summary">"インクエリーサイクル"</string>
+    <string name="day">"日"</string>
+    <string name="battery_low">"バッテリー電力不足"</string>
+    <string name="battery_notify">"バッテリ電力が50％以上の時にアップデートしてください"</string>
+</resources>

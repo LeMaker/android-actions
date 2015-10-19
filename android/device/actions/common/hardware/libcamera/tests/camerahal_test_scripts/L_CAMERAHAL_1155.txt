@@ -1,0 +1,18 @@
+|A1|4VGA|~yuv420sp|r30|'30
+|:SQCIF|1|512MP|d5|p|d10|2
+|:QVGA|1|512MP|d5|p|d10|2
+|:CIF|1|512MP|d5|p|d10|2
+|:VGA|1|512MP|d5|p|d10|2
+|:NTSC|1|512MP|d5|p|d10|2
+|:PAL|1|512MP|d5|p|d10|2
+|:WVGA|1|512MP|d5|p|d10|2
+|q
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0155
+//DESCRIPTION: Different thumbnail resolutions View finder resolution: Any View finder format: YUV420 NV12 Image capture format: JPEG Thumbnbnail format:: JPEG  Image Capture resolution: 5MP  Thumbnail resolutions: SQCIF, QCIF, CIF, QVGA, CIF, VGA, NTSC, PAL, WVGA
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Төхөөрөмжийн Нийлүүлэгч"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Алдаа!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Өөрийн профайлыг тохируулна уу"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Таны компани энэ профайлыг хянаж, аюулгүй байлгадаг. Та төхөөрөмж дээрх бусад зүйлсийг хянана."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Дараах апп энэ профайлд хандах шаардлагатай:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Тохируулах"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Таны ажлын профайлыг тохируулж байна..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Танай админ тохиргоо, байгууллагын хандалт, апп болон профайлтай холбоотой дата, сүлжээний идэвхжилт болон таны төхөөрөмжийн байршлын мэдээлэл зэргийг хянах, удирдах боломжтой."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Таны админ тохиргоо, байгууллагын хандалт, апп-ууд, энэ төхөөрөмжтэй холбоотой дата, сүлжээний идэвхжилт, төхөөрөмжийн байршлын мэдээлэл зэргийг хянах, удирдах эрхтэй."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Танай байгууллагын нууцлалын бодлого зэрэг дэлгэрэнгүй мэдээллийг өөрийн администраторт хандаж авна уу."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Дэлгэрэнгүй үзэх"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Цуцлах"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"ТИЙМ"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Ажлын профайл"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Таны төхөөрөмж дээр ажлын профайл байна. Үүнийг арилгах уу?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Энэ ажлын профайлыг устгахдаа итгэлтэй байна уу? Үүний бүх дата устах болно."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Хасах"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Цуцлах"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Ажлын профайлыг үргэлжлүүлэн суулгахын тулд та төхөөрөмжөө шифрлэх шаардлагатай. Үүнд хэсэг хугацаа орж болно."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Цуцлах"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Шифрлэх"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Шифрлэлт дууссан"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Ажлын профайлаа үргэлжлүүлэн тохируулахын тулд хүрнэ үү"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Таны ажлын профайлыг тохируулж чадсангүй. МТ хэлтэстэй холбогдох буюу дараа дахин оролдоно уу."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Таны төхөөрөмж ажлын профайлыг дэмждэггүй"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Ажлын профайлыг төхөөрөмжийн эзэмшигч тохируулах шаардлагатай."</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Таны ажлын профайл энэ эхлүүлэгч апп-аар дэмжигдээгүй байна. Таарах эхлүүлэгч апп-р солино уу."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Цуцлах"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"Тийм"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Ажлын төхөөрөмжийн хэрэглэгч"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Төхөөрөмжөө тохируулна уу"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Тохируулгын датаг боловсруулж байна..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi руу холбогдож байна..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"Админ апп-г татаж авч байна..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"Админ апп суулгаж байна..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Төхөөрөмжийн эзэмшигчийг тохируулж байна..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Тохируулгыг зогсоох уу?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Та төхөөрөмжөө тохируулахыг зогсоож, датаг устгах уу?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Цуцлах"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"ТИЙМ"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Дахин шинэчлэх"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Таны төхөөрөмжийг тохируулж чадсангүй. МТ хэлтэстэй холбогдоно уу."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Энэ төхөөрөмжийг аль хэдийн тохируулсан"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi-д холбогдож чадсангүй"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"checksum алдаанаас шалтгаалан админ апп-г ашиглаж чадсангүй. МТ хэлтэстэй холбогдоно уу."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Админ апп-г татаж авч чадсангүй"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Админ апп-г ашиглах боломжгүй. Бүрдэл дутагдсан эсхүл гэмтсэн байна. МТ хэлтэстэй холбогдоно уу."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Админ апп-г суулгаж чадсангүй"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Таны төхөөрөмж дээр админ апп суугаагүй байна"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Тохируулгыг зогсоох уу?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Та тохируулгыг зогсоохдоо итгэлтэй байна уу?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Үгүй"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Тийм"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Цуцлаж байна..."</string>
+</resources>

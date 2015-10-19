@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="1"
+          android:versionName="1.0.0"
+          package="com.android.omadm.service"
+          android:sharedUserId="com.android.uid.omadm.service">
+
+    <uses-sdk
+            android:minSdkVersion="19"
+            android:targetSdkVersion="19"/>
+
+    <permission
+            android:name="com.android.permission.READ_OMADM_SETTINGS"
+            android:protectionLevel="signatureOrSystem"/>
+    <permission
+            android:name="com.android.permission.WRITE_OMADM_SETTINGS"
+            android:protectionLevel="signatureOrSystem"/>
+    <permission
+            android:name="com.android.permission.INJECT_OMADM_SETTINGS"
+            android:protectionLevel="signatureOrSystem"/>
+
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CONNECTIVITY_INTERNAL"/>
+    <uses-permission android:name="com.android.permission.READ_OMADM_SETTINGS"/>
+    <uses-permission android:name="com.android.permission.WRITE_OMADM_SETTINGS"/>
+
+    <!-- FIXME: remove these permissions if not required. -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="com.android.permission.CONNMO_SETTINGS"/>
+    <uses-permission android:name="com.android.permission.INJECT_OMADM_SETTINGS"/>
+
+    <application
+            android:label="@string/app_name"
+            android:allowBackup="false">
+
+        <!-- receives "com.android.omadm.service.Launch" action -->
+        <service
+                android:name=".DMClientService"
+                android:exported="true"
+                android:permission="com.android.permission.WRITE_OMADM_SETTINGS"/>
+
+        <!-- receives "com.android.omadm.plugin.dev.DevPlugin" action -->
+        <service
+                android:name="com.android.omadm.plugin.dev.DevService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.omadm.plugin.dev.DevPlugin"/>
+            </intent-filter>
+        </service>
+
+        <service
+                android:name=".DMDataConnectionService"
+                android:exported="false">
+        </service>
+
+        <service
+                android:name="com.android.omadm.plugin.diagmon.DiagmonService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.omadm.plugin.diagmon.DiagmonPlugin"/>
+            </intent-filter>
+        </service>
+
+        <!-- receives "com.android.omadm.service.InjectPackage0" action -->
+        <!-- for injecting test Package 0 from the command line -->
+        <receiver
+                android:name=".DMInjectPackageReceiver"
+                android:exported="true"
+                android:permission="com.android.permission.INJECT_OMADM_SETTINGS"/>
+
+        <!-- receives WAP push messages from framework. -->
+        <receiver
+                android:name=".DMWapPushReceiver"
+                android:permission="android.permission.BROADCAST_WAP_PUSH">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED"/>
+                <data android:mimeType="application/vnd.syncml.notification"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- main broadcast intent receiver -->
+        <receiver
+                android:name=".DMIntentReceiver"
+                android:enabled="true"
+                android:permission="com.android.permission.WRITE_OMADM_SETTINGS">
+            <intent-filter>
+                <action android:name="com.android.omadm.service.WAP_PUSH_RECEIVED_INTERNAL"/>
+            </intent-filter>
+
+            <!-- for injection package0 from the command line -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.InjectPackage0_Internal"/>
+            </intent-filter>
+
+            <!-- cancel information notification -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.close_notification_info"/>
+            </intent-filter>
+
+            <!--
+                call and data state both ready and DM session can be started (from
+                DataAndCallStateMonitoringService)
+            -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.call_and_data_state_ready"/>
+            </intent-filter>
+
+            <!--
+                Fota Apn is active and DM session can be started (from
+                ApnStateMonitoringService)
+            -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.apn_state_active"/>
+            </intent-filter>
+
+            <!-- FDM start intent -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.notify_result_to_server"/>
+            </intent-filter>
+
+            <!-- update server hostname and proxy address intent -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.set_server_config"/>
+            </intent-filter>
+
+            <!--
+                user from UI confirmed starting DM session (from
+                DMSessionConfirmAlertActivity)
+            -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.user_confirmed_dm_session"/>
+            </intent-filter>
+
+            <intent-filter android:priority="1">
+                <action android:name="com.android.omadm.service.start_up"/>
+            </intent-filter>
+
+            <!-- event to handle DM session result from DMClientService -->
+            <intent-filter android:priority="1">
+                <action android:name="com.android.omadm.service.Result"/>
+            </intent-filter>
+
+            <!-- timer alarm event -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.pending_notification"/>
+            </intent-filter>
+
+            <!-- event to handle client initiated alert 1226 type requests -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.client_initiated_fota"/>
+            </intent-filter>
+
+            <!-- event to handle DM session cancel request -->
+            <intent-filter>
+                <action android:name="com.android.omadm.service.cancel_dm_session"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- receives "com.android.omadm.service.pkg0_alert_dlg", pkg0_info_dlg, update_cancel_dlg -->
+        <activity
+                android:name=".DMDialog"
+                android:label="@string/app_name"
+                android:exported="false"/>
+
+        <!-- receives intents to display alert dialogs and session timeout notice -->
+        <activity
+                android:name=".DMAlertActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:label="@string/app_name"
+                android:exported="false"/>
+
+        <activity
+                android:name=".DMSessionConfirmAlertActivity"
+                android:label=""
+                android:theme="@android:style/Theme.Holo"
+                android:launchMode="singleTask"/>
+
+    </application>
+
+</manifest>

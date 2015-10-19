@@ -1,0 +1,56 @@
+01.17.2007 by Victor Havin  CR LIBll09785
+   1. Created and added ReleaseNotes file.
+   2. Change Gen.java (and GenTool.jar) to fix phone model setting in ddf file (take from tree).
+   3. Remove validation for an empty string for the attribute "value" in the DMTValidator.java.
+   4. Fixing (ignoring) default values for the nodes with type "bin". DM engine doesn't support it.
+
+02.12.2007 by Victor Havin  CR LIBll35212
+   1. Bug fixing: supporting empty spaces in the attribute "values:" 
+   2. Add tree auto test tools to the vobs
+   
+05.01.2007 by Victor Havin  CR LIBmm11410
+   1. Add error messages to the DMTValidator.java
+   2. Add more validation for the nodes with "bin" type.
+   3. Add support for new access type: "Local".
+   4. Fix DMT test tool (access "Add" from parent and for multi nodes from definition ../../[]/..)
+   
+05.22.2007  by Victor Havin  CR LIBmm07206
+   1. Replace File... with NodeLoader... and add com/mot/io package for integration with FlexML 
+      (developed by by James Wylder-jwylder1).
+   2. Add suppert for Dmt directory as a parameter instead of Dmt.zip.
+   3. Fixing bug: close file handlers after using.
+
+07.24.2007  by Victor Havin  CR LIBmm82940  (Gen tool version 1.5)
+   1. Remove Python.
+   2. Add file name validation, error code return from Gen, separate .err with .out, add debug option
+   3. Remove generateDMT_v, change script for support flex settings file with name "FlexEnvSetting"
+   
+08.09.2007  by Victor Havin  CR LIBnn08212  (Gen tool version 1.6)
+   1. Add support "!" and "&" as a part of node name
+   2. Move Gen.java and DMTValidator.java to com/mot/dm/core
+   3. Change way validating Java version.
+   
+08.31.2007  by Victor Havin  CR LIBnn24894  (Gen tool version 1.7)
+   1. Add support for attribute "event:"
+   2. Generate event.txt and event.dat.
+   3. Write <Path> to DDF file and format it according to dtd.
+   4. Add method genTree() for FlexML (move logic from  main() to genTree().
+
+10.19.2007  by Victor Havin  CR LIBnn57278  (Gen tool version 1.8)
+   1. Add default value and constarins to DDF file.
+   2. Add encoding/decoding UTF-8 for reading /writing files (by Jesse).
+   3. Add hex string encoding for factory bootstrap using FactBootEnc.java.
+   
+02.14.2008  by Victor Havin  CR LIBnn57278  (Gen tool version 1.9)
+   1. Fix nodes types in the Xml2Wbxml.java: date, time, float.
+ 
+06.03.2008  by Victor Havin  CR LIBpp89940  (Gen tool version 1.10)  
+   1. Add sorting for DMT nodes (by node's name)
+
+06.30.2008  by Victor Havin  CR LIBqq22458  (Gen tool version 1.11)  
+   1. Fix factory bootstrap. Now value taken from NodeLoader (not from file directly). 
+      The tool supports only HEX presentation for special nodes (not row bytes).
+      
+   
+    
+   

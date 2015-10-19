@@ -1,0 +1,10 @@
+|4VGA|~yuv420sp|r30|1|d5|f|d5|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0021
+//DESCRIPTION: Camera HAL shall support Auto focus capability
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0

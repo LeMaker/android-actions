@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Device Provisioner"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Oi!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Nustatykite profilį"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Jūsų organizacija valdo šį profilį ir užtikrina jo saugumą. Visa kita savo įrenginyje valdote jūs."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Naudojant toliau nurodytą programą, reikės prieigos prie šio profilio:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Nustatyti"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Nustatomas darbo profilis..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Administratorius gali stebėti ir tvarkyti nustatymus, įmonės prieigą, programas ir su šiuo profiliu susietus duomenis, įskaitant tinklo veiklą ir įrenginio vietos informaciją."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Administratorius gali stebėti ir tvarkyti nustatymus, įmonės prieigą, programas ir su šiuo įrenginiu susietus duomenis, įskaitant tinklo veiklą ir įrenginio vietovės informaciją."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Jei reikia daugiau informacijos, įskaitant organizacijos privatumo politiką, susisiekite su administratoriumi."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Sužinokite daugiau"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Atšaukti"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"Gerai"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Darbo profilis"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Jau turite darbo profilį įrenginyje. Ar norite jį pašalinti?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Ar tikrai norite pašalinti šį darbo profilį? Visi jo duomenys bus ištrinti."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Pašalinti"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Atšaukti"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Jei norite tęsti darbo profilio sąranką, turite šifruoti įrenginį. Tai gali šiek tiek užtrukti."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Atšaukti"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Šifruoti"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Šifruotė baigta"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Palieskite, kad galėtumėte tęsti darbo profilio nustatymą"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Nepavyko nustatyti jūsų darbo profilio. Susisiekite su IT skyriumi arba vėliau bandykite dar kartą."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Įrenginys nepalaiko darbo profilių"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Darbo profilius turi nustatyti įrenginio savininkas"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Ši paleidimo priemonės programa nepalaiko darbo profilio. Reikės naudoti suderinamą paleidimo priemonę."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Atšaukti"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"Gerai"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Darbo įrenginio naudotojas"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Nustatykite įrenginį"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Apdorojami sąrankos duomenys..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Prisijungiama prie „Wi-Fi“..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"Atsisiunčiama administratoriaus programa..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"Diegiama administratoriaus programa..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Nustatomas įrenginio savininkas..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Stabdyti sąranką?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Ar tikrai norite sustabdyti įrenginio duomenų nustatymą ir trynimą?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Atšaukti"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"Gerai"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Nustatyti iš naujo"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Nepavyko nustatyti įrenginio. Susisiekite su IT skyriumi."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Šis įrenginys jau nustatytas"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Nepavyko prisijungti prie „Wi-Fi“"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Nepavyko naudoti administratoriaus programos dėl kontrolinės sumos klaidos. Susisiekite su IT skyriumi."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Nepavyko atsisiųsti administratoriaus programos"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Negalima naudoti administratoriaus programos. Trūksta jos komponentų arba ji sugadinta. Susisiekite su IT skyriumi."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Nepavyko įdiegti administratoriaus programos"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Administratoriaus programa neįdiegta įrenginyje"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Stabdyti sąranką?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Ar tikrai norite sustabdyti sąranką?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Ne"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Taip"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Atšaukiama..."</string>
+</resources>

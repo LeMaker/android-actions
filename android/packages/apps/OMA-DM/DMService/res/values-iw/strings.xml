@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">\u200fDMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">ניהול התקן</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">הודעת מערכת</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">אישור</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">דחה</string>
+    <string name="dm_session_button_confirm">עדכן</string>
+    <string name="dm_session_button_reject">בטל</string>
+    <string name="dm_session_confirmation_title">עדכון מערכת</string>
+    <string name="dm_session_confirmation_message">עדכון מערכת זמין עבור הטלפון שלך</string>
+    <string name="dm_session_confirmation_notification_label">עדכון מערכת</string>
+    <string name="dm_session_confirmation_notification_message">בקשה חדשה להפעלת DM</string>
+    <string name="dm_session_information_notification_label">עדכון מערכת</string>
+    <string name="dm_session_information_notification_message1">השרת יזם בקשה</string>
+    <string name="dm_session_information_notification_message2_success">ההתקן השלים את בקשת השרת</string>
+    <string name="dm_session_information_notification_message2_fail">ההתקן לא השלים את בקשת השרת</string>
+
+</resources>

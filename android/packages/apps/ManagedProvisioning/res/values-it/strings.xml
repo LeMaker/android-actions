@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Provisioner dispositivo"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Ops!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Configura il tuo profilo"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"La tua organizzazione controlla questo profilo e lo tiene protetto, mentre tu controlli tutto il resto sul dispositivo."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"La seguente app dovrà accedere a questo profilo:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Configura"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Impostazione di un profilo di lavoro..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"L\'amministratore ha la possibilità di monitorare e gestire impostazioni, accesso aziendale, app e dati associati al profilo, incluse l\'attività di rete e le informazioni sulla posizione del dispositivo."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"L\'amministratore ha la possibilità di monitorare e gestire impostazioni, accesso aziendale, app e dati associati al dispositivo, incluse l\'attività di rete e le informazioni sulla posizione del dispositivo."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Per ulteriori informazioni, contatta il tuo amministratore e consulta le norme sulla privacy della tua organizzazione."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Ulteriori informazioni"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Annulla"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Profilo di lavoro"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Hai già un profilo di lavoro sul dispositivo. Vuoi rimuoverlo?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Vuoi rimuovere questo profilo di lavoro? Tutti i dati associati verranno eliminati."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Rimuovi"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Annulla"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Per continuare la configurazione del profilo di lavoro, dovrai crittografare il dispositivo. L\'operazione potrebbe richiedere del tempo."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Annulla"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Crittografa"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Crittografia completa"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Tocca per continuare a configurare il profilo di lavoro"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Impossibile impostare il tuo profilo di lavoro. Contatta il tuo reparto IT oppure riprova in un secondo momento."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Il tuo dispositivo non supporta profili di lavoro"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"I profili di lavoro devono essere configurati dal proprietario del dispositivo"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Il tuo profilo di lavoro non è supportato da questa app Avvio applicazioni. Devi passare a un\'app Avvio applicazioni compatibile."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Annulla"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Utente del dispositivo di lavoro"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Configurazione del dispositivo"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Elaborazione dati di impostazione..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Connessione a rete Wi-Fi..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"Download dell\'app dell\'amministratore..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"Installazione dell\'app dell\'amministratore..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Impostazione del proprietario dispositivo..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Interrompere la configurazione?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Vuoi interrompere l\'impostazione e cancellare i dati del tuo dispositivo?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Annulla"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Reimposta"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Impossibile impostare il dispositivo. Contatta il tuo reparto IT."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Questo dispositivo è già configurato"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Impossibile connettersi alla rete Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Impossibile utilizzare l\'app dell\'amministratore per un errore di checksum. Contatta il tuo reparto IT."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Impossibile scaricare l\'app di amministrazione"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Impossibile utilizzare l\'app dell\'amministratore per componenti mancanti o danneggiati. Contatta il tuo reparto IT."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Impossibile installare l\'app di amministrazione"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"L\'app di amministrazione non è stata installata sul tuo dispositivo"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Interrompere la configurazione?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Vuoi interrompere la configurazione?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"No"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Sì"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Annullamento in corso..."</string>
+</resources>

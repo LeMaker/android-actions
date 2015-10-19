@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Настройки"</string>
+    <string name="title_activity_main">"Актуализация Owl"</string>
+    <string name="update_online">"Актуализация онлайн"</string>
+    <string name="update_native">"Локална актуализация"</string>
+    <string name="goto_recovery">"Възстанови към Режим за възстановяване при актуализация?"</string>
+    <string name="progress_dialog_title">"Работа в мрежа"</string>
+    <string name="not_connect">"Не е свързан с мрежата"</string>
+    <string name="progress_dialog_mgs">"Проверка за нова версия, моля изчакайте…"</string>
+    <string name="connect_server_wrong">"Сървърът е зает, моля опитайте отново"</string>
+    <string name="current_system_isnew">"Текущата версия на системата е актуална"</string>
+    <string name="sure">"Потвърждение"</string>
+    <string name="cancel">"Отмяна"</string>
+    <string name="update_message">"Проверка за по-нова версия, искате ли да я свалите?"</string>
+    <string name="update_title">"Актуализация към нова версия"</string>
+    <string name="download">"Изтегляне"</string>
+    <string name="update_rightnow">"Актуализирай сега"</string>
+    <string name="start_download">"Започни изтеглянето на пакета за актуализация"</string>
+    <string name="update_package">"Пакет за актуализация"</string>
+    <string name="download_complete">"Изтеглянето завършено"</string>
+    <string name="download_fail">"Неуспешно изтегляне"</string>
+    <string name="md5_check_fail">"Грешка на MD5 паритет"</string>
+    <string name="update_package_downloaded">"Пакетът за актуализация е изтеглен"</string>
+    <string name="finish_download">"Изтеглянето на пакета за актуализация е завършено"</string>
+    <string name="update_notice">"\nСтартирай актуализацияOTA:\nПроцесът на актуализация, действието не бива да бъде прекъсвано, моля запазете копие на своите данни.\n"</string>
+    <string name="cancel_download">"Отмяна на изтеглянето?"</string>
+    <string name="wait_downloading">"Моля изчакайте, в процес на изтегляне…"</string>
+    <string name="download_update_file">"Не е намерен файл за актуализация на SDCard устройството, изберете онлайн актуализация за да изтеглите файла."</string>
+    <string name="return_native_update">"Съществуващ локално пакет за актуализация, моля върнете се към локална актуализация"</string>
+    <string name="have_update">"Проверка за актуализация на системата"</string>
+    <string name="notification_update">"Прилагане на настройките кликнете на актуализация owl "</string>
+    <string name="download_notice">"Не прекъсвайте мрежовия трафик, процеса на изтегляне, не отваряйте връзка  чрез USB"</string>
+    <string name="apk_title">"Актуализация Owl V1.0"</string>
+    <string name="checkbox_title">"Автоматично опресняване на заявката"</string>
+    <string name="checkbox_summary">"Не можете да премахнете отметката за мрежовия сървър за автоматичен достъп"</string>
+    <string name="checkfrequency_title">"Задайте цикъл на заявката"</string>
+    <string name="checkfrequency_summary">"Цикъл на заявката:"</string>
+    <string name="day">"Ден"</string>
+    <string name="battery_low">"Слаба батерия"</string>
+    <string name="battery_notify">"моля инсталирайте актуализацията, когато батерията е над 50%"</string>
+</resources>

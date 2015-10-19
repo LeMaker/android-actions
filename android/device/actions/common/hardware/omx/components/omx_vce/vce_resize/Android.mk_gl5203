@@ -1,0 +1,49 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
+OMX_TOP := $(LOCAL_PATH)
+
+OMX_SYSTEM := $(TOP)/frameworks/native/include/media/openmax
+OMX_CORE   := $(TOP)/device/actions/common/hardware/omx
+OMX_VCE := $(TOP)/device/actions/common/hardware/omx/components/omx_vce/include
+OMX_VCEHAL := $(TOP)/device/actions/common/hardware/omx/components/omx_vce/vcehal/inc
+
+OMX_INCLUDES := \
+	$(OMX_SYSTEM) \
+	$(OMX_CORE) \
+	$(OMX_VCE) \
+	$(OMX_VCEHAL)
+	
+LOCAL_PRELINK_MODULE := false
+
+LOCAL_SRC_FILES:= \
+	omx_malloc.c\
+	vce_resize.c\
+	drv_resize.c\
+	main.c
+
+	
+LOCAL_C_INCLUDES := \
+	$(OMX_INCLUDES)\
+	$(TOP)/frameworks/av/include \
+	$(TOP)/frameworks/av/include/alsp/inc \
+	$(TOP)/frameworks/native/include \
+	$(LOCAL_PATH)/../../../\
+	$(LOCAL_PATH)/../../../../libgralloc\
+	$(LOCAL_PATH)/../../../base
+	
+	
+LOCAL_SHARED_LIBRARIES :=       \
+        libutils \
+        liblog \
+        libalc \
+        libdl
+
+LOCAL_MODULE_TAGS := eng optional
+
+LOCAL_MODULE:= libACT_VceResize
+
+#include $(BUILD_STATIC_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_EXECUTABLE)

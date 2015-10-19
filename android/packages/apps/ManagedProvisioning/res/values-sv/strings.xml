@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Device Provisioner"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Hoppsan!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Konfigurera profilen"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Organisationen kontrollerar profilen och håller den säker. Du har kontroll över allt annat på enheten."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Följande app behöver åtkomst till profilen:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Konfigurera"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Konfigurerar arbetsprofilen …"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Administratören har möjlighet att kontrollera och hantera inställningar, företagsåtkomst, appar och data som är kopplade till profilen, inklusive nätverksaktivitet och enhetens platsuppgifter."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Administratören kan övervaka och hantera inställningar, företagsåtkomst, appar och data på den här enheten, inklusive nätverksaktivitet och enhetens platsuppgifter."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Kontakta administratören om du vill veta mer, inklusive om du vill veta mer om organisationens sekretesspolicy."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Läs mer"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Avbryt"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Arbetsprofil"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Du har redan en arbetsprofil på enheten. Vill du ta bort den?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Vill du ta bort den här arbetsprofilen? All data kommer att raderas."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Ta bort"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Avbryt"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Du måste kryptera enheten om du vill fortsätta att konfigurera arbetsprofilen. Det kan ta ett tag."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Avbryt"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Kryptera"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Krypteringen är klar"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Tryck här om du vill fortsätta konfigurera din jobbprofil"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Det gick inte att konfigurera arbetsprofilen. Kontakta IT-avdelningen eller försök igen senare."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Enheten stöder inte arbetsprofiler"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Arbetsprofiler kan endast konfigureras av enhetens ägare"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Din jobbprofil stöds inte av det här startprogrammet. Du måste byta till ett kompatibelt startprogram."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Avbryt"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Person som använder en arbetsenhet"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Konfigurera enheten"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Bearbetar konfigurationsdata …"</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Ansluter till Wi-Fi …"</string>
+    <string name="progress_download" msgid="4995057798189799156">"Hämtar administrationsappen …"</string>
+    <string name="progress_install" msgid="9169411715762296097">"Installerar administrationsappen …"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Ställer in enhetsägare …"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Vill du avsluta konfigurationen?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Vill du avsluta konfigureringen och radera data på enheten?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Avbryt"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Återställ"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Det gick inte att konfigurera enheten. Kontakta IT-avdelningen."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Enheten har redan konfigurerats"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Det gick inte att ansluta till Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Det gick inte att använda administrationsappen på grund av en felaktig kontrollsumma. Kontakta IT-avdelningen."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Det gick inte att hämta administrationsappen"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Administrationsappen kan inte användas. Komponenter saknas eller appen har skadats. Kontakta IT-avdelningen."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Det gick inte att installera administrationsappen"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Administrationsappen har inte installerats på enheten"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Vill du avsluta konfigurationen?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Vill du avsluta konfigurationen?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Nej"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Ja"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Avslutar ..."</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">การจัดการอุปกรณ์</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">ข้อความระบบ</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">ตกลง</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">ปฏิเสธ</string>
+    <string name="dm_session_button_confirm">อัพเดต</string>
+    <string name="dm_session_button_reject">ยกเลิก</string>
+    <string name="dm_session_confirmation_title">การอัพเดตระบบ</string>
+    <string name="dm_session_confirmation_message">มีการอัพเดตระบบสำหรับโทรศัพท์ของคุณ</string>
+    <string name="dm_session_confirmation_notification_label">การอัพเดตระบบ</string>
+    <string name="dm_session_confirmation_notification_message">คำขอรอบการใช้ DM ใหม่</string>
+    <string name="dm_session_information_notification_label">การอัพเดตระบบ</string>
+    <string name="dm_session_information_notification_message1">เซิร์ฟเวอร์ได้สร้างคำขอ</string>
+    <string name="dm_session_information_notification_message2_success">อุปกรณ์ได้ดำเนินการตามคำขอของเซิร์ฟเวอร์เสร็จสมบูรณ์แล้ว</string>
+    <string name="dm_session_information_notification_message2_fail">อุปกรณ์ไม่สามารถดำเนินการตามคำขอของเซิร์ฟเวอร์ได้</string>
+
+</resources>

@@ -1,0 +1,375 @@
+[
+{
+  description: "testWindowContentFrameStats is flaky without 75b55d0846159543aafc1b7420915497fce9b3f1",
+  names: [
+    "android.app.uiautomation.cts.UiAutomationTest#testWindowContentFrameStats"
+  ],
+  bug: 18039218
+},
+{
+  description: "the UsageStats is not yet stable enough",
+  names: [
+    "android.app.usage.cts.UsageStatsTest"
+  ],
+  bug: 17536113
+},
+{
+  description: "the ConnectivityConstraintTest are not yet stable",
+  names: [
+    "android.jobscheduler.cts.ConnectivityConstraintTest"
+  ],
+  bug: 18117279
+},
+{
+  description: "tests a fragile by nature as they rely on hardcoded behavior",
+  names: [
+    "android.accessibilityservice.cts.AccessibilityTextTraversalTest#testActionNextAndPreviousAtGranularityPageOverText",
+    "android.accessibilityservice.cts.AccessibilityTextTraversalTest#testActionNextAndPreviousAtGranularityPageOverTextExtend"
+  ],
+  bug: 17595050
+},
+{
+  description: "the SSLCertificateSocketFactoryTest often fails because of lack of live internet or short timeout, it should be refactored to do a local server testing",
+  names: [
+    "android.net.cts.SSLCertificateSocketFactoryTest#testCreateSocket",
+    "android.net.cts.SSLCertificateSocketFactoryTest#test_createSocket_bind",
+    "android.net.cts.SSLCertificateSocketFactoryTest#test_createSocket_simple",
+    "android.net.cts.SSLCertificateSocketFactoryTest#test_createSocket_wrapping"
+  ],
+  bug: 18682315
+},
+{
+  description: "the test result are too much dependent on live-internet connection, which for some devices might not exist",
+  names: [
+    "android.net.wifi.cts.NsdManagerTest#testAndroidTestCaseSetupProperly"
+  ],
+  bug: 18680089
+},
+{
+  description: "AudioPolicyBinder tests are not yet robust enough",
+  names: [
+    "android.security.cts.AudioPolicyBinderTest"
+  ],
+  bug: 18461670
+},
+{
+  description: "Not all jdwp features are currently supported. These tests will fail",
+  names: [
+    "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowDebuggerLaunchTest#testDebuggerLaunch001",
+    "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowDebuggerLaunchTest#testDebuggerLaunch002",
+    "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowDebuggerLaunchTest#testDebuggerLaunch003",
+    "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowDebuggerLaunchTest#testDebuggerLaunch004",
+    "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowLaunchDebugger001#testDebugger002",
+    "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowLaunchDebugger002#testDebugger",
+    "org.apache.harmony.jpda.tests.jdwp.Events.ClassUnloadTest#testClassUnloadEvent",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorContendedEnterTest#testMonitorContendedEnterForClassMatch",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorContendedEnteredTest#testMonitorContendedEnteredForClassMatch",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitTest#testMonitorWaitForClassExclude",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitTest#testMonitorWaitForClassMatchExact",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitTest#testMonitorWaitForClassMatchFirst",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitTest#testMonitorWaitForClassMatchSecond",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitTest#testMonitorWaitForClassOnly",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitedTest#testMonitorWaitedForClassExclude",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitedTest#testMonitorWaitedForClassMatchExact",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitedTest#testMonitorWaitedForClassMatchFirst",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitedTest#testMonitorWaitedForClassMatchSecond",
+    "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitedTest#testMonitorWaitedForClassOnly",
+    "org.apache.harmony.jpda.tests.jdwp.ReferenceType.ClassFileVersionTest#testClassFileVersion001",
+    "org.apache.harmony.jpda.tests.jdwp.ReferenceType.NestedTypesTest#testNestedTypes001",
+    "org.apache.harmony.jpda.tests.jdwp.ThreadReference.StopTest#testStop001",
+    "org.apache.harmony.jpda.tests.jdwp.VirtualMachine.HoldEventsTest#testHoldEvents001",
+    "org.apache.harmony.jpda.tests.jdwp.VirtualMachine.ReleaseEventsTest#testReleaseEvents001"
+  ],
+  bug: 16720689
+},
+{
+  description: "A few WebGL tests are known to fail in WebView",
+  names: [
+    "android.webgl.cts.WebGLTest#test_conformance_extensions_oes_texture_float_with_video_html",
+    "android.webgl.cts.WebGLTest#test_conformance_renderbuffers_framebuffer_object_attachment_html",
+    "android.webgl.cts.WebGLTest#test_conformance_rendering_multisample_corruption_html",
+    "android.webgl.cts.WebGLTest#test_conformance_textures_tex_image_and_sub_image_2d_with_video_html",
+    "android.webgl.cts.WebGLTest#test_conformance_textures_tex_image_and_sub_image_2d_with_video_rgb565_html",
+    "android.webgl.cts.WebGLTest#test_conformance_textures_tex_image_and_sub_image_2d_with_video_rgba4444_html",
+    "android.webgl.cts.WebGLTest#test_conformance_textures_tex_image_and_sub_image_2d_with_video_rgba5551_html",
+    "android.webgl.cts.WebGLTest#test_conformance_textures_texture_npot_html",
+    "android.webgl.cts.WebGLTest#test_conformance_textures_texture_npot_video_html",
+    "android.webgl.cts.WebGLTest#test_conformance_glsl_misc_empty_main_vert_html",
+    "android.webgl.cts.WebGLTest#test_conformance_glsl_misc_gl_position_unset_vert_html",
+    "android.webgl.cts.WebGLTest#test_conformance_misc_webgl_specific_html"
+  ],
+  bug: 17748398
+},
+{
+  description: "WebGL test uniformMatrixBadArgs is too strict. Disabled until it's fixed upstream.",
+  names: [
+    "android.webgl.cts.WebGLTest#test_conformance_more_functions_uniformMatrixBadArgs_html"
+  ],
+  bug: 18638404
+},
+{
+  description: "permissions for the API previously used in the test has changed, making it impossible to pass",
+  names: [
+    "android.openglperf.cts.GlAppSwitchTest#testGlActivitySwitchingFast",
+    "android.openglperf.cts.GlAppSwitchTest#testGlActivitySwitchingSlow"
+  ],
+  bug: 17394321
+},
+{
+  description: "unexpected failures",
+  names: [
+    "android.openglperf.cts.GlVboPerfTest#testVboWithVaryingIndexBufferNumbers"
+  ],
+  bug: 18091590
+},
+{
+  description: "these tests require a good test scene, so they fail if run in random conditions",
+  names: [
+    "android.hardware.camera2.cts.AllocationTest#testBlackWhite",
+    "android.hardware.camera2.cts.AllocationTest#testParamSensitivity"
+  ],
+  bug: 17530117
+},
+{
+  description: "Current implementation of uninstallAllUserCaCerts does not throw expected security exception, wait for fix from framework",
+  names: [
+    "android.admin.cts.DevicePolicyManagerTest#testUninstallAllUserCaCerts_failIfNotProfileOwner"
+  ],
+  bug: 17508787
+},
+{
+  description: "New tests recently added for Android Enterprise. To be moved out of CTS-staging as soon as they show that they are stable",
+  names: [
+    "com.android.cts.devicepolicy.LauncherAppsMultiUserTest#testGetActivitiesForNonProfileFails",
+    "com.android.cts.devicepolicy.LauncherAppsMultiUserTest#testNoLauncherCallbackPackageAddedSecondaryUser",
+    "com.android.cts.devicepolicy.LauncherAppsProfileTest#testGetActivitiesWithProfile",
+    "com.android.cts.devicepolicy.LauncherAppsProfileTest#testLauncherCallbackPackageAddedProfile",
+    "com.android.cts.devicepolicy.LauncherAppsProfileTest#testLauncherCallbackPackageRemovedProfile",
+    "com.android.cts.devicepolicy.LauncherAppsProfileTest#testLauncherCallbackPackageChangedProfile",
+    "com.android.cts.devicepolicy.LauncherAppsSingleUserTest#testInstallAppMainUser",
+    "com.android.cts.devicepolicy.LauncherAppsSingleUserTest#testLauncherCallbackPackageAddedMainUser",
+    "com.android.cts.devicepolicy.LauncherAppsSingleUserTest#testLauncherCallbackPackageRemovedMainUser",
+    "com.android.cts.devicepolicy.LauncherAppsSingleUserTest#testLauncherCallbackPackageChangedMainUser",
+    "com.android.cts.devicepolicy.LauncherAppsSingleUserTest#testLauncherNonExportedAppFails",
+    "com.android.cts.devicepolicy.LauncherAppsSingleUserTest#testLaunchNonExportActivityFails",
+    "com.android.cts.devicepolicy.LauncherAppsSingleUserTest#testLaunchMainActivity"
+  ]
+},
+{
+  description: "This test failed on devices that use effect off loading. In addition it uses hidden apis",
+  names: [
+    "android.media.cts.AudioEffectTest#test1_1ConstructorFromUuid"
+  ],
+  bug: 17605875
+},
+{
+  description: "Failures on these tests are known on several devices.",
+  names: [
+    "android.hardware.cts.SensorBatchingTests#testAccelerometer_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testAccelerometer_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testAccelerometer_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testAccelerometer_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testMagneticField_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testMagneticField_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testMagneticField_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testMagneticField_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testOrientation_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testOrientation_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testOrientation_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testOrientation_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testGyroscope_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testGyroscope_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testGyroscope_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testGyroscope_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testPressure_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testPressure_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testPressure_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testPressure_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testGravity_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testGravity_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testGravity_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testGravity_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testRotationVector_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testRotationVector_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testRotationVector_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testRotationVector_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testMagneticFieldUncalibrated_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testMagneticFieldUncalibrated_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testMagneticFieldUncalibrated_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testMagneticFieldUncalibrated_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testGameRotationVector_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testGameRotationVector_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testGameRotationVector_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testGameRotationVector_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testGyroscopeUncalibrated_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testGyroscopeUncalibrated_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testGyroscopeUncalibrated_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testGyroscopeUncalibrated_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testLinearAcceleration_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testLinearAcceleration_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testLinearAcceleration_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testLinearAcceleration_50hz_flush",
+    "android.hardware.cts.SensorBatchingTests#testGeomagneticRotationVector_fastest_batching",
+    "android.hardware.cts.SensorBatchingTests#testGeomagneticRotationVector_50hz_batching",
+    "android.hardware.cts.SensorBatchingTests#testGeomagneticRotationVector_fastest_flush",
+    "android.hardware.cts.SensorBatchingTests#testGeomagneticRotationVector_50hz_flush",
+    "android.hardware.cts.SensorIntegrationTests#testSensorsWithSeveralClients",
+    "android.hardware.cts.SensorIntegrationTests#testSensorsMovingRates",
+    "android.hardware.cts.SensorIntegrationTests#testAccelerometerAccelerometerStopping",
+    "android.hardware.cts.SensorIntegrationTests#testAccelerometerGyroscopeStopping",
+    "android.hardware.cts.SensorIntegrationTests#testAccelerometerMagneticFieldStopping",
+    "android.hardware.cts.SensorIntegrationTests#testGyroscopeAccelerometerStopping",
+    "android.hardware.cts.SensorIntegrationTests#testGyroscopeGyroscopeStopping",
+    "android.hardware.cts.SensorIntegrationTests#testGyroscopeMagneticFieldStopping",
+    "android.hardware.cts.SensorIntegrationTests#testMagneticFieldAccelerometerStopping",
+    "android.hardware.cts.SensorIntegrationTests#testMagneticFieldGyroscopeStopping",
+    "android.hardware.cts.SensorIntegrationTests#testMagneticFieldMagneticFieldStopping",
+    "android.hardware.cts.SingleSensorTests#testSensorProperties",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_fastest",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_100hz",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_200hz",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_50hz",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_25hz",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_15hz",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_10hz",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_5hz",
+    "android.hardware.cts.SingleSensorTests#testAccelerometer_1hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_fastest",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_200hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_100hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_50hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_25hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_15hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_10hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_5hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticField_1hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_fastest",
+    "android.hardware.cts.SingleSensorTests#testOrientation_200hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_100hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_50hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_25hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_15hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_10hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_5hz",
+    "android.hardware.cts.SingleSensorTests#testOrientation_1hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_fastest",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_200hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_100hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_50hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_25hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_15hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_10hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_5hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscope_1hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_fastest",
+    "android.hardware.cts.SingleSensorTests#testPressure_200hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_100hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_50hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_25hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_15hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_10hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_5hz",
+    "android.hardware.cts.SingleSensorTests#testPressure_1hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_fastest",
+    "android.hardware.cts.SingleSensorTests#testGravity_200hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_100hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_50hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_25hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_15hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_10hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_5hz",
+    "android.hardware.cts.SingleSensorTests#testGravity_1hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_fastest",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_200hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_100hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_50hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_25hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_15hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_10hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_5hz",
+    "android.hardware.cts.SingleSensorTests#testRotationVector_1hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_fastest",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_200hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_100hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_50hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_25hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_15hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_10hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_5hz",
+    "android.hardware.cts.SingleSensorTests#testMagneticFieldUncalibrated_1hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_fastest",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_200hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_100hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_50hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_25hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_15hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_10hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_5hz",
+    "android.hardware.cts.SingleSensorTests#testGameRotationVector_1hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_fastest",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_200hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_100hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_50hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_25hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_15hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_10hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_5hz",
+    "android.hardware.cts.SingleSensorTests#testGyroscopeUncalibrated_1hz",
+    "android.hardware.cts.SingleSensorTests#testGeomagneticRotationVector_fastest",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_200hz",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_100hz",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_50hz",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_25hz",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_15hz",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_10hz",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_5hz",
+    "android.hardware.cts.SingleSensorTests#testLinearAcceleration_1hz",
+    "android.hardware.cts.SensorTest#testSensorTimeStamps"
+  ],
+  bug: 17675466
+},
+{
+  description: "tests will soon become mandatory",
+  names: [
+    "android.hardware.cts.SensorTest#testBatchAndFlush"
+  ],
+  bug: 18958411
+},
+{
+  description: "This test failed on hw decoder that doesn't output frame with the configured format.",
+  names: [
+    "android.media.cts.ImageReaderDecoderTest#testHwAVCDecode360pForFlexibleYuv"
+  ],
+  bug: 17144778
+},
+{
+  description: "Roboto font tests are not yet known good on all devices",
+  names: [
+    "android.uirendering.cts.testclasses.FontRenderingTests"
+  ],
+  bug: 17109280
+},
+{
+  description: "android.keystore tests will replace these tests",
+  names: [
+    "com.android.org.conscrypt.MacTest#test_getInstance_OpenSSL_ENGINE",
+    "com.android.org.conscrypt.NativeCryptoTest#test_ENGINE_by_id_TestEngine",
+    "com.android.org.conscrypt.SignatureTest#test_getInstance_OpenSSL_ENGINE"
+  ],
+  bug: 18030049
+},
+{
+  description: "The new recording test is not yet passing on all devices",
+  names: [
+    "android.hardware.camera2.cts.RecordingTest#testRecordingFramerateLowToHigh"
+  ],
+  bug: 18705837
+},
+{
+  description: "The new image reader test is not yet passing on all devices",
+  names: [
+    "android.hardware.camera2.cts.ImageReaderTest#testAllOutputYUVResolutions"
+  ],
+  bug: 18689511
+}
+]

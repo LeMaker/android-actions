@@ -1,0 +1,2 @@
+dhd5 -i wlan0 wlmsglevel 0x7ffff /* Broadcom wifi dirver print level to the highest */
+wl -i p2p-wlan0-0 PM 0 /* Port p2p-wlan0-0 cancel the power saving mode */

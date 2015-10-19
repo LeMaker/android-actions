@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Einstellungen"</string>
+    <string name="title_activity_main">"Eule Upgrade"</string>
+    <string name="update_online">"Online Upgrade"</string>
+    <string name="update_native">"Lokales Upgrade"</string>
+    <string name="goto_recovery">"den Recovery-Upgrade-Modus wiederherzustellen?"</string>
+    <string name="progress_dialog_title">"Vernetzung"</string>
+    <string name="not_connect">"Nicht mit dem Netz verbunden"</string>
+    <string name="progress_dialog_mgs">"Prüfung auf Aktualisierungen,             Warten Sie bitte..."</string>
+    <string name="connect_server_wrong">"Server ist ausgelastet, versuchen Sie die Verbindung nocheinmal"</string>
+    <string name="current_system_isnew">"Die aktuelle System-Version ist auf dem neuesten Stand"</string>
+    <string name="sure">"Bestimmt"</string>
+    <string name="cancel">"Abbrechen"</string>
+    <string name="update_message">"Überprüfen Sie die aktualisierte Version, ob herunterzuladen?"</string>
+    <string name="update_title">"Neue Version Upgrade"</string>
+    <string name="download">"Herunterladen"</string>
+    <string name="update_rightnow">"Upgrade jetzt"</string>
+    <string name="start_download">"Beginnen Sie, das Upgrade-Paket herunterzuladen."</string>
+    <string name="update_package">"Upgrade-Paket"</string>
+    <string name="download_complete">"Herunterladen abgeschlossen"</string>
+    <string name="download_fail">"Herunterladen fehlgeschlagen"</string>
+    <string name="md5_check_fail">"MD5 Paritätsfehler"</string>
+    <string name="update_package_downloaded">"Upgrade-Paket ist heruntergeladen"</string>
+    <string name="finish_download">"Herunterladen von dem Upgrade-Paket ist abgeschlossen"</string>
+    <string name="update_notice">"\n starten Sie OTA-Upgrade:\n Während des Upgrade-Prozesses kann diese Aktion nicht untergebrochen werden, sichern Sie die Daten. \n"</string>
+    <string name="cancel_download">"Werden Sie das Herunterladen abbrechen?"</string>
+    <string name="wait_downloading">"Herunterladen..., bitte Warten Sie"</string>
+    <string name="download_update_file">"Unter dem SDCard-Stammverzeichnis gibt es keine Upgrade-Dateien, Aktualisierungsdateien Online-Upgrade"</string>
+    <string name="return_native_update">"Lokales Upgrade-Paket ist vorhanden, kehren Sie zum lokalen Upgrade zurück"</string>
+    <string name="have_update">"Überprüfung auf System-Upgrade"</string>
+    <string name="notification_update">"Treten Sie in die Anwendung-Einstellung ein, um Eule-Upgrade zu klicken"</string>
+    <string name="download_notice">"Halten Sie bitte den Netzwerkverkehr, und öffnen Sie die USB-Verbindung während des Herunterladens nicht"</string>
+    <string name="apk_title">"Eule-Upgrade V1.0"</string>
+    <string name="checkbox_title">"Automatische Überprüfung auf Upgrade"</string>
+    <string name="checkbox_summary">"Deaktivieren lässt das Netzwerk nicht verbinden und lässt den Server nicht automatisch zugreifen. "</string>
+    <string name="checkfrequency_title">"Stellen Sie den Anfragezyklus ein"</string>
+    <string name="checkfrequency_summary">"Anfragezyklus:"</string>
+    <string name="day">"Tag"</string>
+    <string name="battery_low">"Schwache Batterie"</string>
+    <string name="battery_notify">"Installation und Upgrade, wenn die Batterie über 50% liegt"</string>
+</resources>

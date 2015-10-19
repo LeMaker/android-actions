@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Alineación de gravedad"</string>
+    <string name="buttonCalib_name">"Ejecutar la calibración"</string>
+    <string name="buttonReset_name">"Eliminar la calibración"</string>
+    <string name="info_reset">"Borrar los datos de calibración"</string>
+    <string name="info_calib">"Datos de calibración guardados"</string>
+    <string name="info_tips">"Por favor ponga el dispositivo sobre una superficie nivelada y quédese quieto."</string>
+</resources>

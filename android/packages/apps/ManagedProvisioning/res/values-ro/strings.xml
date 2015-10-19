@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Alocarea de resurse pentru dispozitiv"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Hopa!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Configurați-vă profilul"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Organizația dvs. controlează acest profil și menține siguranța acestuia. Dvs. controlați restul conținutului de pe dispozitiv."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Următoarea aplicație va trebui să vă acceseze profilul:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Configurați"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Se configurează profilul de serviciu..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Administratorul poate monitoriza și a gestiona setările, accesul la nivelul companiei, aplicațiile și datele asociate cu profilul, inclusiv activitatea în rețea și informațiile despre locația dispozitivului."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Administratorul poate monitoriza și gestiona setările, accesul la nivelul companiei, aplicațiile și datele asociate cu acest dispozitiv, inclusiv activitatea în rețea și informațiile despre locația dispozitivului."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Contactați administratorul pentru mai multe informații, inclusiv politicile de confidențialitate ale organizației."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Aflați mai multe"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Anulați"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Profilul de serviciu"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Aveți deja un profil de serviciu pe dispozitiv. Doriți să îl eliminați?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Sigur doriți să ștergeți acest profil de serviciu? Toate datele vor fi șterse."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Ștergeți"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Anulați"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Pentru a continua configurarea profilului de serviciu, va trebui să criptați dispozitivul. Aceasta poate dura ceva timp."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Anulați"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Criptați"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Criptare completă"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Atingeți pentru a continua configurarea profilului de serviciu"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Nu s-a putut configura profilul de serviciu. Contactați departamentul IT sau încercați din nou mai târziu."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Dispozitivul dvs. nu acceptă profiluri de serviciu"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Profilurile de serviciu trebuie configurate de proprietarul dispozitivului"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Profilul dvs. de lucru nu este acceptat de aplicația de lansare. Va trebui să comutați la o aplicație de lansare compatibilă."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Anulați"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Utilizatorul dispozitivului de serviciu"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Configurarea dispozitivului"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Se procesează datele de configurare..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Se conectează la Wi-Fi..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"Se descarcă aplicația de administrare..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"Se instalează aplicația de administrare..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Se setează proprietarul dispozitivului..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Opriți configurarea?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Sigur doriți să opriți configurarea și să ștergeți datele de pe dispozitiv?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Anulați"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Resetați"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Configurarea nu s-a putut efectua. Contactați departamentul IT."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Acest dispozitiv este deja configurat"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Nu se poate conecta la Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Nu se poate utiliza aplicația de administrare din cauza unei erori de sumă de control. Contactați departamentul IT."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Eroare la descărcarea aplicației de administrare"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Nu se poate utiliza aplicația de administrare. Este deteriorată sau lipsesc componente. Contactați departamentul IT."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Eroare la instalarea aplicației de administrare"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Aplicația de administrare nu este instalată pe dispozitiv"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Opriți configurarea?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Sigur doriți să opriți configurarea?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Nu"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Da"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Se anulează..."</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"ayarları"</string>
+    <string name="title_activity_main">"baykuş yükselt"</string>
+    <string name="update_online">"çevrimiçi yükselt"</string>
+    <string name="update_native">"yerel yükselt"</string>
+    <string name="goto_recovery">"Kurtarma yükseltme moduna geri dönüş?"</string>
+    <string name="progress_dialog_title">"internete bağlanıyor"</string>
+    <string name="not_connect">"internete bağlantı yok"</string>
+    <string name="progress_dialog_mgs">"Güncellemeleri kontrol ediyor, lütfen bekleyin ..."</string>
+    <string name="connect_server_wrong">"Sunucu meşgul, lütfen yeniden bağlanmayı deneyin"</string>
+    <string name="current_system_isnew">"mevcut sistem sürümünü günceldir"</string>
+    <string name="sure">"kesin"</string>
+    <string name="cancel">"iptal"</string>
+    <string name="update_message">"güncelleştirilmiş bir sürümünü fark edildi, indirilecek mi?"</string>
+    <string name="update_title">"yeni sürümün güncellemeleri "</string>
+    <string name="download">"indir"</string>
+    <string name="update_rightnow">"şimdi yükselt"</string>
+    <string name="start_download">"Yükseltme paketini indirmeye başlat"</string>
+    <string name="update_package">"Yükseltme paketi"</string>
+    <string name="download_complete">"indirme sona erdi"</string>
+    <string name="download_fail">"indirme başaramadı"</string>
+    <string name="md5_check_fail">"MD5 Paritesi hatalı"</string>
+    <string name="update_package_downloaded">"yükseltme paketinin indirmesi tamamlandı "</string>
+    <string name="finish_download">"yükseltme paketinin indirmesi tamamlandı "</string>
+    <string name="update_notice">"\nStart OTA gücellenme:\n gücellenme sürecinde aksiyon durdurulamaz, lütfen datalarınızı yedekleyin.\n"</string>
+    <string name="cancel_download">"indirme iptal edilecek mi?"</string>
+    <string name="wait_downloading">"bekleyin, indiriliyor…"</string>
+    <string name="download_update_file">"Sdcard dizininde güncelleme dosyası yok, lütfen çevrimiçi yükseltme sürecinde güncelleme dosyasını indirin"</string>
+    <string name="return_native_update">"yerel yükseltme paketi mevcut, lütfen yerel yükseltmeyi kullanın"</string>
+    <string name="have_update">"sistem yükseltmesini kontrol edin"</string>
+    <string name="notification_update">"lütfen ayarlarına girin ve baykuş yükseltme tıklayın"</string>
+    <string name="download_notice">"Ağ trafiği, yükleme işlemine devam edin, USB bağlantısı açmayın lütfen"</string>
+    <string name="apk_title">"baykuş yükseltmesi V1.0"</string>
+    <string name="checkbox_title">"otomatik sorgu yenilemesi"</string>
+    <string name="checkbox_summary">"otomatik internet bağlantısı olmadığında işaret kaldırma ağ erişimi sağlayabilir"</string>
+    <string name="checkfrequency_title">"Soruşturma döngüsü ayarlayın"</string>
+    <string name="checkfrequency_summary">"Soruşturma döngüsü:"</string>
+    <string name="day">"gün"</string>
+    <string name="battery_low">"pil düşük"</string>
+    <string name="battery_notify">"lütfen Pil % 50 üzerinde olduğunda güncelleştirmeyi yükleyin"</string>
+</resources>

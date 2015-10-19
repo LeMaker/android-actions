@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tests>
+	
+	 <TestCase id="0">
+        <name>AUTO_START_NEXT_ITEM</name>
+         <!--完成一项进行下一项-->
+        <usable>TRUE</usable>
+    </TestCase>
+	
+    <TestCase id="1">
+        <name>KEY_MENU_AVAILABLE</name>
+        <!--按键测试显示menu键测试-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+    <TestCase id="2">
+        <name>KEY_RETURN_AVAILABLE</name>
+         <!--按键测试显示return键测试 -->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+    <TestCase id="3">
+        <name>DEVICE_INFO</name>
+         <!--请注意用大写 -->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+    <TestCase id="4">
+        <name>LCD</name>
+        <usable>TRUE</usable>
+    </TestCase>
+     
+     <TestCase id="5">
+        <name>TP</name>
+        <usable>TRUE</usable>
+    </TestCase>
+     
+    <TestCase id="6">
+        <name>BACKLIGHT_AND_VIBRATION</name>
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="7">
+        <name>WIFI</name>
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="8">
+        <name>BLUETOOTH</name>
+        <usable>FALSE</usable>
+    </TestCase>
+    
+     <TestCase id="9">
+        <name>CAMERA</name>
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="10">
+        <name>GRAVITY_SENSOR</name>
+        <usable>TRUE</usable>
+    </TestCase>
+    
+     <TestCase id="11">
+        <name>VOICE</name>
+        <usable>TRUE</usable>
+    </TestCase>
+    
+      <TestCase id="12">
+        <name>HEADSET_HDMI_USB</name>
+        <usable>TRUE</usable>
+    </TestCase>
+    
+      <TestCase id="13">
+        <name>KEY</name>
+        <usable>TRUE</usable>
+    </TestCase>
+    
+      <TestCase id="14">
+        <name>STORAGE_DEVICE</name>
+        <usable>FALSE</usable>
+    </TestCase>
+    
+      <TestCase id="15">
+        <name>WATER_RIPPLES</name>
+         <!--水波纹测试 -->
+        <usable>FALSE</usable>
+    </TestCase>
+
+    <TestCase id="16">
+        <name>VOLUME_ITEM</name>
+         <!--是否显示声音虚拟按键-->
+        <usable>TRUE</usable>
+    </TestCase>
+    
+</Tests>

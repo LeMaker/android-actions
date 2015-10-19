@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<!--cvbs -->
+    <string-array name="cvbs_entries" translatable="false">
+        <item>PAL</item>
+        <item>NTSC</item>
+    </string-array>
+
+    <string-array name="cvbs_values" translatable="false">
+        <item>cvbs_PAL</item>
+        <item>cvbs_NTSC</item>
+    </string-array>
+    
+    <!--hdmi -->
+    <string-array name="hdmi_entries" translatable="false">
+        <item>VID640x480P_60_4VS3</item>
+       <item>VID720x480P_60_4VS3</item>
+        <item>VID720x480P_60_16VS9</item>
+        <item>VID1280x720P_60_16VS9</item>
+        <item>VID1920x1080I_60_16VS9</item>
+        <item>VID720x480I_60_4VS3</item>
+        <item>VID720x480I_60_16VS9</item>
+        <item>VID1440x480P_60_4VS3</item>
+        <item>VID1440x480P_60_16VS9</item>
+        <item>VID1920x1080P_60_16VS9</item>
+        <item>VID720x576P_50_4VS3</item>
+        <item>VID720x576P_50_16VS9</item>
+        <item>VID1280x720P_50_16VS9</item>
+        <item>VID1920x1080I_50_16VS9</item>
+        <item>VID720x576I_50_4VS3</item>
+        <item>VID720x576I_50_16VS9</item>
+        <item>VID1440x576P_50_4VS3</item>
+        <item>VID1440x576P_50_16VS9</item>
+        <item>VID1920x1080P_50_16VS9</item>
+        <item>VID1920x1080P_24_16VS9</item>
+        <item>VID1920x1080P_25_16VS9</item>
+        <item>VID1920x1080P_30_16VS9</item>
+        <item>VID720x480P_59P94_4VS3</item>
+        <item>VID720x480P_59P94_16VS9</item>
+        <item>VID1280X720P_59P94_16VS9</item>
+        <item>VID1920x1080I_59P94_16VS9</item>
+        <item>VID720x480I_59P54_4VS3</item>
+        <item>VID720x480I_59P54_16VS9</item>
+        <item>VID1920x1080P_59P94_16VS9</item>
+        <item>VID1920x1080P_29P97_16VS9</item>
+    </string-array>
+    
+    <string-array name="hdmi_values" translatable="false">
+        <item>hdmi_VID640x480P_60_4VS3</item>
+        <item>hdmi_VID720x480P_60_4VS3</item>
+        <item>hdmi_VID720x480P_60_16VS9</item>
+        <item>hdmi_VID1280x720P_60_16VS9</item>
+        <item>hdmi_VID1920x1080I_60_16VS9</item>
+        <item>hdmi_VID720x480I_60_4VS3</item>
+        <item>hdmi_VID720x480I_60_16VS9</item>
+        <item>hdmi_VID1440x480P_60_4VS3</item>
+        <item>hdmi_VID1440x480P_60_16VS9</item>
+        <item>hdmi_VID1920x1080P_60_16VS9</item>
+        <item>hdmi_VID720x576P_50_4VS3</item>
+        <item>hdmi_VID720x576P_50_16VS9</item>
+        <item>hdmi_VID1280x720P_50_16VS9</item>
+        <item>hdmi_VID1920x1080I_50_16VS9</item>
+        <item>hdmi_VID720x576I_50_4VS3</item>
+        <item>hdmi_VID720x576I_50_16VS9</item>
+        <item>hdmi_VID1440x576P_50_4VS3</item>
+        <item>hdmi_VID1440x576P_50_16VS9</item>
+        <item>hdmi_VID1920x1080P_50_16VS9</item>
+        <item>hdmi_VID1920x1080P_24_16VS9</item>
+        <item>hdmi_VID1920x1080P_25_16VS9</item>
+        <item>hdmi_VID1920x1080P_30_16VS9</item>
+        <item>hdmi_VID720x480P_59P94_4VS3</item>
+        <item>hdmi_VID720x480P_59P94_16VS9</item>
+        <item>hdmi_VID1280X720P_59P94_16VS9</item>
+        <item>hdmi_VID1920x1080I_59P94_16VS9</item>
+        <item>hdmi_VID720x480I_59P54_4VS3</item>
+        <item>hdmi_VID720x480I_59P54_16VS9</item>
+        <item>hdmi_VID1920x1080P_59P94_16VS9</item>
+        <item>hdmi_VID1920x1080P_29P97_16VS9</item>
+    </string-array>	
+	
+    <!-- mode -->
+     <string-array name="mode_entries" translatable="false">
+        <item>SYNC_DEFAULT_TV_GV_LCD_GV</item>
+        <item>DOUBLE_DEFAULT_NO_SYNC_TV_GV_LCD_GV</item> 
+        <item>DOUBLE_DEFAULT_NO_SYNC_TV_GV_LCD_G</item>
+        <item>DOUBLE_DEFAULT_NO_SYNC_TV_V_LCD_G</item>
+        <item>DOUBLE_DEFAULT_SYNC_EXT_TV_GV_LCD_GV</item>
+        <item>DOUBLE_DEFAULT_SYNC_EXT_TV_GV_LCD_G</item>
+        <item>DOUBLE_DEFAULT_SYNC_EXT_TV_V_LCD_G</item>
+    </string-array>
+    
+    <string-array name="mode_values" translatable="false">
+        <item>mode_MODE_DISP_SYNC_DEFAULT_TV_GV_LCD_GV</item>
+        <item>mode_MODE_DISP_DOUBLE_DEFAULT_NO_SYNC_TV_GV_LCD_GV</item> 
+        <item>mode_MODE_DISP_DOUBLE_DEFAULT_NO_SYNC_TV_GV_LCD_G</item>
+        <item>mode_MODE_DISP_DOUBLE_DEFAULT_NO_SYNC_TV_V_LCD_G</item>
+       <item>mode_MODE_DISP_DOUBLE_DEFAULT_SYNC_EXT_TV_GV_LCD_GV</item>
+       <item>mode_MODE_DISP_DOUBLE_DEFAULT_SYNC_EXT_TV_GV_LCD_G</item>
+       <item>mode_MODE_DISP_DOUBLE_DEFAULT_SYNC_EXT_TV_V_LCD_G</item>
+    </string-array>
+    
+ <!-- displayer -->
+   <string-array name="displayer_entries" translatable="false">
+       <item>LCD0</item>
+       <item>CVBS_LCD0</item>
+       <item>HDMI_LCD0</item> 
+       <item>CVBS_HDMI_LCD0</item>
+   </string-array>
+    
+    <string-array name="displayer_values" translatable="false">
+        <item>displayer_LCD0</item>
+        <item>displayer_CVBS_LCD0</item>
+        <item>displayer_HDMI_LCD0</item> 
+        <item>displayer_CVBS_HDMI_LCD0</item>
+    </string-array>
+</resources>

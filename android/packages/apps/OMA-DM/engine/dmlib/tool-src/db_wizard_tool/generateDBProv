@@ -1,0 +1,114 @@
+#!/bin/bash
+
+#====================================================================================================
+#
+# Script Name: generateDBProv
+#
+# General Description: Generate Provisioning Database wizard. 
+#
+#====================================================================================================
+#
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#====================================================================================================
+
+usage () {
+  echo ""
+  echo "========================================================================================="
+  echo ""
+  echo " This tool accepts sources in the .csv or .txt formats. These two formats"
+  echo " cannot be mixed together. At least one source file is required."
+  echo ""
+  echo " Usage of the version: "
+  echo ""
+  echo "    generateDBProv [-mms <path>/mms.csv]"
+  echo "                   [-browser <path>/browser.csv]"
+  echo "                   [-java <path>/java.csv]"
+  echo "                   [-im <path>/im.csv]"
+  echo "                   [-debug]"
+  echo "                   [-nozip]"
+  echo ""
+  echo "                -- or --" 
+  echo ""
+  echo "    generateDBProv [-mms <path>/mms.txt]"
+  echo "                   [-browser <path>/browser.txt]"
+  echo "                   [-java <path>/java.txt]"
+  echo "                   [-im <path>/im.txt]"
+  echo "                   [-debug]"
+  echo "                   [-nozip]"
+  echo ""
+  echo " Where options are including:"
+  echo "" 
+  echo "     -mms <path>/mms.*          -  path to the file with settings for the MMS" 
+  echo "     -browser <path>/browser.*  -  path to the file with settings for the Browser" 
+  echo "     -java <path>/java .*       -  path to the file with settings for the Java" 
+  echo "     -im <path>/im.*            -  path to the file with settings for the IM" 
+  echo "     -debug                     -  do not remove temporary .xml, .wbxml and .zip files"
+  echo "     -nozip                     -  do not zip wbxml settings"
+  echo ""
+  echo ""
+  echo " For dumping DB: "
+  echo ""
+  echo "    generateDBProv -dump <path>/lj_dmwizard.dat"
+  echo ""
+  echo "=========================================================================================="
+  echo ""
+}
+
+export LANG=en_US
+export LANGVAR=en_US
+unset LC_ALL
+export LC_CTYPE="en_US.UTF-8"
+
+if [ -z "$JAVA_HOME" ]
+then
+  echo "Error:  Environment variable JAVA_HOME must be set to jdk 1.4 and latest!"
+  exit 1
+fi
+
+JAVA_VERSION=`$JAVA_HOME/bin/java -version 2> /dev/stdout | grep ver | sed -e 's/.*\"\([1-9]\.[0-9][0-9]*\)\..*/\1/'`
+if [ "$JAVA_VERSION" \< "1.4" ]
+then
+  echo "Error: Java vesion is not correct"
+  echo "The tool supports java version from 1.4 and latest"
+  echo "Please set environment variable JAVA_HOME to the correct java version"
+  exit 1
+fi
+
+# validate parameters
+if [ "$#" -eq 0 ]
+then
+  echo ""
+  echo "Error! Required parameters are missing!!!"
+  echo "Use flag --help for the help"
+  echo ""
+  exit 1
+fi
+
+PARMS=""
+
+while [ $# -gt 0 ]; do
+ case "$1" in
+  --help )   usage
+             exit 1
+             shift ;;
+  * )        PARMS="$PARMS $1"
+             shift ;;
+ esac
+done
+
+$JAVA_HOME/bin/java -classpath lib/DBProvTool.jar com.mot.dm.dbtool.Generator $PARMS
+
+

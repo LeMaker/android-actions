@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"การตั้งค่า"</string>
+    <string name="title_activity_main">"อัพเกรดนกฮูก"</string>
+    <string name="update_online">"อัพเกรดออนไลน์"</string>
+    <string name="update_native">"อัพเกรดในท้องถิ่น"</string>
+    <string name="goto_recovery">"เรียกคืนไปยังโหมดอัพเกรดRecovery ?"</string>
+    <string name="progress_dialog_title">"กำลังเชื่อมต่อเครือข่าย  "</string>
+    <string name="not_connect">"ไม่ได้เชื่อมต่อเครือข่าย"</string>
+    <string name="progress_dialog_mgs">"กำลังตรวจสอบข้อมูลปรับปรุง โปรดรอสักครู่ ..."</string>
+    <string name="connect_server_wrong">"เซิร์ฟเวอร์ไม่ว่าง โปรดลองเชื่อมต่ออีกครั้ง  "</string>
+    <string name="current_system_isnew">"เวอร์ชั่นระบบปัจจุบันนี้ เป็นเวอร์ชั่นล่าสุด"</string>
+    <string name="sure">"ตกลง"</string>
+    <string name="cancel">"ยกเลิก"</string>
+    <string name="update_message">"ตรวจสอบว่า มีเวอร์ชั่นปรับปรุง จะดาวน์โหลดหรือ ?"</string>
+    <string name="update_title">"ข้อมูลปรับปรุงเวอร์ชั่นใหม่"</string>
+    <string name="download">"ดาวน์โหลด"</string>
+    <string name="update_rightnow">"อัพเกรดทันที"</string>
+    <string name="start_download">"เริ่มดาวน์โหลดชุดอัพเกรด"</string>
+    <string name="update_package">"ชุดอัพเกรด"</string>
+    <string name="download_complete">"ดาวน์โหลดเสร็จสมบูรณ์"</string>
+    <string name="download_fail">"ดาวน์โหลดไม่ได้"</string>
+    <string name="md5_check_fail">"พาริตี้ MD5ผิดพลาด"</string>
+    <string name="update_package_downloaded">"ดาวน์โหลดชุดอัพเกรดเสร็จสมบูรณ์แล้ว"</string>
+    <string name="finish_download">"ดาวน์โหลดชุดอัพเกรดเสร็จสมบูรณ์"</string>
+    <string name="update_notice">"\nเริ่มต้นอัพเกรด  OTA :\n กำลังอัพเกรด   การกระทำไม่สามารถขัดจังหวะได้   โปรดสำรองข้อมูลของคุณ \ N  "</string>
+    <string name="cancel_download">"จะยกเลิกการดาวน์โหลดหรือไม่?"</string>
+    <string name="wait_downloading">" กำลังดาวน์โหลด รอสักครู่  ..."</string>
+    <string name="download_update_file">" ไม่มีไฟล์ปรับปรุงในไดเรกทอรี SDCard  อัพเกรด โปรดอัพเกรดไฟล์ปรับปรุงดาวน์โหลดออนไลน์"</string>
+    <string name="return_native_update">"ได้มีชุดอัพเกรดท้องถิ่นอยู่ โปรดกลับไปการอัพเกรดท้องถิ่น"</string>
+    <string name="have_update">"ตรวจหาการปรับปรุงระบบ"</string>
+    <string name="notification_update">"โปรดเข้าสู่โปรแกรมตั้งค่า  คลิกนกฮูกอัพเกรด"</string>
+    <string name="download_notice">"กรุณาให้รักษาอัตราการเข้าชมเครือข่าย กำลังดาวน์โหลด โปรดอย่าเปิดการเชื่อมต่อ USB"</string>
+    <string name="apk_title">"อัพเกรดนกฮูกV1.0"</string>
+    <string name="checkbox_title">"รีเฟรชการสอบถามโดยอัตโนมัติ"</string>
+    <string name="checkbox_summary">"ยกเลิกการเลือก สามารถเชื่อมต่อเครือข่าย เซิร์ฟเวอร์การเข้าถึงโดยไม่อัตโนมัติ "</string>
+    <string name="checkfrequency_title">"ตั้งค่าวงจรสอบถาม "</string>
+    <string name="checkfrequency_summary">"วงจรสอบถาม:"</string>
+    <string name="day">"วัน"</string>
+    <string name="battery_low">"ปริมาณแบตเตอรี่ต่ำ"</string>
+    <string name="battery_notify">"โปรดติดตั้งโปรแกรมปรับปรุง เมื่อปริมาณแบตเตอรี่50%ขึ้นไป"</string>
+</resources>

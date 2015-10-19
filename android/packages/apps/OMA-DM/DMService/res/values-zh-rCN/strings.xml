@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">设备管理服务</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">设备管理</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">系统信息</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">确定</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">拒绝</string>
+    <string name="dm_session_button_confirm">更新</string>
+    <string name="dm_session_button_reject">取消</string>
+    <string name="dm_session_confirmation_title">系统更新</string>
+    <string name="dm_session_confirmation_message">手机系统更新可用</string>
+    <string name="dm_session_confirmation_notification_label">系统更新</string>
+    <string name="dm_session_confirmation_notification_message">新设备管理会话请求</string>
+    <string name="dm_session_information_notification_label">系统更新</string>
+    <string name="dm_session_information_notification_message1">服务器已发起一个请求</string>
+    <string name="dm_session_information_notification_message2_success">设备已完成服务器的请求</string>
+    <string name="dm_session_information_notification_message2_fail">设备无法完成服务器的请求</string>
+
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">Usługa DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Zarządzanie urządzeniem</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Wiadomość systemowa</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">"OK"</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Odrzuć</string>
+    <string name="dm_session_button_confirm">"Aktualizuj"</string>
+    <string name="dm_session_button_reject">Anuluj</string>
+    <string name="dm_session_confirmation_title">Aktualizacja systemu</string>
+    <string name="dm_session_confirmation_message">Jest dostępna aktualizacja systemu do tego telefonu</string>
+    <string name="dm_session_confirmation_notification_label">Aktualizacja systemu</string>
+    <string name="dm_session_confirmation_notification_message">Żądanie nowej sesji DM</string>
+    <string name="dm_session_information_notification_label">Aktualizacja systemu</string>
+    <string name="dm_session_information_notification_message1">Serwer wysłał żądanie</string>
+    <string name="dm_session_information_notification_message2_success">Urządzenie wykonało żądanie serwera</string>
+    <string name="dm_session_information_notification_message2_fail">Urządzenie nie wykonało żądania serwera</string>
+
+</resources>

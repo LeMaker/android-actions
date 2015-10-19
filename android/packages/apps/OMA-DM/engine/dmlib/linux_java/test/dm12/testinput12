@@ -1,0 +1,511 @@
+########################################
+# Test Get
+########################################
+
+startCounter
+
+get .
+get ./DevInfo/DevId
+
+createi ./DMAcc/UniTest
+createl ./DMAcc/UniTest/ServerID 1.1.1.1
+get ./DMAcc/UniTest/ServerID
+replace ./DMAcc/UniTest/ServerID 2.2.2.2
+delete ./DMAcc/UniTest
+get .
+
+########################################
+# Test dump tree
+########################################
+
+dump ./DevInfo
+dump ./SyncML
+dump ./DevDetail
+
+########################################
+# Test rollback
+# 1 failure
+########################################
+
+begin
+createi ./SyncML/Con/x
+get ./SyncML/Con/x
+rollback
+
+# Next should fail
+get ./SyncML/Con/x
+
+########################################
+# Plugin Tests
+########################################
+
+# data plugin
+# 0 failure
+
+get ./TestPluginNode
+get ./TestPluginNode/a
+get ./TestPluginNode/b
+dump ./TestPluginNode
+
+########################################
+# Script tests
+########################################
+
+processscript unittest/dm12/testgetscript.xml
+processscript unittest/dm12/testexecscript.xml
+processscript unittest/dm12/testexecscript2.xml
+                                                                         
+processscript unittest/dm12/testalertconfirmatomic.xml
+processscript unittest/dm12/testalertmultiplechoice.xml
+processscript unittest/dm12/testalertconfirm.xml
+processscript unittest/dm12/testalertsinglechoice.xml
+processscript unittest/dm12/testalertdisplay.xml
+processscript unittest/dm12/testalerttextinput.xml
+
+########################################
+# Binary Script tests
+########################################
+processscript unittest/dm12/testget.wbxml 1
+processscript unittest/dm12/testadd.wbxml 1
+processscript unittest/dm12/testdelete.wbxml 1
+processscript unittest/dm12/testreplace.wbxml 1
+
+########################################
+# SuperAgent Test and Build HMAC Cred
+########################################
+hmaccred scts
+
+########################################
+# Factory Boostrap Credential Generation
+########################################
+createi ./DMAcc/SampleServer
+createl ./DMAcc/SampleServer/ServerID Scts
+createi ./DMAcc/SampleServer/AppAddr
+createi ./DMAcc/SampleServer/AppAddr/1
+createl ./DMAcc/SampleServer/AppAddr/1/Addr http://127.0.0.1:80/Manage
+createl ./DMAcc/SampleServer/AppAddr/1/AddrType 1
+createl ./DMAcc/SampleServer/Name SampleServer
+createl ./DMAcc/SampleServer/PrefConRef
+
+#client
+createl ./DMAcc/SampleServer/AAuthPref DIGEST
+createi ./DMAcc/SampleServer/AppAuth
+createi ./DMAcc/SampleServer/AppAuth/1
+createl ./DMAcc/SampleServer/AppAuth/1/AAuthLevel CLCRED
+createl ./DMAcc/SampleServer/AppAuth/1/AAuthType DIGEST
+createl ./DMAcc/SampleServer/AppAuth/1/AAuthName \xE0\xE5\xE7\xEA\xEB
+createl ./DMAcc/SampleServer/AppAuth/1/AAuthSecret \xEB\xE8\xEF\xEE\xEC
+createl ./DMAcc/SampleServer/AppAuth/1/AAuthData 123abc
+
+#server
+createi ./DMAcc/SampleServer/AppAuth/3
+createl ./DMAcc/SampleServer/AppAuth/3/AAuthLevel SRVCRED
+createl ./DMAcc/SampleServer/AppAuth/3/AAuthType BASIC
+createl ./DMAcc/SampleServer/AppAuth/3/AAuthName SampleServer
+createl ./DMAcc/SampleServer/AppAuth/3/AAuthSecret \xFC\xE9\xE2\xE4\xE0
+createl ./DMAcc/SampleServer/AppAuth/3/AAuthData MTIzNDEyMzQxMjM0MTIzNA==
+
+connectsid Scts
+
+dump ./DMAcc/SampleServer
+
+delete ./DMAcc/SampleServer
+
+########################################
+# Exec test
+########################################
+Exec . ls
+
+########################################
+# Commit plug-in test for indirect update
+# and for fk: and child: MA
+########################################
+createi ./UnitTest/Profiles/1
+createl ./UnitTest/Profiles/1/CurProfile 12
+createi ./UnitTest/Profiles/2
+createl ./UnitTest/Profiles/2/CurProfile 12
+
+createi ./DMAcc/12
+createl ./DMAcc/12/ServerID some
+
+createl ./UnitTest/Profiles/1/CurProfile 12
+createl ./UnitTest/Profiles/2/CurProfile 12
+
+replace ./DMAcc/12/ServerID some3
+createl ./DMAcc/12/AppID some
+
+# should fail since child: constraint
+delete ./DMAcc/12
+
+# clean-up
+delete ./UnitTest/Profiles/1
+delete ./UnitTest/Profiles/2
+delete ./DMAcc/12
+
+
+########################################
+# DM 1.2 new data type positive smoke test.
+########################################
+createi ./UnitTest/NewDataType/MyApp
+
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf +1.2345e+3
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+delete ./UnitTest/NewDataType/MyApp/FloatLeaf
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf -1.2345e+3
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+delete ./UnitTest/NewDataType/MyApp/FloatLeaf
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf -1.2345e+03
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+delete ./UnitTest/NewDataType/MyApp/FloatLeaf
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf -1.2345e-03
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+delete ./UnitTest/NewDataType/MyApp/FloatLeaf
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.456
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+delete ./UnitTest/NewDataType/MyApp/FloatLeaf
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf -123.456
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+delete ./UnitTest/NewDataType/MyApp/FloatLeaf
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+delete ./UnitTest/NewDataType/MyApp/FloatLeaf
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 0
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+
+
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-10-15
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-10
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-258
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-W12-5
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-W02
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 20050125
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 200502
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005016
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005W205
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+delete ./UnitTest/NewDataType/MyApp/DateLeaf
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005W15
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:15:25
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+delete ./UnitTest/NewDataType/MyApp/TimeLeaf
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:15
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+delete ./UnitTest/NewDataType/MyApp/TimeLeaf
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 231525
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+delete ./UnitTest/NewDataType/MyApp/TimeLeaf
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 2315
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+delete ./UnitTest/NewDataType/MyApp/TimeLeaf
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+delete ./UnitTest/NewDataType/MyApp/TimeLeaf
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:15:25Z
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+delete ./UnitTest/NewDataType/MyApp/TimeLeaf
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:15:59+01:20
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+delete ./UnitTest/NewDataType/MyApp/TimeLeaf
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:15:59-01:20
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf +3.2145e+3
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf -3.2145e+3
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf -3.2145e+03
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf -3.2145e-03
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf 103.456
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf -103.456
+get ./UnitTest/NewDataType/MyApp/FloatLeaf
+
+
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003-10-15
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003-10
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003-258
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003-W12-5
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003-W02
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 20030125
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 200302
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003016
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003W205
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2003W15
+get ./UnitTest/NewDataType/MyApp/DateLeaf
+
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 03:15:25
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 03:15
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 031525
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 0315
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 03
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 03:15:25Z
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 03:15:59+01:20
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 03:15:59-01:20
+get ./UnitTest/NewDataType/MyApp/TimeLeaf
+
+dump ./UnitTest/NewDataType/MyApp
+
+dump ./TestRWPluginNode
+
+processscript unittest/dm12/testnewdatatype.xml
+
+delete ./UnitTest/NewDataType/MyApp
+
+########################################
+# DM 1.2 new data type negative smoke test.
+########################################
+createi ./UnitTest/NewDataType/MyApp
+
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45+
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45-
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45E
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45e
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 1+1
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 1-1
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf +1+1
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf -1+1
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf +
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf -
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf E
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf e
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf .
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45.5
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45a
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf ++123.5
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf --1234.5
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf +1.3e_5
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf +1.23.45e+5-5
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf 1s23.45
+
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-1-10
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-00-10
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-10-00
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-00-30
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-10-32
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 24:03
+
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 5:63
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:63
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:63:01
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+01
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+01:52:23
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30-01:52:23
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+0152
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+0152Z
+
+
+createlf ./UnitTest/NewDataType/MyApp/FloatLeaf +1.2345e+3
+createld ./UnitTest/NewDataType/MyApp/DateLeaf 2005-10-15
+createlt ./UnitTest/NewDataType/MyApp/TimeLeaf 23:15
+
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45.5
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf 123.45a
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf ++123.5
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf --1234.5
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf +1.3e_5
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf +1.23.45e+5-5
+setf ./UnitTest/NewDataType/MyApp/FloatLeaf 1s23.45
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2005-1-10
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2005-00-10
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2005-10-00
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2005-00-30
+setd ./UnitTest/NewDataType/MyApp/DateLeaf 2005-10-32
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 24:03
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 5:63
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 23:63
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 23:63:01
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+01
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+01:52:23
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30-01:52:23
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+0152
+sett ./UnitTest/NewDataType/MyApp/TimeLeaf 23:33:30+0152Z
+
+########################################
+# Create a char type ESN
+########################################
+createl ./TEST/lob
+setESN ./TEST/lob unittest/dm12/testlobdata1.dat
+get ./TEST/lob
+
+########################################
+# Replace a char type ESN data
+########################################
+
+setESN ./TEST/lob unittest/dm12/testlobdata2.dat
+get ./TEST/lob
+
+########################################
+# Clone a char type  ESN
+########################################
+delete ./CLONE
+clone ./TEST CLONE
+get ./CLONE/lob
+
+########################################
+# Remove a char type ESN
+########################################
+
+delete ./TEST/lob
+delete ./CLONE/lob
+get ./TEST/lob
+
+########################################
+# Rollback an char type ESN
+########################################
+begin
+createl ./TEST/lob
+setESN ./TEST/lob unittest/dm12/testlobdata1.dat
+rollback
+get ./TEST/lob
+
+########################################
+# Create a binary type ESN
+########################################
+createlb ./TEST/lobbin
+setESN ./TEST/lob unittest/dm12/testlobdata1.dat
+get ./TEST/lobbin
+
+########################################
+# Replace a binary type ESN data
+########################################
+
+setESN ./TEST/lobbin unittest/dm12/testlobdata2.dat
+get ./TEST/lobbin
+
+########################################
+# Clone a binary type  ESN
+########################################
+delete ./CLONE
+clone ./TEST CLONE
+get ./CLONE/lobbin
+
+########################################
+# Remove a binary type ESN
+########################################
+
+delete ./TEST/lobbin
+delete ./CLONE/lobbin
+get ./TEST/lobbin
+
+########################################
+# Rollback an binary type ESN
+########################################
+begin
+createlb ./TEST/lobbin
+setESN ./TEST/lobbin unittest/dm12/testlobdata1.dat
+rollback
+get ./TEST/lobbin
+
+########################################
+# Create a char type ESN
+########################################
+delete ./TestRWPluginNode/branch1/lob
+createl ./TestRWPluginNode/branch1/lob
+setESN ./TestRWPluginNode/branch1/lob unittest/dm12/testlobdata1.dat
+get ./TestRWPluginNode/branch1/lob
+
+########################################
+# Replace a char type ESN data
+########################################
+
+setESN ./TestRWPluginNode/branch1/lob unittest/dm12/testlobdata2.dat
+get ./TestRWPluginNode/branch1/lob
+
+########################################
+# Create a binary type ESN
+########################################
+delete ./TestRWPluginNode/branch1/lobbin
+createlb ./TestRWPluginNode/branch1/lobbin
+setESN ./TestRWPluginNode/branch1/lobbin unittest/dm12/testlobdata1.dat
+get ./TestRWPluginNode/branch1/lobbin
+
+########################################
+# Replace a binary type ESN data
+########################################
+
+setESN ./TestRWPluginNode/branch1/lobbin unittest/dm12/testlobdata2.dat
+get ./TestRWPluginNode/branch1/lobbin
+
+
+########################################
+# Clone a char type  ESN
+########################################
+delete ./TestRWPluginNode/clone
+clone ./TestRWPluginNode/branch1 clone
+get ./TestRWPluginNode/clone/lob
+get ./TestRWPluginNode/clone/lobbin
+
+########################################
+# Remove a char type ESN
+########################################
+
+delete ./TestRWPluginNode/clone
+delete ./TestRWPluginNode/branch1/lob
+delete ./TestRWPluginNode/branch1/lobbin
+get ./TestRWPluginNode/clone/lobbin
+get ./TestRWPluginNode/branch1/lob
+get ./TestRWPluginNode/branch1/lobbin
+
+########################################
+# Rollback an char type ESN
+########################################
+begin
+createl ./TestRWPluginNode/branch1/lob
+setESN ./TestRWPluginNode/branch1/lob unittest/dm12/testlobdata1.dat
+rollback
+get ./TestRWPluginNode/branch1/lob
+
+########################################
+# Rollback an binary type ESN
+########################################
+begin
+createlb ./TestRWPluginNode/branch1/lobbin
+setESN ./TestRWPluginNode/branch1/lobbin unittest/dm12/testlobdata1.dat
+rollback
+get ./TestRWPluginNode/branch1/lobbin
+
+getCounter
+
+quit

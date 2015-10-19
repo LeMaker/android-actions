@@ -1,0 +1,14 @@
+{
+    global:
+		DmProcessServerDataInternal;
+		DmProcessScriptDataInternal;
+		DmBootstrapInternal;
+
+	syncmldm_sec_build_hmac_cred;
+    base64Decode;
+    *GetServerAuthValues*;
+    *GetDeviceID*;
+    local:
+        *;
+};
+

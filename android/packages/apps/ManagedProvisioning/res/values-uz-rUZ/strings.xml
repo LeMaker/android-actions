@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Qurilma administratori"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Ana, xolos!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Profilni sozlash"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Tashkilotingiz ushbu profilni nazorat qiladi va uni xavfsiz saqlaydi. Qurilmangizdagi boshqa narsalarni o‘zingiz nazorat qilasiz."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Quyidagi ilova ushbu profilga kirishi zarur:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Sozlash"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Ishchi profilingiz sozlanmoqda…"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Administratoringiz profil bilan bog‘liq sozlamalar, korporativ kirish huquqi, ilovalar va ma’lumotlarni, jumladan, tarmoqdagi faollik va qurilmangizning joylashuvi haqidagi ma’lumotlarni kuzatishi va boshqarishi mumkin."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Administratoringiz ushbu qurilma bilan bog‘liq sozlamalar, korporativ kirish huquqi, ilova va ma’lumotlarni, jumladan, tarmoqdagi faollik va qurilmangizning joylashuvi haqidagi ma’lumotlarni kuzatishi va boshqarishi mumkin."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Qo‘shimcha ma’lumot olish, jumladan, tashkilotingizning maxfiylik siyosati haqida bilish uchun administratoringizga murojaat qiling."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Batafsil ma’lumot"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Bekor qilish"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Ishchi profil"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Qurilmangizda allaqachon ishchi profil mavjud. Uni o‘chirib tashlashni xohlaysizmi?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Haqiqatan ham ushbu ishchi profilni o‘chirib tashlamoqchimisiz? Undagi barcha ma’lumotlar ham o‘chib ketadi."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"O‘chirish"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Bekor qilish"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Sozlashni davom ettirish uchun qurilmangizni shifrlash lozim. Bu biroz vaqt olishi mumkin."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Bekor qilish"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Shifrlash"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Shifrlash tugallandi"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Ishchi profilingizni sozlashda davom etish uchun bosing"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Ishchi profilingizni sozlab bo‘lmadi. IT bo‘limiga murojaat qiling yoki keyinroq qayta urinib ko‘ring."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Qurilmangiz ishchi profillarni qo‘llab-quvvatlamaydi"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Ishchi profillar qurilma egasi tomonidan sozlanishi lozim"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Ishchi profilingiz ushbu launcher ilovasi tomonidan qo‘llab-quvvatlanmaydi. Mos launcher rejimiga o‘tishingiz lozim."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Bekor qilish"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Ishchi qurilma foydalanuvchisi"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Qurilmangizni sozlash"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Sozlash ma’lumotlari qayta ishlanmoqda…"</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi tarmog‘iga ulanmoqda…"</string>
+    <string name="progress_download" msgid="4995057798189799156">"Administrator ilovasi yuklab olinmoqda…"</string>
+    <string name="progress_install" msgid="9169411715762296097">"Administrator ilovasi o‘rnatilmoqda…"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Qurilma egasi belgilanmoqda…"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Sozlash to‘xtatilsinmi?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Haqiqatan ham sozlashni to‘xtatib, qurilmangiz ma’lumotlarini o‘chirib tashlamoqchimisiz?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Bekor qilish"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Qayta tiklash"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Qurilmangizni sozlab bo‘lmadi. Kompaniyangizning IT bo‘limiga murojaat qiling."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Ushbu qurilma allaqachon sozlangan"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi tarmog‘iga ulanib bo‘lmadi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Nazorat qiymati bilan bog‘liq muammo tufayli administrator ilovasidan foydalanib bo‘lmadi. IT bo‘limiga murojaat qiling."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Administrator ilovasini yuklab olib bo‘lmadi"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Administrator ilovasidan foydalanib bo‘lmaydi. Unda ba’zi tarkibiy qismlar mavjud emas yoki buzilgan. IT bo‘limiga murojaat qiling."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Administrator ilovasini o‘rnatib bo‘lmadi"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Qurilmangizga administrator ilovasi o‘rnatilmadi"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Sozlash to‘xtatilsinmi?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Haqiqatan ham sozlashni to‘xtatmoqchimisiz?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Yo‘q"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Ha"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Bekor qilinmoqda…"</string>
+</resources>

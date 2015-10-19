@@ -1,0 +1,25 @@
+
+<wap-provisioningdoc version="1.1">
+
+  <characteristic type="APPLICATION" >
+    <parm name="APPID"  value="DmWizardJavaAppID" ></parm>
+    <parm name="NAME"  value="JAVA_SETTINGS1" ></parm>
+    <parm name="TO-NAPID"  value="JAVA_SETTINGS1"></parm>
+  </characteristic>
+
+  <characteristic type="NAPDEF" >
+    <parm name="NAPID"  value="JAVA_SETTINGS1" ></parm>
+    <parm name="NAME"  value="JAVA_SETTINGS1" ></parm>
+    <parm name="BEARER"  value="GSM-GPRS" ></parm>
+    <parm name="NAP-ADDRESS"  value="203.203.203.1"></parm>
+    <parm name="DNS-ADDR"  value="203.203.203.203" ></parm>
+    <parm name="NAP-ADDRTYPE" value="IPv4">
+
+    <characteristic type="NAPAUTHINFO" >
+      <parm name="AUTHTYPE"  value="PAP" ></parm>
+      <parm name="AUTHNAME"  value="VH_WAP_NAPUID" ></parm>
+      <parm name="AUTHSECRET"  value="VH_WAP_NAPPWD" ></parm>
+    </characteristic>
+  </characteristic>
+  
+</wap-provisioningdoc>

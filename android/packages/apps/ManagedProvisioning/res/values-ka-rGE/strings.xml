@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"მოწყობილობის დამნერგავი"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"უკაცრავად!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"თქვენი პროფილის დაყენება"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"თქვენი ორგანიზაცია აკონტროლებს ამ პროფილს და მის უსაფრთხოებას. ყველაფერ დანარჩენს კი თქვენ აკონტროლებთ თქვენს მოწყობილობაზე."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"შემდეგ აპს ამ პროფილზე წვდომა დაჭირდება:"</string>
+    <string name="set_up" msgid="7012862095553564169">"დაყენება"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"თქვენი სამუშაო პროფილის დაყენება..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"თქვენი კომპანიის ადმინისტრატორს შეუძლია ამ მოწყობილობასთან ასოცირებული პარამეტრების, კორპორატიული წვდომის, აპებისა და მონაცემების მონიტორინგი და მართვა, მათ შორის, ქსელის აქტივობისა და თქვენი მოწყობილობის მდებარეობის ინფორმაციის."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"თქვენი კომპანიის ადმინისტრატორს შეუძლია ამ მოწყობილობასთან ასოცირებული პარამეტრების, კორპორატიული წვდომის, აპებისა და მონაცემების მონიტორინგი და მართვა, მათ შორის, ქსელის აქტივობისა და თქვენი მოწყობილობის მდებარეობის ინფორმაციის."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"დამატებითი ინფორმაციისათვის, მათ შორის, თქვენი კომპანიის კონფიდენციალურობის დებულებასთან დაკავშირებით, დაუკავშირდით თქვენს ადმინისტრატორს."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"შეიტყვეთ მეტი"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"გაუქმება"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"კარგი"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"სამუშაო პროფილი"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"თქვენ უკვე გაქვთ სამუშაო პროფილი თქვენს მოწყობილობაზე. გსურთ მისი წაშლა?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"დარწმუნებული ხართ, რომ გსურთ ამ სამუშაო პროფილის წაშლა? მისი ყველა მონაცემი წაიშლება."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"ამოშლა"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"გაუქმება"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"თქვენი სამუშაო პროფილის შექმნის გასაგრძელებლად, უნდა დაშიფროთ თქვენი მოწყობილობა. ამას შესაძლოა გარკვეული დრო დასჭირდეს."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"გაუქმება"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"დაშიფრვა"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"დაშიფვრა დასრულდა"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"თქვენი სამუშაო პროფილის დაყენების გასაგრძელებლად"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"თქვენი სამუშაო პროფილი ვერ შეიქმნა. დაუკავშირდით თქვენს IT განყოფილებას ან სცადეთ ისევ."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"თქვენს მოწყობილობას არ აქვს სამუშაო პროფილების მხარდაჭერა"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"სამუშაო პროფილები უნდა შექმნას მოწყობილობის მფლობელმა"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"თქვენი პროფილი ამ გამშვები აპის მიერ მხარდაჭერილი არ არის. მოგიწევთ გადახვიდეთ თავსებად გამშვებზე."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"გაუქმება"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"კარგი"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"სამუშაო მოწყობილობის მომხმარებელი"</string>
+    <string name="setup_device" msgid="6725265673245816366">"თქვენი მოწყობილობის დაყენება"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"დაყენების მონაცმეების დამუშავება..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi-სთან დაკავშირება..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"ადმინისტრატორის აპის ჩამოტვირთვა..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"ადმინისტრატორის აპის ინსტალაცია..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"მოწყობილობის მფლობელის დაყენება..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"დაყენების შეჩერება?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"დარწმუნებული ხართ, რომ გსურთ დაყენების შეჩერება და თქვენი მოწყობილობის მონაცემების ამოშლა?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"გაუქმება"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"კარგი"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"ჩამოყრა"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"თქვენი მოწყობილობის დაყენება ვერ მოხერხდა. დაუკავშირდით თქვენს IT განყოფილებას."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"ეს მოწყობილობა უკვე დაყენებულია."</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi-თან დაკავშირება ვერ მოხერხდა"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"ადმინისტრატორის აპის გამოყენება ვერ მოხერხდა checksum-ის შეცდომის გამო. დაუკავშირდით თქვენს IT განყოფილებას."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"ადმინისტრატორის აპის ჩამოტვირთვა ვერ მოხერხდა."</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"ადმინისტრატორის აპის გამოყენება ვერ მოხერხდა. მას აკლია კომპონენტები, ან დაზიანებულია. დაუკავშირდით თქვენს IT განყოფილებას."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"ადმინისტრატორის აპი ვერ დაინსტალირდა."</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"ადმინისტრატორის აპი არ არის დაინსტალირებული თქვენს მოწყობილობაზე."</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"გსურთ, მომართვის შეჩერება?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"დარწმუნებული ხართ, რომ მომართვის შეწყვეტა გსურთ?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"არა"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"კი"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"უქმდება..."</string>
+</resources>

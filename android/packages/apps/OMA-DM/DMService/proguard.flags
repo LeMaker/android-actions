@@ -1,0 +1,73 @@
+# Keep JNI native methods in NativeDM
+-keep class com.android.omadm.service.NativeDM {
+    static native int initialize();
+    static native int destroy();
+    static native int startClientSession(java.lang.String, com.android.omadm.service.DMSession);
+    static native int startFotaClientSession(java.lang.String, java.lang.String, com.android.omadm.service.DMSession);
+    static native int startFotaNotifySession(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.android.omadm.service.DMSession);
+    static native int cancelSession();
+    static native int parsePkg0(byte[], com.android.omadm.service.DMPkg0Notification);
+    static native int createInterior(java.lang.String);
+    static native int createLeaf(java.lang.String, java.lang.String);
+    static native int createLeaf(java.lang.String, byte[]);
+    static native int deleteNode(java.lang.String);
+    static native java.lang.String setStringNode(java.lang.String, java.lang.String);
+    static native java.lang.String CreateLeafInteger(java.lang.String, java.lang.String);
+    static native java.lang.String getNodeInfo(java.lang.String);
+    static native java.lang.String executePlugin(java.lang.String, java.lang.String);
+    static native java.lang.String dumpTree(java.lang.String);
+    static native byte[] nativeWbxmlToXml(byte[]);
+    static native byte[] processScript(java.lang.String, java.lang.String, boolean, int, com.android.omadm.service.DMSession);
+    static native byte[] processBootstrapScript(byte[], boolean, java.lang.String);
+    static native java.lang.String parseBootstrapServerId(byte[], boolean);
+}
+
+# Keep JNI callback methods in DMAlert
+-keep class com.android.omadm.service.DMAlert {
+    int showDisplayAlert(int, java.lang.String, int, int);
+    int showConfirmAlert(int, java.lang.String, int, int);
+    int showTextInputAlert(int, java.lang.String, java.lang.String, int, int, int, int, int);
+    int showSingleChoiceAlert(int, java.lang.String, java.lang.String[], int, int, int);
+    int showMultipleChoiceAlert(int, java.lang.String, java.lang.String[], boolean[], int, int);
+}
+
+# Keep JNI callback methods in DMHttpConnector
+-keep class com.android.omadm.service.DMHttpConnector {
+    void enableApnByName(java.lang.String);
+    int sendRequest(java.lang.String, byte[], java.lang.String);
+    long getResponseLength();
+    byte[] getResponseData();
+    java.lang.String getResponseHeader(java.lang.String);
+    void setContentType(java.lang.String);
+}
+
+# Keep JNI callback methods in DMPkg0Notification
+-keep class com.android.omadm.service.DMPkg0Notification {
+    void setSessionID(int);
+    void setUIMode(int);
+    void setInitiator(int);
+    void setAuthFlag(int);
+    void setServerID(java.lang.String);
+}
+
+# Keep JNI callback methods in DMSession
+-keep class com.android.omadm.service.DMSession {
+    com.android.omadm.service.DMHttpConnector getNetConnector();
+    com.android.omadm.service.DMAlert getDMAlert();
+}
+
+# Keep plugin wrapper JNI callback method in DmtPluginManager
+-keep class com.android.omadm.plugin.impl.DmtPluginManager {
+    boolean initJavaPlugin(java.lang.String, java.lang.String[]);
+    int executeNode(java.lang.String, java.lang.String);
+    int commit();
+    void setServerID(java.lang.String);
+    int createInteriorNode(java.lang.String);
+    int createLeafNode(java.lang.String, int, java.lang.String);
+    int renameNode(java.lang.String, java.lang.String);
+    int deleteNode(java.lang.String);
+    int setNodeValue(java.lang.String, int, java.lang.String);
+    java.lang.String[] getNodeValue(java.lang.String);
+    java.lang.String[] getNodes();
+    void release();
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Aktualizacja"</string>
+    <string name="title_activity_main">"Aktualizacja Owl"</string>
+    <string name="update_online">"Aktualizacja online"</string>
+    <string name="update_native">"Lokalna aktualzacjia"</string>
+    <string name="goto_recovery">"Przywracanie do trybu aktualiazacji"</string>
+    <string name="progress_dialog_title">"W sieci"</string>
+    <string name="not_connect">"Nie podłączony do sieci"</string>
+    <string name="progress_dialog_mgs">"Sprawdzanie aktualizacji, proszę czekać"</string>
+    <string name="connect_server_wrong">"Serwer zajęty, proszę połączyć ponownie"</string>
+    <string name="current_system_isnew">"Obecna wersja sysytemu jest aktualna"</string>
+    <string name="sure">"Zatwierdź"</string>
+    <string name="cancel">"Wykasuj"</string>
+    <string name="update_message">"Sprawdź aktualne wersje, czy załadować?"</string>
+    <string name="update_title">"Aktualizacjia nowszej wersji"</string>
+    <string name="download">"Pobierz"</string>
+    <string name="update_rightnow">"Uaktualnij teraz "</string>
+    <string name="start_download">"Pobierz teraz pakiet aktualizacji"</string>
+    <string name="update_package">"Pakiet aktualizacji"</string>
+    <string name="download_complete">"Pobieranie zakończone"</string>
+    <string name="download_fail">"Pobieranie nie powiodło się"</string>
+    <string name="md5_check_fail">"Błąd parytetu MD5"</string>
+    <string name="update_package_downloaded">"Pakiet aktualizacji jest pobierany"</string>
+    <string name="finish_download">"Pobieranie pakietu aktualizacji zakończone"</string>
+    <string name="update_notice">"\n Rozpocznij aktualicję OTA : \ proces aktualizacji nie może być przerwany, należy wykonać kopię zapasową danych. \ n"</string>
+    <string name="cancel_download">"Czy anulować pobieranie?"</string>
+    <string name="wait_downloading">"Czekaj, są pobierane …"</string>
+    <string name="download_update_file">"Brak pliku aktualizacji na karcie SD, należy pobrać plik aktualizacji on line"</string>
+    <string name="return_native_update">"Lokalny plik aktualizacji, proszę wrócić do lokalnej aktualizacji"</string>
+    <string name="have_update">"Sprawdź dostępność aktualizacji systemu"</string>
+    <string name="notification_update">"Ustaw aplikację aktualizacji OWL …."</string>
+    <string name="download_notice">"Proszę zachować ruch w sieci, proces pobierania, proszę nie otwierać połączenia USB"</string>
+    <string name="apk_title">"Aktualizacja Owl V1.0 "</string>
+    <string name="checkbox_title">"Automatyczne odświeżanie kwerendy"</string>
+    <string name="checkbox_summary">"Niesprawdzony dostęp do sieci nie może być automatycznie podłaczony do serwera"</string>
+    <string name="checkfrequency_title">"Ustaw cykl pytań"</string>
+    <string name="checkfrequency_summary">"Cykl pytań"</string>
+    <string name="day">"Dzień"</string>
+    <string name="battery_low">"Słaba bateria"</string>
+    <string name="battery_notify">"Proszę instalować aktualizację gdy bateria jest powyżej 50%"</string>
+</resources>

@@ -1,0 +1,72 @@
+diff --git a/core/java/android/hardware/Camera.java b/core/java/android/hardware/Camera.java
+old mode 100644
+new mode 100755
+index 310ab76..c3dfdee
+--- a/core/java/android/hardware/Camera.java
++++ b/core/java/android/hardware/Camera.java
+@@ -351,15 +351,27 @@ public class Camera {
+     public static Camera open() {
+         int numberOfCameras = getNumberOfCameras();
+         CameraInfo cameraInfo = new CameraInfo();
++		
+         for (int i = 0; i < numberOfCameras; i++) {
+             getCameraInfo(i, cameraInfo);
+             if (cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK) {
+                 return new Camera(i);
+             }
+         }
+-        return null;
++
++		//ActionsCode(daihb,  change_code)
++		//if we don't have rear camera,but only have front camera, also need to return;
++		//some app need front camera for video-conference;
++		if(numberOfCameras>0){	   
++			return new Camera(0);
++			
++		}else{
++			return null;
++		} 
++		
+     }
+ 
++
+     /**
+      * Creates a new Camera object to access a particular hardware camera with
+      * given hal API version. If the same camera is opened by other applications
+diff --git a/core/java/android/os/Environment.java b/core/java/android/os/Environment.java
+index 5af28e0..86d2118 100755
+--- a/core/java/android/os/Environment.java
++++ b/core/java/android/os/Environment.java
+@@ -91,7 +91,7 @@ public class Environment {
+         /** External storage dirs, as visible to vold */
+         private final File[] mExternalDirsForVold;
+         /** External storage dirs, as visible to apps */
+-        private final File[] mExternalDirsForApp;
++        private final File[] mExternalDirsForApp;///
+         /** External storage dirs, as visible to all */
+         /* ActionsCode(songzhining, new constants) */
+         private final File[] mExternalDirsForAll;
+diff --git a/media/java/android/media/SoundPool.java b/media/java/android/media/SoundPool.java
+old mode 100644
+new mode 100755
+index 4f74bdd..2fdc0e0
+--- a/media/java/android/media/SoundPool.java
++++ b/media/java/android/media/SoundPool.java
+@@ -138,7 +138,7 @@ public class SoundPool {
+         if (SystemProperties.getBoolean("config.disable_media", false)) {
+             mImpl = new SoundPoolStub();
+         } else {
+-            mImpl = new SoundPoolImpl(this, maxStreams, attributes);
++            mImpl = new SoundPoolImpl(this, maxStreams, attributes);///
+         }
+     }
+ 
+@@ -440,7 +440,7 @@ public class SoundPool {
+     }
+ 
+     public interface OnLoadCompleteListener {
+-        /**
++      /**
+          * Called when a sound has completed loading.
+          *
+          * @param soundPool SoundPool object from the load() method

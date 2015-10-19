@@ -1,0 +1,42 @@
+
+
+
+# Check environment variable JAVA_HOME
+if [ -z "$JAVA_HOME" ]
+then
+  echo "Error:  Environment variable JAVA_HOME must be set to jdk 1.4 and latest!"
+  exit 1
+fi
+
+JAVA_VERSION=`$JAVA_HOME/bin/java -version 2> /dev/stdout | grep ver | sed -e 's/.*\"\([1-9]\.[0-9][0-9]*\)\..*/\1/'`
+if [ "$JAVA_VERSION" \< "1.4" ]
+then
+  echo "Error: Java vesion is not correct"
+  echo "The tool supports java version from 1.4 and latest"
+  echo "Please set environment variable JAVA_HOME to the correct java version"
+  exit 1
+fi
+
+
+echo JAVA_HOME=$JAVA_HOME
+
+$JAVA_HOME/bin/javac com/mot/dm/dbtool/*.java
+
+echo Please check compilation result
+echo press Enter if OK or Ctrl+C
+read $dummy
+
+
+echo Creating jar ...
+
+$JAVA_HOME/bin/jar cvf DBProvTool.jar com/mot/dm/dbtool/*.class
+
+echo Removing classes ...
+
+rm -f com/mot/dm/dbtool/*.class
+
+
+#mv "$WORKING_DIR"/DBProvTool.jar lib 
+
+echo done
+

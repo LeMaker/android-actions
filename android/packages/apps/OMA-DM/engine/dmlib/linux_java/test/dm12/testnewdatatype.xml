@@ -1,0 +1,165 @@
+<SyncML xmlns="SYNCML:SYNCML1.2">
+  <SyncHdr>
+  <VerDTD>1.2</VerDTD> 
+  <VerProto>DM/1.2</VerProto> 
+  <SessionID>18629</SessionID> 
+  <MsgID>1</MsgID> 
+  <Target>
+  <LocURI>000000011234564</LocURI> 
+  </Target>
+  <Source>
+  <LocURI>http://10.72.35.166/Manage</LocURI> 
+  </Source>
+  <RespURI>http://10.72.35.166/Scts?YDjHAA==</RespURI> 
+  <Cred>
+  <Meta>
+  <Format xmlns="syncml:metinf">b64</Format> 
+  <Type xmlns="syncml:metinf">syncml:auth-basic</Type> 
+  </Meta>
+  <Data>U2N0czpTYW1wbGVDbGllbnQ=</Data> 
+  </Cred>
+  <Meta>
+  <MaxMsgSize xmlns="syncml:metinf">20000</MaxMsgSize> 
+  </Meta>
+  </SyncHdr>
+  <SyncBody>
+  <Add>
+  <CmdID>1</CmdID> 
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp</LocURI> 
+  </Target>
+  <Meta>
+  <Format xmlns="syncml:metinf">node</Format> 
+  <Type xmlns="syncml:metinf">text/plain</Type> 
+  </Meta>
+  </Item>
+  </Add>
+  <Add>
+  <CmdID>2</CmdID> 
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/FloatLeaf</LocURI> 
+  </Target>
+  <Meta>
+  <Format xmlns="syncml:metinf">float</Format> 
+  <Type xmlns="syncml:metinf">text/plain</Type> 
+  </Meta>
+  <Data>+1.23e+01</Data>
+  </Item>
+  </Add>
+  <Add>
+  <CmdID>3</CmdID> 
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/DateLeaf</LocURI> 
+  </Target>
+  <Meta>
+  <Format xmlns="syncml:metinf">date</Format> 
+  <Type xmlns="syncml:metinf">text/plain</Type> 
+  </Meta>
+  <Data>2005-10-18</Data>
+  </Item>
+  </Add>
+  <Add>
+  <CmdID>4</CmdID> 
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/TimeLeaf</LocURI> 
+  </Target>
+  <Meta>
+  <Format xmlns="syncml:metinf">time</Format> 
+  <Type xmlns="syncml:metinf">text/plain</Type> 
+  </Meta>
+  <Data>23:18:23</Data>
+  </Item>
+  </Add>
+  <Replace>
+  <CmdID>5</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/FloatLeaf</LocURI>
+  </Target>
+  <Meta><Format xmlns="syncml:metinf">float</Format></Meta>
+  <Data>1.2345</Data>
+  </Item>
+  </Replace>
+  <Replace>
+  <CmdID>6</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/DateLeaf</LocURI>
+  </Target>
+  <Meta><Format xmlns="syncml:metinf">date</Format></Meta>
+  <Data>2005-345</Data>
+  </Item>
+  </Replace>
+  <Replace>
+  <CmdID>7</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/TimeLeaf</LocURI>
+  </Target>
+  <Meta><Format xmlns="syncml:metinf">time</Format></Meta>
+  <Data>11:20:35+01:20</Data>
+  </Item>
+  </Replace>
+  <Get>
+  <CmdID>8</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/FloatLeaf</LocURI>
+  </Target>
+  </Item>
+  </Get>
+  <Get>
+  <CmdID>9</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/DateLeaf</LocURI>
+  </Target>
+  </Item>
+  </Get>
+  <Get>
+  <CmdID>10</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/TimeLeaf</LocURI>
+  </Target>
+  </Item>
+  </Get>
+  <Delete>
+  <CmdID>11</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/FloatLeaf</LocURI>
+  </Target>
+  </Item>
+  </Delete>
+  <Delete>
+  <CmdID>12</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/DateLeaf</LocURI>
+  </Target>
+  </Item>
+  </Delete>
+  <Delete>
+  <CmdID>13</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp/TimeLeaf</LocURI>
+  </Target>
+  </Item>
+  </Delete>
+  <Delete>
+  <CmdID>14</CmdID>
+  <Item>
+  <Target>
+  <LocURI>./Test/MyApp</LocURI>
+  </Target>
+  </Item>
+  </Delete>
+  <Final/> 
+  </SyncBody>
+</SyncML>

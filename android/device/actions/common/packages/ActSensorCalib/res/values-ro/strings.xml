@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Calibrare Senzor G"</string>
+    <string name="buttonCalib_name">"Efectuarea calibrării"</string>
+    <string name="buttonReset_name">"Ștergerea calibrării"</string>
+    <string name="info_reset">"Ștergerea datelor calibrării Senzor G"</string>
+    <string name="info_calib">"Salvarea datelor calibrării Senzor G"</string>
+    <string name="info_tips">"Puneți acest dispozitiv orizontal și faceți click pe butonul Calibrare."</string>
+</resources>

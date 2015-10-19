@@ -1,0 +1,51 @@
+<!-- This file defines the base public resources exported by the
+     platform, which must always exist. -->
+
+<!-- ***************************************************************
+     ***************************************************************
+     IMPORTANT NOTE FOR ANYONE MODIFYING THIS FILE
+     READ THIS BEFORE YOU MAKE ANY CHANGES
+
+     This file defines the binary compatibility for resources.  As such,
+     you must be very careful when making changes here, or you will
+     completely break backwards compatibility with old applications.
+
+     To avoid breaking compatibility, all new resources must be placed
+     at the end of the list of resources of the same type.  Placing a resource
+     in the middle of type will cause all following resources to be
+     assigned new resource numbers, breaking compatibility.
+
+     ***************************************************************
+     *************************************************************** -->
+<resources>
+
+  <!-- We don't want to publish private symbols in android.R as part of the
+       SDK.  Instead, put them here. -->
+  <private-symbols package="com.android.internal" />
+
+  <!-- Private symbols that we need to reference from framework code.  See
+       frameworks/base/core/res/MakeJavaSymbols.sed for how to easily generate
+       this.
+  -->
+  <java-symbol type="string" name="storage_uhost" />
+  <java-symbol type="string" name="uh_media_checking_notification_title" />
+  <java-symbol type="string" name="uh_media_checking_notification_message" />
+  <java-symbol type="string" name="uh_media_nofs_notification_title" />
+  <java-symbol type="string" name="uh_media_nofs_notification_message" />
+  <java-symbol type="string" name="uh_media_unmountable_notification_title" />
+  <java-symbol type="string" name="uh_media_unmountable_notification_message" />
+  <java-symbol type="string" name="uh_media_badremoval_notification_title" />
+  <java-symbol type="string" name="uh_media_badremoval_notification_message" />
+  <java-symbol type="string" name="uh_media_safe_unmount_notification_title" />
+  <java-symbol type="string" name="uh_media_safe_unmount_notification_message" />
+  <java-symbol type="string" name="uh_media_nomedia_notification_title" />
+  <java-symbol type="string" name="uh_media_nomedia_notification_message" />
+  <java-symbol type="string" name="accelerometer_coordinate" />
+  <java-symbol type="string" name="accele_coord_default" />
+  <java-symbol type="string" name="accele_coord_special" />
+  <java-symbol type="string" name="global_action_reboot_to_recovery" />
+  <java-symbol type="string" name="global_action_restart" />
+  <!-- ActionsCode(liuxinxu, addd retsrat icon resource) -->
+  <java-symbol type="drawable" name="ic_lock_restart" />
+  <java-symbol type="bool" name="config_intelligent_brightness_available" />
+</resources>

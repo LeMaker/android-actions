@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Каліброўка G сэнсара"</string>
+    <string name="buttonCalib_name">"Каліброўка запуску"</string>
+    <string name="buttonReset_name">"Каліброўка яснасці"</string>
+    <string name="info_reset">"Дадзеныя каліброўкі выдалены"</string>
+    <string name="info_calib">"Дадзеныя каліброўкі захаваны"</string>
+    <string name="info_tips">"Калі ласка, пастаўце прыстасаванне на роўную і нерухомую паверхню."</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Innstillinger"</string>
+    <string name="title_activity_main">"Ugle Oppgradering"</string>
+    <string name="update_online">"Online Oppgradering"</string>
+    <string name="update_native">"Lokal  Oppgradering"</string>
+    <string name="goto_recovery">"Gjenopprette til Inndriving Oppgradering Modus"</string>
+    <string name="progress_dialog_title">"Nettverk i"</string>
+    <string name="not_connect">"Ikke koblet til nettverket"</string>
+    <string name="progress_dialog_mgs">"Ser etter oppdateringer, vennligst vent ..."</string>
+    <string name="connect_server_wrong">"Serveren er opptatt, vennligst prøve tilkoblingen"</string>
+    <string name="current_system_isnew">"Det nåværende systemet versjonen er oppdatert"</string>
+    <string name="sure">"OK"</string>
+    <string name="cancel">"Avbryt"</string>
+    <string name="update_message">"Sjekk til en nyere versjon, om du vil laste ned?"</string>
+    <string name="update_title">"Nye versjon oppdateringer"</string>
+    <string name="download">"Laste ned"</string>
+    <string name="update_rightnow">"Oppgrader nå"</string>
+    <string name="start_download">"Begynner å laste ned Oppgraderingspakke"</string>
+    <string name="update_package">"Oppgraderingspakke"</string>
+    <string name="download_complete">"Nedlastingen er fullført"</string>
+    <string name="download_fail">"Nedlastingen mislyktes"</string>
+    <string name="md5_check_fail">"MD5 Paritetsfeil"</string>
+    <string name="update_package_downloaded">"Oppgraderingspakke har lastet ned"</string>
+    <string name="finish_download">"Oppgraderingspakke er ferdig nedlastet"</string>
+    <string name="update_notice">"\n Starter OTA oppgradering: Under \ n oppgraderingsprosessen kan handling ikke avbrytes, bør du sikkerhetskopiere data.\n "</string>
+    <string name="cancel_download">"Enten å avbryte nedlastingen?"</string>
+    <string name="wait_downloading">"Laster, vennligst vent ..."</string>
+    <string name="download_update_file">"Ingen oppdatering fil i  SD-korts katalog, oppgradere online for å laste ned oppdateringsfil"</string>
+    <string name="return_native_update">"Lokal oppgraderingspakken allerede, vennligst gå tilbake til lokale oppgradering"</string>
+    <string name="have_update">"Se etter systemoppdateringer"</string>
+    <string name="notification_update">"Gĺ til innstillingsapplikasjon og klikker på Ugle  Oppgradering"</string>
+    <string name="download_notice">"Vennligst holde nettverkstrafikken. Ikke åpne USB-tilkobling under nedlasting"</string>
+    <string name="apk_title">"Ugle  Oppgradering V1.0"</string>
+    <string name="checkbox_title">"Automatisk sjekk etter oppdateringer"</string>
+    <string name="checkbox_summary">"Fjern merkingen det ikke kan automatisk koble til nettverket"</string>
+    <string name="checkfrequency_title">"Still forespørsel syklus"</string>
+    <string name="checkfrequency_summary">"Forespørsel syklus:"</string>
+    <string name="day">"Dag"</string>
+    <string name="battery_low">"Svakt batteri"</string>
+    <string name="battery_notify">"Vennligst installere oppdateringen når batteriet er over 50%"</string>
+</resources>

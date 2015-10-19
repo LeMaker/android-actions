@@ -1,0 +1,20 @@
+<!-- This is a sample dmAccounts.xml. For OMA-DM testing purposes, test server  
+info can be pushed in this format to /system/etc/ -->
+<DMAcc version="1">
+    <Account AccName="TestAccName"
+        ServerID="TestServerID"
+        Addr="https://test.server.addr/"
+        AddrType="1"
+        PortNbr="440"
+        ConRef=""
+        ServerName="ServerName"
+        AuthPref="DIGEST"
+        ServerPW="ServerPassword"
+        ServerNonce="abc123"
+        UserName="username"
+        ClientPW="ClientPassword"
+        ClientNonce="123abc"
+        ProxyAddr=""
+        ProxyPortNbr=""
+        />
+</DMAcc>

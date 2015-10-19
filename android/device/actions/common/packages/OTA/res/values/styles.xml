@@ -1,0 +1,6 @@
+<resources>
+    <style name="AppTheme" parent="android:Theme.Light" >
+        <item name="android:background">@drawable/white</item>
+ 		<item name="android:textColor">@drawable/black</item>
+ 	</style>
+</resources>

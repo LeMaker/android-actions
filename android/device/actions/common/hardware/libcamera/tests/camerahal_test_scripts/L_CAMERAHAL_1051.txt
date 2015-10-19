@@ -1,0 +1,21 @@
+|A1|4VGA|~yuv420sp|r30|1|5VGA|d3
+|p|d5
+|p|d5
+|p|d5
+|p|d5
+|p|d5
+|p|d5
+|p|d5
+|p|d5
+|p|d5
+|p|d5
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0051
+//DESCRIPTION: Image capture use cases for shot-to-snapshot, shot-to-shot, shot-to-save and standby-to-firstshot shall meet the targets below (in NAND build), Mode: High Speed  Resolution: 8 MP OPP:3 800/660  3630 Shot-to-shot  : 861 ms 3430 Shot-to-shot  :  1600 ms
+//     AUTHOR: JShandorov
+//       DATE: 13.04.2010
+//    VERSION: 1.0

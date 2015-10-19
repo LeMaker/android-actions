@@ -1,0 +1,29 @@
+	<SyncML xmlns="SYNCML:SYNCML1.1">
+	<SyncHdr>
+	<VerDTD>1.1</VerDTD>
+	<VerProto>DM/1.1</VerProto>
+	<SessionID>11</SessionID>
+	<MsgID>1</MsgID>
+	<Target>
+	<LocURI>SampleClient</LocURI>
+	</Target>
+	<Source>
+	<LocURI>mot.manage</LocURI>
+	</Source>
+	<RespURI>http://199.1.88.66/Scts?4Eq5AA==</RespURI>
+	<Meta>
+	<MaxMsgSize xmlns="syncml:metinf">20000</MaxMsgSize>
+	</Meta>
+	</SyncHdr>
+	<SyncBody>
+	<Alert>
+	<CmdID>1</CmdID>
+	<Data>1100</Data>
+	<Item><Data>MINDT=15</Data></Item>
+	<Item>
+	<Data>Testing Display Alert</Data>
+	</Item>
+	</Alert>
+	<Final/>
+	</SyncBody>
+	</SyncML>

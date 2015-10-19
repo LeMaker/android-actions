@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"کالیبراسیون جاذبه"</string>
+    <string name="buttonCalib_name">"کالیبراسیون اجرایی"</string>
+    <string name="buttonReset_name">"کالیبراسیون روشن"</string>
+    <string name="info_reset">"حذف داده کالیبراسیون جاذبه"</string>
+    <string name="info_calib">"حفظ داده کالیبراسیون جاذبه"</string>
+    <string name="info_tips">"لطفاً  این دستگاه را در سطح افقی بگذارید و دکمه کالیبراسیون را کلیک کنید"</string>
+</resources>

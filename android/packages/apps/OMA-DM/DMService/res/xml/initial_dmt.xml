@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dmtree>
+    <node name=".">
+        <node name="CDMA">
+            <node name="BC10" type="int" access="GR"/>
+            <node name="BC14" type="int" access="GR"/>
+            <node name="RoamPreference" type="bin" access="GR"/>
+            <node name="SO68" type="int" access="GR"/>
+            <node name="1xA">
+                <node name="Enabled" type="int" access="GR"/>
+            </node>
+            <node name="3GPD">
+                <node name="*" access="AGRD" acl="FIXME">
+                    <node name="AuthAlgoAAA" type="chr" access="GR"/>
+                    <node name="AuthAlgoHA" type="chr" access="GR"/>
+                    <node name="MobileIpAddress" type="chr" access="GR"/>
+                    <node name="NAI" type="chr" access="GR"/>
+                    <node name="PasswordAAA" type="chr" access="GR"/>
+                    <node name="PasswordHA" type="chr" access="GR"/>
+                    <node name="PriHAIp" type="chr" access="GR"/>
+                    <node name="ReverseTunneling" type="chr" access="GR"/>
+                    <node name="SecHAIp" type="chr" access="GR"/>
+                    <node name="SpiAAA" type="chr" access="GR"/>
+                    <node name="SpiHA" type="chr" access="GR"/>
+                </node>
+            </node>
+            <node name="B25">
+                <node name="enablement" type="int" access="GR"/>
+                <node name="scanpriority" type="int" access="GR"/>
+            </node>
+            <node name="B26">
+                <node name="enablement" type="int" access="GR"/>
+                <node name="scanpriority" type="int" access="GR"/>
+            </node>
+            <node name="B41">
+                <node name="enablement" type="int" access="GR"/>
+                <node name="scanpriority" type="int" access="GR"/>
+            </node>
+            <node name="EHRPD">
+                <node name="Enabled" type="int" access="GR"/>
+                <node name="Forced" type="int" access="GR"/>
+            </node>
+            <node name="NAM">
+                <node name="CdmaNam" type="bin" access="GR"/>
+                <node name="MobDirNum" type="bin" access="GR"/>
+            </node>
+        </node>
+    </node>
+</dmtree>

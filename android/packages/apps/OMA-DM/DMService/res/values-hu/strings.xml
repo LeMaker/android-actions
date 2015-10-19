@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Készülékkezelés</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Rendszerüzenet</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">OK</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Elutasítás</string>
+    <string name="dm_session_button_confirm">Frissítés</string>
+    <string name="dm_session_button_reject">Mégse</string>
+    <string name="dm_session_confirmation_title">Rendszerfrissítés</string>
+    <string name="dm_session_confirmation_message">Rendszerfrissítés érhető el a telefon számára</string>
+    <string name="dm_session_confirmation_notification_label">Rendszerfrissítés</string>
+    <string name="dm_session_confirmation_notification_message">Új DM munkamenet kérés</string>
+    <string name="dm_session_information_notification_label">Rendszerfrissítés</string>
+    <string name="dm_session_information_notification_message1">A kiszolgáló kérést indított</string>
+    <string name="dm_session_information_notification_message2_success">A készülék teljesítette a kiszolgáló kérését</string>
+    <string name="dm_session_information_notification_message2_fail">A készülék nem tudta teljesíteni a kiszolgáló kérését</string>
+
+</resources>

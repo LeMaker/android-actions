@@ -1,0 +1,7 @@
+1.encode jpeg without vce
+    a. open Android.mk
+    b. modify CAMERA_VCE_OMX_FD, CAMERA_VCE_OMX_JPEG, CAMERA_VCE_OMX_RESIZE to false, see as below:
+        CAMERA_VCE_OMX_FD := false
+        CAMERA_VCE_OMX_JPEG := false
+        CAMERA_VCE_OMX_RESIZE := false
+    c.recompile libcamera

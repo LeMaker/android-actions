@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Impostazioni"</string>
+    <string name="title_activity_main">"Gufo Aggiornamento"</string>
+    <string name="update_online">" Aggiornamento Online"</string>
+    <string name="update_native">" Aggiornamento Locale"</string>
+    <string name="goto_recovery">"Ripristina la modalità di aggiornamento di recupero?"</string>
+    <string name="progress_dialog_title">"Messa in rete"</string>
+    <string name="not_connect">"Non collegato alla rete"</string>
+    <string name="progress_dialog_mgs">"Il controllo degli aggiornamenti, si prega di attendere ..."</string>
+    <string name="connect_server_wrong">"Il servizio è occupato, si prega di riprovare la connessione"</string>
+    <string name="current_system_isnew">"La versione attuale del sistema è aggiornata"</string>
+    <string name="sure">"Sicuro"</string>
+    <string name="cancel">"Cancellato"</string>
+    <string name="update_message">"Controllare la versione aggiornata, se scaricare?"</string>
+    <string name="update_title">"Nuovi aggiornamenti di versione"</string>
+    <string name="download">"Caricare"</string>
+    <string name="update_rightnow">"Aggiornamento subito"</string>
+    <string name="start_download">"Iniziare a scaricare il pacchetto di aggiornamento"</string>
+    <string name="update_package">"Aggiornamento del pacchetto "</string>
+    <string name="download_complete">"Caricato è completo"</string>
+    <string name="download_fail">"Caricato non riuscito"</string>
+    <string name="md5_check_fail">"Errore di parità MD5"</string>
+    <string name="update_package_downloaded">"Pacchetto di aggiornamento è stato scaricato"</string>
+    <string name="finish_download">"Pacchetto di aggiornamento è terminato il caricato"</string>
+    <string name="update_notice">"\n Avvio OTA aggiornamento:\n Il processo di aggiornamento, l\'azione non può essere interrotto, si prega di eseguire il backup dei dati.\n"</string>
+    <string name="cancel_download">"Se annullare il caricato?"</string>
+    <string name="wait_downloading">"Aspetta, stanno scaricando ..."</string>
+    <string name="download_update_file">"Nessun file di aggiornamento nell\'elenco di SDCard, l\'aggiornamento on-line per scaricare il file di aggiornamento"</string>
+    <string name="return_native_update">"Il pacchetto di aggiornamento esistente locale, si prega di tornare l\'aggiornamento locale "</string>
+    <string name="have_update">"Verificare la presenza di aggiornamenti di sistema"</string>
+    <string name="notification_update">"L\'applicazione delle impostazioni e fare clicca su aggiornamento di civetta"</string>
+    <string name="download_notice">"Si prega di tenere il traffico di rete, il processo di caricato, si prega di non aprire la connessione USB"</string>
+    <string name="apk_title">"Gufo di Aggiornamento V1.0"</string>
+    <string name="checkbox_title">"Automatica di interrogazione di aggiornamento"</string>
+    <string name="checkbox_summary">"Deseleziona non può fare l\'accesso alla rete automatico"</string>
+    <string name="checkfrequency_title">"Impostare il ciclo di inchiesta"</string>
+    <string name="checkfrequency_summary">"Il ciclo di inchiesta:"</string>
+    <string name="day">"Giorno"</string>
+    <string name="battery_low">"Batteria scarica"</string>
+    <string name="battery_notify">"Si prega di installare l\'aggiornamento quando la batteria è superiore al 50%"</string>
+</resources>

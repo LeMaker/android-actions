@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"ಸಾಧನ ಪೂರೈಕೆದಾರ"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"ಓಹ್!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಹೊಂದಿಸಿ"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"ಈ ಪ್ರೊಫೈಲ್‌ ಅನ್ನು ನಿಮ್ಮ ಸಂಸ್ಥೆಯು ನಿಯಂತ್ರಿಸುತ್ತದೆ ಹಾಗೂ ಅದನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ಕಾಪಾಡುತ್ತದೆ. ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿರುವ ಪ್ರತಿಯೊಂದನ್ನೂ ನೀವು ನಿಯಂತ್ರಿಸಬಹುದು."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"ಕೆಳಗಿನ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಈ ಪ್ರೊಫೈಲ್ ಪ್ರವೇಶಿಸುವ ಅಗತ್ಯವಿದೆ:"</string>
+    <string name="set_up" msgid="7012862095553564169">"ಹೊಂದಿಸು"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"ನಿಮ್ಮ ಕೆಲಸದ ಪ್ರೊಫೈಲ್ ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"ನಿಮ್ಮ ನಿರ್ವಾಹಕರು ನೆಟ್‌ವರ್ಕ್ ಚಟುವಟಿಕೆ ಮತ್ತು ನಿಮ್ಮ ಸಾಧನದ ಸ್ಥಳ ಮಾಹಿತಿಯೂ ಒಳಗೊಂಡಂತೆ, ಸೆಟ್ಟಿಂಗ್‌ಗಳು, ಕಾರ್ಪೊರೇಟ್ ಪ್ರವೇಶ, ಅಪ್ಲಿಕೇಶನ್‌ಗಳು ಹಾಗೂ ಈ ಪ್ರೊಫೈಲ್‌ಗೆ ಸಂಬಂಧಿಸಿದ ಡೇಟಾ ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡುವ ಮತ್ತು ನಿರ್ವಹಿಸುವ ಸಾಮರ್ಥ್ಯವನ್ನು ಹೊಂದಿರುತ್ತಾರೆ."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"ನಿಮ್ಮ ನಿರ್ವಾಹಕರು ನೆಟ್‌ವರ್ಕ್ ಚಟುವಟಿಕೆ ಮತ್ತು ನಿಮ್ಮ ಸಾಧನದ ಸ್ಥಳ ಮಾಹಿತಿಯನ್ನು ಒಳಗೊಂಡಂತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು, ಕಾರ್ಪೊರೇಟ್ ಪ್ರವೇಶ, ಅಪ್ಲಿಕೇಶನ್‌ಗಳು ಹಾಗೂ ಈ ಸಾಧನದೊಂದಿಗೆ ಸಂಬಂಧಿಸಿದ ಡೇಟಾವನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡುವ ಮತ್ತು ನಿರ್ವಹಿಸುವ ಸಾಮರ್ಥ್ಯವನ್ನು ಹೊಂದಿದ್ದಾರೆ."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"ನಿಮ್ಮ ಸಂಸ್ಥೆಯ ಗೌಪ್ಯತೆ ನೀತಿಗಳನ್ನು ಒಳಗೊಂಡಂತೆ, ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ನಿಮ್ಮ ನಿರ್ವಾಹಕರನ್ನು ಸಂಪರ್ಕಿಸಿ."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"ರದ್ದುಮಾಡು"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"ಸರಿ"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"ಕೆಲಸದ ಪ್ರೊಫೈಲ್"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ನೀವು ಈಗಾಗಲೇ ಕೆಲಸದ ಪ್ರೊಫೈಲ್‌ ಅನ್ನು ಹೊಂದಿರುವಿರಿ. ಅದನ್ನು ನೀವು ತೆಗೆದುಹಾಕಲು ಬಯಸುವಿರಾ?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"ಈ ಕೆಲಸದ ಪ್ರೊಫೈಲ್‌ ಅನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ? ಅದರ ಎಲ್ಲಾ ಡೇಟಾವನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"ತೆಗೆದುಹಾಕಿ"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"ರದ್ದುಮಾಡು"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"ನಿಮ್ಮ ಕೆಲಸದ ಪ್ರೊಫೈಲ್‌ ಹೊಂದಿಸುವುದನ್ನು ಮುಂದುವರಿಸಲು, ನಿಮ್ಮ ಸಾಧನವನ್ನು ನೀವು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಬೇಕಾದ ಅಗತ್ಯವಿದೆ. ಇದು ಸ್ವಲ್ಪ ಸಮಯವನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"ರದ್ದುಮಾಡು"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"ಎನ್‌ಕ್ರಿಪ್ಟ್‌‌ ಮಾಡಿ"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಪೂರ್ಣಗೊಂಡಿದೆ"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"ನಿಮ್ಮ ಕೆಲಸದ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಹೊಂದಿಸುವುದನ್ನು ಮುಂದುವರಿಸಲು ಸ್ಪರ್ಶಿಸಿ"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"ನಿಮ್ಮ ಕೆಲಸದ ಪ್ರೊಫೈಲ್ ಹೊಂದಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ IT ವಿಭಾಗವನ್ನು ಸಂಪರ್ಕಿಸಿ ಅಥವಾ ನಂತರ ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"ನಿಮ್ಮ ಸಾಧನವು ಕೆಲಸದ ಪ್ರೊಫೈಲ್‌ಗಳನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"ಕೆಲಸದ ಪ್ರೊಫೈಲ್‌ಗಳನ್ನು ಸಾಧನದ ಮಾಲೀಕರಿಂದ ಹೊಂದಿಸುವ ಅಗತ್ಯವಿದೆ"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"ನಿಮ್ಮ ಕೆಲಸದ ಪ್ರೊಫೈಲ್‌ ಈ ಲಾಂಚರ್‌‌ ಅಪ್ಲಿಕೇಶನ್‌ನಿಂದ ಬೆಂಬಲಿತವಾಗಿಲ್ಲ. ನೀವು, ಹೊಂದಿಕೆಯಾಗುವಂತಹ ಲಾಂಚರ್‌‌ಗೆ ಬದಲಾಯಿಸುವ ಅಗತ್ಯವಿದೆ."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"ರದ್ದುಮಾಡು"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"ಸರಿ"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"ಕೆಲಸದ ಸಾಧನದ ಬಳಕೆದಾರರು"</string>
+    <string name="setup_device" msgid="6725265673245816366">"ನಿಮ್ಮ ಸಾಧನವನ್ನು ಹೊಂದಿಸಿ"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"ಸೆಟಪ್ ಡೇಟಾ ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi ಗೆ ಸಂಪರ್ಕಪಡಿಸಲಾಗುತ್ತಿದೆ..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"ನಿರ್ವಹಣೆ ಅಪ್ಲಿಕೇಶನ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"ನಿರ್ವಹಣೆ ಅಪ್ಲಿಕೇಶನ್ ಸ್ಥಾಪಿಸಲಾಗುತ್ತಿದೆ..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"ಸಾಧನ ಮಾಲೀಕರನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"ಹೊಂದಿಸುವುದನ್ನು ನಿಲ್ಲಿಸುವುದೇ?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"ನೀವು ಹೊಂದಾಣಿಕೆಯನ್ನು ನಿಲ್ಲಿಸಲು ಮತ್ತು ನಿಮ್ಮ ಸಾಧನದ ಡೇಟಾವನ್ನು ಅಳಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"ರದ್ದುಮಾಡು"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"ಸರಿ"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"ಮರುಹೊಂದಿಸು"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"ನಿಮ್ಮ ಸಾಧನವನ್ನು ಹೊಂದಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ IT ವಿಭಾಗವನ್ನು ಸಂಪರ್ಕಿಸಿ."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"ಈ ಸಾಧನವನ್ನು ಈಗಾಗಲೇ ಹೊಂದಿಸಲಾಗಿದೆ"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi ಗೆ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"ಚೆಕ್‌ಸಮ್ ದೋಷ ಎದುರಾಗಿರುವ ಕಾರಣ ನಿರ್ವಹಣೆ ಅಪ್ಲಿಕೇಶನ್ ಬಳಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ IT ವಿಭಾಗವನ್ನು ಸಂಪರ್ಕಿಸಿ."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"ನಿರ್ವಹಣೆ ಅಪ್ಲಿಕೇಶನ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"ನಿರ್ವಹಣೆ ಅಪ್ಲಿಕೇಶನ್ ಬಳಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಇದರಲ್ಲಿ ಕಾಂಪೊನೆಂಟ್‌ಗಳು ಕಾಣೆಯಾಗಿವೆ ಅಥವಾ ದೋಷಪೂರಿತವಾಗಿವೆ, ನಿಮ್ಮ IT ವಿಭಾಗವನ್ನು ಸಂಪರ್ಕಿಸಿ."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"ನಿರ್ವಹಣೆ ಅಪ್ಲಿಕೇಶನ್‌ ಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"ನಿರ್ವಹಣೆ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"ಹೊಂದಿಸುವುದನ್ನು ನಿಲ್ಲಿಸುವುದೇ?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"ಹೊಂದಿಸುವುದನ್ನು ನೀವು ನಿಲ್ಲಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"ಇಲ್ಲ"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"ಹೌದು"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"ರದ್ದುಗೊಳಿಸಲಾಗುತ್ತಿದೆ..."</string>
+</resources>

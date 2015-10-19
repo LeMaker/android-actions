@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Gセンサーキャリブレーション"</string>
+    <string name="buttonCalib_name">"キャリブレーションを執行する"</string>
+    <string name="buttonReset_name">"キャリブレーションをクリアする"</string>
+    <string name="info_reset">"Gセンサーキャリブレーションデータをクリアする"</string>
+    <string name="info_calib">"Gセンサーキャリブレーションデータを保管する"</string>
+    <string name="info_tips">"当デバイスを水平に置き、キャリブレーションボタンをクリックする"</string>
+</resources>

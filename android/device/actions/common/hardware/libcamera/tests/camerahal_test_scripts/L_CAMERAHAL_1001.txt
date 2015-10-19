@@ -1,0 +1,10 @@
+|A1|4VGA|~yuv420sp|r30|1|d10|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0001
+//DESCRIPTION: Using CameraHAL test suite. Resolution: VGA. Format: YUV420 NV12  
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2011
+//    VERSION: 1.0

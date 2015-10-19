@@ -1,0 +1,101 @@
+{
+    global:
+        extern "C++"{
+          DM_Event::*;
+          DMFileHandler::*;
+          SyncML_Log::*;
+          SyncML_Commit_Log::*;
+          DMLockingHelper::*;
+          DmtAcl::*;
+          DMString::*;
+          DMBuffer::*;
+          DMAddData::*;
+          DmSocketConnector::*;
+          DmtTreeFactory::*;
+          DmtErrorDescription::*;
+          DmtData::*;
+          DmtAttributes::*;
+          DmtEvent::*;
+          DmtPluginStatus::*;
+          DmtAPIPluginTree::*;
+          DmtPluginTree::*;
+          DmtPluginNode::*;
+          DmtRWPluginTree::*;
+          DmtRWPluginNode::*;
+          DMThread::*;
+          DMParser::*;
+          DMToken::*;
+          DmtDataChunk::*;
+          DMLockContextManager::*;
+          DmtSessionProp::*;
+          DmtEventSubscription::*;
+
+          DMTree::ConvertFormat*;
+          DMTree::GetClientAuthInfo*;
+          DMTree::GetServerAuthInfo*;
+          DMTree::ReleaseLock*;
+          DMTree::GetMetaDataManager*;
+          DMTree::GetPluginManager*;
+          DMTree::GetArchiver*;
+          DMTree::GetLockContextManager*;
+          DMTree::Flush*;
+          DMTree::GetWritableFileSystemFullPath*;
+          DMTree::IsInitialized*;
+          DMTree::GetMaxPathDepth*;
+          DMTree::GetMaxTotalPathLength*;
+          DMTree::GetMaxPathSegmentLength*;
+          DMTree::SetServerId*;
+          DMTree::SetConRef*;
+          DMTree::Replace*;
+          DMTree::Exec*;
+          DMTree::InitListAndGetListFirstItem*;
+          DMTree::Add*;
+          DMTree::GetListNextItem*;
+          DMTree::Commit*;
+          DMTree::Atomic*;
+          DMTree::SetLastClientAuthType*;
+          DMTree::GetAccNodeValue*;
+          DMTree::Delete*;
+          DMTree::URIValidateAndParse*;
+          DMTree::Get*;
+          DMTree::readOneWordFromTree*;
+          DMTree::FindNodeByURI*;
+          DMTree::IsESN*;
+          DMTree::GetLastClientAuthType*;
+          DMTree::ConvertFormatStr*;
+          DMTree::GetParentOfKeyValue*;
+          DMTree::GetDefAccountAddrInfo*;
+          DMTree::GetLockContextManager*;
+          DMTree::GetWritableFileSystemFullPath*;
+          DMTree::getChildren*;
+          dmFreeGetMap*;
+
+         
+        };
+
+        DmtMemAlloc*;
+        DmtMemFree;
+        DmStrToStringVector;
+        DmStringParserGetItem;
+        GetDMSyncMLVersion;
+        DmAllocMem*;
+        DmReallocMem;
+        DmFreeMem*;
+        _*SYNCML_DM_Session*;
+
+        dmGetNodeValue*;
+        DmtGetCachedOPINodeData*;
+        DmtSetOPINodeData*;
+
+        XPL_*;
+
+        _ZTV*;
+
+        s_nBlocks;
+        s_nSize;
+        s_nCnt;
+        dmTreeObj;
+    local:
+        *;
+};
+

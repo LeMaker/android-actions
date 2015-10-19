@@ -1,0 +1,21 @@
+|4SVGA|~yuv420sp|r30|1
+|5SVGA|d5|p|d3
+|5SVGA|z1x|d3|d2|p|d3
+|5SVGA|z1.5x|d3|d2|p|d3
+|5SVGA|z2x|d3|d2|p|d3
+|5SVGA|z2.5x|d3|d2|p|d3
+|5SVGA|z3x|d3|d2|p|d3
+|5SVGA|z3.5x|d3|d2|p|d3
+|5SVGA|z4x|d3|d2|p|d3
+|z1x|d1
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0028
+//DESCRIPTION: Camera HAL shall support rotation for zoomed pictures 
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0
+

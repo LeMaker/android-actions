@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+       <string name="app_name">TestTvoutCircle</string>
+       <string name="circle_start">circle_start</string>
+       <string name="circle_stop">circle_stop</string>
+    </resources>

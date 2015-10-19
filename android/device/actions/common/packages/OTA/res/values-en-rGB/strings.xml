@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Settings"</string>
+    <string name="title_activity_main">"Owl Upgrade"</string>
+    <string name="update_online">"Online Upgrade"</string>
+    <string name="update_native">"Local upgrade"</string>
+    <string name="goto_recovery">"Restore to Recovery upgrade mode?"</string>
+    <string name="progress_dialog_title">"Networking in"</string>
+    <string name="not_connect">"Not connected to the network"</string>
+    <string name="progress_dialog_mgs">"Checking for updates, please wait..."</string>
+    <string name="connect_server_wrong">"Server is busy, please retry the connection"</string>
+    <string name="current_system_isnew">"The current system version is up-to-date"</string>
+    <string name="sure">"Sure"</string>
+    <string name="cancel">"Cancel"</string>
+    <string name="update_message">"Check the updated version, whether to download？"</string>
+    <string name="update_title">"New version updates"</string>
+    <string name="download">"Download"</string>
+    <string name="update_rightnow">"Upgrade Now"</string>
+    <string name="start_download">"Start to download the upgrade package"</string>
+    <string name="update_package">"Upgrade package"</string>
+    <string name="download_complete">"Download is complete"</string>
+    <string name="download_fail">"Download failed"</string>
+    <string name="md5_check_fail">"MD5 Parity error"</string>
+    <string name="update_package_downloaded">"Upgrade package has been downloaded"</string>
+    <string name="finish_download">"Upgrade package is finished downloading"</string>
+    <string name="update_notice">"\nStart OTA upgrade:\nThe upgrade process, the action can not be interrupted, please back up your data.\n"</string>
+    <string name="cancel_download">"Whether to cancel the download?"</string>
+    <string name="wait_downloading">"Wait, are downloading..."</string>
+    <string name="download_update_file">"No update file in the SDCard directory, online upgrade to download the update file"</string>
+    <string name="return_native_update">"The local existing upgrade package, please return to the local upgrade"</string>
+    <string name="have_update">"Check for system updates"</string>
+    <string name="notification_update">"Settings application click owl upgrade"</string>
+    <string name="download_notice">"Please keep the network traffic, the download process, please do not open the USB connection"</string>
+	<string name="update_package_not_match">"update package is not match this pad!"</string>
+    <string name="apk_title">"Owl UpgradeV1.0"</string>
+    <string name="checkbox_title">"Automatic query refresh"</string>
+    <string name="checkbox_summary">"Uncheck can not automatic network access server"</string>
+    <string name="checkfrequency_title">"Set the inquiry cycle"</string>
+    <string name="checkfrequency_summary">"The inquiry cycle: "</string>
+    <string name="day">"Day"</string>
+    <string name="battery_low">"Battery Low"</string>
+    <string name="battery_notify">"Please install the update when battery is above 50%"</string>
+</resources>

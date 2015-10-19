@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TableLayout android:orientation="horizontal" android:background="@drawable/main_background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableRow android:gravity="center" android:layout_weight="1.0">
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_gravity" android:background="@drawable/main_gravity_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_gravity" android:maxLines="2" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_gyro" android:background="@drawable/main_gyro_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_gyroscope" android:maxLines="2" />
+        </LinearLayout> 
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_magn" android:background="@drawable/main_magn_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_magnetic" android:maxLines="2" />
+        </LinearLayout>     
+    </TableRow>
+    <TableRow android:gravity="center" android:layout_weight="1.0">
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_orien" android:background="@drawable/main_orien_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_gradienter" android:maxLines="2" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_light" android:background="@drawable/main_light_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_light_sense" android:maxLines="2" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_dist" android:background="@drawable/main_dist_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_distance" android:maxLines="2" />
+        </LinearLayout>        
+    </TableRow>
+    <TableRow android:gravity="center" android:layout_weight="1.0">
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_tempe" android:background="@drawable/main_tempe_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_temperature" android:maxLines="2" />
+        </LinearLayout> 
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_voice" android:background="@drawable/main_voice_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_voice" android:maxLines="2" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:background="@drawable/main_icon_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dip" android:layout_weight="1.0">
+            <ImageView android:id="@+id/iv_pressure" android:background="@drawable/main_pressure_null" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="13.0dip" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/m_pressure" android:maxLines="2" />
+        </LinearLayout>
+    </TableRow>
+</TableLayout>

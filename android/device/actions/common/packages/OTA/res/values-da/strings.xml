@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Indstillinger"</string>
+    <string name="title_activity_main">"Ugle Opdatering"</string>
+    <string name="update_online">"Online Opdatering"</string>
+    <string name="update_native">"Lokal Opdatering"</string>
+    <string name="goto_recovery">"Gendan til Recovery opdatering mode?"</string>
+    <string name="progress_dialog_title">"Online"</string>
+    <string name="not_connect">"Netværk ikke forbundet"</string>
+    <string name="progress_dialog_mgs">"Søger for opdatering, vent venligst..."</string>
+    <string name="connect_server_wrong">"Server optaget, prøv forbindelse igen "</string>
+    <string name="current_system_isnew">"Den aktuelle system version er nyeste."</string>
+    <string name="sure">"Bekræft"</string>
+    <string name="cancel">"Annuller"</string>
+    <string name="update_message">"Nyere version opdaget, vil du hente?"</string>
+    <string name="update_title">"Indhold af opdatering"</string>
+    <string name="download">"Download"</string>
+    <string name="update_rightnow">"Opdater nu"</string>
+    <string name="start_download">"Starter at hente opdateringspakken"</string>
+    <string name="update_package">"Opdateringspakke"</string>
+    <string name="download_complete">"Download fuldgjort"</string>
+    <string name="download_fail">"Download mislykket"</string>
+    <string name="md5_check_fail">"MD5-Parity fejl"</string>
+    <string name="update_package_downloaded">"Opdateringspakken har hentet"</string>
+    <string name="finish_download">"Opdateringspakken download fuldgjort"</string>
+    <string name="update_notice">"\nStarter OTA opdatering:\nOpdatering proces kan ikke være afbrudt, backup dine data.\n"</string>
+    <string name="cancel_download">"Vil du annullere download?"</string>
+    <string name="wait_downloading">"Vent venligst mens henter…"</string>
+    <string name="download_update_file">"Opdatering filer kan ikke findes i SD Kort, hent opdatering filer fra netværk for det første."</string>
+    <string name="return_native_update">"Opdateringspakken allerede eksisterer, gå tilbage til den lokale opdatering."</string>
+    <string name="have_update">"Sørg for system opdatering"</string>
+    <string name="notification_update">"Enter Indstillinger Applikation og klik på ugle opdatering"</string>
+    <string name="download_notice">"Forbinder med netværk, må ikke åbne USB forbindelse mens download kører."</string>
+    <string name="apk_title">"Ugle Opdatering V1.0"</string>
+    <string name="checkbox_title">"Auto opdagelse"</string>
+    <string name="checkbox_summary">"System vil ikke forbinde med netværk automatisk ved at annullere udvalg."</string>
+    <string name="checkfrequency_title">"Indstil opdagelse periode"</string>
+    <string name="checkfrequency_summary">"Opdagelse periode"</string>
+    <string name="day">"Dag"</string>
+    <string name="battery_low">"Batteri lavt"</string>
+    <string name="battery_notify">"Installer opdatering når batterispændingen er mere end 50%."</string>
+</resources>

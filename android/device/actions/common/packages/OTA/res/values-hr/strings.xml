@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"postavke"</string>
+    <string name="title_activity_main">"Sova poboljšati"</string>
+    <string name="update_online">"poboljšati  na vezi"</string>
+    <string name="update_native">"lokalna nadogradnja"</string>
+    <string name="goto_recovery">"Vrati se oporavak nadogradnju modu"</string>
+    <string name="progress_dialog_title">"Intranet"</string>
+    <string name="not_connect">"Nije povezan s mrežom"</string>
+    <string name="progress_dialog_mgs">"Provjera ažuriranja, molimo pričekajte …"</string>
+    <string name="connect_server_wrong">"Server je zauzet, pokušajte ponovo priključen"</string>
+    <string name="current_system_isnew">"Sadašnji je sustav najnovija inačica"</string>
+    <string name="sure">"odrediti"</string>
+    <string name="cancel">"otkazati"</string>
+    <string name="update_message">"Otkriven noviju verziju, hoće li se skinuti?"</string>
+    <string name="update_title">"Nova verzija ažurira"</string>
+    <string name="download">"preuzimanje"</string>
+    <string name="update_rightnow">"sada nadogradite"</string>
+    <string name="start_download">"Početak preuzeti nadogradnju paket"</string>
+    <string name="update_package">"nadogradnji paket"</string>
+    <string name="download_complete">"Preuzmite dovršetak"</string>
+    <string name="download_fail">"Preuzimanje nije uspjelo"</string>
+    <string name="md5_check_fail">"MD5 Paritet pogreške"</string>
+    <string name="update_package_downloaded">"Nadogradnja paket je preuzeto"</string>
+    <string name="finish_download">"Nadogradnja paket preuzimanje dovrši"</string>
+    <string name="update_notice">"\nPočetak OTA nadogradnje:\nProces nadogradnje, akcija ne može biti prekinuta, molimo sigurnosno kopiranje podataka. \n"</string>
+    <string name="cancel_download">"Bilo bi odustati od preuzimanja?"</string>
+    <string name="wait_downloading">"peruzimam, molim pričekajte ..."</string>
+    <string name="download_update_file">"Sdcard ne ažurira datoteke pod root direktorijumu ,Preuzmite ažuriranje datoteka na vezi nadogradnju"</string>
+    <string name="return_native_update">"Lokalna nadogradnji paket već postoji, vratite se na lokalnoj nadogradnje"</string>
+    <string name="have_update">"Provjerite ažuriranja sustava"</string>
+    <string name="notification_update">"Dođite postaviti zahtjev, kliknite na sove nadogradnje"</string>
+    <string name="download_notice">"Imajte na mrežni promet, postupak preuzimanja, nemojte otvoriti USB priključak"</string>
+    <string name="apk_title">"Sova poboljšati V1.0"</string>
+    <string name="checkbox_title">"Automatsko provjeravanje nadogradnji"</string>
+    <string name="checkbox_summary">"Isključite mrežni pristup poslužitelju ne mogu se automatski"</string>
+    <string name="checkfrequency_title">"Postavljanje upita ciklus"</string>
+    <string name="checkfrequency_summary">"Prozivanje ciklusa"</string>
+    <string name="day">"dan"</string>
+    <string name="battery_low">"baterije niska"</string>
+    <string name="battery_notify">"Molimo provjerite baterije je iznad 50% prilikom instaliranja ažuriranja"</string>
+</resources>

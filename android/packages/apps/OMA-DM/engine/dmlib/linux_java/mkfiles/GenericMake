@@ -1,0 +1,200 @@
+
+#
+# DESCRIPTION:
+#   Template Makefile for DM tests, jni so and engine
+#
+########### Revision History ########################################
+#
+#  Date       Author     Reference
+#  ========   ========   ================================
+#  03-06-27   fdp101     dbg_ca69_fdp101_dm_dev, 
+#                        Initial draft   
+#  03-08-07   fdp101     Master reorganization, convert to template-based
+#  06-08-07   ehb005     Vob migration
+#  06-20-07   ehb005     LIBmm61881  - Added DM_UNITTEST 
+#
+#####################################################################
+#
+# Input parameters:
+# Targets:
+#  all - build the the code
+# 
+#  Platforms (TARGET variable)
+#   x86-Redhat
+#   EzX
+#
+# Comilation options (DM_BUILD_TARGET)
+#  build - debug build
+#  release - final release with optimizations
+#
+######################################################################
+
+#GLOBAL_VOBS_PREFIX := $(subst /vobs/jem/caf/dm/src/linux_java/mkfiles,,$(shell pwd))
+
+# purify target support
+ifndef PURIFY
+PURIFY=/rational2/releases/purify.i386_linux2.2003a.06.00/purify
+endif
+
+ifneq ($(DM_BUILD_TARGET),release)
+ifdef USE_PURIFY
+ifdef GLOBAL_EXECUTABLE
+LINKER := $(PURIFY) -INUSE_AT_EXIT=yes -CHAIN_LENGTH="10" 
+endif
+endif
+endif
+
+CC := ${COMPILERTOOLPATH}/${COMPILERTOOLPREFIX}gcc
+CCP := ${COMPILERTOOLPATH}/${COMPILERTOOLPREFIX}gcc
+LINKER += ${COMPILERTOOLPATH}/${COMPILERTOOLPREFIX}gcc
+AR := ${COMPILERTOOLPATH}/${COMPILERTOOLPREFIX}ar
+
+
+ifndef TARGET
+TARGET := x86-Redhat
+endif
+
+ifndef DM_BUILD_TARGET
+# assume debug as default
+DM_BUILD_TARGET := build
+endif
+
+ifndef DMBUILDTOP
+DMBUILDTOP=/vobs/linuxjava/device_mgmt/dm/core/build/x86-Redhat
+endif
+
+
+DIR_CORE := /vobs/linuxjava/device_mgmt/dm/core
+DIR_DM :=/vobs/linuxjava/device_mgmt/dm/core/src
+DIR_XPL :=/vobs/linuxjava/device_mgmt/dm/xpl
+
+
+# default value only, also used when no variables are provided
+STAGING=$(DMBUILDTOP)/release-staging
+OUT_DIR=$(STAGING)/$(GLOBAL_TARGET_SUBDIR)
+
+#ARCH=$(TARGET).$(DM_BUILD_TARGET)
+ARCH=$(TARGET)
+
+ifeq ($(DM_BUILD_TARGET),release)
+OBJ_DIR = obj_release_$(ARCH)
+else
+OBJ_DIR = obj_debug_$(ARCH)
+endif
+
+DEPSOURCE = $(subst $(DMBUILDTOP),$(DIR_DM),$(subst $(OBJ_DIR),src,$(basename $@)))
+
+FINALTARGET=$(OUT_DIR)/$(GLOBAL_TARGET_FILENAME)
+
+# include each subdirs Makefile.objects
+include $(foreach dir,$(GLOBAL_SUBDIRS_A),$(DIR_DM)/$(dir)/Makefile.objects)
+
+OBJS = $(foreach dir1,$(GLOBAL_SUBDIRS_A),$(foreach object,$($(notdir $(subst /src,,$(dir1)))_OBJECTS),$(DMBUILDTOP)/$(dir $(dir1))/$(OBJ_DIR)/$(object)) )
+ALL_SOURCES = $(foreach dir1,$(GLOBAL_SUBDIRS_A),$(foreach object,$($(notdir $(subst /src,,$(dir1)))_OBJECTS),$(dir1)/$(subst .o,.c,$(subst .oo,.cc,$(object)))))
+
+
+# Flags
+CC_INCLUDE_FLAGS= 
+
+
+ifeq ($(DM_BUILD_TARGET),release)
+CC_GENERIC_FLAGS = -Os -fcheck-new -Wall -Wno-deprecated \
+  -DNDEBUG -DNO_DEBUG 
+C_GENERIC_FLAGS = -Os -Wall -DNDEBUG -DNO_DEBUG
+ 
+ifdef RELEASESTAGING
+STAGING=$(RELEASESTAGING)
+endif
+
+else
+CC_GENERIC_FLAGS += -g -fcheck-new -Wall -Wno-deprecated -DDEBUG 
+
+ifdef DEVSTAGING
+STAGING=$(DEVSTAGING)
+endif
+
+endif
+
+ifeq ($(TARGET),x86-Redhat)
+CC_GENERIC_FLAGS += -DPLATFORM_X86
+C_GENERIC_FLAGS += -DPLATFORM_X86 -g -Wall -DDEBUG
+else
+CC_GENERIC_FLAGS += -DEZX_PLATFORM_arm11 -DEZX_PRODUCT_SCMA11REF
+C_GENERIC_FLAGS += -DEZX_PLATFORM_arm11 -DEZX_PRODUCT_SCMA11REF
+endif
+
+ifdef USE_GCOV
+CC_GENERIC_FLAGS += -fprofile-arcs -ftest-coverage 
+C_GENERIC_FLAGS += -fprofile-arcs -ftest-coverage 
+endif
+
+
+ALL_CCFLAGS = -fno-rtti -fno-exceptions -fPIC \
+  -DVRTXMC \
+  -DSYNCML_DM_DBG_USING_XML \
+  -DDM_SUPPORT_AUTHPREF \
+  -DDM_ATOMIC_SUPPORTED \
+  -DLOB_SUPPORT \
+  -DNO_OTHER_PLUGIN	\
+  -DDM_UNITTEST \
+   $(CC_GENERIC_FLAGS) $(CC_INCLUDE_FLAGS) $(GLOBAL_EXTRA_CC_FLAGS) $(GLOBAL_EXTRA_CC_FLAGS.$(TARGET)) \
+   $(CMD_EXTRA_CC_FLAGS)
+
+
+ALL_CFLAGS = -fno-exceptions -fPIC \
+  -DVRTXMC \
+  -DSYNCML_DM_DBG_USING_XML \
+  -DDM_SUPPORT_AUTHPREF \
+  -DDM_ATOMIC_SUPPORTED \
+  -DLOB_SUPPORT \
+  -DNO_CAF \
+  -DNO_CAF \
+  -DNO_OTHER_PLUGIN	\
+  -DDM_UNITTEST \
+   $(C_GENERIC_FLAGS) $(CC_INCLUDE_FLAGS) $(GLOBAL_EXTRA_CC_FLAGS) $(GLOBAL_EXTRA_CC_FLAGS.$(TARGET)) \
+   $(CMD_EXTRA_CC_FLAGS)
+
+CCFLAGS = -c $(ALL_CCFLAGS)
+CFLAGS = -c $(ALL_CFLAGS)
+
+ifeq ($(TARGET), linux-arm-familiar)
+  GFLAG = -msoft-float
+else
+  GFLAG =
+endif
+
+
+CC_LINK_FLAGS=$(CC_GENERIC_FLAGS)  $(GLOBAL_EXTRA_LINK_FLAGS) \
+  -lpthread -ldl -lstdc++ -L$(STAGING)/lib -L$(STAGING)/api -L$(OUT_DIR)\
+  -Wl,--no-undefined \
+  $(CMD_EXTRA_LINK_FLAGS)
+
+all:: BUILD_PREPARE  $(OBJS) $(FINALTARGET)
+	@echo -n ""
+
+BUILD_PREPARE:
+#	@for dir in $(GLOBAL_SUBDIRS_A); do \
+#	     (test -d $(subst $(GLOBAL_VOBS_PREFIX)/vobs,$(DMBUILDTOP),$(DIR_DM)/$$dir/../obj.$(ARCH)) || (echo "mkdir -p $(subst $(GLOBAL_VOBS_PREFIX)/vobs,$(DMBUILDTOP),$(DIR_DM)/$$dir/../obj.$(ARCH))" &&  mkdir -p $(subst $(GLOBAL_VOBS_PREFIX)/vobs,$(DMBUILDTOP),$(DIR_DM)/$$dir/../obj.$(ARCH)) )); \
+#	 done
+
+	@(test -d $(OUT_DIR) || (mkdir -p $(OUT_DIR) && echo "created $(OUT_DIR)" ))
+
+##### Compile rules  #####
+%.o:
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(DEPSOURCE).c -o $@
+
+%.oo:
+	mkdir -p $(@D)
+	$(CCP) $(CCFLAGS) $(DEPSOURCE).cc -o $@
+
+
+ifdef GLOBAL_CREATE_LIB
+$(FINALTARGET): $(OBJS)
+	$(AR) rc $(FINALTARGET) $(OBJS)
+else
+## Linker
+$(FINALTARGET): $(OBJS) 
+	$(LINKER) $(CC_LINK_FLAGS) -o $(FINALTARGET) $(OBJS)
+endif
+

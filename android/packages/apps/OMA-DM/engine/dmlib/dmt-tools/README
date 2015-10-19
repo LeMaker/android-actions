@@ -1,0 +1,49 @@
+DMT Standalone manipulation tools:
+----------------------------------
+
+There are two tools provided here to manipulate DMT data/meta-data:
+
+convertMDF - this tool converts from the older text-based meta data 
+             file (root.mdf) to the new binary format (root.bmdf).
+
+             It takes a single argument, for example:
+
+	     convertMDF test.mdf
+
+	     After completion, a file called 'test.bmdf' will be
+	     created in this directory.
+
+generateDMT - This tool calls the necessary 'Gen tool' and python
+	      script to build the data and meta-data for a DMT 
+	      represented by a .zip file.  For more information on
+	      on how to manipulate the Dmt.zip file, see the document
+	      entitled 'DMTreeGeneration.doc' in the docs directory.
+
+	      NOTE: This script requires that you set the environment
+		    variable JAVA_HOME to the location where your Java
+		    runtime is installed.
+
+	      It takes one required and one optional argument, for example:
+
+	      generateDMT ../path/to/Dmt.zip (this creates output dir 'treedata')
+
+	      OR
+	
+	      generateDMT ../path/to/Dmt.zip /tmp (creates 'treedata' dir in /tmp)
+             
+	      Inside the 'treedata' directory are all of the wbxml files that
+	      represent the DMT data (the source xml files are also included
+  	      for debugging), as well as the necessary support files (acl.txt,
+	      fstab, root.bmdf).  The text-based root.mdf is included for
+	      debugging purposes.
+
+              NOTE: The fstab file included in this directory is a SAMPLE only.
+		    Please edit this file (it must be named 'fstab') to suit 
+		    your own tree structure.
+
+	      There is a subdirectory called 'docs' inside of 'treedata' which 
+	      contains the javadoc-style html documentation for the tree 
+	      schema.
+
+The other subdirectories in this directory (bin and lib) contain necessary support
+files/programs for the two tools above.

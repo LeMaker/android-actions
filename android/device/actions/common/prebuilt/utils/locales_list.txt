@@ -1,0 +1,86 @@
+﻿Afrikaans,af,ZA,Afrikaans,南非荷兰语,南非荷蘭語
+azərbaycanca (Azərbaycan),az,AZ,Azerbaijani,阿塞拜疆语,阿塞拜疆語
+Bahasa Indonesia,in,ID,Indonesian,印度尼西亚语,印度尼西亞語
+Bahasa Melayu,ms,MY,Malay,马来语,馬來語
+Català,ca,ES,Catalan,加泰罗尼亚语,加泰羅尼亞語
+Čeština,cs,CZ,Czech,捷克语,捷克語
+Dansk,da,DK,Danish,丹麦语,丹麦語
+Deutsch (Deutschland),de,DE,German(Germany),德语(德国),德語(德國)
+Deutsch (Liechtenstein),de,LI,German(Liechtenstein),德语(列支敦士登),德語(列支敦士登)
+Deutsch (Österreich),de,AT,German(Austria),德语(奥地利),德語(奧地利)
+Deutsch (Schweiz),de,CH,German(Switzerland),德语(瑞士),德語(瑞士)
+English (Australia),en,AU,English(Australia),英语(澳大利亚),英語(澳大利亞)
+English (Canada),en,CA,English(Canada),英语(加拿大),英語(加拿大)
+English (New Zealand),en,NZ,English(New Zealand),英语(新西兰),英語(新西蘭)
+English (Singapore),en,SG,English(Singapore),英语(新加坡),英語(新加坡)
+English (United Kingdom),en,GB,English(United Kingdom),英语(联合王国),英語(聯合王國)
+English (United States),en,US,English(United States),英语(美国),英語(美國)
+English (India),en,IN,English(India),英语(印度),英語(印度)
+Español (España),es,ES,Spanish(Spain),西班牙语(西班牙),西班牙語(西班牙)
+Español (Estados Unidos),es,US,Spanish(U.S.),西班牙语(美国),西班牙语(美國)
+eesti (Eesti),et,EE,Estonian,爱沙尼亚语,愛沙尼亞語
+Français (Belgique),fr,BE,French(Belgium),法语(比利时),法語(比利時)
+Français (Canada),fr,CA,French(Canada),法语(加拿大),法語(加拿大)
+Français (France),fr,FR,French(France),法语(法国),法語(法國)
+Français (Suisse),fr,CH,French(Switzerland),法语(瑞士),法語(瑞士)
+Hrvatski,hr,HR,Croatian,克罗地亚语,克羅地亞語
+IsiZulu,zu,ZA,IsiZulu,祖鲁语,祖魯語
+Italiano (Italia),it,IT,Italian(Italy),意大利语(意大利),義大利語(義大利)
+Italiano (Svizzera),it,CH,Italian(Switzerland),意大利语(瑞士),義大利語(瑞士)
+Kiswahili,sw,TZ,Kiswahili,斯瓦希里语,斯瓦希里語
+ქართული (საქართველო),ka,GE,South Caucasian languages,南高加索语（格鲁吉亚）,南高加索語（格魯吉亞）
+Latviešu,lv,LV,Latvian,拉脱维亚语,拉脫維亞語
+Lietuvių,lt,LT,Lithuanian,立陶宛语,立陶宛語
+Magyar,hu,HU,Hungarian,匈牙利语,匈牙利語
+Nederlands (België),nl,BE,Nederlands(Belgium),荷兰语(比利时),荷蘭語(比利時)
+Nederlands (Nederland),nl,NL,Nederlands(Nederland),荷兰语(荷兰),荷蘭語(荷蘭)
+Norsk bokmål,nb,NO,Norwegian,挪威博克马尔文,挪威博克馬爾文
+Polski,pl,PL,Polish,波兰语,波蘭語
+Português (Brasil),pt,BR,Portuguese(Brazil),葡萄牙语(巴西),葡萄牙語(巴西)
+Português (Portugal),pt,PT,Portuguese(Portugal),葡萄牙语(葡萄牙),葡萄牙語(葡萄牙)
+Română,ro,RO,Romanian,罗马尼亚语,羅馬尼亞語
+Rumantsch,rm,CH,Rumantsch,罗曼语,羅曼語
+Slovenčina,sk,SK,Slovak,斯洛伐克语,斯洛伐克語
+Slovenščina,sl,SI,Slovenian,斯洛文尼亚语,斯洛文尼亞語
+Suomi,fi,FI,Finland,芬兰语,芬蘭語
+Svenska,sv,SE,Swedish,瑞典语,瑞典語
+Tiếng Việt,vi,VN,Vietnamese,越南语,越南語
+Türkçe,tr,TR,Turkish,土耳其语,土耳其語
+Ελληνικά,el,GR,Greek,希腊语,希臘語
+Български,bg,BG,Bulgarian,保加利亚语,保加利亞語
+Русский,ru,RU,Russian,俄语,俄語
+Српски,sr,RS,Serbian,塞尔维亚语,塞爾維亞語
+Українська,uk,UA,Ukrainian,乌克兰语,烏克蘭語
+עברית,iw,IL,Hebrew,希伯来文,希伯來文
+العربية,ar,EG,Arabic,阿拉伯语,阿拉伯語
+فارسی,fa,IR,Persian,波斯语,波斯語
+አማርኛ,am,ET,Amharic,阿姆哈拉语,阿姆哈拉語
+हिन्दी,hi,IN,Hindi,印地语,印地語
+ไทย,th,TH,Thailand,泰语,泰語
+한국어,ko,KR,Korean,韩语,韓語
+ລາວ (ສ.ປ.ປ ລາວ),lo,LA,Laothian,寮语,寮語
+ខ្មែរ (កម្ពុជា) ,km,KH,Khmer (Cambodia),高棉语（柬埔寨）,高棉語（柬埔寨）
+հայերեն (Հայաստան),hy,AM,Armenia,亚美尼亚语,亞美尼亞語
+монгол (Монгол),mn,MN,Mongolian,蒙古语,蒙古語
+नेपाली (नेपाल) ,ne,NP,Nepali,尼泊尔语,尼泊爾語
+中文 (简体),zh,CN,Chinese(Simplified),中文(简体),中文(簡體)
+中文 (繁體),zh,TW,Chinese(Traditional),中文(繁体),中文(繁體)
+中文 (香港),zh,HK,Chinese(Traditional),中文(香港),中文(香港)
+日本語,ja,JP,Japanese,日语,日語
+Euskara,eu,ES,Basque (Spain),巴斯克文(西班牙),巴斯克文(西班牙)
+Filipino,fil,PH,Filipino (Philippines),菲律宾文(菲律宾),菲律賓文(菲律賓)
+Galego,gl,ES,Galician (Spain),加利西亚文(西班牙),加里西亞文(西班牙)
+Íslenska,is,IS,Icelandic (Iceland),冰岛文(冰岛),冰島文(冰島)
+Oʻzbekcha,uz,UZ,Uzbek (Uzbekistan),乌兹别克文(乌兹别克斯坦),烏茲別克文(烏茲別克)
+Кыргызча,ky,KG,Kyrgyz (Kyrgyzstan),吉尔吉斯文(吉尔吉斯斯坦),吉爾吉斯文(吉爾吉斯)
+Қазақ тілі,kk,KZ,Kazakh (Kazakhstan),哈萨克文(哈萨克斯坦),哈薩克文(哈薩克)
+Македонски,mk,MK,Macedonian (Macedonia (FYROM)),马其顿文(马其顿),馬其頓文(馬其頓)
+اردو,ur,PK,Urdu (Pakistan),乌尔都文(巴基斯坦),烏都文(巴基斯坦)
+मराठी,mr,IN,Marathi (India),马拉地文(印度),馬拉地文(印度)
+বাংলা,bn,BD,Bengali (Bangladesh),孟加拉文(孟加拉国),孟加拉文(孟加拉)
+தமிழ்,ta,IN,Tamil (India),泰米尔文(印度),坦米爾文(印度)
+తెలుగు,te,IN,Telugu (India),泰卢固文(印度),泰盧固文(印度)
+ಕನ್ನಡ,kn,IN,Kannada (India),卡纳达文(印度),坎那達文(印度)
+മലയാളം,ml,IN,Malayalam (India),马拉雅拉姆文(印度),馬來亞拉姆文(印度)
+සිංහල,si,LK,Sinhala (Sri Lanka),僧伽罗文(斯里兰卡),僧伽羅文(斯里蘭卡)
+ဗမာ,my,MM,Burmese (Myanmar (Burma)),缅甸文(缅甸),緬甸文(緬甸)

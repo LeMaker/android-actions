@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Setări"</string>
+    <string name="title_activity_main">"Upgrade-ul pentru Software Bufniță"</string>
+    <string name="update_online">" Upgrade-ul Online"</string>
+    <string name="update_native">"Upgrade-ul Local"</string>
+    <string name="goto_recovery">"Readuceți sistemul la modul de upgrade ”Recuperare”?"</string>
+    <string name="progress_dialog_title">"În procesul de conectare la rețeaua"</string>
+    <string name="not_connect">"Nu e conectat la rețeaua"</string>
+    <string name="progress_dialog_mgs">"Se verificară upgrade-ul și vă rugăm să asteptați …"</string>
+    <string name="connect_server_wrong">"Serverul este ocupat și vă rugăm să încercați din nou conexiunea."</string>
+    <string name="current_system_isnew">"Versiunea curentă a sistemului este actualizat."</string>
+    <string name="sure">"OK"</string>
+    <string name="cancel">"Anulare"</string>
+    <string name="update_message">"Se găsește versiunea actualizată și se descarcă? "</string>
+    <string name="update_title">"Versiunea nouă se actualizează."</string>
+    <string name="download">"Descărcare."</string>
+    <string name="update_rightnow">"Se face upgrade-ul acum."</string>
+    <string name="start_download">"Începe descărcarea pachetului de upgrade."</string>
+    <string name="update_package">"Pachetul de upgrade"</string>
+    <string name="download_complete">"Descărcarea e terminată."</string>
+    <string name="download_fail">" Descărcarea e eșuată"</string>
+    <string name="md5_check_fail">"Eroare MD5"</string>
+    <string name="update_package_downloaded">"Descărcarea pachetului de upgrade e terminată."</string>
+    <string name="finish_download">" Se termină descărcarea pachetului de upgrade."</string>
+    <string name="update_notice">"\n Începe upgrade-ul OTA:\n În procesul de upgrade nu se poate întrerupe și vă rugăm să faceți copii de rezervă ale datelor.\n"</string>
+    <string name="cancel_download">"Se anulează descărcarea sau nu?"</string>
+    <string name="wait_downloading">"În procesul de descărcare și vă rugăm să aștepati …"</string>
+    <string name="download_update_file">"Pe SDCard în directorul rădăcină nu e fișierul de actualizare și vă rugăm să faceți upgrade-ul online pentru descărcarea fișierului de actualizare. "</string>
+    <string name="return_native_update">"Există pachetul de upgrade la nivel local și vă rugăm să vă întoarceți la upgrade-ul local."</string>
+    <string name="have_update">"Se găsesc actualizările sistemului."</string>
+    <string name="notification_update">"Intrați în Setările Aplicației și dați click pe butonul Upgrade-ul pentru Software Bufniță."</string>
+    <string name="download_notice">"Vă rugăm să păstrați rețeaua liberă în procesul de descărcare și să nu deschideți conexiunea USB."</string>
+    <string name="apk_title">"Upgrade-ul pentru Software Bufniță V1.0"</string>
+    <string name="checkbox_title">"Verificarea automată pentru actualizări"</string>
+    <string name="checkbox_summary">"Debifați caseta de selectare și nu poate să vă conecteze automat la un server din rețeaua."</string>
+    <string name="checkfrequency_title">"Setați ciclul verificării"</string>
+    <string name="checkfrequency_summary">"Ciclul verificării "</string>
+    <string name="day">"Zile"</string>
+    <string name="battery_low">"Bateria descărcată"</string>
+    <string name="battery_notify">"Vă rugăm să instalați actualizarea când bateria este de peste 50%."</string>
+</resources>

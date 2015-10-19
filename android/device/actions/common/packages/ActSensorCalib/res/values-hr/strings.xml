@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"gravitacija poravnanje"</string>
+    <string name="buttonCalib_name">"kalibriranje"</string>
+    <string name="buttonReset_name">"Izvadite kalibraciju"</string>
+    <string name="info_reset">"Uklanjanje gravitacijskih podataka o kalibraciji"</string>
+    <string name="info_calib">"Spremi podatci o kalibraciji gravitacije"</string>
+    <string name="info_tips">"Ovaj uređaj je postavljen vodoravno, kliknite gumb Kalibriraj."</string>
+</resources>

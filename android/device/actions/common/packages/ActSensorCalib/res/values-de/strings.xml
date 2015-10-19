@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Schwerkraftkalibrierung"</string>
+    <string name="buttonCalib_name">"Ausführungskalibrierung"</string>
+    <string name="buttonReset_name">"Beseitigungskalibrierung"</string>
+    <string name="info_reset">"Daten von Schwerkraftkalibrierung beseitigt"</string>
+    <string name="info_calib">"Daten von Schwerkraftkalibrierung gespeichert"</string>
+    <string name="info_tips">"Legen Sie diese Vorrichtung auf eine ebene Fläche, und klicken sie die Kalibrierungstaste."</string>
+</resources>

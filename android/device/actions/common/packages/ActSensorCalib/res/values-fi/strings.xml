@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"G tunnistin kalibrointi"</string>
+    <string name="buttonCalib_name">"Suorita kalibrointi"</string>
+    <string name="buttonReset_name">"Poista kalibrointi"</string>
+    <string name="info_reset">"Kalibrointi tiedot poistettu"</string>
+    <string name="info_calib">"Kalibrointi tiedot tallennettu"</string>
+    <string name="info_tips">"Aseta laite tasaiselle alustalle ja pidä paikallaan."</string>
+</resources>

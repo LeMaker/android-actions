@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Pružatelj usluga na uređaju"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Ups!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Postavite svoj profil"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Vaša organizacija kontrolira i štiti ovaj profil. Vi kontrolirate sve ostalo na svojem uređaju."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Sljedeća aplikacija morat će pristupiti ovom profilu:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Postavi"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Postavljanje radnog profila..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Vaš administrator može nadzirati postavke, korporacijski pristup, aplikacije i podatke povezane s profilom te upravljati njima, uključujući aktivnosti na mreži i podatke o lokaciji uređaja."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Vaš administrator može nadzirati postavke, korporacijski pristup, aplikacije i podatke povezane s ovim uređajem te njima upravljati, uključujući aktivnosti na mreži i podatke o lokaciji uređaja."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Za više informacija, uključujući pravila o privatnosti organizacije, obratite se administratoru."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Saznajte više"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Odustani"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"U redu"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Radni profil"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Već imate radni profil na svom uređaju. Želite li ga ukloniti?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Jeste li sigurni da želite ukloniti ovaj radni profil? Svi će podaci biti izbrisani."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Ukloni"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Odustani"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Da biste nastavili s postavljanjem svog radnog profila, morat ćete šifrirati uređaj. To može potrajati."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Odustani"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Šifriranje"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Enkripcija je dovršena"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Dodirnite da biste nastavili postavljati radni profil"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Postavljanje vašeg radnog profila nije uspjelo. Obratite se IT odjelu ili pokušajte ponovno kasnije."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Vaš uređaj ne podržava radne profile."</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Radne profile mora postaviti vlasnik uređaja"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Ta aplikacija pokretača ne podržava vaš radni profil. Morat ćete prijeći na kompatibilni pokretač."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Odustani"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"U redu"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Korisnik radnog uređaja"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Postavljanje uređaja"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Obrada podataka o postavljanju..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Povezivanje s Wi-Fi mrežom..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"Preuzimanje administratorske aplikacije..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"Instaliranje administratorske aplikacije..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Postavljanje vlasnika uređaja..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Prekinuti postavljanje?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Jeste li sigurni da želite zaustaviti postavljanje i izbrisati podatke uređaja?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Odustani"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"U redu"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Vrati na zadano"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Postavljanje uređaja nije uspjelo. Obratite se IT odjelu."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Ovaj je uređaj već postavljen"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Spajanje na Wi-Fi nije uspjelo"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Upotreba administratorske aplikacije nije uspjela zbog pogreške kontrolnog zbroja. Obratite se IT odjelu."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Preuzimanje administratorske aplikacije nije uspjelo"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Administratorska aplikacija ne može se upotrebljavati. Nedostaju joj neke komponente ili je oštećena. Obratite se IT odjelu."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Instaliranje administratorske aplikacije nije uspjelo"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Na uređaju nije instalirana administratorska aplikacija"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Želite li prekinuti postavljanje?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Jeste li sigurni da želite prekinuti postavljanje?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Ne"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Da"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Otkazivanje..."</string>
+</resources>

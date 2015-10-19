@@ -1,0 +1,18 @@
+|4VGA|~yuv420sp|r30|lHD||9H264|vmp4|-AMR_NB|]64K
+|r5|6|d10|2
+|r10|6|d10|2
+|r15|6|d10|2
+|r20|6|d10|2
+|r25|6|d10|2
+|r30|6|d10|2
+|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0137
+//DESCRIPTION: Video capture in multiple frame rates Resolution: 1080p Format: YUV420 NV12
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

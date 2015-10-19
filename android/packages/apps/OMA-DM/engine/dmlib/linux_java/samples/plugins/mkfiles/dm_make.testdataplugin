@@ -1,0 +1,33 @@
+#
+# DESCRIPTION:
+#
+########### Revision History ########################################
+#
+#  Date       Author     Reference
+#  ========   ========   ================================
+#
+#####################################################################
+
+GLOBAL_DONOT_USE_SYNCML_PORT = 1
+GLOBAL_TARGET_SUBDIR := lib/dmplugins
+GLOBAL_TARGET_FILENAME := libtestdataplugin.so
+GLOBAL_DIR_A=$(GLOBAL_VOBS_PREFIX)/vobs/jem/caf/dm/src
+
+GLOBAL_SUBDIRS_A = \
+plugindll/testdataplugin/src 		\
+
+GLOBAL_EXTRA_CC_FLAGS = \
+      -I$(DIR_DM)/api/native \
+      -I$(DIR_DM)/portlib/hdr \
+      -I$(DIR_DM)/portlib/generic \
+      -I$(DIR_DM)/portlib/juix/hdr \
+      -I$(DIR_DM)/dmengine/dm_util/hdr
+
+
+GLOBAL_EXTRA_LINK_FLAGS := -shared -ldmnative \
+  -Xlinker --version-script=versionscr_plugin
+
+GLOBAL_DEP_FILENAME = deps_testdataplugin
+
+include GenericMake
+

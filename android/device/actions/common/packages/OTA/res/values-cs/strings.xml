@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Nastavení"</string>
+    <string name="title_activity_main">"Sova aktualizace"</string>
+    <string name="update_online">"Online aktualizace"</string>
+    <string name="update_native">"Miestneá aktualizace"</string>
+    <string name="goto_recovery">"Obnovení do režimu obnovy aktualizace?"</string>
+    <string name="progress_dialog_title">"Připojení do sítě"</string>
+    <string name="not_connect">"Nepřipojený k síti"</string>
+    <string name="progress_dialog_mgs">"Kontroluje aktualizaci, čekejte prosím ..."</string>
+    <string name="connect_server_wrong">"Server je zaneprázdněn, zkuste prosím znovu připojení"</string>
+    <string name="current_system_isnew">"Aktuální verze systému je poslední"</string>
+    <string name="sure">"Určit"</string>
+    <string name="cancel">"Zrušit"</string>
+    <string name="update_message">"Podívejte se na aktualizovanou verzi, zda je chcete stáhnout?"</string>
+    <string name="update_title">"Nová verze aktualizace"</string>
+    <string name="download">"Stáhnout"</string>
+    <string name="update_rightnow">"Aktualizujte nyní"</string>
+    <string name="start_download">"Začněte stáhnout balíček aktualizace"</string>
+    <string name="update_package">"Balíček aktualizace"</string>
+    <string name="download_complete">"Stažení je kompletní"</string>
+    <string name="download_fail">"Stažení selhalo"</string>
+    <string name="md5_check_fail">"MD5 chyba parity"</string>
+    <string name="update_package_downloaded">"balíček aktualizace byl stažen"</string>
+    <string name="finish_download">"Stažení balíčku aktualizace je kompletní"</string>
+    <string name="update_notice">"\ NZačíná OTA aktualizaci:. \ N v procesu aktualizace, akce nemůže být přerušena, prosím, zálohujte data \ n"</string>
+    <string name="cancel_download">"Zda se stahování zrušit?"</string>
+    <string name="wait_downloading">"Počkej, je ke stažení ..."</string>
+    <string name="download_update_file">"Nemá aktualizační soubor v adresáři sdcard, on-line prosím stáhněte aktualizační soubor"</string>
+    <string name="return_native_update">"Místní existuje balíček aktualizace, vraťte se do místní aktualizace"</string>
+    <string name="have_update">"Zkontrolujte, zda je aktualizace systému"</string>
+    <string name="notification_update">"Klepněte na tlačítko Sova aktualizace v nastavení aplikace"</string>
+    <string name="download_notice">"Prosím, mějte na síťový provoz, při procesu stahování, prosím, neotvírejte připojení USB"</string>
+    <string name="apk_title">"Sova aktualizace V1.0"</string>
+    <string name="checkbox_title">"Automatický dotaz obnovy"</string>
+    <string name="checkbox_summary">"Zrušte zaškrtnutí políčka, bude nesamočinná přístup k síti serveru"</string>
+    <string name="checkfrequency_title">"Nastavte cyklus dotazu"</string>
+    <string name="checkfrequency_summary">"Cyklus dotazu:"</string>
+    <string name="day">"Den"</string>
+    <string name="battery_low">"Vybitá baterie"</string>
+    <string name="battery_notify">"Prosím, nainstalujte aktualizaci, když je baterie nad 50%"</string>
+</resources>

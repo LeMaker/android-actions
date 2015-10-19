@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Подешавања"</string>
+    <string name="title_activity_main">"Сова за надоградњу"</string>
+    <string name="update_online">"побољшати  na mrežu"</string>
+    <string name="update_native">"Локални надоградњу"</string>
+    <string name="goto_recovery">"Враћање у режим за опоравак надоградње"</string>
+    <string name="progress_dialog_title">"Интранет"</string>
+    <string name="not_connect">"Није повезан са мрежом"</string>
+    <string name="progress_dialog_mgs">"Провера да ли постоје исправке, молимо сачекајте …"</string>
+    <string name="connect_server_wrong">"Сервер је заузет, покушајте поново прикључен"</string>
+    <string name="current_system_isnew">"Садашњи систем је најновија верзија"</string>
+    <string name="sure">"одредити"</string>
+    <string name="cancel">"отказати"</string>
+    <string name="update_message">"Откривен новију верзију, да ли да преузмете?"</string>
+    <string name="update_title">"Нова верзија исправке"</string>
+    <string name="download">"преузимање"</string>
+    <string name="update_rightnow">"надоградњу сада"</string>
+    <string name="start_download">"Почетак преузмете пакет за надоградњу"</string>
+    <string name="update_package">"пакет за надоградњу"</string>
+    <string name="download_complete">"Преузимање заврши"</string>
+    <string name="download_fail">"Преузимање није успело"</string>
+    <string name="md5_check_fail">"MD5 Паритет грешка"</string>
+    <string name="update_package_downloaded">"Надоградња пакет је преузето"</string>
+    <string name="finish_download">"Надоградња пакет преузимање завршено"</string>
+    <string name="update_notice">"\nПочетак ОТА надоградњу:\nПроцес надоградње, акција не може бити прекинут, молимо вас да направите резервне копије података.\n"</string>
+    <string name="cancel_download">"Било да одустанете од преузимања?"</string>
+    <string name="wait_downloading">"преузимам,Молимо сачекајте ..."</string>
+    <string name="download_update_file">"SD Card не ажурира датотеке под роот директоријуму,Молимо вас да преузмете исправке на мрежи надоградњу"</string>
+    <string name="return_native_update">"Локална надоградњн пакет већ постоји, вратите се на локалном надоградњу"</string>
+    <string name="have_update">"Проверите да ли постоје ажурирања система"</string>
+    <string name="notification_update">"Дођите подесите апликацију, кликните на сова надоградњу"</string>
+    <string name="download_notice">"Имајте саобраћај на мрежи, процес преузимања, молим не отварајте УСБ везу"</string>
+    <string name="apk_title">"Сова за надоградњу V1.0"</string>
+    <string name="checkbox_title">"Аутоматски проверава за ажурирања"</string>
+    <string name="checkbox_summary">"Опозовите приступ мрежи на серверу не могу се аутоматски"</string>
+    <string name="checkfrequency_title">"Постављање упита циклус"</string>
+    <string name="checkfrequency_summary">"Анкетирање циклус"</string>
+    <string name="day">" дан "</string>
+    <string name="battery_low">"батерије низак"</string>
+    <string name="battery_notify">"Молимо вас да проверите ниво батерије изнад 50% приликом инсталирања ажурирања"</string>
+</resources>

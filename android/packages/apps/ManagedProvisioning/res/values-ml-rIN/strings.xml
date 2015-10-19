@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"ഉപകരണ പ്രൊവിഷണർ"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"ക്ഷമിക്കണം!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"നിങ്ങളുടെ പ്രൊഫൈല്‍ സജ്ജമാക്കുക"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"നിങ്ങളുടെ ഓർഗനൈസേഷൻ, ഈ പ്രൊഫൈൽ നിയന്ത്രിച്ച് അവ സുരക്ഷിതമായി സൂക്ഷിക്കുന്നു. ഉപകരണത്തിലെ മറ്റുള്ളവയെല്ലാം നിങ്ങൾക്ക് നിയന്ത്രിക്കാനാവും."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"ഇനിപ്പറയുന്ന അപ്ലിക്കേഷന് ഈ പ്രൊഫൈൽ ആക്‌സസ്സുചെയ്യേണ്ടിവരും:"</string>
+    <string name="set_up" msgid="7012862095553564169">"സജ്ജീകരിക്കുക"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"നിങ്ങളുടെ ഔദ്യോഗിക പ്രൊഫൈൽ സജ്ജീകരിക്കുന്നു..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"നെറ്റ്‌വർക്ക് പ്രവർത്തനവും ഉപകരണത്തിന്റെ ലൊക്കേഷൻ വിവരവും ഉൾപ്പെടെ നിങ്ങളുടെ പ്രൊഫൈലുമായി ബന്ധപ്പെട്ട ക്രമീകരണങ്ങളും കോർപ്പറേറ്റ് ആക്‌സസ്സും അപ്ലിക്കേഷനുകളും ഡാറ്റയും നിരീക്ഷിക്കാനും നിയന്ത്രിക്കാനും അഡ്‌മിനിസ്‌ട്രേറ്റർക്ക് കഴിയും."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"നെറ്റ്‌വർക്ക് പ്രവർത്തനവും ഉപകരണത്തിന്റെ ലൊക്കേഷൻ വിവരവും ഉൾപ്പെടെ, ഈ ഉപകരണവുമായി ബന്ധപ്പെട്ട ക്രമീകരണങ്ങളും കോർപ്പറേറ്റ് ആക്‌സസ്സും അപ്ലിക്കേഷനുകളും ഡാറ്റയും നിരീക്ഷിക്കാനും നിയന്ത്രിക്കാനും അഡ്‌മിനിസ്‌ട്രേറ്റർക്ക് കഴിയും."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"നിങ്ങളുടെ ഓർഗനൈസേഷന്റെ സ്വകാര്യതാ നയങ്ങൾ ഉൾപ്പെടെയുള്ള കൂടുതൽ വിവരങ്ങൾക്ക് അഡ്‌മിനിസ്‌ട്രേറ്ററെ ബന്ധപ്പെടുക."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"കൂടുതലറിയുക"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"റദ്ദാക്കുക"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"ശരി"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"ഔദ്യോഗിക പ്രൊഫൈൽ"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"നിങ്ങളുടെ ഉപകരണത്തിൽ ഇതിനകം ഒരു ഔദ്യോഗിക പ്രൊഫൈലുണ്ട്. ഇത് നീക്കംചെയ്യണോ?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"ഈ ഔദ്യോഗിക പ്രൊഫൈൽ നീക്കംചെയ്യണമെന്ന് തീർച്ചയാണോ? ഇതിന്റെ എല്ലാ ഡാറ്റയും ഇല്ലാതാക്കും."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"നീക്കംചെയ്യുക"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"റദ്ദാക്കുക"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"നിങ്ങളുടെ ഔദ്യോഗിക പ്രൊഫൈൽ സജ്ജീകരിക്കുന്നത് തുടരാൻ, നിങ്ങളുടെ ഉപകരണം എൻക്രിപ്റ്റ് ചെയ്യേണ്ടതുണ്ട്. ഇതിന് കുറച്ച് സമയമെടുത്തേക്കാം."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"റദ്ദാക്കുക"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"എൻക്രിപ്‌റ്റുചെയ്യുക"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"എൻക്രി‌പ്‌റ്റുചെയ്യൽ പൂർത്തിയാക്കുക"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"നിങ്ങളുടെ ഔദ്യോഗിക പ്രൊഫൈൽ സജ്ജീകരിക്കുന്നത് തുടരാൻ സ്‌പർശിക്കുക"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"നിങ്ങളുടെ ഔദ്യോഗിക പ്രൊഫൈൽ സജ്ജീകരിക്കാനായില്ല. നിങ്ങളുടെ ഐടി വിഭാഗവുമായി ബന്ധപ്പെടുക അല്ലെങ്കിൽ പിന്നീട് വീണ്ടും ശ്രമിക്കുക."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"നിങ്ങളുടെ ഉപകരണം ഔദ്യോഗിക പ്രൊഫൈലുകളെ പിന്തുണയ്‌ക്കുന്നില്ല"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"ഔദ്യോഗിക പ്രൊഫൈലുകൾ, ഉപകരണ ഉടമ സജ്ജീകരിക്കേണ്ടതുണ്ട്"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"ഈ ലോഞ്ചർ അപ്ലിക്കേഷൻ നിങ്ങളുടെ ഔദ്യോഗിക പ്രൊഫൈലിനെ പിന്തുണയ്‌ക്കില്ല. അനുയോജ്യമായ ലോഞ്ചറിലേക്ക് മാറേണ്ടതുണ്ട്."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"റദ്ദാക്കുക"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"ശരി"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"ഔദ്യോഗിക ഉപകരണത്തിന്റെ ഉപയോക്താവ്"</string>
+    <string name="setup_device" msgid="6725265673245816366">"നിങ്ങളുടെ ഉപകരണം സജ്ജീകരിക്കുക"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"സജ്ജീകരണ ഡാറ്റ പ്രോസസ്സുചെയ്യുന്നു..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi-ലേക്ക് കണക്‌റ്റുചെയ്യുന്നു..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"അഡ്‌മിൻ അപ്ലിക്കേഷൻ ഡൗൺലോഡുചെയ്യുന്നു..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"അഡ്‌മിൻ അപ്ലിക്കേഷൻ ഇൻസ്റ്റാളുചെയ്യുന്നു..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"ഉപകരണ ഉടമയെ സജ്ജീകരിക്കുന്നു..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"സജ്ജീകരിക്കൽ നിർത്തണോ?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"നിങ്ങളുടെ ഉപകരണത്തിന്റെ ഡാറ്റ സജ്ജീകരിക്കുന്നത് അവസാനിപ്പിച്ച് അത് മായ്‌ക്കണമെന്നത് തീർച്ചയാണോ?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"റദ്ദാക്കുക"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"ശരി"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"പുനഃസജ്ജമാക്കുക"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"നിങ്ങളുടെ ഉപകരണം സജ്ജീകരിക്കാനായില്ല. നിങ്ങളുടെ ഐടി വിഭാഗവുമായി ബന്ധപ്പെടുക."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"ഈ ഉപകരണം ഇതിനകം തന്നെ സജ്ജീകരിച്ചിരിക്കുന്നു"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi ലേക്ക് കണക്‌റ്റുചെയ്യാനായില്ല"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"ഒരു ചെക്ക്‌സം പിശക് കാരണം അഡ്‌മിൻ അപ്ലിക്കേഷൻ ഉപയോഗിക്കാനായില്ല. നിങ്ങളുടെ ഐടി വിഭാഗവുമായി ബന്ധപ്പെടുക."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"അഡ്‌മിൻ അപ്ലിക്കേഷൻ ഡൗൺലോഡുചെയ്യാനായില്ല"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"അഡ്‌മിൻ അപ്ലിക്കേഷൻ ഉപയോഗിക്കാനാവില്ല. അതിന്റെ ഘടകഭാഗങ്ങൾ നഷ്‌ടപ്പെട്ടതോ കേടായതോ ആണ്. നിങ്ങളുടെ ഐടി വിഭാഗവുമായി ബന്ധപ്പെടുക."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"അഡ്‌മിൻ അപ്ലിക്കേഷൻ ഇൻസ്റ്റാളുചെയ്യാനായില്ല"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"നിങ്ങളുടെ ഉപകരണത്തിൽ അഡ്‌മിൻ അപ്ലിക്കേഷൻ ഇൻസ്‌റ്റാളുചെയ്‌തിട്ടില്ല"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"സജ്ജീകരിക്കൽ നിർത്തണോ?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"സജ്ജീകരിക്കൽ നിർത്തണമെന്ന് തീർച്ചയാണോ?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"അല്ല"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"അതെ"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"റദ്ദാക്കുന്നു..."</string>
+</resources>

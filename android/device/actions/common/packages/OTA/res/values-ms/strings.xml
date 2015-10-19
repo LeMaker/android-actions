@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Penetapan"</string>
+    <string name="title_activity_main">"Upgrade Owl"</string>
+    <string name="update_online">"Upgrade online"</string>
+    <string name="update_native">"Upgrade tempatan"</string>
+    <string name="goto_recovery">"Kembali ke mode upgrade Recovery"</string>
+    <string name="progress_dialog_title">"Tersambung"</string>
+    <string name="not_connect">"Tidak disambung ke rangkaian"</string>
+    <string name="progress_dialog_mgs">"Menyemak update, sila tunggu..."</string>
+    <string name="connect_server_wrong">"Server sibuk, sila cuba lagi sambungan"</string>
+    <string name="current_system_isnew">"Sistem semasa ini adalah versi terbaru"</string>
+    <string name="sure">"Ya"</string>
+    <string name="cancel">"Batal"</string>
+    <string name="update_message">"Semak versi terkini, apakah mendownload?"</string>
+    <string name="update_title">"Update versi baru"</string>
+    <string name="download">"Download"</string>
+    <string name="update_rightnow">"Upgrade sekarang"</string>
+    <string name="start_download">"Mula download pakej upgrade"</string>
+    <string name="update_package">"Pakej upgrade"</string>
+    <string name="download_complete">"Download selesai "</string>
+    <string name="download_fail">"Download gagal "</string>
+    <string name="md5_check_fail">"Pariti MD5 ralat"</string>
+    <string name="update_package_downloaded">"Pakej upgrade telah didownload "</string>
+    <string name="finish_download">"Download pakej upgrade selesai"</string>
+    <string name="update_notice">"\nMula upgrade OTA:\nSelama proses upgrade, aksi tidak dapat dihentikan, sila membuat sandaran data anda.\n"</string>
+    <string name="cancel_download">"Apakah membatalkan download? "</string>
+    <string name="wait_downloading">"Mendownload, sila tunggu…"</string>
+    <string name="download_update_file">"Tidak ada fail update dalam direktori Kad SD, upgrade online untuk mendownload fail update"</string>
+    <string name="return_native_update">"Pakej upgrade sudah ada di tempatan, sila balik ke upgrade tempatan"</string>
+    <string name="have_update">"Semak kemas kini sistem"</string>
+    <string name="notification_update">"Masuk ke penetapan dan klik upgrade Owl"</string>
+    <string name="download_notice">"Harap menjaga rangkaian terbuka, selama proses download, harap jangan membuka sambungan USB"</string>
+    <string name="apk_title">"Upgrade OwlV1.0"</string>
+    <string name="checkbox_title">"Kueri automatik refresh"</string>
+    <string name="checkbox_summary">"Padam tanda semak untuk tidak mengakses ke server secara automatik"</string>
+    <string name="checkfrequency_title">"Menetapkan kitaran penyelidikan"</string>
+    <string name="checkfrequency_summary">"Kitaran penyelidikan:"</string>
+    <string name="day">"Hari"</string>
+    <string name="battery_low">"Bateri Rendah"</string>
+    <string name="battery_notify">"Sila pasang update ketika bateri di atas 50%"</string>
+</resources>

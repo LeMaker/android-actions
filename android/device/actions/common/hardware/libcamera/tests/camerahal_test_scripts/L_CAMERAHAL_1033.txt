@@ -1,0 +1,16 @@
+|A1|4VGA|~yuv420sp|r30|1|5VGA|d2|p|d4
+|eauto|8auto|wauto|d2|p|d4
+|emono|8incandescent|wlandscape|d2|p|d4
+|enegative|8fluorescent|wlandscape|d2|p|d4
+|esolarize|8daylight|wnight|d2|p|d4
+|esepia|8cloudy-daylight|wnight|d2|p|d4
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0033
+//DESCRIPTION: Camera HAL shall support image capture with different colour effect, exposure , whilte balance and scene mode
+//     AUTHOR: JShandorov
+//       DATE: 24.06.2010
+//    VERSION: 2.0

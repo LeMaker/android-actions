@@ -1,0 +1,280 @@
+########################################
+# Test Get
+########################################
+
+startCounter
+
+get .
+get ./DevInfo/DevId
+
+createi ./SyncML/DMAcc/UniTest
+createl ./SyncML/DMAcc/UniTest/ServerId 1.1.1.1
+get ./SyncML/DMAcc/UniTest/ServerId
+replace ./SyncML/DMAcc/UniTest/ServerId 2.2.2.2
+delete ./SyncML/DMAcc/UniTest
+get .
+
+########################################
+# Test dump tree
+########################################
+
+dump ./DevInfo
+dump ./SyncML
+dump ./DevDetail
+
+########################################
+# Test rollback
+# 1 failure
+########################################
+
+begin
+createi ./SyncML/Con/x
+get ./SyncML/Con/x
+rollback
+
+# Next should fail
+get ./SyncML/Con/x
+
+########################################
+# Plugin Tests
+########################################
+
+# data plugin
+# 0 failure
+
+get ./TestPluginNode
+get ./TestPluginNode/a
+get ./TestPluginNode/b
+dump ./TestPluginNode
+
+########################################
+# Script tests
+########################################
+
+processscript unittest/dm11/testgetscript.xml
+processscript unittest/dm11/testexecscript.xml
+processscript unittest/dm11/testexecscript2.xml
+                                                                         
+processscript unittest/dm11/testalertconfirmatomic.xml
+processscript unittest/dm11/testalertmultiplechoice.xml
+processscript unittest/dm11/testalertconfirm.xml
+processscript unittest/dm11/testalertsinglechoice.xml
+processscript unittest/dm11/testalertdisplay.xml
+processscript unittest/dm11/testalerttextinput.xml
+
+########################################
+# Binary Script tests
+########################################
+processscript unittest/dm11/testget.wbxml 1
+processscript unittest/dm11/testadd.wbxml 1
+processscript unittest/dm11/testdelete.wbxml 1
+processscript unittest/dm11/testreplace.wbxml 1
+
+########################################
+# SuperAgent Test and Build HMAC Cred
+########################################
+hmaccred scts
+
+########################################
+# Factory Boostrap Credential Generation for 1.1.2
+########################################
+createi ./SyncML/DMAcc/SampleServer
+createl ./SyncML/DMAcc/SampleServer/ServerId Scts
+createl ./SyncML/DMAcc/SampleServer/Addr http://127.0.0.1:80/Manage
+createl ./SyncML/DMAcc/SampleServer/AddrType 1
+createl ./SyncML/DMAcc/SampleServer/ConRef
+createl ./SyncML/DMAcc/SampleServer/Name SampleServer
+createl ./SyncML/DMAcc/SampleServer/ServerPW SampleServer
+createl ./SyncML/DMAcc/SampleServer/UserName SampleServer
+createl ./SyncML/DMAcc/SampleServer/ClientPW SampleServer
+createl ./SyncML/DMAcc/SampleServer/PortNbr 80
+createl ./SyncML/DMAcc/SampleServer/ServerNonce MTIzNDEyMzQxMjM0MTIzNA==
+createl ./SyncML/DMAcc/SampleServer/ClientNonce 123abc
+createl ./SyncML/DMAcc/SampleServer/AuthPref syncml:auth-basic
+
+connectsid Scts
+
+dump ./SyncML/DMAcc/SampleServer
+
+delete ./SyncML/DMAcc/SampleServer
+
+########################################
+# Exec test
+########################################
+Exec . ls
+
+########################################
+# Commit plug-in test for indirect update
+# and for fk: and child: MA
+########################################
+createi ./UnitTest/Profiles11/1
+createl ./UnitTest/Profiles11/1/CurProfile 12
+createi ./UnitTest/Profiles11/2
+createl ./UnitTest/Profiles11/2/CurProfile 12
+
+createi ./SyncML/DMAcc/12
+createl ./SyncML/DMAcc/12/ServerId some
+
+createl ./UnitTest/Profiles11/1/CurProfile 12
+createl ./UnitTest/Profiles11/2/CurProfile 12
+
+replace ./SyncML/DMAcc/12/ServerId some3
+createl ./SyncML/DMAcc/12/AppID some
+
+# should fail since child: constraint
+delete ./SyncML/DMAcc/12
+
+# clean-up
+delete ./UnitTest/Profiles11/1
+delete ./UnitTest/Profiles11/2
+delete ./SyncML/DMAcc/12
+
+dump ./TestRWPluginNode
+
+########################################
+# Create a char type ESN
+########################################
+createl ./TEST/lob
+setESN ./TEST/lob unittest/dm11/testlobdata1.dat
+get ./TEST/lob
+
+########################################
+# Replace a char type ESN data
+########################################
+
+setESN ./TEST/lob unittest/dm11/testlobdata2.dat
+get ./TEST/lob
+
+########################################
+# Clone a char type  ESN
+########################################
+delete ./CLONE
+clone ./TEST CLONE
+get ./CLONE/lob
+
+########################################
+# Remove a char type ESN
+########################################
+
+delete ./TEST/lob
+delete ./CLONE/lob
+get ./TEST/lob
+
+########################################
+# Rollback an char type ESN
+########################################
+begin
+createl ./TEST/lob
+setESN ./TEST/lob unittest/dm11/testlobdata1.dat
+rollback
+get ./TEST/lob
+
+########################################
+# Create a binary type ESN
+########################################
+createlb ./TEST/lobbin
+setESN ./TEST/lob unittest/dm11/testlobdata1.dat
+get ./TEST/lobbin
+
+########################################
+# Replace a binary type ESN data
+########################################
+
+setESN ./TEST/lobbin unittest/dm11/testlobdata2.dat
+get ./TEST/lobbin
+
+########################################
+# Clone a binary type  ESN
+########################################
+delete ./CLONE
+clone ./TEST CLONE
+get ./CLONE/lobbin
+
+########################################
+# Remove a binary type ESN
+########################################
+
+delete ./TEST/lobbin
+delete ./CLONE/lobbin
+get ./TEST/lobbin
+
+########################################
+# Rollback an binary type ESN
+########################################
+begin
+createlb ./TEST/lobbin
+setESN ./TEST/lobbin unittest/dm11/testlobdata1.dat
+rollback
+get ./TEST/lobbin
+
+########################################
+# Create a char type ESN
+########################################
+delete ./TestRWPluginNode/branch1/lob
+createl ./TestRWPluginNode/branch1/lob
+setESN ./TestRWPluginNode/branch1/lob unittest/dm11/testlobdata1.dat
+get ./TestRWPluginNode/branch1/lob
+
+########################################
+# Replace a char type ESN data
+########################################
+
+setESN ./TestRWPluginNode/branch1/lob unittest/dm11/testlobdata2.dat
+get ./TestRWPluginNode/branch1/lob
+
+########################################
+# Create a binary type ESN
+########################################
+delete ./TestRWPluginNode/branch1/lobbin
+createlb ./TestRWPluginNode/branch1/lobbin
+setESN ./TestRWPluginNode/branch1/lobbin unittest/dm11/testlobdata1.dat
+get ./TestRWPluginNode/branch1/lobbin
+
+########################################
+# Replace a binary type ESN data
+########################################
+
+setESN ./TestRWPluginNode/branch1/lobbin unittest/dm11/testlobdata2.dat
+get ./TestRWPluginNode/branch1/lobbin
+
+
+########################################
+# Clone a char type  ESN
+########################################
+delete ./TestRWPluginNode/clone
+clone ./TestRWPluginNode/branch1 clone
+get ./TestRWPluginNode/clone/lob
+get ./TestRWPluginNode/clone/lobbin
+
+########################################
+# Remove a char type ESN
+########################################
+
+delete ./TestRWPluginNode/clone
+delete ./TestRWPluginNode/branch1/lob
+delete ./TestRWPluginNode/branch1/lobbin
+get ./TestRWPluginNode/clone/lobbin
+get ./TestRWPluginNode/branch1/lob
+get ./TestRWPluginNode/branch1/lobbin
+
+########################################
+# Rollback an char type ESN
+########################################
+begin
+createl ./TestRWPluginNode/branch1/lob
+setESN ./TestRWPluginNode/branch1/lob unittest/dm11/testlobdata1.dat
+rollback
+get ./TestRWPluginNode/branch1/lob
+
+########################################
+# Rollback an binary type ESN
+########################################
+begin
+createlb ./TestRWPluginNode/branch1/lobbin
+setESN ./TestRWPluginNode/branch1/lobbin unittest/dm11/testlobdata1.dat
+rollback
+get ./TestRWPluginNode/branch1/lobbin
+
+getCounter
+
+quit

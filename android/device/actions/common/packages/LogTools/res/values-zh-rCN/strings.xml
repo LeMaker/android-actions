@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">logger</string>
+    <string name="stop">停止</string>
+    <string name="start">开始</string>
+    <string name="save">保存</string>
+    <string name="clear">清除所有日志文件</string>
+	<string name="cancle">取消</string>
+    <string name="home">后台运行</string>
+    <string name="filename">文件名：</string>
+    <string name="newDirFailed">创建目录失败</string>
+    <string name="sdcardinvaliable">找不到TF卡!</string>
+    <string name="flashinvaliable">找不到内部存储设备！</string>
+    <string name="allinvaliable">外部存储和内部存储都不可用！</string>
+    <string name="nostart">还未开始打印Log</string>
+    <string name="nostop">还未停止打印Log</string>
+    <string name="lognotfound">错误，没找到log文件！</string>
+    <string name="fileexist">文件已经存在！</string>
+    <string name="fileissaved">文件已经保存了！</string>
+    <string name="invaliableName">请填写正确的文件名！</string>
+    <string name="nosave">还未保存文件，是否保存？</string>
+    <string name="yes">保存</string>
+    <string name="no">不保存</string>
+    <string name="OK">是的</string>
+    <string name="NO">取消</string>
+    <string name="BACK">返回</string>
+    <string name="saveto">保存目录：</string>
+    <string name="savesucess">保存成功！</string>
+    <string name="surePermission">请确认/dev/log/system 和 /dev/log/main 文件具有其他用户可读权限！</string>
+    <string name="sdcardable">TF卡可用了</string>
+    <string name="surehome">还未开始打印，确定要后台运行此程序吗？</string>
+    <string name="sureclear">确定要删除所有日志文件吗？</string>
+    <string name="stopforclear">请先停止打印！</string>
+    <string name="copy2extenal">复制log文件到TF卡上</string>
+    <string name="wait">请稍等...</string>
+    <string name="pathhint">按”开始“可以自动生成文件名...</string>
+	<string name="sizehint">默认文件大小限制为</string>
+    <string name="copyfilename">复制文件：</string>
+    <string name="override">替换</string>
+    <string name="alloverride">全部替换</string>
+    <string name="noonverride">不替换</string>
+    <string name="allnoonverride">都不替换</string>
+    <string name="copyfileexist">文件已经存在，是否将文件(%1$d字节)替换为文件(%2$d字节)?</string>
+    <string name="defaultalarm">_____________________________________________________</string>
+    <string name="about">关于</string>
+    <string name="copytoflash">拷贝到内部存储上?</string>
+	<string name="saveposition">Save Position</string>
+	<string name="unit">MBytes</string>
+	<string name="status">当前状态: </string>
+	<string name="recording">正在记录: </string>
+	<string name="stopped">停止记录: </string>
+	<string name="filemaxsize">文件限制</string>
+	<string name="interstorage">内部存储卡</string>
+	<string name="storagefree">可用容量: </string>
+	<string name="storageexist">已用容量: </string>
+	<string name="storagesuggest">建议容量: </string>
+	<string name="extstorage">外部存储卡</string>
+    <string name="aboutlogger"> \n一般使用流程：
+    \n1)点击\"开始\"开始打印log.
+    \n2)点击\"后台运行\"将该程序放在后台运行，这时候你可以开始测试你的系统，比方说重现一个bug或者做长时间的测试！
+    \n3)当你觉得是时候将log信息取出来的时候，启动这个程序，输入文件名。
+    \n4)点击\"保存\"将文件保存下来，默认保存在/data/data/com.actions.logcat/log/目录下。
+    \n你还可以点击\"复制文件到TF卡上\"将文件保存到TF卡上。 </string>
+    <string name="alarmstoresize">系统中的日志文件太多了，请按“清除所有日志文件”来释放一些空间。</string>
+    <string name="exstoragefull">TF 卡已满，请清除后重试！</string>
+</resources>

@@ -1,0 +1,60 @@
+<MgmtTree>
+ <VerDTD>1.1.2</VerDTD>
+ <Man>Motorola</Man>
+ <Mod>Nexus</Mod>
+
+    <Node>
+     <NodeName>URI</NodeName>
+     <DFProperties>
+      <DFFormat>
+       <node/>
+      </DFFormat>
+      <AccessType>
+       <Get/>
+      </AccessType>
+     </DFProperties>
+      <Type>text/plain</Type>
+
+     <Node>
+      <NodeName>MaxDepth</NodeName>
+      <DFProperties>
+       <DFFormat>
+        <int/>
+       </DFFormat>
+       <AccessType>
+        <Get/>
+       </AccessType>
+      </DFProperties>
+       <Type>text/plain</Type>
+       <Data>20</Data>
+     </Node>
+
+     <Node>
+      <NodeName>MaxSegLen</NodeName>
+      <DFProperties>
+       <DFFormat>
+        <int/>
+       </DFFormat>
+       <AccessType>
+        <Get/>
+       </AccessType>
+      </DFProperties>
+       <Type>text/plain</Type>
+       <Data>256</Data>
+     </Node>
+
+     <Node>
+      <NodeName>MaxTotLen</NodeName>
+      <DFProperties>
+       <DFFormat>
+        <int/>
+       </DFFormat>
+       <AccessType>
+        <Get/>
+       </AccessType>
+      </DFProperties>
+       <Type>text/plain</Type>
+       <Data>512</Data>
+     </Node>
+    </Node>
+</MgmtTree>

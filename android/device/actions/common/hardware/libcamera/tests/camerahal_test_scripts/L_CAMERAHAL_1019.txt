@@ -1,0 +1,10 @@
+|A1|4VGA|~yuv420sp|r30|1|5VGA|d5|p|d8|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0019
+//DESCRIPTION: Camera shall generate JPEG with EXIF information Take a picture Check the image on PC with photostudio, or any other tool supporting EXIF
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0

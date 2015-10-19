@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"راه اندازی"</string>
+    <string name="title_activity_main">"ارتقای جغد"</string>
+    <string name="update_online">"ارتقای آنلاین"</string>
+    <string name="update_native">"ارتقای محلی"</string>
+    <string name="goto_recovery">"بازگرداندن بهحالت ریکاوری؟"</string>
+    <string name="progress_dialog_title">"اتصال به"</string>
+    <string name="not_connect">"به شبکه متصل نیست"</string>
+    <string name="progress_dialog_mgs">"چک کردن برای بروزرسانی،  لطفاً صبر کنید..."</string>
+    <string name="connect_server_wrong">"سرور مشغول است، لطفاً بعداً دوباره امتحان کنید"</string>
+    <string name="current_system_isnew">"　سیستم در حال حاضر آخرین نسخه است"</string>
+    <string name="sure">"تأیید"</string>
+    <string name="cancel">"کنسل"</string>
+    <string name="update_message">"یک نسخه جدیدتر را شناسایی کردیم، دانلود می کنید یا نه؟"</string>
+    <string name="update_title">"بروزرسانی نسخه جدید"</string>
+    <string name="download">"دانلود"</string>
+    <string name="update_rightnow">"ارتقا در حال"</string>
+    <string name="start_download">"شروع به دانلود بسته ارتقاء"</string>
+    <string name="update_package">"بسته ارتقاء"</string>
+    <string name="download_complete">"دانلود تمام شد"</string>
+    <string name="download_fail">"دانلود انجام نشد"</string>
+    <string name="md5_check_fail">"    MD5 خطای پریتی "</string>
+    <string name="update_package_downloaded">"دانلود بسته ارتقاء انجام شد"</string>
+    <string name="finish_download">"انلود بسته ارتقاء انجام شد"</string>
+    <string name="update_notice">"\n :OTA شروع به دانلود بسته ارتقاء \n  .در جریان ارتقاء، اقدام نمی تواند قط شود لطفاً پشتیبان گیری از داده خود را انجام  \n.دهید "</string>
+    <string name="cancel_download">"کنسل دانلود یا نه؟"</string>
+    <string name="wait_downloading">"…دانلود می کنیم، لطفاً صبر کنید"</string>
+    <string name="download_update_file">"  فایل بروزرسانی زیر دایرکتوری ریشه SDCardوجود ندارد ، لطفاً ارتقاء و دانلود فایل را آنلاین انجام دهید"</string>
+    <string name="return_native_update">"بسته ارتقاء محلی وجود دارد، لطفاً در همین محل ارتقاء دهید"</string>
+    <string name="have_update">"چک کردن برای به روز رسانی سیستم"</string>
+    <string name="notification_update">"لطفاً وارد طنظیمات کاربری ارتقای جغد را کلیک کنید"</string>
+    <string name="download_notice">"لطفاً ترافیک شبکه را نگه داشته باشید. در جریان دانلود، اتصال USBرا باز نکنید"</string>
+    <string name="apk_title">"ارتقای جغد V1.0"</string>
+    <string name="checkbox_title">"شناسایی بروزرسانی اتوماتیک"</string>
+    <string name="checkbox_summary">"با کنسل چک می توان به طور اتوماتیک به سرور دسترسی نکرد"</string>
+    <string name="checkfrequency_title">"تنظیم چرخه تحقیق"</string>
+    <string name="checkfrequency_summary">"چرخه تحقیق"</string>
+    <string name="day">" روز"</string>
+    <string name="battery_low">"باتری کم"</string>
+    <string name="battery_notify">"درحالتی که میزان باتری به پنجاه در صد یا بیشتر از آن رسید، بروزرسانی را نسب کنید. "</string>
+</resources>

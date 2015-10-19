@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Peruntukan Peranti"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Op!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Sediakan profil anda"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Organisasi anda mengawal profil ini dan memastikan profil selamat. Anda mengawal segala perkara lain pada peranti anda."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Apl berikut perlu mengakses profil ini:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Sediakan"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Menyediakan profil kerja anda..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Pentadbir anda mempunyai keupayaan untuk memantau dan mengurus tetapan, akses korporat, apl dan data yang dikaitkan dengan profil, termasuk aktiviti rangkaian dan maklumat lokasi peranti anda."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Pentadbir organisasi anda mempunyai keupayaan untuk memantau dan mengurus tetapan, akses korporat, apl dan data yang dikaitkan dengan peranti ini, termasuk aktiviti rangkaian dan maklumat lokasi peranti anda."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Hubungi pentadbir anda untuk maklumat lanjut, termasuk dasar privasi organisasi anda."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Ketahui lebih lanjut"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Batal"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Profil kerja"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Anda sudah mempunyai profil kerja pada peranti anda. Adakah anda mahu mengalih keluar profil itu?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Adakah anda pasti anda mahu memadam profil kerja ini? Semua data akan dipadamkan."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Alih keluar"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Batal"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Untuk meneruskan persediaan, anda perlu menyulitkan peranti anda. Proses ini mungkin mengambil sedikit masa."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Batal"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Sulitkan"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Penyulitan selesai"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Sentuh untuk terus menyediakan profil kerja anda"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Tidak dapat menyediakan profil kerja anda. Hubungi jabatan IT anda atau cuba sebentar lagi."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Peranti anda tidak menyokong profil kerja"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Profil kerja perlu disediakan oleh pemilik peranti"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Profil kerja anda tidak disokong oleh apl pelancar ini. Anda perlu bertukar kepada pelancar yang serasi."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Batal"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"Ok"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Pengguna peranti kerja"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Sediakan peranti anda"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Memproses data persediaan..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Menyambung ke Wi-Fi..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"Memuat turun apl pentadbir..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"Memasang apl pentadbir..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Menetapkan pemilik peranti..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Berhenti menyediakan?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Adakah anda pasti anda mahu berhenti menyediakan dan padam data peranti anda?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Batal"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Tetapkan semula"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Tidak dapat menyediakan peranti anda. Hubungi jabatan IT anda."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Peranti ini sudah disediakan"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Tidak boleh menyambung kepada Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Tidak dapat menggunakan apl pentadbir kerana ralat semak jumlah. Hubungi jabatan IT anda."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Tidak dapat memuat turun apl pentadbir"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Tidak dapat menggunakan apl pentadbir. Apl ketiadaan komponen atau rosak. Hubungi jabatan IT anda."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Tidak dapat memasang apl pentadbir"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Apl pentadbir tidak dipasang pada peranti anda"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Berhenti menyediakan?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Adakah anda pasti anda ingin menghentikan penyediaan?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Tidak"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Ya"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Membatalkan..."</string>
+</resources>

@@ -1,0 +1,60 @@
+#
+# DESCRIPTION:
+#
+########### Revision History ########################################
+#
+#  Date       Author     Reference
+#  ========   ========   ================================
+#
+#####################################################################
+
+GLOBAL_DONOT_USE_SYNCML_PORT = 1
+GLOBAL_TARGET_SUBDIR := lib/dmplugins
+GLOBAL_TARGET_FILENAME := libtestrwplugin.so
+GLOBAL_DIR_A=$(GLOBAL_VOBS_PREFIX)/vobs/jem/caf/dm/src
+
+GLOBAL_SUBDIRS_A = \
+plugindll/testrwplugin/src 		\
+
+GLOBAL_EXTRA_CC_FLAGS = \
+      -I$(DIR_DM)/api/native \
+      -I$(DIR_DM)/portlib/hdr \
+      -I$(DIR_DM)/portlib/generic \
+      -I$(DIR_DM)/portlib/juix/hdr \
+      -I$(DIR_DM)/dmengine/dm_util/hdr\
+      -Iportlib/hdr \
+      -Iplugin/hdr \
+      -Idmengine/hdr \
+      -Idmengine/dm_util/hdr \
+      -Idmengine/dm_persist/hdr \
+      -Idmengine/dm_security/hdr \
+      -Idmengine/dm_tnm/hdr \
+      -Idmengine/dm_ssession/hdr \
+      -Idmengine/dm_transport/hdr \
+      -Idmengine/dm_ua/hdr \
+      -Idmengine/oma_toolkit/sml/xpt/hdr \
+      -Idmengine/oma_toolkit/sml/mgr/hdr \
+      -Idmengine/oma_toolkit/sml/ghdr \
+      -Idmengine/oma_toolkit/sml/lib/hdr \
+      -Idmengine/oma_toolkit/sml/wsm/hdr \
+      -Idmengine/oma_toolkit/sml/xlt/src \
+      -Idmengine/oma_toolkit/sml/xlt/hdr \
+      -Iportlib/juix/hdr \
+      -Iportlib/generic \
+      -I$(GLOBAL_VOBS_PREFIX)/vobs/jem/caf/caf/src/api/native/include \
+      -I$(GLOBAL_VOBS_PREFIX)/vobs/jem/caf/browser/src/stackapi/impl/client/native/hdr \
+      -I$(GLOBAL_VOBS_PREFIX)/vobs/jem/caf/browser/src/stackapi/api/native \
+      -I$(GLOBAL_VOBS_PREFIX)/vobs/jem/caf/browser/src/stackapi/impl/server/hdr \
+      -Ijni/hdr \
+      -Iapi/native \
+      -Idmtapi/hdr \
+      -I$(JAVA_HOME)/include \
+      -I$(JAVA_HOME)/include/linux 
+
+GLOBAL_EXTRA_LINK_FLAGS := -shared -ldmnative \
+  -Xlinker --version-script=versionscr_plugin
+  
+GLOBAL_DEP_FILENAME = deps_testrwplugin
+
+include GenericMake
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Calibrazione di Gravità"</string>
+    <string name="buttonCalib_name">"Calibrazione di Funziona"</string>
+    <string name="buttonReset_name">"Calibrazione di Cancellato"</string>
+    <string name="info_reset">"Calibrazione dei Dati Cancellati"</string>
+    <string name="info_calib">"Calibrazione dei Dati Salvati"</string>
+    <string name="info_tips">"Si prega di inserire dispositivo su una superficie uniforme e stare ancora."</string>
+</resources>

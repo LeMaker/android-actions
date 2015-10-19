@@ -1,0 +1,21 @@
+|4VGA|~yuv420sp|r30|1|512MP|d5|p|d8
+|510MP|d5|p|d8
+|58MP|d5|p|d8
+|55MP|d5|p|d8
+|53MP|d5|p|d8
+|52MP|d5|p|d8
+|51.3MP|d5|p|d8
+|51MP|d5|p|d8
+|5SVGA|d5|p|d8
+|5VGA|d5|p|d8
+|5QVGA|d5|p|d8
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0015
+//DESCRIPTION: Camera HAL shall support image capture with resolutions :QVGA, VGA , 1 MP , 1.3 MP , 2 MP , 3 MP,  5 MP, 8MP, 10MP and 12MP 
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0

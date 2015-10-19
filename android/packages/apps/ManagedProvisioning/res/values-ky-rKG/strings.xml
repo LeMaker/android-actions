@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Түзмөктү Камсыздоочу"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Ой!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Профилиңизди орнотуңуз"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Ишканаңыз бул профилди көзөмөлдөп, коопсуздугун камсыз кылып турат. Түзмөгүңүздөгү калган нерсенин бардыгын өзүңүз көзөмөлдөйсүз."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Төмөнкү колдонмо бул профилди колдонушу керек."</string>
+    <string name="set_up" msgid="7012862095553564169">"Тууралоо"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Жумуш профилиңиз негизделүүдө…"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Администраторуңуз жөндөөлөрдү, корпоративдик колдонуу мүмкүнчүлүгүн, колдонмолорду жана профилге байланыштуу дайындарды, ошондой эле тармактагы аракеттерди жана түзмөгүңүздүн жайгашкан жер маалыматын көзөмөлдөп жана башкара алат."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Администраторуңуз жөндөөлөрдү, корпоративдик кирүү мүмкүнчүлүгүн, колдонмолорду жана ушул түзмөкө байланыштуу дайындарды, ошондой эле тармактагы аракеттер менен түзмөгүңүздүн жайгашкан жери тууралуу маалыматты көзөмөлдөп, башкара алат."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Көбүрөөк маалымат жана ишканаңыздын купуялуулук саясаттарын билүү үчүн администраторуңузга кайрылыңыз."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Көбүрөөк билүү"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Жокко чыгаруу"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Жумуш профили"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Түзмөгүңүздө мурунтан эле жумуш профили бар. Аны алып саласызбы?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Бул жумуш профилин чын эле алып салгыңыз келеби? Андагы бардык дайындар жок кылынат."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Алып салуу"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Жокко чыгаруу"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Жумуш профилиңизди орнотууну улантуу үчүн, түзмөгүңүздү шифрлешиңиз керек. Буга бир аз убакыт талап кылынышы мүмкүн."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Жокко чыгаруу"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Шифрлөө"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Шифрлөө аяктады"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Жумуш профилиңизди орнотууну улантуу үчүн тийип коюңуз"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Жумуш профилиңиз негизделген жок. IT бөлүмүңүзгө кайрылыңыз же бир аздан кийин дагы аракет кылып көрүңүз."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Түзмөгүңүздө жумуш профилдери колдоого алынбайт"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Жумуш профилдерин түзмөктүн ээси орнотушу керек"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Жумуш профилиңизде бул ишке киргизгич колдонмосу колдоого албайт. Дал келе турган жүргүзгүчкө которулушуңуз керек."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Жокко чыгаруу"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"Жарайт"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Жумуш түзмөгүн колдонуучу"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Түзмөгүңүздү негиздөө"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Негиздөө дайындары иштетилүүдө…"</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi\'га туташууда…"</string>
+    <string name="progress_download" msgid="4995057798189799156">"Администратор колдонмосу жүктөлүп алынууда…"</string>
+    <string name="progress_install" msgid="9169411715762296097">"Администратор колдонмосу орнотулууда…"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Түзмөк ээси коюлууда…"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Орнотуу токтотулсунбу?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Негиздөөнү токтотуп, түзмөгүңүздүн дайындарын өчүрүп салгыңыз келеби?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Жокко чыгаруу"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Баштапкы абалга келтирүү"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Түзмөгүңүз негизделген жок. IT бөлүмүңүзгө кайрылыңыз."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Бул түзмөк мурунтан эле түзүлгөн"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi\'га туташкан жок"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Жыйынтыктоочу сумма катасынан улам, администратордун колдонмосу иштеген жок. IT бөлүмүңүзгө кайрылыңыз."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Администратор колдонмосу жүктөлүп алынган жок"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Администратор колдонмосу иштебей жатат. Анын айрым курамдык бөлүктөрү жок же бузук. IT бөлүмүңүзгө кайрылыңыз."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Администратор колдонмосу орнотулган жок"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Түзмөгүңүздө администратор колдонмосу орнотулган эмес"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Орнотуу токтотулсунбу?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Орнотуу чын эле токтотулсунбу?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Жок"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Ооба"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Жокко чыгарылууда…"</string>
+</resources>

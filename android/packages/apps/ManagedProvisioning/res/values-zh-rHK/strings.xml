@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"裝置佈建程式"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"糟糕！"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"設定您的設定檔"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"貴機構可控制這個設定檔並確保其安全；裝置上的其他所有內容則由您自行管理。"</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"下列應用程式需要存取這個設定檔："</string>
+    <string name="set_up" msgid="7012862095553564169">"設定"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"正在設定您的公司檔案…"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"貴機構管理員可以監控及管理與這個設定檔相關聯的設定、公司系統權限、應用程式和資料，包括網絡活動和您的裝置位置資料。"</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"貴機構管理員可以監控及管理與這部裝置相關聯的設定、公司系統存取權、應用程式和資料，包括網絡活動和您的裝置位置資料。"</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"如需詳細資訊，包括貴機構的私隱權政策，請與您的管理員聯絡。"</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"瞭解詳情"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"取消"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"確定"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"公司檔案"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"您的裝置已經設有一個公司檔案，您要移除嗎？"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"您確定要移除這個公司檔案嗎？其中的所有資料都會因此被刪除。"</string>
+    <string name="delete_profile" msgid="7107020982626129151">"移除"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"取消"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"要繼續設定公司檔案，您必須為裝置加密。這項操作可能需要一段時間才能完成。"</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"取消"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"加密"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"加密完成"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"輕觸即可繼續設定您的公司檔案"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"無法設定您的公司檔案，請與您的 IT 部門聯絡或稍後再試。"</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"您的裝置不支援公司檔案"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"公司檔案必須由裝置擁有者設定"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"這個應用程式啟動器不支援您的公司檔案，請切換至相容的應用程式啟動器。"</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"取消"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"確定"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"工作裝置的使用者"</string>
+    <string name="setup_device" msgid="6725265673245816366">"設定您的裝置"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"正在處理設定資料…"</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"正在連線至 Wi-Fi…"</string>
+    <string name="progress_download" msgid="4995057798189799156">"正在下載管理員應用程式…"</string>
+    <string name="progress_install" msgid="9169411715762296097">"正在安裝管理員應用程式…"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"正在設定裝置擁有者…"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"要停止設定嗎？"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"您確定要停止設定並清除裝置的資料嗎？"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"取消"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"確定"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"重設"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"無法設定您的裝置，請與您的 IT 部門聯絡。"</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"裝置已完成設定"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"無法連線至 Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"管理員應用程式因校驗和錯誤而無法使用，請與您的 IT 部門聯絡。"</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"無法下載管理員應用程式"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"管理員應用程式因缺少部分元件或已損毀而無法使用，請與您的 IT 部門聯絡。"</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"無法安裝管理員應用程式"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"您的裝置尚未安裝管理員應用程式"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"要停止設定嗎？"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"您確定要停止設定嗎？"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"否"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"是"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"正在取消…"</string>
+</resources>

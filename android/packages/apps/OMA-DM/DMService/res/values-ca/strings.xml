@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Gestió de dispositius</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Missatge del sistema</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">D\'acord</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Rebutja</string>
+    <string name="dm_session_button_confirm">Actualitza</string>
+    <string name="dm_session_button_reject">Cancel·la</string>
+    <string name="dm_session_confirmation_title">Actualització del sistema</string>
+    <string name="dm_session_confirmation_message">Hi ha una actualització del sistema disponible per al telèfon</string>
+    <string name="dm_session_confirmation_notification_label">Actualització del sistema</string>
+    <string name="dm_session_confirmation_notification_message">Sol·licitud de sessió DM nova</string>
+    <string name="dm_session_information_notification_label">Actualització del sistema</string>
+    <string name="dm_session_information_notification_message1">El servidor ha iniciat una sol·licitud</string>
+    <string name="dm_session_information_notification_message2_success">El dispositiu ha completat la sol·licitud del servidor</string>
+    <string name="dm_session_information_notification_message2_fail">El dispositiu no ha pogut completar la sol·licitud del servidor</string>
+
+</resources>

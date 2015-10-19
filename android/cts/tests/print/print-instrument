@@ -1,0 +1,37 @@
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Script to start "print-instrument" on the device
+#
+# The script sets up an alternative dalvik cache when running as
+# non-root. Jar files needs to be dexopt'd to run in Dalvik. For
+# plain jar files, this is done at first use. shell user does not
+# have write permission to default system Dalvik cache so we
+# redirect to an alternative cache.
+
+RUN_BASE=/data/local/tmp
+
+# If not running as root, use an alternative dex cache.
+if [ ${USER_ID} -ne 0 ]; then
+  tmp_cache=${RUN_BASE}/dalvik-cache
+  if [ ! -d ${tmp_cache} ]; then
+    mkdir -p ${tmp_cache}
+  fi
+  export ANDROID_DATA=${RUN_BASE}
+fi
+
+# Run print-instrument.
+export CLASSPATH=${RUN_BASE}/CtsPrintInstrument.jar
+
+exec app_process ${RUN_BASE} android.print.cts.PrintInstrument ${@}

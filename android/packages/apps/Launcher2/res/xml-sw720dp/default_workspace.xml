@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<favorites xmlns:launcher="http://schemas.android.com/apk/res/com.android.launcher">
+    <!-- Far-left screen [0] -->
+
+    <!-- Left screen [1] -->
+    <appwidget
+        launcher:packageName="com.android.settings"
+        launcher:className="com.android.settings.widget.SettingsAppWidgetProvider"
+        launcher:screen="1"
+        launcher:x="0"
+        launcher:y="3"
+        launcher:spanX="4"
+        launcher:spanY="1" />
+
+    <!-- Middle screen [2] -->
+    <appwidget
+        launcher:packageName="com.android.deskclock"
+        launcher:className="com.android.alarmclock.AnalogAppWidgetProvider"
+        launcher:screen="2"
+        launcher:x="1"
+        launcher:y="0"
+        launcher:spanX="2"
+        launcher:spanY="2" />
+    <favorite
+        launcher:packageName="com.android.camera2"
+        launcher:className="com.android.camera.CameraLauncher"
+        launcher:screen="2"
+        launcher:x="0"
+        launcher:y="3" />
+
+    <!-- Right screen [3] -->
+    <favorite
+        launcher:packageName="com.android.gallery3d"
+        launcher:className="com.android.gallery3d.app.Gallery"
+        launcher:screen="3"
+        launcher:x="1"
+        launcher:y="3" />
+    <favorite
+        launcher:packageName="com.android.settings"
+        launcher:className="com.android.settings.Settings"
+        launcher:screen="3"
+        launcher:x="2"
+        launcher:y="3" />
+        
+	<folder 
+		launcher:title="@string/google_folder_name"
+		launcher:screen="2"
+		launcher:x="0"
+		launcher:y="4" >
+		<favorite
+            launcher:className="com.google.android.googlequicksearchbox.SearchActivity"
+            launcher:packageName="com.google.android.googlequicksearchbox" />
+	    <favorite
+            launcher:className="com.google.android.maps.MapsActivity"
+            launcher:packageName="com.google.android.apps.maps" />
+	    <favorite
+            launcher:className="com.google.android.apps.plus.phone.HomeActivity"
+            launcher:packageName="com.google.android.apps.plus" />
+		<favorite
+            launcher:className="com.android.calendar.AllInOneActivity"
+            launcher:packageName="com.google.android.calendar" />
+		<favorite
+            launcher:className="com.android.contacts.activities.PeopleActivity"
+            launcher:packageName="com.android.contacts" />
+		<favorite
+            launcher:className="com.google.android.apps.genie.geniewidget.activities.NewsActivity"
+            launcher:packageName="com.google.android.apps.genie.geniewidget" />
+    </folder>
+    
+    <folder 
+		launcher:title="@string/create_folder_name"
+		launcher:screen="2"
+		launcher:x="1"
+		launcher:y="4" >
+		<favorite
+            launcher:className="com.google.android.apps.docs.app.NewMainProxyActivity"
+            launcher:packageName="com.google.android.apps.docs.editors.docs" />
+		<favorite
+            launcher:className="com.google.android.apps.docs.app.NewMainProxyActivity"
+            launcher:packageName="com.google.android.apps.docs.editors.sheets" />		
+		<favorite
+            launcher:className="com.google.android.apps.docs.app.NewMainProxyActivity"
+            launcher:packageName="com.google.android.apps.docs.editors.slides" />		
+		<favorite
+            launcher:className="com.google.android.apps.docs.app.NewMainProxyActivity"
+            launcher:packageName="com.google.android.apps.docs" />
+		<favorite
+            launcher:className="com.google.android.keep.activities.BrowseActivity"
+            launcher:packageName="com.google.android.keep" />	
+    </folder>	
+    
+    <folder 
+		launcher:title="@string/play_folder_name"
+		launcher:screen="2"
+		launcher:x="7"
+		launcher:y="4" >
+		<favorite
+            launcher:className="com.google.android.youtube.videos.EntryPoint"
+            launcher:packageName="com.google.android.videos" />		
+		<favorite
+            launcher:className="com.android.music.activitymanagement.TopLevelActivity"
+            launcher:packageName="com.google.android.music" />
+		<favorite
+            launcher:className="com.google.android.gms.games.ui.destination.main.MainActivity"
+            launcher:packageName="com.google.android.play.games" />	
+		<favorite
+            launcher:className="com.google.android.apps.books.app.BooksActivity"
+            launcher:packageName="com.google.android.apps.books" />
+		<favorite
+            launcher:className="com.google.apps.dots.android.app.activity.CurrentsStartActivity"
+            launcher:packageName="com.google.android.apps.magazines" />
+	</folder>
+
+    <!-- Far-right screen [4] -->
+
+    <!-- Hotseat (We use the screen as the position of the item in the hotseat) -->
+    <favorite
+        launcher:packageName="com.android.vending"
+        launcher:className="com.android.vending.AssetBrowserActivity"
+        launcher:container="-101"
+        launcher:screen="1"
+        launcher:x="1"
+        launcher:y="0" />
+    <favorite
+        launcher:packageName="com.android.settings"
+        launcher:className="com.android.settings.Settings"
+        launcher:container="-101"
+        launcher:screen="2"
+        launcher:x="2"
+        launcher:y="0" />
+    <favorite
+        launcher:packageName="com.android.music"
+        launcher:className="com.android.music.MusicBrowserActivity"
+        launcher:container="-101"
+        launcher:screen="3"
+        launcher:x="3"
+        launcher:y="0" />
+    <favorite
+        launcher:packageName="com.android.chrome"
+        launcher:className="com.google.android.apps.chrome.Main"
+        launcher:container="-101"
+        launcher:screen="5"
+        launcher:x="5"
+        launcher:y="0" />
+    <favorite
+        launcher:packageName="com.android.gallery3d"
+        launcher:className="com.android.gallery3d.app.Gallery"
+        launcher:container="-101"
+        launcher:screen="6"
+        launcher:x="6"
+        launcher:y="0" />
+    <favorite
+        launcher:packageName="com.actions.ota"
+        launcher:className="com.actions.ota.MainActivity"
+        launcher:container="-101"
+        launcher:screen="7"
+        launcher:x="7"
+        launcher:y="0" />
+</favorites>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"гравитација данашњи"</string>
+    <string name="buttonCalib_name">"извршити калибрацију"</string>
+    <string name="buttonReset_name">"Уклоните калибрацију"</string>
+    <string name="info_reset">"Уклањање података гравитационих калибрацију"</string>
+    <string name="info_calib">"Сачувајте податке калибрације гравитације"</string>
+    <string name="info_tips">"Овај уређај је хоризонтално постављен, кликните на дугме калибрисати."</string>
+</resources>

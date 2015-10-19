@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">기기 관리</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">시스템 메시지</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">확인</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">거절</string>
+    <string name="dm_session_button_confirm">업데이트</string>
+    <string name="dm_session_button_reject">취소</string>
+    <string name="dm_session_confirmation_title">시스템 업데이트</string>
+    <string name="dm_session_confirmation_message">휴대전화의 시스템 업데이트를 이용할 수 있습니다.</string>
+    <string name="dm_session_confirmation_notification_label">시스템 업데이트</string>
+    <string name="dm_session_confirmation_notification_message">새로운 DM 세션 요청</string>
+    <string name="dm_session_information_notification_label">시스템 업데이트</string>
+    <string name="dm_session_information_notification_message1">서버가 요청을 시작했습니다.</string>
+    <string name="dm_session_information_notification_message2_success">기기가 서버의 요청을 완료했습니다.</string>
+    <string name="dm_session_information_notification_message2_fail">기기가 서버의 요청을 완료하는 데 실패했습니다.</string>
+
+</resources>

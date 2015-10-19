@@ -1,0 +1,13 @@
+# add perm for recovery
+recovery_only(`
+  allow recovery self:capability { sys_module mknod sys_boot };
+
+  allow recovery rootfs:dir create_dir_perms;
+  allow recovery rootfs:file create_file_perms;
+  allow recovery proc_sysrq:file rw_file_perms;
+  
+  allow recovery system_app_data_file:dir create_dir_perms;
+  allow recovery system_app_data_file:file create_file_perms;
+  allow recovery system_data_file:dir create_dir_perms;
+  allow recovery system_data_file:file create_file_perms;
+')

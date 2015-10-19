@@ -1,0 +1,22 @@
+|A1|4FULLHD|~yuv420sp|r30|1|d5|2
+|4UXGA|r30|1|d5|2
+|4HD|r30|1|d5|2
+|4SVGA|r30|1|d5|2
+|4WVGA|r30|1|d5|2
+|4NTSC|r30|1|d5|2
+|4PAL|r25|1|d5|2
+|4VGA|r30|1|d5|2
+|4QVGA|r30|1|d5|2
+|4CIF|r30|1|d5|2
+|4QCIF|r30|1|d5|2
+|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0004
+//DESCRIPTION: Preview shall be supported for the following image resolutions: 1080p, 720p, SVGA, NTSC @ 30fps, PAL @ 25fps, VGA @30fps, QVGA @ 30fps, CIF @ 30fps, and QCIF @ 30fps. 
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0
+

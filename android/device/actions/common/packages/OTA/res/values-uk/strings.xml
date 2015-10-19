@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Настройки"</string>
+    <string name="title_activity_main">"Оновити Сову"</string>
+    <string name="update_online">"Оновити онлайн"</string>
+    <string name="update_native">"Лакальне Оновлення"</string>
+    <string name="goto_recovery">"Повернути до режиму Відновлення?"</string>
+    <string name="progress_dialog_title">"З\'єднання"</string>
+    <string name="not_connect">"Нема з\'єднання"</string>
+    <string name="progress_dialog_mgs">"Пошук Оновленнь, зачекайте..."</string>
+    <string name="connect_server_wrong">"Сервер зайнятий, повторіть спробу"</string>
+    <string name="current_system_isnew">"Використовується остання версія системи"</string>
+    <string name="sure">"Так"</string>
+    <string name="cancel">"Скасувати"</string>
+    <string name="update_message">"Знайдена нова версія, завантажити?"</string>
+    <string name="update_title">"Оновлення нової версії"</string>
+    <string name="download">"Завантажити"</string>
+    <string name="update_rightnow">"Оновити зараз"</string>
+    <string name="start_download">"Початок завантаження пакету оновлень"</string>
+    <string name="update_package">"пакет оновленнь"</string>
+    <string name="download_complete">"Завантаження завершено"</string>
+    <string name="download_fail">"Не вдалося завантажити"</string>
+    <string name="md5_check_fail">"Помилка парності MD5"</string>
+    <string name="update_package_downloaded">"Завантаження пакету оновлень завершено"</string>
+    <string name="finish_download">"Завершення завантаження  пакету оновлень"</string>
+    <string name="update_notice">"\n Розпочати оновлення OTA: \n Оновлення не може бути перервано, зробіть резервну копію ваших даних"</string>
+    <string name="cancel_download">"Скасувати завантаження?"</string>
+    <string name="wait_downloading">"Завантажується, зачекайте..."</string>
+    <string name="download_update_file">"На SDCard відсутні файли оновлення, виконайте оновлення онлайн"</string>
+    <string name="return_native_update">"Локальний пакет оновленнь вже існує, поверніться до локальних оновленнь"</string>
+    <string name="have_update">"Шукати системні оновлення"</string>
+    <string name="notification_update">"Натисніть сову для оновлення"</string>
+    <string name="download_notice">"Під час загрузки з\'єднання має бути відкритим, не запускайте USB з\'єднання"</string>
+    <string name="apk_title">"Оновлення Сови V1.0"</string>
+    <string name="checkbox_title">"Оновлення автозапиту"</string>
+    <string name="checkbox_summary">"Відмінити для заборони автоматичного доступу до мереж"</string>
+    <string name="checkfrequency_title">"Встановити цикл запиту"</string>
+    <string name="checkfrequency_summary">"Цикл запиту:"</string>
+    <string name="day">"День"</string>
+    <string name="battery_low">"Батарея розряжена"</string>
+    <string name="battery_notify">"Встановлюйте оновлення коли батарея заряжена на 50% і більше"</string>
+</resources>

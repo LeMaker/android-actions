@@ -1,0 +1,14 @@
+|4VGA|~yuv420sp|r30|1|55MP|d3
+|p|d5
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0060
+//DESCRIPTION: Image capture use case for shot-to-JPEG without IPP shall meet the target below (in eMMC build), Mode: High Quality Resolution: 12 MP Shot-to-JPEG JPEG encode Shot-to-JPEG
+//     AUTHOR: JShandorov
+//       DATE: 14.04.2010
+//    VERSION: 1.0
+
+

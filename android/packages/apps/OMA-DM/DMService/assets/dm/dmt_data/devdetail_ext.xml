@@ -1,0 +1,45 @@
+<MgmtTree>
+ <VerDTD>1.1.2</VerDTD>
+ <Man>Motorola</Man>
+ <Mod>Nexus</Mod>
+
+    <Node>
+     <NodeName>Ext</NodeName>
+     <DFProperties>
+      <DFFormat>
+       <node/>
+      </DFFormat>
+      <AccessType>
+       <Get/>
+       <Add/>
+      </AccessType>
+     </DFProperties>
+      <Type>text/plain</Type>
+
+     <Node>
+      <NodeName>DateTime</NodeName>
+      <DFProperties>
+       <DFFormat>
+        <node/>
+       </DFFormat>
+       <AccessType>
+        <Get/>
+       </AccessType>
+      </DFProperties>
+       <Type>text/plain</Type>
+     </Node>
+
+     <Node>
+      <NodeName>SystemSettings</NodeName>
+      <DFProperties>
+       <DFFormat>
+        <node/>
+       </DFFormat>
+       <AccessType>
+        <Get/>
+       </AccessType>
+      </DFProperties>
+       <Type>text/plain</Type>
+     </Node>
+    </Node>
+</MgmtTree>

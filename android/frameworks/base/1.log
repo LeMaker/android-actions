@@ -1,0 +1,47 @@
+diff --git a/core/java/android/os/RecoverySystem.java b/core/java/android/os/RecoverySystem.java
+old mode 100644
+new mode 100755
+index b879c83..27d698b
+--- a/core/java/android/os/RecoverySystem.java
++++ b/core/java/android/os/RecoverySystem.java
+@@ -74,6 +74,8 @@ public class RecoverySystem {
+     private static File LOG_FILE = new File(RECOVERY_DIR, "log");
+     private static String LAST_PREFIX = "last_";
+ 
++    //ActionsCode(phchen, BUGFIX: BUG00206271),
++    private static boolean bootCommandOn = false;
+     // Length limits for reading files.
+     private static int LOG_FILE_MAX_LENGTH = 64 * 1024;
+ 
+@@ -445,12 +447,18 @@ public class RecoverySystem {
+      * Reboot into the recovery system with the supplied argument.
+      * @param args to pass to the recovery utility.
+      * @throws IOException if something goes wrong.
++     *
++     * ActionsCode(author:phchen, change_code)
++     *
++     * @hide
+      */
+-    private static void bootCommand(Context context, String... args) throws IOException {
++    public static void bootCommand(Context context, String... args) throws IOException {
+         RECOVERY_DIR.mkdirs();  // In case we need it
+         COMMAND_FILE.delete();  // In case it's not writable
+         LOG_FILE.delete();
+ 
++        //ActionsCode(phchen, BUGFIX: BUG00206271),
++        bootCommandOn = true;
+         FileWriter command = new FileWriter(COMMAND_FILE);
+         try {
+             for (String arg : args) {
+@@ -492,6 +500,11 @@ public class RecoverySystem {
+         String[] names = RECOVERY_DIR.list();
+         for (int i = 0; names != null && i < names.length; i++) {
+             if (names[i].startsWith(LAST_PREFIX)) continue;
++
++            //ActionsCode(phchen, BUGFIX: BUG00206271),
++            if(bootCommandOn)
++                break;
++
+             File f = new File(RECOVERY_DIR, names[i]);
+             if (!f.delete()) {
+                 Log.e(TAG, "Can't delete: " + f);

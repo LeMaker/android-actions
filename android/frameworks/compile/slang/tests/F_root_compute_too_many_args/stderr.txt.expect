@@ -1,0 +1,2 @@
+root_compute_too_many_args.rs:6:20: error: In compute kernel root(), parameter 'extra1' cannot appear after the 'x' and 'y' parameters
+root_compute_too_many_args.rs:6:37: error: In compute kernel root(), parameter 'extra2' cannot appear after the 'x' and 'y' parameters

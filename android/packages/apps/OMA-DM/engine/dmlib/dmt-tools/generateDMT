@@ -1,0 +1,327 @@
+#!/bin/bash
+#====================================================================================================
+#
+# Script Name: generateDMT
+#
+# General Description: This script controls the building/generation of all DMT data files.  It takes
+#					  care of unzipping the Dmt.zip file, running the DMTValidator, and then running
+#					  the DMT Generation tool.
+#
+#====================================================================================================
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#====================================================================================================
+
+#set variables for the Flex
+FLEX_SETTING_FILE="FlexEnvSetting"
+if [ -f $FLEX_SETTING_FILE ]
+then
+  source $FLEX_SETTING_FILE
+fi
+
+usage () {
+  echo ""
+  echo "========================================================================================="
+  echo ""
+  echo "Usage of the new version: "
+  echo ""
+  echo "    generateDMT  [-output <dir path>]"
+  echo "                 [-fstab <file path>]"
+  echo "                 [-inipath <ini file(dir) path (P2K only)>]"
+  echo "                 [-debug]"
+  echo "                 [-ddfext]"
+  echo "                 [-dmt <path to Dmt directory>]"
+  echo "                 or" 
+  echo "                 <file>.zip or <file>.dmts [<file1>.zip, <file2>.zip, ...]"
+  echo ""
+  echo "Where options are including:"
+  echo "" 
+  echo "       -output       path to output 'treedata' directory"
+  echo "                     using current ('./treedata') if not set"
+  echo "       -fstab        path to fstab file"
+  echo "                     looking in the current ('.') directory"
+  echo "                     if not set"
+  echo "       -inipath      path to sysplugins.ini file(s) for P2K only."
+  echo "                     The required files will be converted to .c and .h"
+  echo "                     files if this parameter is presenting"
+  echo "       -debug        option to add output debug info from Gen java into"
+  echo "                     /tmp/java.run.out.<ProcessID>"
+  echo "       -ddfext       option to generate Extended DDF with values and" 
+  echo "                     file DDFValues.txt with all possible values" 
+  echo "       -dmt          path to Dmt directory."
+  echo "                     Use this option instead of Dmt.zip (not together)"
+  echo ""
+  echo "New version support as a data input both <file>.zip and <file>.dmts formats"
+  echo "" 
+  echo "Samples:"  
+  echo "  ./generateDMT -fstab ../../settings/fstab -output abcd -dmt ../../settings/Dmt" 
+  echo "  ./generateDMT -fstab ../../settings/fstab -output abcd ../../settings/Dmt.zip  (or more then one)"
+  echo "  ./generateDMT -fstab ../../settings/fstab -output abcd ../../settings/Dmt.dmts (or more then one)"
+  echo ""  
+  echo "Usage of the old version: "
+  echo "    generateDMT  <file>.zip [<dir path>]"
+  echo ""
+  echo "Option '-novalidation' use for developing only!!!"
+  echo ""
+  echo "=========================================================================================="
+  echo ""
+}
+
+#print out messages
+printOut () {
+	if [ "$DEBUG" == "yes" ]
+	then
+  	  echo "$1"
+	fi  
+}
+
+export LANG=en_US
+export LANGVAR=en_US
+unset LC_ALL
+export LC_CTYPE="en_US.UTF-8"
+
+# validate parameters 
+if [ "$#" -eq 0 ]
+then
+  echo ""
+  echo "Error: Missing path to Dmt.zip file !!! "
+  echo "Use flag -h or --help for the help"
+  echo ""
+  exit 1
+fi
+
+# Do some checking on our environment - we need java & unzip present
+if [ -z "$JAVA_HOME" ]
+then
+  echo "Error:  Environment variable JAVA_HOME must be set to jdk 1.4 and latest!"
+  exit 1
+fi
+
+JAVA_VERSION=`$JAVA_HOME/bin/java -version 2> /dev/stdout | grep ver | sed -e 's/.*\"\([1-9]\.[0-9][0-9]*\)\..*/\1/'`
+if [ "$JAVA_VERSION" \< "1.4" ]
+then
+  echo "Error: Java vesion is not correct"
+  echo "The tool supports java version from 1.4 and latest"
+  echo "Please set environment variable JAVA_HOME to the correct java version"
+  exit 1
+fi
+
+unzip > /dev/null
+
+if [ "$?" -ne 0 ]
+then
+  echo "Error: Couldn't find unzip - please install it, or put it on your PATH."
+  exit 1
+fi
+
+# Remove temporary ./Dmt if exists
+if [ -d Dmt ]
+then
+  rm -rf Dmt 
+fi
+
+
+# Set default values for the required variables 
+FSTAB_FILE=fstab
+OUTPUTDIR=./treedata
+NOVALIDATION=no
+DEBUG=no
+OUT=null
+DEBUG_INFO_DIR=/dev/null
+#Provide Dmt directory instead of Dmt.zip
+DMTDIR=Dmt
+#Flag fo Gen tool to generate DDF 
+GENDDF=genddf
+
+# Parse parameters
+while [ $# -gt 1 ]; do
+  case "$1" in 
+   -novalidation ) NOVALIDATION=yes;
+             printOut "No validation option has been set"
+             shift ;;
+   -debug )  DEBUG=yes            
+             shift ;;
+   -ddfext ) GENDDF=genextddf            
+             shift ;;                     
+   -output ) OUTPUTDIR=$2/treedata ; 
+             printOut "OUTPUTDIR:  $OUTPUTDIR"
+             shift 2 ;;
+   -fstab )  FSTAB_FILE=$2 ; 
+             printOut "FSTAB_FILE:  $FSTAB_FILE"
+             shift 2 ;;
+     -dmt )  DMTDIR=$2 ; 
+             printOut "Dmt directiry has been provided:  $DMTDIR"
+             shift 2 ;;             
+   -inipath )  INI_PATH="-i $2" ; 
+               printOut "INI_PATH:  $INI_PATH"
+               shift 2 ;;
+    *.zip )  printOut "Unzipping file $1 ..."; 
+             unzip -o $1 > /dev/null; 
+             shift ;;
+    *.dmts ) printOut "Convert file $1 to dir Dmt ..."; 
+             $JAVA_HOME/bin/java -classpath lib/GenTool.jar com.mot.dm.tool.DMTSTool -conversion "$1" .
+             shift ;;
+  esac
+done
+
+# parse the last argument, can be .zip or output directory( for old versions )
+case "$1" in 
+  -h|--help ) usage
+              exit 1;;
+  -debug )  DEBUG=yes            
+            shift ;;
+  -ddfext ) GENDDF=genextddf            
+            shift ;;                  
+ *.zip )  printOut "Unzipping file $1 ..."; 
+          unzip -o $1 > /dev/null; 
+          shift ;;
+ *.dmts ) printOut "Convert file $1 to dir Dmt ..."; 
+          $JAVA_HOME/bin/java -classpath lib/GenTool.jar com.mot.dm.tool.DMTSTool -conversion "$1" .
+          shift ;;
+      * ) 
+		if [ "$DMTDIR" == "Dmt" ]
+		then
+  			OUTPUTDIR=$1/treedata ; 
+  			printOut "OUTPUTDIR:  $OUTPUTDIR"
+		fi   
+        shift ;;  
+esac
+
+# set output directory for Gen debug and for mv
+if [ "$DEBUG" == "yes" ]
+then
+  DEBUG_INFO_DIR=/tmp/java.run.out.$$ 
+  printOut "Debug info can be found in the $DEBUG_INFO_DIR"
+  OUT=stdout
+fi
+
+# fstab is reduered file, test if fstab exists and readable 
+if [ ! -r $FSTAB_FILE ]
+then
+  	echo "Cannot find fstab file with path: $FSTAB_FILE"
+  	echo "Cleaning up on abort..."
+  	if [ -d Dmt ]
+  	then
+  		rm -rf Dmt
+	fi  
+  	rm -rf $OUTPUTDIR
+  	exit 1
+fi
+
+# Remove output directory if exists
+if [ -d "$OUTPUTDIR" ]
+then
+  printOut "Removing output directory ..."
+  rm -rf $OUTPUTDIR
+fi
+
+mkdir -p $OUTPUTDIR/docs
+
+#add support for the relative Dmt path
+cd ..
+if [ -d $DMTDIR ]
+then
+  cd -
+else
+  cd -
+  DMTDIR=`pwd`/$DMTDIR
+  if [ ! -d $DMTDIR ]
+  then
+    echo "Cannot find $DMTDIR"
+    exit 1
+  fi
+fi  
+
+#file for the error messages
+ERR_FILE=err_`whoami`
+ 
+if [ "$NOVALIDATION" == "yes" ]
+then
+  printOut "Attantion!!! DMT will be generated without validation!!!"
+else
+  # Call the DMT Validator
+  printOut "Validating DMT structure..."
+ 
+  $JAVA_HOME/bin/java -classpath lib/GenTool.jar:lib/joda-time-1.1.jar:lib/jakarta-regexp-1.4.jar com.mot.dm.core.DMTValidator -d $DMTDIR 2> $ERR_FILE  > $DEBUG_INFO_DIR
+
+  if [ $? -eq 1 ]
+  then
+    cat $ERR_FILE 2> /dev/null 
+    
+	printOut "Validation failed!!! Please fix the errors above before continuing..."
+	printOut "Cleaning up on abort..."
+	rm -f $ERR_FILE 2> /dev/null
+  	rm -rf Dmt 2> /dev/null
+    rm -rf $OUTPUTDIR  2> /dev/null
+    exit 1
+  else
+    printOut "DMT validation passed..."  
+  fi
+fi
+
+# Now call the Gen tool to build the tree data
+printOut "Calling Gen tool to build tree data..."
+
+$JAVA_HOME/bin/java -classpath lib/GenTool.jar:lib/joda-time-1.1.jar:lib/jakarta-regexp-1.4.jar com.mot.dm.core.Gen -d $DMTDIR -f $FSTAB_FILE $INI_PATH -gendoc -$GENDDF -sv 1.0 2> $ERR_FILE  > $DEBUG_INFO_DIR
+
+if [ $? -eq 1 ]
+then
+  cat $ERR_FILE 2> /dev/null 
+  
+  printOut "Please fix the errors above before continuing..."
+  printOut "Cleaning up on abort..."
+  rm -f $ERR_FILE 2> /dev/null	
+  rm -rf Dmt 2> /dev/null
+  rm -rf $OUTPUTDIR  2> /dev/null
+  rm -f  *.*xml 2> /dev/null
+  rm -f  *.html 2> /dev/null
+  rm -f  acl.* 2> /dev/null
+  rm -f  event.* 2> /dev/null
+  rm -f  *.ddf 2> /dev/null
+  rm -f  *.*mdf 2> /dev/null
+  rm -f  ddfvalues.txt 2> /dev/null
+  if [ "$INI_PATH" != "" ]
+  then
+    rm -f *.c  2> /dev/null
+    rm -f *.h  2> /dev/null
+  fi
+  exit 1
+fi
+
+rm -f $ERR_FILE 2> /dev/null
+
+# Cleanup our Dmt directory and move files to the output dir
+printOut "Cleaning up..."
+
+if [ -d Dmt ]
+then
+	rm -rf Dmt
+fi  
+
+mv -f *.xml $OUTPUTDIR 2> /dev/$OUT
+mv -f *.wbxml $OUTPUTDIR 2> /dev/$OUT
+mv -f *.html $OUTPUTDIR/docs 2> /dev/$OUT
+mv -f acl.* $OUTPUTDIR 2> /dev/$OUT
+mv -f event.* $OUTPUTDIR 2> /dev/$OUT
+mv -f *.ddf $OUTPUTDIR 2> /dev/$OUT
+mv -f *.*mdf* $OUTPUTDIR 2> /dev/$OUT
+mv -f ddfvalues.txt $OUTPUTDIR 2> /dev/$OUT
+cp -f $FSTAB_FILE $OUTPUTDIR  2> /dev/$OUT
+if [ "$INI_PATH" != "" ]
+then
+  mv -f *.c $OUTPUTDIR 
+  mv -f *.h $OUTPUTDIR
+fi
+
+

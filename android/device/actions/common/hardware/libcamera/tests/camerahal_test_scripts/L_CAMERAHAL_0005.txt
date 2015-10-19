@@ -1,0 +1,25 @@
+|4VGA|~yuv420sp|r30|1|d2
+|c0|d2
+|c1|d2
+|c2|d2
+|c3|d2
+|c4|d2
+|c5|d2
+|c6|d2
+|c-1|d2
+|c-2|d2
+|c-3|d2
+|c-4|d2
+|c-5|d2
+|c-6|d2
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0005
+//DESCRIPTION: Contrast control shall be supported 
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0
+

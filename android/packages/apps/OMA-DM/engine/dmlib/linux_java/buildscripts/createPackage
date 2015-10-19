@@ -1,0 +1,244 @@
+#!/bin/bash 
+
+# usage: [-test -nobuild]
+function usage
+{
+	echo "usage: $0 [-test] [-nobuild] [-incremental | -clearmake] [-display] [[[[build-top dir] param1] param2] ....]"
+	echo " -test - include test tar in final package"
+	echo " -nobuild - do not compile - just create package"
+	echo " -clearmake | -cm - use clearmake instead of make. Automatically tracks dependencies and can use DO to speed up build."
+	echo " -display - displays compilation output instead of redirecting it to log/errors files"
+	echo " -bo | -buildonly - only compiles library files; don't recompile unittest and DMT files"
+	echo " -debug - only compiles x86 debug library files"
+	exit 1
+}
+
+# global flag
+ADDTEST=0
+BUILDPKG=1
+BUILD_MODE="default"
+BUILD_ONLY=0
+DEBUG_ONLY=0
+
+
+while [ $# -gt 0 ]; do
+  case "$1" in 
+   -test ) ADDTEST=1 ; shift ;;
+   -nobuild ) BUILDPKG=0 ; shift ;;
+   -cm | -clearmake ) BUILD_MODE="cm" ; shift ;;
+   -bo | -buildonly ) BUILD_ONLY=1 ; shift ;;
+   -debug ) DEBUG_ONLY=1 ; shift ;;
+   -d | -display ) DISPLAY="y" ; shift ;;
+   -? | -h | -help | --help ) usage ; shift ;;
+   * ) break ;;
+   -* ) echo "unknown option $1; try -? for list of supported options"; exit 1 ;;
+   * ) break ;;
+  esac
+done
+
+export BUILD_MODE DEBUG_ONLY
+
+DM_SRC=/vobs/linuxjava/device_mgmt/dm/core/src
+DM_XPL=/vobs/linuxjava/device_mgmt/dm/xpl
+
+read VERSION < release_version.txt
+echo "VERSION is $VERSION"
+MAJOR_VERSION=`cat release_version.txt | sed 's/^\([0-9][0-9]*\).*/\1/'`
+echo "MAJOR VERSION is $MAJOR_VERSION"
+
+BTOP=/tmp/build2.lj.`whoami`
+
+if [ "$BUILD_MODE-" == "cm-" ] ; then
+	BTOP=../../../build
+fi
+
+echo "BTOP=$BTOP"
+
+LOG_FILE=`pwd`/log-lj-`whoami`-pkg-`date "+%Y-%m-%d"`
+
+ echo "write log to $LOG_FILE"
+
+ date > $LOG_FILE
+
+#cleartool catcs >> $LOG_FILE
+
+echo "compiling..."
+rm -f errors.txt
+
+SUPER_AGEN="LJAgent"
+
+if [ "$BUILDPKG" == "1" ] ; then
+# Building now...
+	if [ "$BUILD_MODE-" == "default-" ] ; then
+		rm -rf $BTOP
+	fi
+
+	if [ "$DISPLAY" == "y" ] ; then
+		$DM_SRC/linux_java/buildscripts/buildLib.sh $BTOP -DDMSyncMLLibVersion=\\\"$VERSION\\\" -DDMSyncMLLibVersionMajor=\\\"$MAJOR_VERSION\\\" -DDM_SUPER_AGENT=\\\"$SUPER_AGEN\\\" $1 $2 $3 $4  || exit 1
+	else
+		$DM_SRC/linux_java/buildscripts/buildLib.sh $BTOP -DDMSyncMLLibVersion=\\\"$VERSION\\\" -DDMSyncMLLibVersionMajor=\\\"$MAJOR_VERSION\\\" -DDM_SUPER_AGENT=\\\"$SUPER_AGEN\\\" $1 $2 $3 $4  >> $LOG_FILE 2>> errors.txt || exit 1
+	fi
+fi
+
+
+TMP_FOLDER=/tmp/pckg.lj.`whoami`
+echo "TMP_FOLDER=$TMP_FOLDER"
+
+if [ "$BUILD_ONLY" == "0" ] ; then
+	rm -rf $TMP_FOLDER
+else
+	rm -rf $TMP_FOLDER/lib
+fi
+
+mkdir $TMP_FOLDER
+mkdir -p $TMP_FOLDER/lib/x86.r
+mkdir -p $TMP_FOLDER/lib/xscale.r
+mkdir -p $TMP_FOLDER/lib/x86.d
+mkdir -p $TMP_FOLDER/lib/xscale.d
+
+#copy lib .so files
+if [ "$DEBUG_ONLY" == "0" ] ; then
+	cp -v $BTOP/xscale/release-staging/usr/local/motorola/lib/*.a $TMP_FOLDER/lib/xscale.r/ >> $LOG_FILE
+	cp -v $BTOP/xscale/release-staging/usr/local/motorola/lib/*.so $TMP_FOLDER/lib/xscale.r/ >> $LOG_FILE
+	cp -v $BTOP/x86-Redhat/release-staging/usr/local/motorola/lib/*.a $TMP_FOLDER/lib/x86.r/ >> $LOG_FILE
+	cp -v $BTOP/x86-Redhat/release-staging/usr/local/motorola/lib/*.so $TMP_FOLDER/lib/x86.r/ >> $LOG_FILE
+	                                                                                                                                                   
+	cp -v $BTOP/xscale/staging/lib/*.a $TMP_FOLDER/lib/xscale.d/ >> $LOG_FILE
+	cp -v $BTOP/xscale/staging/lib/*.so $TMP_FOLDER/lib/xscale.d/ >> $LOG_FILE
+fi
+
+cp -v $BTOP/x86-Redhat/staging/lib/*.a $TMP_FOLDER/lib/x86.d/ >> $LOG_FILE
+cp -v $BTOP/x86-Redhat/staging/lib/*.so $TMP_FOLDER/lib/x86.d/ >> $LOG_FILE
+
+function create_links
+{
+        DIR=$1
+        pushd $DIR  >> $LOG_FILE
+        mv libdmnative.so libdmnative.so.$VERSION
+        mv libdmssession.so libdmssession.so.$VERSION
+        ln  -s libdmnative.so.$VERSION libdmnative.so
+        ln  -s libdmssession.so.$VERSION libdmssession.so
+        ln  -s libdmnative.so.$VERSION libdmnative.so.$MAJOR_VERSION
+        ln  -s libdmssession.so.$VERSION libdmssession.so.$MAJOR_VERSION
+                                                                                                                                                   
+        popd  >> $LOG_FILE
+}
+
+if [ "$DEBUG_ONLY" == "0" ] ; then
+	create_links $TMP_FOLDER/lib/xscale.r/
+	create_links $TMP_FOLDER/lib/x86.r/
+	create_links $TMP_FOLDER/lib/xscale.d/
+fi
+create_links $TMP_FOLDER/lib/x86.d/
+                                                                                                                                                   
+if [ "$BUILD_ONLY" == "1" ] ; then
+	echo "Incremental build is done; unit-test skipped"
+	exit 0
+fi
+
+#copy public include files
+cp -rv $DM_SRC/api/native $TMP_FOLDER/include >> $LOG_FILE
+cp -rv $DM_SRC/api/common/* $TMP_FOLDER/include >> $LOG_FILE
+cp $DM_SRC/portlib/generic/xpl_dm_Manager.h $TMP_FOLDER/include >> $LOG_FILE
+cp -rv $DM_SRC/dmengine/dm_persist/hdr/SyncML_DM_FileHandle.H  $TMP_FOLDER/include >> $LOG_FILE
+cp -rv $DM_SRC/dmengine/dm_util/hdr/syncml_dm_data_types.h  $TMP_FOLDER/include >> $LOG_FILE
+                                                                                                                                                   
+                                                                                                                                                   
+#copy portlib header files needed by LJ
+mkdir -p $TMP_FOLDER/portlib
+cp -rv $DM_SRC/portlib/generic/xpl_dm_ServerAlert.h $TMP_FOLDER/portlib >> $LOG_FILE
+cp -rv $DM_SRC/portlib/generic/xpl_dm_ServerAlertDef.h $TMP_FOLDER/portlib >> $LOG_FILE
+cp -rv $DM_SRC/portlib/generic/dmMemory.h $TMP_FOLDER/portlib >> $LOG_FILE
+cp -rv $DM_SRC/portlib/lj/hdr/dmStringUtil.h  $TMP_FOLDER/portlib >> $LOG_FILE
+cp -rv $DM_XPL/code/portlib/linux/hdr/xpl_Types.h $TMP_FOLDER/portlib >> $LOG_FILE
+cp -rv $DM_XPL/code/portlib/hdr/xpl_File.h $TMP_FOLDER/portlib >> $LOG_FILE
+cp -rv $DM_XPL/code/portlib/hdr/xpl_Port.h $TMP_FOLDER/portlib >> $LOG_FILE
+cp -rv $DM_XPL/code/portlib/hdr/xpl_Time.h $TMP_FOLDER/portlib >> $LOG_FILE
+
+#copy docs, not send doc files, only pdf files if any...
+mkdir -p $TMP_FOLDER/docs/apidocs
+#cp -rv $DM_SRC/../docs/apidocs/* $TMP_FOLDER/docs/apidocs >> $LOG_FILE
+#cp -rv $DM_SRC/../docs/*.pdf $TMP_FOLDER/docs >> $LOG_FILE
+
+#create tools
+mkdir -p $TMP_FOLDER/tools
+                                                                                                                                                   
+#create dmt tools
+mkdir -p $TMP_FOLDER/tools/dmt-tools
+cp -rv $DM_SRC/dmt-tools/* $TMP_FOLDER/tools/dmt-tools >> $LOG_FILE
+cp -rv $DM_SRC/linux_java/samples/settings/fstab $TMP_FOLDER/tools/dmt-tools >> $LOG_FILE
+
+#create server credential tools
+mkdir -p $TMP_FOLDER/tools/servercred
+pushd $DM_SRC/tool/servercred  >> $LOG_FILE
+./build.sh || exit 1
+popd  >> $LOG_FILE
+cp -rv $DM_SRC/tool/servercred/*.txt $TMP_FOLDER/tools/servercred/ >> $LOG_FILE
+cp -rv $DM_SRC/tool/servercred/bin   $TMP_FOLDER/tools/servercred/bin >> $LOG_FILE
+                                                                                                                                                   
+chmod -x $TMP_FOLDER/portlib/*
+chmod -x $TMP_FOLDER/include/*.h*
+chmod -x $TMP_FOLDER/include/plugin/*
+
+# create samples
+echo "Prepare samples"
+DM_SAMPLES=$DM_SRC/linux_java/samples
+echo "samples dir=$DM_SAMPLES"
+                                                                                                                                                   
+mkdir $TMP_FOLDER/samples
+cp -rv $DM_SAMPLES/compile $TMP_FOLDER/samples/ >> $LOG_FILE
+cp -rv $DM_SAMPLES/run_test $TMP_FOLDER/samples/ >> $LOG_FILE
+cp -rv $DM_SAMPLES/ddd_test $TMP_FOLDER/samples/ >> $LOG_FILE
+chmod +x  $TMP_FOLDER/samples/compile
+chmod +x  $TMP_FOLDER/samples/run_test
+chmod +x  $TMP_FOLDER/samples/ddd_test
+
+#cp source files
+mkdir $TMP_FOLDER/samples/src
+cp -rv $DM_SAMPLES/unittest/src/*.cc $TMP_FOLDER/samples/src >> $LOG_FILE
+cp -v $DM_SRC/linux_java/samples/plugins/test*/src/*.cc $TMP_FOLDER/samples/src >> $LOG_FILE
+                                                                                                                                                   
+#cp settings
+mkdir $TMP_FOLDER/samples/settings
+cp -v $DM_SAMPLES/plugins/settings/testplugins.ini $TMP_FOLDER/samples/settings/testplugins.ini >> $LOG_FILE
+cp -v $DM_SAMPLES/settings/Dmt.zip $TMP_FOLDER/samples/settings/ >> $LOG_FILE
+                                                                                                                                                   
+chmod +w $TMP_FOLDER/samples/*
+
+# create packages
+ZIPFILE=DM-v$VERSION-`date "+%Y-%m-%d"`.tgz
+pushd $TMP_FOLDER
+tar zcvf $ZIPFILE * >> $LOG_FILE
+popd
+                                                                                                                                                         
+cp -r $DM_SRC/linux_java/test $TMP_FOLDER/samples/unittest
+pushd $TMP_FOLDER
+
+echo "compiling unit test..."
+cd samples
+./compile both || exit 1 >> $LOG_FILE
+
+
+#run unit test
+export DM_NOPRINTF=1
+
+export dm_setting_root=$PWD/dmt_data
+export dm_setting_version="1.1.2"
+export PLATFORM=x86
+export LD_LIBRARY_PATH=$PWD/../lib/x86.d:$PWD/lib/../x86
+export dm_setting_plugin=$PWD/plugins/x86
+
+
+echo "running unit test for DM 1.1.2..."
+./bin/x86/testexe < unittest/dm11/testinput11 >  unittest/dm11/output11 || exit 1
+diff -q  unittest/dm11/output11  unittest/dm11/testoutput11 || echo "DM 1.1 unit test failed!"
+
+export dm_setting_version="1.2"
+
+echo "running unit test for DM 1.2..."
+./bin/x86/testexe < unittest/dm12/testinput12 >  unittest/dm12/output12 || exit 1
+diff -q  unittest/dm12/output12  unittest/dm12/testoutput12 || echo "DM 1.2 unit test failed!" 
+popd
+                                                                                                                                                   
+echo "done; result file is  $TMP_FOLDER/$ZIPFILE"
+

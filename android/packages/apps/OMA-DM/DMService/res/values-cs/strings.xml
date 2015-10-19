@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Správa zařízení</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Systémová zpráva</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">OK</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Odmítnout</string>
+    <string name="dm_session_button_confirm">Aktualizovat</string>
+    <string name="dm_session_button_reject">Zrušit</string>
+    <string name="dm_session_confirmation_title">Aktualizace systému</string>
+    <string name="dm_session_confirmation_message">Je k dispozici aktualizace systému pro váš telefon</string>
+    <string name="dm_session_confirmation_notification_label">Aktualizace systému</string>
+    <string name="dm_session_confirmation_notification_message">Nový požadavek na relaci DM</string>
+    <string name="dm_session_information_notification_label">Aktualizace systému</string>
+    <string name="dm_session_information_notification_message1">Server zaslal požadavek</string>
+    <string name="dm_session_information_notification_message2_success">Zařízení dokončilo požadavek serveru</string>
+    <string name="dm_session_information_notification_message2_fail">Zařízení se nepodařilo dokončit požadavek serveru</string>
+
+</resources>

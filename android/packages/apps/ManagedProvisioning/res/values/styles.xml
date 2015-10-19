@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+
+    <style name="SetupWorkSpaceTheme" parent="@android:style/Theme.Material.Light" >
+      <item name="android:windowActionBar">false</item>
+      <item name="android:windowNoTitle">true</item>
+      <item name="android:colorPrimary">@color/teal</item>
+      <item name="android:colorAccent">@color/dark_turquoise</item>
+      <item name="android:colorPrimaryDark">@color/light_teal</item>
+    </style>
+
+    <style name="LightButtonOverlayTheme">
+        <item name="android:colorButtonNormal">@color/white</item>
+        <item name="android:textColorPrimary">@color/accent</item>
+        <item name="android:colorControlHighlight">@color/accent_transparent</item>
+    </style>
+
+    <style name="ColoredButtonOverlayTheme">
+        <item name="android:colorButtonNormal">@color/colored_button</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="ControlOverlayTheme">
+      <item name="android:colorControlNormal">@color/accent_transparent</item>
+    </style>
+
+    <style name="Container">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:orientation">vertical</item>
+      <item name="android:background">@color/teal</item>
+    </style>
+
+    <style name="HeaderAndTitleContainer">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/teal</item>
+    </style>
+
+    <style name="HeaderImage">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/setup_illustration</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:background">@color/teal</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/title_padding</item>
+    </style>
+
+    <style name="MainText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:paddingTop">@dimen/main_text_padding_between_text</item>
+        <item name="android:textSize">@dimen/main_text_size</item>
+    </style>
+
+    <style name="ColoredButton" parent="@android:style/Widget.Material.Light.Button">
+        <item name="android:theme">@style/ColoredButtonOverlayTheme</item>
+        <item name="android:minWidth">@dimen/button_width</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/main_text_size</item>
+    </style>
+
+    <style name="LightButton" parent="@android:style/Widget.Material.Light.Button">
+        <item name="android:theme">@style/LightButtonOverlayTheme</item>
+        <item name="android:minWidth">@dimen/button_width</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/main_text_size</item>
+    </style>
+
+    <style name="TransparentButton" parent="@android:style/Widget.Material.Light.Button">
+        <item name="android:minWidth">@dimen/button_width</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/main_text_size</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textColorPrimary">@color/colored_button</item>
+    </style>
+
+    <style name="MainTextContainer">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingBottom">@dimen/main_text_padding_bottom</item>
+        <item name="android:layout_marginLeft">@dimen/main_text_margins_left_right</item>
+        <item name="android:layout_marginRight">@dimen/main_text_margins_left_right</item>
+        <item name="android:paddingLeft">@dimen/main_text_padding_left_right</item>
+        <item name="android:paddingRight">@dimen/main_text_padding_left_right</item>
+        <item name="android:paddingTop">@dimen/main_text_padding_top</item>
+        <item name="android:textSize">@dimen/main_text_size</item>
+    </style>
+
+    <style name="DialogFragmentTextContainer">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingBottom">@dimen/dialog_text_padding_bottom</item>
+        <item name="android:paddingLeft">@dimen/dialog_text_padding_left_right</item>
+        <item name="android:paddingRight">@dimen/dialog_text_padding_left_right</item>
+        <item name="android:paddingTop">@dimen/dialog_text_padding_top</item>
+        <item name="android:textSize">@dimen/main_text_size</item>
+    </style>
+
+
+    <style name="ScrollView" parent="@android:style/Widget.Material.Light.ScrollView">
+        <item name="android:theme">@style/ControlOverlayTheme</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:fadeScrollbars">false</item>
+    </style>
+
+    <style name="ProgressBar" parent="@android:Widget.Material.ProgressBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/main_text_padding_between_text</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="ManagedProvisioningDialogTheme" parent="@android:style/Theme.Dialog">
+      <item name="android:windowFullscreen">true</item>
+      <item name="android:windowNoTitle">true</item>
+      <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+</resources>

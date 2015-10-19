@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Calibração de Gsensor"</string>
+    <string name="buttonCalib_name">"Calibração de execução"</string>
+    <string name="buttonReset_name">"Calibração de eliminação"</string>
+    <string name="info_reset">"Eliminar dados de calibração de Gsensor"</string>
+    <string name="info_calib">"Guardar os dados de calibração de Gsensor"</string>
+    <string name="info_tips">"Por favor coloque o dispositivo horizontalmente e clique o botão de calibração"</string>
+</resources>

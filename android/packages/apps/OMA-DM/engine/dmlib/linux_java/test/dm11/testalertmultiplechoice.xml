@@ -1,0 +1,47 @@
+	<SyncML xmlns="SYNCML:SYNCML1.1">
+	<SyncHdr>
+	<VerDTD>1.1</VerDTD>
+	<VerProto>DM/1.1</VerProto>
+	<SessionID>11</SessionID>
+	<MsgID>1</MsgID>
+	<Target>
+	<LocURI>SampleClient</LocURI>
+	</Target>
+	<Source>
+	<LocURI>mot.manage</LocURI>
+	</Source>
+	<RespURI>http://199.1.88.66/Scts?4Eq5AA==</RespURI>
+	<Meta>
+	<MaxMsgSize xmlns="syncml:metinf">20000</MaxMsgSize>
+	</Meta>
+	</SyncHdr>
+	<SyncBody>
+	<Alert>
+	<CmdID>1</CmdID>
+	<Data>1104</Data>
+	<Item><Data>MAXDT=20&DR=1-3,6</Data></Item>
+	<Item>
+	<Data>Testing Multiple Choice Alert</Data>
+	</Item>
+	<Item>
+	<Data>choice one</Data>
+	</Item>
+	<Item>
+	<Data>choice two</Data>
+	</Item>
+	<Item>
+	<Data>choice three</Data>
+	</Item>
+	<Item>
+	<Data>choice four</Data>
+	</Item>
+	<Item>
+	<Data>choice five</Data>
+	</Item>
+	<Item>
+	<Data>choice six</Data>
+	</Item>
+	</Alert>
+	<Final/>
+	</SyncBody>
+	</SyncML>

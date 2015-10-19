@@ -1,0 +1,90 @@
+#!/bin/bash
+#====================================================================================================
+#
+# Script Name: DMTDiff
+#
+# General Description: This script helps to find difference between two DM Trees. The script receives 
+#                      two parameters (DMT files in .zip or .dmts format) and can compare:
+#                      zip -> zip or zip -> dmts or dmts -> zip or dmts -> dmts.
+#====================================================================================================
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#====================================================================================================
+usage () {
+  echo ""
+  echo "========================================================================================="
+  echo ""
+  echo "Usage: "
+  echo "    DMTDiff [-verbose] <fileDMT1> <fileDMT2>"
+  echo ""
+  echo "Where:"
+  echo "    <fileDMT1> and <fileDMT2>     two DMTs that should be compared  "
+  echo "                                  in .zip or .dmts format"
+  echo "                     -verbose     enable verbose output"
+  echo ""
+  echo "=========================================================================================="
+  echo ""
+}
+# validate parameters 
+if [ "$#" -eq 2 ]
+then
+    DMT1="$1"
+    DMT2="$2"
+elif [ "$#" -eq 3 ]
+then
+   VERBOSE="$1"
+   DMT1="$2"
+   DMT2="$3"
+else
+   usage
+   exit 1
+fi
+
+# Do some checking on our environment - we need JAVA_HOME present
+if [ -z "$JAVA_HOME" ]
+then
+  echo "Environment variable JAVA_HOME needs to be set first!"
+  exit 1
+fi
+
+
+# check if the parms files are exist and readable 
+if [ ! -r $DMT1 ]
+then
+  echo "Cannot find fist DMT file with path: $DMT1"
+  exit 1
+fi
+
+if [ ! -r $DMT2 ]
+then
+  echo "Cannot find second DMT file with path: $DMT2"
+  exit 1
+fi
+
+
+#Call the com.mot.dm.tool.DMTSTool to to find difference
+
+echo "Begin comparison ..."
+
+$JAVA_HOME/bin/java -classpath lib/GenTool.jar com.mot.dm.tool.DMTSTool $VERBOSE -difference $DMT1 $DMT2
+
+if [ $? -ne 1 ]
+then
+  echo "Error occured ..."
+  exit 1
+fi
+
+
+
+

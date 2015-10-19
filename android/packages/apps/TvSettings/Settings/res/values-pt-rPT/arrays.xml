@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="wifi_status">
+    <item msgid="6120109946893037801"></item>
+    <item msgid="5210943529756743284">"A procurar..."</item>
+    <item msgid="7895190850044173217">"A ligar..."</item>
+    <item msgid="7589307602609991992">"A autenticar..."</item>
+    <item msgid="7439429469102224627">"A obter endereço IP..."</item>
+    <item msgid="7079865889809010740">"Ligado"</item>
+    <item msgid="8018480471737227053">"Suspenso"</item>
+    <item msgid="9110004131358099530">"A desligar..."</item>
+    <item msgid="2366780999250675263">"Desassociados"</item>
+    <item msgid="944848437579938960">"Sem êxito"</item>
+    <item msgid="6501589509838730555">"Bloqueado"</item>
+    <item msgid="1877062378387320625">"A evitar temporariamente uma ligação fraca"</item>
+  </string-array>
+  <string-array name="wifi_status_with_ssid">
+    <item msgid="8339598300796362026"></item>
+    <item msgid="4703591207522320165">"A procurar..."</item>
+    <item msgid="7351421574703844779">"A ligar a <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="874502389678205660">"A autenticar com <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="7964187733783647040">"A obter endereço IP de <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="4990222034464002805">"Ligado a <xliff:g id="NETWORK_NAME">%1$s</xliff:g>"</item>
+    <item msgid="5347651564202902346">"Suspenso"</item>
+    <item msgid="4812777464932254477">"A desligar de <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="4985746712759777559">"Desassociados"</item>
+    <item msgid="6482743140170037710">"Sem êxito"</item>
+    <item msgid="7486075980265993798">"Bloqueado"</item>
+    <item msgid="6842213039083339420">"A evitar temporariamente uma ligação fraca"</item>
+  </string-array>
+  <string-array name="sleep_timeout_entries">
+    <item msgid="1213527366819650274">"5 minutos"</item>
+    <item msgid="3695675702735844029">"10 minutos"</item>
+    <item msgid="5742541267966746817">"15 minutos"</item>
+    <item msgid="4333958225402992378">"30 minutos"</item>
+    <item msgid="3103819305854192542">"1 hora"</item>
+  </string-array>
+  <string-array name="screen_off_timeout_entries">
+    <item msgid="8244337465472020927">"30 minutos"</item>
+    <item msgid="1001586019759702505">"1 hora"</item>
+    <item msgid="5216959047515554188">"3 horas"</item>
+    <item msgid="4152882798140628647">"6 horas"</item>
+    <item msgid="412984226950404956">"12 horas"</item>
+    <item msgid="2178434662173258997">"Nunca"</item>
+  </string-array>
+  <string-array name="debug_hw_overdraw_entries">
+    <item msgid="6733816499120044964">"Desativado"</item>
+    <item msgid="8974325215258674273">"Mostrar áreas de sobreposição"</item>
+    <item msgid="5877416885028854162">"Mostrar contador de sobreposições"</item>
+  </string-array>
+  <string-array name="hdmi_optimization_entries">
+    <item msgid="3490064566563023094">"Melhor resolução"</item>
+    <item msgid="8319005042985738916">"Melhor taxa de frames"</item>
+  </string-array>
+  <string-array name="captioning_typeface_selector_titles">
+    <item msgid="4410581208185456276">"Predefinição"</item>
+    <item msgid="9033306684422202101">"Sans-serif"</item>
+    <item msgid="1864985245839120339">"Sans-serif condensado"</item>
+    <item msgid="2707402752636362906">"Monoespaço Sans-serif"</item>
+    <item msgid="4549910217342216388">"Serif"</item>
+    <item msgid="4764344884232052861">"Monoespaço Serif"</item>
+    <item msgid="8561996903323025702">"Casual"</item>
+    <item msgid="8403638572764467550">"Cursivo"</item>
+    <item msgid="5560655268137500927">"Maiúsculas pequenas"</item>
+  </string-array>
+  <string-array name="captioning_font_size_selector_titles">
+    <item msgid="4304493614734189861">"Muito pequeno"</item>
+    <item msgid="1694402928400844023">"Pequeno"</item>
+    <item msgid="1235495470844109970">"Médio"</item>
+    <item msgid="481223375568095790">"Grande"</item>
+    <item msgid="8614563351231073075">"Muito grande"</item>
+  </string-array>
+  <string-array name="captioning_edge_type_selector_titles">
+    <item msgid="5333047169042840730">"Nenhum"</item>
+    <item msgid="7663488423233018922">"Contorno"</item>
+    <item msgid="7891048730741670843">"Sombra projetada"</item>
+    <item msgid="6613725572146700438">"Elevado"</item>
+    <item msgid="1007736533206905292">"Reduzido"</item>
+  </string-array>
+  <string-array name="captioning_opacity_selector_titles">
+    <item msgid="7311196539184412021">"25%"</item>
+    <item msgid="4609292560884303243">"50%"</item>
+    <item msgid="1626485489418859846">"75%"</item>
+    <item msgid="1811192455405034366">"100%"</item>
+  </string-array>
+  <string-array name="captioning_preset_selector_titles">
+    <item msgid="7937747884375690010">"Branco em preto"</item>
+    <item msgid="5187532965364561774">"Preto em branco"</item>
+    <item msgid="7275908232441066633">"Amarelo em preto"</item>
+    <item msgid="3907210401785295669">"Amarelo em azul"</item>
+    <item msgid="7050475937183962123">"Personalizado"</item>
+  </string-array>
+</resources>

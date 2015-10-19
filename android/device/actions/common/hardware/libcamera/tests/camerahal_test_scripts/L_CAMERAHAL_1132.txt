@@ -1,0 +1,13 @@
+|A1|4VGA|~yuv420sp|r30|9H264|vmp4|-AMR_NB|]64K|lVGA
+|6|d10|2
+|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0132
+//DESCRIPTION: Video capture in  YUV 420 semi-planar NV12 format
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

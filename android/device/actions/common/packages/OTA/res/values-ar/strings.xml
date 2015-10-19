@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"الإعدادات"</string>
+    <string name="title_activity_main">"تحديث البومة"</string>
+    <string name="update_online">"تحديث أولاين"</string>
+    <string name="update_native">"التحديث المحلي"</string>
+    <string name="goto_recovery">"هل ترجع إلى وضع ترقية Recovery؟"</string>
+    <string name="progress_dialog_title">"جاري توصيل الشبكة"</string>
+    <string name="not_connect">"لم توصل بالشبكة"</string>
+    <string name="progress_dialog_mgs">"جاري فحص تحديث المعلومات، انتظر"</string>
+    <string name="connect_server_wrong">"السيرفو مشغول، أعد محاولة التوصيل"</string>
+    <string name="current_system_isnew">"تكون نسخة النظام الحالي أحدث"</string>
+    <string name="sure">"موافق"</string>
+    <string name="cancel">"إلغاء"</string>
+    <string name="update_message">"تفحص نسخة التحديث، هل تنزلها؟"</string>
+    <string name="update_title">"تحديثات النسخة الجديدة"</string>
+    <string name="download">"تميل"</string>
+    <string name="update_rightnow">"تحديث الآن"</string>
+    <string name="start_download">"يبدأ تنزيل حزمة التديث"</string>
+    <string name="update_package">"حزمة التحديث"</string>
+    <string name="download_complete">"تم التنزيل"</string>
+    <string name="download_fail">"فشل التنزيل"</string>
+    <string name="md5_check_fail">"خطأ فحص MD5"</string>
+    <string name="update_package_downloaded">"نزلت حزمة التحديث ناجحا"</string>
+    <string name="finish_download">"تم تنزيل حزمة التحديث"</string>
+    <string name="update_notice">"\nبدأ تحديث OTA:\خلال عملية التحديث، لا يمكن انقطاع العملية، احفظ نسخة إضافية لمعلوماتكم.\n"</string>
+    <string name="cancel_download">"هل تلغي التنزيل؟"</string>
+    <string name="wait_downloading">"جاري التنزيل، انتظر ..."</string>
+    <string name="download_update_file">"لا توجد ملف تحديث في قائمة SDCard، يرجى منكم تحديث الملف أولاين"</string>
+    <string name="return_native_update">"توجد حزمة تحديث محليا، ارجع إلى التحديث المحلي"</string>
+    <string name="have_update">"يفحص تحديث المعلومات"</string>
+    <string name="notification_update">"تطبيق الإعدادات وانقر تحديث البومة"</string>
+    <string name="download_notice">"احفظ الشبكة مبسوطة ولا تشغل توصيل USB خلال عملية التنزيل"</string>
+    <string name="apk_title">"تحديث البومة V1.0"</string>
+    <string name="checkbox_title">"الفحص الأوتوماتيكي للتحديث"</string>
+    <string name="checkbox_summary">"لا يمكن ألا يوصل الشبكة لدخول السيرفو من خلال إلغاء الخيار"</string>
+    <string name="checkfrequency_title">"إعداد دورة البحث"</string>
+    <string name="checkfrequency_summary">"دورة البحث:"</string>
+    <string name="day">"يوم"</string>
+    <string name="battery_low">"كمية الكهرباء منخفضة"</string>
+    <string name="battery_notify">"ثبت التحديث عندما تتجاوز كمية الكهرباء على 50%"</string>
+</resources>

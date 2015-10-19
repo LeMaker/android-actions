@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Approvisionneur de l\'appareil"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Oups!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Configurer votre profil"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Votre organisation gère ce profil et assure sa sécurité. Vous contrôlez tout le reste sur votre appareil."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"L\'application suivante devra accéder à ce profil :"</string>
+    <string name="set_up" msgid="7012862095553564169">"Configurer"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Configuration de votre profil professionnel en cours…"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Votre administrateur peut surveiller et gérer les paramètres, l\'accès aux données d\'entreprise, les applications et les données associées au profil, y compris l\'activité réseau et les données de localisation de votre appareil."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"L\'administrateur de votre entreprise peut surveiller et gérer les paramètres, les accès, les applications et les données associés à cet appareil, y compris votre activité réseau et les données de localisation de votre appareil."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Pour obtenir plus d\'information, y compris les politiques de confidentialité de votre entreprise, communiquez avec votre administrateur."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"En savoir plus"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Annuler"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Profil professionnel"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Vous avez déjà un profil professionnel sur votre appareil. Voulez-vous le supprimer?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Voulez-vous vraiment supprimer ce profil professionnel? Toutes les données seront supprimées."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Supprimer"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Annuler"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Pour continuer la configuration de votre profil professionnel, vous devez chiffrer votre appareil. Cela peut prendre un certain temps."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Annuler"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Chiffrer"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Chiffrement terminé"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Touchez pour continuer la configuration de votre profil professionnel"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Impossible de configurer votre profil professionnel. Communiquez avec votre service informatique, ou réessayez plus tard."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Votre appareil ne prend pas en charge les profils professionnels"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Les profils professionnels doivent être configurés par le propriétaire de l\'appareil"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Votre profil professionnel n\'est pas pris en charge par cette application de lancement. Vous devrez utiliser un lanceur d\'applications compatible."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Annuler"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Utilisateur de l\'appareil professionnel"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Configurer l\'appareil"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Traitement des données de configuration…"</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Connexion Wi-Fi en cours…"</string>
+    <string name="progress_download" msgid="4995057798189799156">"Téléchargement application d\'administration…"</string>
+    <string name="progress_install" msgid="9169411715762296097">"Installation application d\'administration…"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Définition du propriétaire de l\'appareil…"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Arrêter la configuration?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Voulez-vous vraiment arrêter la configuration et supprimer les données de votre appareil?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Annuler"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Réinitialiser"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Impossible de configurer votre appareil. Communiquez avec votre service informatique."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Cet appareil a déjà été configuré"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Impossible de se connecter au réseau Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Impossible d\'utiliser l\'application d\'administration en raison d\'une erreur de somme de contrôle. Communiquez avec votre service informatique."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Impossible de télécharger l\'application d\'administration"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Impossible d\'utiliser l\'application d\'administration. Des composants sont manquants ou corrompus. Communiquez avec votre service informatique."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Impossible d\'installer l\'application d\'administration"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"L\'application d\'administration n\'est pas installée sur votre appareil"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Arrêter la configuration?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Voulez-vous vraiment arrêter la configuration?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Non"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Oui"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Annulation en cours…"</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+     <PreferenceCategory 
+     	android:title="@string/Display" >
+        <ListPreference
+	        android:key="settextcolor"
+	        android:dialogTitle="@string/Change_text_color"
+			android:title="@string/Text_color"
+	        android:summary="@string/Change_the_preferred_text_color" />
+        <CheckBoxPreference 
+        	android:key="sethidefile"
+         	android:title="@string/Show_hidden_files_folders"
+         	android:summary="@string/Display_f_f" />
+        <CheckBoxPreference 
+        	android:key="setimagepreview"
+         	android:title="@string/Show_Image_Preview"
+         	android:summary="@string/Display_thumbnail" />
+        <!-- <CheckBoxPreference 
+        	android:key="setspace"
+         	android:title="@string/Show_Storage_Banner"
+         	android:summary="@string/Display_sdcard_information" /> -->
+     </PreferenceCategory>
+     
+     <PreferenceCategory 
+         android:title="@string/Sorting">
+         <ListPreference
+	        android:key="setsorttype"
+	        android:dialogTitle="@string/Sort_by"
+	        android:title="@string/Sorting_type"
+	        android:summary="@string/Choose_sort_type" />
+     </PreferenceCategory>
+</PreferenceScreen>

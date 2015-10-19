@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="settings_app_name" msgid="4243616485579754401">"அமைப்புகள்"</string>
+    <string name="launcher_settings_app_name" msgid="5782771766725939392">"அமைப்புகள்"</string>
+    <string name="launcher_network_app_name" msgid="5107150533945388559">"நெட்வொர்க்"</string>
+    <string name="launcher_restricted_profile_app_name" msgid="671448012575234643">"வரம்பிட்ட சுயவிவரம்"</string>
+    <string name="header_category_device" msgid="4855983928659541345">"சாதனம்"</string>
+    <string name="header_category_preferences" msgid="175105555164713972">"விருப்பங்கள்"</string>
+    <string name="header_category_accessories" msgid="823295909353025991">"ரிமோட் &amp; துணைக்கருவிகள்"</string>
+    <string name="header_category_personal" msgid="8893959635328775096">"தனிப்பட்டவை"</string>
+    <string name="add_account" msgid="4098060223200619258">"கணக்கைச் சேர்"</string>
+    <string name="account_header_sync" msgid="2679585471372319471">"ஒத்திசை"</string>
+    <string name="account_header_remove_account" msgid="3288957118207682685">"கணக்கை அகற்று"</string>
+    <string name="search_title" msgid="5474988613144349415">"தேடு"</string>
+    <string name="account_sync" msgid="773808124331714965">"ஒத்திசைத்த பயன்பாடுகளைத் தேர்ந்தெடு"</string>
+    <string name="sync_now" msgid="8732244492880016471">"இப்போது ஒத்திசை"</string>
+    <string name="sync_cancel" msgid="5839264070098894371">"ஒத்திசைவை ரத்துசெய்"</string>
+    <string name="sync_in_progress" msgid="1330721038775646022">"ஒத்திசைக்கிறது…"</string>
+    <string name="last_synced" msgid="6178494892357077274">"கடைசியாக ஒத்திசைத்தது: <xliff:g id="TIME">%1s</xliff:g>"</string>
+    <string name="sync_disabled" msgid="3089360175872892781">"முடக்கப்பட்டது"</string>
+    <string name="sync_is_failing" msgid="8229476000384257186">"தற்போது ஒத்திசைவு செயல்படவில்லை. விரைவில் செயல்படும்."</string>
+    <string name="account_remove" msgid="4313580520737295272">"கணக்கை அகற்று"</string>
+    <string name="account_remove_failed" msgid="980654375770693544">"கணக்கை அகற்ற முடியவில்லை"</string>
+  <string-array name="account_detail_settings">
+    <item msgid="2736778804563540468">"பெயர்"</item>
+    <item msgid="6466271488216028049">"படம்"</item>
+    <item msgid="5763918836533170723">"பாதுகாப்பு"</item>
+    <item msgid="5219275476980441834">"Google Wallet"</item>
+    <item msgid="5333563881963545303">"வாங்கியவை வரலாறு"</item>
+    <item msgid="6174147587962184914">"கணக்கை அகற்று"</item>
+  </string-array>
+    <string name="connectivity_network" msgid="8321537111272398501">"நெட்வொர்க்"</string>
+    <string name="connectivity_wifi" msgid="489974791299647708">"Wi-Fi"</string>
+    <string name="connectivity_ethernet" msgid="2182407318634700320">"ஈதர்நெட்"</string>
+    <string name="device_daydream" msgid="4933581408059561077">"பகல்கனா"</string>
+    <string name="device_display" msgid="101455384386372747">"காட்சி"</string>
+    <string name="device_sound_effects" msgid="7793281745920228622">"முறைமை ஒலிகள்"</string>
+    <string name="device_apps" msgid="9180435229638772838">"பயன்பாடுகள்"</string>
+    <string name="device_storage_reset" msgid="1425978936501134425">"சேமிப்பிடம் &amp; மீட்டமைவு"</string>
+    <string name="device_storage" msgid="5536683600091277826">"சேமிப்பிடம்"</string>
+    <string name="device_backup_restore" msgid="5627523987587511884">"காப்புப்பிரதி &amp; மீட்டெடுப்பு"</string>
+    <string name="device_reset" msgid="2827002349560023125">"தரவின் ஆரம்பநிலை மீட்டமைப்பு"</string>
+    <string name="device_calibration" msgid="8632962533376605191">"அளவுக்குறியீடு"</string>
+    <!-- no translation found for device_storage_clear_cache_title (3365635664766067643) -->
+    <skip />
+    <!-- no translation found for device_storage_clear_cache_message (6495570470005696210) -->
+    <skip />
+    <string name="apps_downloaded" msgid="4222190849854323480">"இறக்கியப் பயன்பாடுகள்"</string>
+    <string name="apps_system" msgid="2499191125802829425">"முறைமைப் பயன்பாடுகள்"</string>
+    <string name="apps_running" msgid="6430310491739956228">"இயங்கும் பயன்பாடுகள்"</string>
+    <string name="accessories_remote" msgid="2188138914890229082">"ரிமோட்"</string>
+    <string name="accessories_camera" msgid="503302832375993697">"கேமரா"</string>
+    <string name="accessories_add" msgid="1347802656349218830">"துணைக்கருவியைச் சேர்"</string>
+    <string name="accessories_wifi_display" msgid="1107690327150126038">"Wi-Fi காட்சி"</string>
+    <string name="accessory_state_pairing" msgid="7501989679637780963">"இணைக்கிறது..."</string>
+    <string name="accessory_state_connecting" msgid="8777884957977608529">"இணைக்கிறது..."</string>
+    <string name="accessory_state_error" msgid="4529815543328841909">"இணைக்க முடியவில்லை"</string>
+    <string name="accessory_state_canceled" msgid="4419328837733619447">"ரத்து செய்யப்பட்டது"</string>
+    <string name="accessory_state_paired" msgid="1959238931866401476">"இணைக்கப்பட்டது"</string>
+    <string name="accessory_options" msgid="4799658564005710297">"துணைக்கருவி"</string>
+    <string name="accessory_rename" msgid="3250766501262581206">"மறுபெயரிடு"</string>
+    <string name="accessory_unpair" msgid="8242725516604465355">"இணைப்பை அகற்று"</string>
+    <string name="accessory_unpairing" msgid="7568241162181184667">"சாதனத்தைப் பிரிக்கிறது…"</string>
+    <string name="accessory_connected" msgid="2156489304110030393">"இணைக்கப்பட்டது"</string>
+    <string name="accessories_add_title" msgid="6940361421891873321">"துணைக்கருவிகளைத் தேடுகிறது…"</string>
+    <string name="accessories_add_bluetooth_inst" msgid="5892952745770640383">"புளூடூத் சாதனங்களை இணைப்பதற்கு முன், அவை இணைத்தல் முறையில் உள்ளன என்பதை உறுதிசெய்யவும்"</string>
+    <string name="accessories_autopair_msg" msgid="8618829246837821752">"சாதனம் உள்ளது, <xliff:g id="COUNTDOWN">%1$s</xliff:g> வினாடிகளில் தானாக இணைக்கப்படும்"</string>
+    <string name="accessories_add_title_multiple" msgid="8455249961819802466">"பல சாதனங்கள் கண்டறியப்பட்டன"</string>
+    <string name="accessories_add_multiple" msgid="3900633668371061399">"வேறொரு சாதனத்தைத் தேர்வுசெய்ய, சாதனத்தில் இணைத்தல் பட்டனை அழுத்தவும்"</string>
+    <string name="accessories_add_multiple_select" msgid="3696794187001405647">"தேர்ந்தெடுத்த சாதனத்துடன் இணைக்க, 5 வினாடிகளுக்குச் சாதனத்தின் இணைத்தல் பட்டனை அழுத்திப் பிடிக்கவும்"</string>
+    <string name="error_action_not_supported" msgid="300552308104354666">"இந்தச் செயல் ஆதரிக்கப்படாது"</string>
+    <string name="bluetooth_pairing_request" msgid="4523088117471287665">"புளுடூத் இணைப்பு கோரிக்கை"</string>
+    <string name="bluetooth_confirm_passkey_msg" msgid="7031117992819855434">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt; உடன் இணைக்க, இது பின்வரும் கடவுசொல்லைக் காட்டுவதை உறுதிசெய்யவும்: &lt;b&gt;<xliff:g id="PASSKEY">%2$s</xliff:g>&lt;/b&gt;"</string>
+    <string name="bluetooth_incoming_pairing_msg" msgid="8234127565393932499">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt;&lt;br&gt; இலிருந்து இந்தச் சாதனத்தை இணைக்கவா?"</string>
+    <string name="bluetooth_display_passkey_pin_msg" msgid="8951451728250058901">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt;&lt;br&gt;உடன் இணைக்க, &lt;b&gt;<xliff:g id="PASSKEY">%2$s</xliff:g>&lt;/b&gt; என்பதை உள்ளிட்டு, Return அல்லது Enter ஐ அழுத்தவும்."</string>
+    <string name="bluetooth_enter_pin_msg" msgid="7443458826667686394">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt; உடன் இணைக்க, &lt;br&gt;சாதனத்திற்குத் தேவைப்படும் PIN ஐ உள்ளிடவும்:"</string>
+    <string name="bluetooth_enter_passkey_msg" msgid="7980787196089653577">"இதனுடன் இணைக்க: &lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt;, &lt;br&gt;சாதனத்திற்கு தேவையான கடவுவிசையை உள்ளிடவும்:"</string>
+    <string name="bluetooth_pin_values_hint" msgid="2319900367581543300">"பொதுவாக 0000 அல்லது 1234"</string>
+    <string name="bluetooth_pair" msgid="7836818609620478122">"இணை"</string>
+    <string name="bluetooth_cancel" msgid="4152153558528588479">"ரத்துசெய்"</string>
+    <string name="system_cast" msgid="6421567823845207156">"Google Cast"</string>
+    <string name="system_date_time" msgid="8898457978560618950">"தேதி &amp; நேரம்"</string>
+    <string name="system_language" msgid="2337138146114609247">"மொழி"</string>
+    <string name="system_keyboard" msgid="7680159735294672514">"விசைப்பலகை"</string>
+    <string name="system_search" msgid="2837264654143247611">"தேடு"</string>
+    <string name="system_security" msgid="8230080273993484407">"பாதுகாப்பு &amp; கட்டுப்பாடுகள்"</string>
+    <string name="system_speech" msgid="8128688499687306982">"பேச்சு"</string>
+    <string name="system_inputs" msgid="2413907183796651102">"உள்ளீடுகள்"</string>
+    <string name="system_accessibility" msgid="6215431399759498005">"அணுகல்தன்மை"</string>
+    <string name="system_developer_options" msgid="3237985523474863638">"டெவெலப்பர் விருப்பங்கள்"</string>
+    <string name="accessibility_none" msgid="3441648940134070004">"ஏதுமில்லை"</string>
+    <string name="about_system_update" msgid="7282772247661356586">"முறைமை புதுப்பிப்பு"</string>
+    <string name="about_preference" msgid="4131396784531360434">"அறிமுகம்"</string>
+    <string name="device_name" msgid="2670488158531273028">"சாதனத்தின் பெயர்"</string>
+    <string name="restart_button_label" msgid="8153112858638352970">"மீண்டும் தொடங்கு"</string>
+    <string name="about_legal_info" msgid="8511870741437307531">"சட்டத் தகவல்"</string>
+    <string name="about_warranty" msgid="5736003473060436384">"உத்தரவாதம்"</string>
+    <string name="about_legal_license" msgid="7867205982113209033">"ஓப்பன் சோர்ஸ் உரிமங்கள்"</string>
+    <string name="about_terms_of_service" msgid="7743088207977334874">"Google சட்டம்"</string>
+    <string name="about_license_activity_unavailable" msgid="8522566562321418498">"உரிமத் தரவு கிடைக்கவில்லை"</string>
+    <string name="about_model" msgid="6625269442206323995">"மாடல்"</string>
+    <string name="about_version" msgid="1177287676732287266">"பதிப்பு"</string>
+    <string name="about_serial" msgid="2723560490027171187">"வரிசை எண்"</string>
+    <string name="about_build" msgid="9148789767199785676">"பதிப்பு"</string>
+  <plurals name="show_dev_countdown">
+    <item quantity="one" msgid="5656331074727404150">"டெவலப்பராவதற்கு இப்போது <xliff:g id="STEP_COUNT">%1$d</xliff:g> படியே உள்ளது"</item>
+    <item quantity="other" msgid="6907126743472136795">"டெவலப்பராவதற்கு இப்போது <xliff:g id="STEP_COUNT">%1$d</xliff:g> படிகளே உள்ளன"</item>
+  </plurals>
+    <string name="about_ads" msgid="3364786994943748337">"விளம்பரங்கள்"</string>
+    <string name="show_dev_on" msgid="8997172736024819952">"இப்போது டெவெலப்பராகிவிட்டீர்கள்!"</string>
+    <string name="show_dev_already" msgid="7525967300421794483">"தேவையில்லை, ஏற்கனவே டெவலப்பராகி விட்டீர்கள்"</string>
+    <string name="wifi_security_none" msgid="1241101191574932821">"ஏதுமில்லை"</string>
+    <string name="wifi_remembered" msgid="710973813096194477">"சேமிக்கப்பட்டது"</string>
+    <string name="wifi_disabled_generic" msgid="5100439885010143290">"முடக்கப்பட்டது"</string>
+    <string name="wifi_disabled_network_failure" msgid="7558613087615078317">"வேகம் குறைவான இணைய இணைப்பு தவிர்க்கப்பட்டது"</string>
+    <string name="wifi_disabled_password_failure" msgid="1318626812163574372">"அங்கீகரிப்புச் சிக்கல்"</string>
+    <string name="wifi_not_in_range" msgid="342867509887486418">"வரம்பில் இல்லை"</string>
+    <string name="wifi_wps_available_first_item" msgid="2505782834128907733">"WPS கிடைக்கிறது"</string>
+    <string name="wifi_wps_available_second_item" msgid="375469856423243587">" (WPS கிடைக்கிறது)"</string>
+    <string name="wifi_secured_first_item" msgid="9147292132572887175">"<xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g> மூலம் பாதுகாக்கப்பட்டது"</string>
+    <string name="wifi_secured_second_item" msgid="4204734116810783051">", <xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g> மூலம் பாதுகாக்கப்பட்டது"</string>
+  <string-array name="wifi_signal_strength">
+    <item msgid="6926038943588801452">"மோசம்"</item>
+    <item msgid="5986166866411161790">"சுமார்"</item>
+    <item msgid="7541004325985469896">"நன்று"</item>
+    <item msgid="1546771355788926692">"பிரமாதம்"</item>
+  </string-array>
+    <string name="title_mac_address" msgid="3428401680168668544">"MAC முகவரி"</string>
+    <string name="title_signal_strength" msgid="205478650262078041">"சிக்னலின் வலிமை"</string>
+    <string name="title_ip_address" msgid="4533523100923004711">"IP முகவரி"</string>
+    <string name="title_ssid" msgid="4858945903642469730">"வைஃபை நெட்வொர்க்கின் பெயரை உள்ளிடவும்"</string>
+    <string name="title_internet_connection" msgid="8710084774588697646">"இணைய இணைப்பு"</string>
+    <string name="connected" msgid="7563100162902079938">"இணைக்கப்பட்டது"</string>
+    <string name="not_connected" msgid="6858480380326923017">"இணைக்கப்படவில்லை"</string>
+    <string name="wifi_setting_header_available_networks" msgid="6244107218643835636">"வைஃபை"</string>
+    <string name="wifi_setting_header_other_options" msgid="1530334691232749342">"பிற விருப்பங்கள்"</string>
+    <string name="wifi_setting_see_all" msgid="3217814666041974878">"எல்லாம் காட்டு"</string>
+    <string name="wifi_setting_available_networks" msgid="1244646604369133314">"கிடைக்கும் நெட்வொர்க்குகள்"</string>
+    <string name="wifi_setting_other_options_wps" msgid="2320322351779996152">"WPS மூலம் இணை"</string>
+    <string name="wifi_setting_other_options_add_network" msgid="2791106243851894788">"புதிய நெட்வொர்க்கைச் சேர்"</string>
+    <string name="add_network" msgid="2074883912462075625">"நெட்வொர்க்கைச் சேர்"</string>
+    <string name="network_ssid" msgid="7653487431810593891">"நெட்வொர்க் SSID"</string>
+    <string name="security_type" msgid="524443802004143058">"பாதுகாப்பின் வகை"</string>
+    <string name="password" msgid="1322790875762726719">"கடவுச்சொல்"</string>
+    <string name="wps_network" msgid="1052148085426051873">"WPS மூலம் இணை"</string>
+    <string name="other_network" msgid="3539704463099544488">"பிற நெட்வொர்க்…"</string>
+    <string name="skip_network" msgid="6380260543776712357">"தவிர்"</string>
+    <string name="wifi_security_type_none" msgid="6622722325237471927">"ஏதுமில்லை"</string>
+    <string name="wifi_security_type_wep" msgid="3836879161029325671">"WEP"</string>
+    <string name="wifi_security_type_wpa" msgid="4948411057925876780">"WPA/WPA2 PSK"</string>
+    <string name="wifi_security_type_eap" msgid="1106303698253987745">"802.1x EAP"</string>
+    <string name="title_wifi_no_networks_available" msgid="7127675763248224969">"ஸ்கேன் செய்கிறது…"</string>
+    <string name="title_wifi_could_not_save" msgid="708638317882707069">"<xliff:g id="SSID">%1$s</xliff:g> க்கு உள்ளமைவைச் சேமிக்க முடியவில்லை"</string>
+    <string name="title_wifi_could_not_connect" msgid="9080004548419447580">"<xliff:g id="SSID">%1$s</xliff:g> உடன் இணைக்க முடியவில்லை"</string>
+    <string name="title_wifi_could_not_connect_timeout" msgid="5158184646985406394">"<xliff:g id="SSID">%1$s</xliff:g> ஐக் கண்டறிய முடியவில்லை"</string>
+    <string name="title_wifi_could_not_connect_authentication_failure" msgid="4836595650380723944">"வைஃபை கடவுச்சொல் தவறானது"</string>
+    <string name="title_wifi_could_not_connect_ap_reject" msgid="328274688839033015">"வைஃபை நெட்வொர்க் இணைப்பை ஏற்கவில்லை"</string>
+    <string name="title_wifi_advanced_options" msgid="5389467736846644832">"<xliff:g id="SSID">%1$s</xliff:g> ப்ராக்ஸியையும், IP அமைப்புகளையும் உள்ளமைக்கவா?"</string>
+    <string name="title_wifi_proxy_settings" msgid="7728120764469991303">"ப்ராக்ஸி அமைப்புகள்"</string>
+    <string name="title_wifi_proxy_hostname" msgid="4655634673840885248">"ப்ராக்ஸியின் ஹோஸ்ட்பெயர்:"</string>
+    <string name="title_wifi_proxy_port" msgid="9194893429116021337">"ப்ராக்ஸி போர்ட்:"</string>
+    <string name="title_wifi_proxy_bypass" msgid="4522775396659538614">"இவற்றின் ப்ராக்ஸியைத் தவிர்:"</string>
+    <string name="title_wifi_ip_settings" msgid="1176973848286865602">"IP அமைப்புகள்"</string>
+    <string name="title_wifi_ip_address" msgid="1176502993805009566">"IP முகவரி:"</string>
+    <string name="title_wifi_gateway" msgid="7210935277165358134">"கேட்வே:"</string>
+    <string name="title_wifi_network_prefix_length" msgid="4821632382990582038">"நெட்வொர்க் முன்னொட்டு நீளம்:"</string>
+    <string name="title_wifi_dns1" msgid="8202712852864206601">"DNS 1:"</string>
+    <string name="title_wifi_dns2" msgid="2673986973918499478">"DNS 2:"</string>
+    <string name="title_wifi_proxy_settings_invalid" msgid="7380479044141040849">"ப்ராக்ஸி அமைப்புகள் தவறாக உள்ளன"</string>
+    <string name="title_wifi_ip_settings_invalid" msgid="7228948551397955678">"IP அமைப்புகள் தவறாக உள்ளன"</string>
+    <string name="title_wifi_known_network" msgid="819998498700202436">"<xliff:g id="SSID">%1$s</xliff:g> என்பது சேமித்த நெட்வொர்க் ஆகும்"</string>
+    <string name="wifi_action_try_again" msgid="3308643222864163092">"மீண்டும் முயலவும்"</string>
+    <string name="wifi_action_view_available_networks" msgid="560074338908947419">"கிடைக்கும் நெட்வொர்க்குகளைக் காட்டு"</string>
+    <string name="wifi_connecting" msgid="1299861268647323455">"<xliff:g id="SSID">%1$s</xliff:g> உடன் இணைக்கிறது"</string>
+    <string name="wifi_saving" msgid="1269061570772019215">"<xliff:g id="SSID">%1$s</xliff:g> க்கு உள்ளமைவைச் சேமிக்கிறது"</string>
+    <string name="wifi_connect" msgid="8570424816865506077">"இணை"</string>
+    <string name="wifi_forget_network" msgid="7302755141573045803">"நெட்வொர்க்கை நீக்கு"</string>
+    <string name="wifi_forget_network_description" msgid="3328285160018330334">"சேமித்தக் கடவுச்சொல் உள்ளிட்ட இந்த நெட்வொர்க்குடன் இணைக்கப் பயன்படுத்திய தகவலை இது அழிக்கிறது"</string>
+    <string name="wifi_action_ok" msgid="5932500664228395779">"சரி"</string>
+    <string name="wifi_action_change_network" msgid="5196215981075986148">"மாற்று"</string>
+    <string name="wifi_action_dont_change_network" msgid="1449920958930251977">"மாற்ற வேண்டாம்"</string>
+    <string name="wifi_action_advanced_yes" msgid="8586473568311558982">"சரி"</string>
+    <string name="wifi_action_advanced_no" msgid="8165601242122651326">"இல்லை (பரிந்துரைத்தது)"</string>
+    <string name="wifi_action_proxy_none" msgid="4457231399674182650">"ஏதுமில்லை"</string>
+    <string name="wifi_action_proxy_manual" msgid="8402002777441261064">"கைமுறை"</string>
+    <string name="wifi_action_dhcp" msgid="6338911832360962268">"DHCP"</string>
+    <string name="wifi_action_save" msgid="4673786410274206843">"சேமி"</string>
+    <string name="wifi_action_static" msgid="1025855501453321749">"நிலையான"</string>
+    <string name="wifi_action_status_info" msgid="7664354971197839253">"நிலைத் தகவல்"</string>
+    <string name="wifi_action_advanced_options_title" msgid="3242132674399983503">"மேம்பட்ட விருப்பங்கள்"</string>
+    <string name="wifi_action_advanced_options_description" msgid="8615353318560146504">"<xliff:g id="PROXY_SETTINGS_SUMMARY">%1$s</xliff:g>, <xliff:g id="IP_SETTINGS_SUMMARY">%2$s</xliff:g>"</string>
+    <string name="wifi_ip_settings_invalid_ip_address" msgid="5228247770505105107">"சரியான IP முகவரியை உள்ளிடவும்"</string>
+    <string name="wifi_ip_settings_invalid_gateway" msgid="3292444764474145026">"சரியான கேட்வே முகவரியை உள்ளிடவும்"</string>
+    <string name="wifi_ip_settings_invalid_dns" msgid="6172189835428184828">"சரியான DNS முகவரியை உள்ளிடவும்"</string>
+    <string name="wifi_ip_settings_invalid_network_prefix_length" msgid="6209978918929182270">"0 மற்றும் 32க்கு இடையிலான நெட்வொர்க் முன்னொட்டு நீளத்தை உள்ளிடவும்"</string>
+    <string name="wifi_ip_address_hint" msgid="1895267564692073689">"சரியான IP முகவரியை உள்ளிடவும்.\nஎடுத்துக்காட்டு: 192.168.1.128"</string>
+    <string name="wifi_dns1_hint" msgid="214345156394229347">"சரியான IP முகவரியை உள்ளிடவும் அல்லது வெறுமையாக விடவும்.\nஎடுத்துக்காட்டு: 8.8.8.8"</string>
+    <string name="wifi_dns2_hint" msgid="1075709328208368894">"சரியான IP முகவரியை உள்ளிடவும் அல்லது வெறுமையாக விடவும்.\nஎடுத்துக்காட்டு: 8.8.4.4"</string>
+    <string name="wifi_gateway_hint" msgid="7687219682024189028">"சரியான IP முகவரியை உள்ளிடவும் அல்லது வெறுமையாக விடவும்.\nஎடுத்துக்காட்டு: 192.168.1.1"</string>
+    <string name="wifi_network_prefix_length_hint" msgid="332915798888599682">"சரியான நெட்வொர்க் முன்னொட்டு நீளத்தை உள்ளிடவும்.\nஎடுத்துக்காட்டு: 24"</string>
+    <string name="proxy_error_invalid_host" msgid="3660415920668138953">"ஹோஸ்ட்பெயர் தவறானது"</string>
+    <string name="proxy_error_invalid_exclusion_list" msgid="4921547051724987804">"விலக்கப் பட்டியல் தவறானது. விலக்கப்பட்ட டொமைன்களின் காற்புள்ளியால் பிரிக்கப்பட்ட பட்டியலை உள்ளிடவும்."</string>
+    <string name="proxy_error_empty_port" msgid="6835658067776408062">"போர்ட் புலம் வெறுமையாக இருக்கக்கூடாது"</string>
+    <string name="proxy_error_empty_host_set_port" msgid="4428793978424303244">"ஹோஸ்ட் புலம் வெறுமையாக இருந்தால், போர்ட் புலத்தை வெறுமையாக விடவும்"</string>
+    <string name="proxy_error_invalid_port" msgid="1434922103959603993">"போர்ட் தவறானது"</string>
+    <string name="proxy_warning_limited_support" msgid="6160239282535986523">"HTTP ப்ராக்ஸியை உலாவி பயன்படுத்தும், ஆனால் பிற பயன்பாடுகளால் பயன்படுத்த முடியாமல் போகலாம்"</string>
+    <string name="proxy_port_hint" msgid="8532733797275927007">"சரியான போர்ட்டை உள்ளிடவும்.\nஎடுத்துக்காட்டு: 8080"</string>
+    <string name="proxy_exclusionlist_hint" msgid="86175095050438325">"விலக்கப்பட்ட களங்களின் காற்புள்ளியால் பிரிக்கப்பட்ட பட்டியலை உள்ளிடவும் அல்லது காலியாக விடவும்.\nஎடுத்துக்காட்டு: example.com,mycomp.test.com,localhost"</string>
+    <string name="proxy_hostname_hint" msgid="3719688422767210803">"சரியான ஹோஸ்ட்பெயரை உள்ளிடவும்.\nஎடுத்துக்காட்டு: proxy.example.com"</string>
+    <string name="wifi_summary_title_connected" msgid="8329216588732277139">"நெட்வொர்க் இணைக்கப்பட்டது"</string>
+    <string name="wifi_summary_title_not_connected" msgid="3799548944869386251">"நெட்வொர்க் இணைக்கப்படவில்லை"</string>
+    <string name="wifi_summary_description_connected_to_wifi_network" msgid="7583498018733069053">"<xliff:g id="SSID">%1$s</xliff:g> உடன் ஏற்கனவே இணைக்கப்பட்டுள்ளது. வேறொரு நெட்வொர்க்குடன் இணைக்கவா?"</string>
+    <string name="wifi_summary_unknown_network" msgid="7903601448928422642">"அறியப்படாத நெட்வொர்க்"</string>
+    <string name="connectivity_advanced_options" msgid="2858199826425132228">"மேம்பட்ட விருப்பத்தேர்வுகள்"</string>
+    <string name="connectivity_advanced_options_description" msgid="370129113175689226">"<xliff:g id="SSID_0">%1$s</xliff:g>, <xliff:g id="SSID_1">%2$s</xliff:g>"</string>
+    <string name="title_ip_settings" msgid="6408399523925189065">"IP அமைப்புகள்"</string>
+    <string name="title_test_connection" msgid="1202798409060082670">"சோதனை இணைப்பு"</string>
+    <string name="dhcp" msgid="5536822848499568335">"DHCP"</string>
+    <string name="title_static" msgid="6690544371649264526">"நிலையான"</string>
+    <string name="gateway" msgid="2467496590891949814">"கேட்வே"</string>
+    <string name="title_network_prefix_length" msgid="3222416880787889272">"நெட்வொர்க் முன்னொட்டு நீளம்"</string>
+    <string name="title_dns_1" msgid="1513875539231931892">"DNS 1"</string>
+    <string name="title_dns_2" msgid="7805767982172685879">"DNS 2"</string>
+    <string name="title_ok" msgid="1021329453788761592">"சரி"</string>
+    <string name="title_cancel" msgid="4846143417666038604">"ரத்துசெய்"</string>
+    <string name="rename_device" msgid="8221482127562510757">"சாதனத்திற்கு மறுபெயரிடு"</string>
+    <string name="storage_title" msgid="2132026108559493394">"சேமிப்பிடம்"</string>
+    <string name="storage_available" msgid="1241005580092138871">"பயன்படுத்தாத சேமிப்பிடம்"</string>
+    <string name="storage_size" msgid="8958530823208352781">"மொத்த இடம்: <xliff:g id="TOTAL_SPACE">%1$s</xliff:g>"</string>
+    <string name="storage_calculating_size" msgid="2644732407412520565">"கணக்கிடுகிறது..."</string>
+    <string name="storage_apps_usage" msgid="4366049071039081219">"பயன்பாடுகள்"</string>
+    <string name="storage_downloads_usage" msgid="6172975879962599380">"இறக்கங்கள்"</string>
+    <string name="storage_dcim_usage" msgid="2977564696540645452">"படங்கள் &amp; வீடியோக்கள்"</string>
+    <string name="storage_music_usage" msgid="3509327591741514083">"ஆடியோ"</string>
+    <string name="storage_media_misc_usage" msgid="6066868724030127457">"மற்றவை"</string>
+    <string name="storage_media_cache_usage" msgid="5906737163212649904">"தற்காலிகத் தரவு"</string>
+    <string name="wifi_wps_cancel_scan" msgid="3562470978552920877">"ரத்துசெய்"</string>
+    <string name="wifi_wps_retry_scan" msgid="6171190323753080808">"மீண்டும் முயலவும்"</string>
+    <string name="wifi_wps_title" msgid="1872305810119408482">"WPS ரூட்டரைத் தேடுகிறது…"</string>
+    <string name="wifi_wps_instructions" msgid="3618110962669110034">"உங்கள் ரூட்டரில் வைஃபைப் பாதுகாப்பு அமைவு பட்டனை அழுத்தவும்.\nஇது \"WPS\" என அழைக்கப்படும் அல்லது இடப்புறத்தில் இந்தக் குறியீடு இருக்கும்:"</string>
+    <string name="wifi_wps_onstart_pin" msgid="594985182235834825">"PIN <xliff:g id="NUMBER">%1$s</xliff:g>ஐ வைஃபை ரூட்டரில் உள்ளிடவும்"</string>
+    <string name="wifi_wps_onstart_pin_description" msgid="4206001352944024353">"PIN உள்ளிட்ட பின், அமைவு முடிவதற்கு 2 நிமிடங்கள் எடுக்கலாம்"</string>
+    <string name="wifi_wps_in_progress" msgid="7082889465182680949">"WPS ஏற்கனவே செயலில் உள்ளது, முடிய 2 நிமிடங்கள் வரை எடுக்கலாம்"</string>
+    <string name="wifi_wps_failed_generic" msgid="8934636373182298397">"வைஃபை ரூட்டரைக் கண்டறிய முடியவில்லை"</string>
+    <string name="wifi_wps_failed_wep" msgid="9158670824165143348">"வைஃபை ரூட்டர் பாதுகாப்பு அமைப்பு (WEP) ஆதரிக்கப்படவில்லை"</string>
+    <string name="wifi_wps_failed_tkip" msgid="1712545345594227319">"வைஃபை ரூட்டர் பாதுகாப்பு அமைப்பு (TKIP) ஆதரிக்கப்படவில்லை"</string>
+    <string name="wifi_wps_failed_overlap" msgid="3091222818050940041">"வேறொரு WPS அமர்வு செயலில் உள்ளது. சில நிமிடங்கள் கழித்து முயற்சிக்கவும்."</string>
+    <string name="system_date" msgid="2767108116769558081">"தேதி"</string>
+    <string name="system_time" msgid="6726022312605226285">"நேரம்"</string>
+    <string name="system_set_date" msgid="2437586307768561116">"தேதியை அமை"</string>
+    <string name="system_set_time" msgid="4661804115501057452">"நேரத்தை அமை"</string>
+    <string name="system_set_time_zone" msgid="8239601932757697259">"நேர மண்டலத்தை அமை"</string>
+    <string name="system_set_time_format" msgid="4447882066895090612">"24-மணிநேர வடிவத்தைப் பயன்படுத்து"</string>
+    <string name="system_auto_date_time" msgid="3629668599205033272">"தானியங்கு தேதி &amp; நேரம்"</string>
+    <string name="desc_auto_date_time" msgid="6997571927680580633">"நெட்வொர்க் வழங்கும் நேரத்தைப் பயன்படுத்து"</string>
+    <string name="system_location" msgid="502463575930545806">"இருப்பிடம்"</string>
+    <string name="system_desc_location" msgid="4243551425631207495">"உங்கள் அனுமதியைக் கேட்ட பயன்பாடுகள் உங்களின் இருப்பிடத் தகவலைப் பயன்படுத்தும்"</string>
+    <string name="system_network_location" msgid="3095006393148731886">"வைஃபை நெட்வொர்க் இடம்"</string>
+    <string name="system_desc_network_location" msgid="3394374680078903193">"இடத்தைக் கண்டறிய பயன்பாடுகளுக்கு Google உதவுகிறது. அதாவது பயன்பாடுகள் இயங்காத போதும், இடத் தரவு அநாமதேயமாக Googleக்கு அனுப்பப்படும்."</string>
+    <string name="system_network_location_confirm" msgid="8435144328428634060">"இட ஒப்புதல்"</string>
+    <string name="system_desc_network_location_confirm" msgid="3929125496258579850">"இடத் தரவை அநாமதேயமாகச் சேகரிக்க Google இன் இடச் சேவையை அனுமதிக்கவும். சில தரவு உங்கள் சாதனத்தில் சேமிக்கப்பட்டிருக்கலாம். பயன்பாடுகள் எதுவும் இயங்காதபோதும் தரவு சேகரிக்கப்படலாம்."</string>
+    <string name="location_title" msgid="7600163182794860262">"எனது இருப்பிடம்"</string>
+    <string name="header_category_system" msgid="3243287334177831637">"முறைமை"</string>
+    <string name="location_mode_title" msgid="6573195849329396150">"நிலை"</string>
+    <string name="location_category_recent_location_requests" msgid="3437903422445812245">"சமீபத்திய இருப்பிடக் கோரிக்கைகள்"</string>
+    <string name="location_no_recent_apps" msgid="4218851908476344030">"எந்தப் பயன்பாடுகளும் சமீபத்தில் இருப்பிடத்தைக் கோரவில்லை"</string>
+    <string name="location_high_battery_use" msgid="576143332793626088">"அதிக பேட்டரி பயன்பாடு"</string>
+    <string name="location_low_battery_use" msgid="5756040390248358148">"குறைவான பேட்டரி பயன்பாடு"</string>
+    <string name="location_mode_wifi_description" msgid="2778774510654527264">"இடத்தைக் கண்டறிய வைஃபையைப் பயன்படுத்தவும்"</string>
+    <string name="location_status" msgid="3456414279428237558">"இருப்பிட நிலை"</string>
+    <string name="location_services" msgid="5441085185119797200">"இடச் சேவைகள்"</string>
+    <string name="on" msgid="6683600681314500652">"இயக்கு"</string>
+    <string name="off" msgid="5264189545064767245">"முடக்கு"</string>
+    <string name="google_location_services_title" msgid="3382840371861269146">"Google இருப்பிடச் சேவைகள்"</string>
+    <string name="third_party_location_services_title" msgid="4089136801976399147">"மூன்றாம் தரப்பு இடச் சேவைகள்"</string>
+    <string name="location_reporting" msgid="3054236612250063073">"இருப்பிட அறிக்கையிடல்"</string>
+    <string name="location_history" msgid="2946680949724247804">"இருப்பிட வரலாறு"</string>
+    <string name="location_reporting_desc" msgid="6256424995139430823">"Google Now மற்றும் Google வரைபடம் போன்ற தயாரிப்புகளில் Google இந்த அம்சத்தைப் பயன்படுத்துகிறது. இருப்பிட அறிக்கையிடலை இயக்குவது, இந்த அம்சத்தைப் பயன்படுத்தும் எந்தவொரு Google தயாரிப்பும் உங்கள் Google கணக்குடன் தொடர்புடைய சாதனத்தின் மிகச் சமீபத்திய இருப்பிடத் தரவைப் பயன்படுத்த, சேமிக்க அனுமதிக்கிறது."</string>
+    <string name="location_history_desc" msgid="3861249867748294369">"இந்தக் கணக்கிற்கு இருப்பிட வரலாறு இயக்கப்படும் போது, உங்கள் பயன்பாடுகள் பயன்படுத்துவதற்குச் சாதன இருப்பிடத் தரவை Google சேமிக்கலாம்.\n\nஎடுத்துக்காட்டாக, Google வரைபடம் திசைகளை வழங்கலாம், Google Now வழக்கமான பயணத்தில் உள்ள ட்ராஃபிக் பற்றி அறிவிக்கலாம்.\n\nஎந்த நேரத்திலும் இருப்பிட வரலாற்றை நீங்கள் முடக்கலாம், ஆனால் அவ்வாறு செய்வது சேமித்தத் தரவை நீக்காது. இருப்பிட வரலாற்றைக் கண்டு நிர்வகிக்க maps.google.com/locationhistoryஐப் பார்வையிடவும்."</string>
+    <string name="delete_location_history_title" msgid="5804802702252280549">"இட வரலாற்றை நீக்கு"</string>
+    <string name="delete_location_history_desc" msgid="4142806827237093397">"Google கணக்கிற்காகச் சாதனத்தில் சேமிக்கப்பட்ட எல்லா இட வரலாற்றையும் இது நீக்கும். இதைத் திரும்பப்பெற முடியாது. Google Now உட்பட சில செயல்பாடுகள் செயல்படுவது நிறுத்தப்படும்."</string>
+    <string name="system_services" msgid="7230571820151215779">"சேவைகள்"</string>
+    <string name="accessibility_service_settings" msgid="322888335240595695">"சேவை அமைப்புகள்"</string>
+    <string name="accessibility_captions" msgid="6133896463407851079">"தலைப்புகள்"</string>
+    <string name="accessibility_captions_description" msgid="4290317621720499628">"வீடியோவில் தோன்றும் வசனங்களுக்கான அமைப்புகள்"</string>
+    <string name="captions_display" msgid="735692527287125548">"காட்சி"</string>
+    <string name="captions_display_on" msgid="1989009878719500520">"இயக்கு"</string>
+    <string name="captions_display_off" msgid="496953007835201523">"முடக்கு"</string>
+    <string name="display_options" msgid="5504549024985225774">"திரை விருப்பங்கள்"</string>
+    <string name="captions_configure" msgid="5537548915977371014">"உள்ளமை"</string>
+    <string name="captions_lanaguage" msgid="3291057448460880449">"மொழி"</string>
+    <string name="captions_textsize" msgid="4828195509546070971">"உரையின் அளவு"</string>
+    <string name="captions_captionstyle" msgid="7423638523487868230">"தலைப்பின் நடை"</string>
+    <string name="captions_customoptions" msgid="2699780648112330911">"தனிப்பயன் விருப்பங்கள்"</string>
+    <string name="captions_fontfamily" msgid="6840670778173003604">"எழுத்துரு குடும்பம்"</string>
+    <string name="captions_textcolor" msgid="3233568269335050287">"உரையின் வண்ணம்"</string>
+    <string name="captions_edgetype" msgid="841331274533086103">"விளிம்பின் வகை"</string>
+    <string name="captions_edgecolor" msgid="845125757332620884">"விளிம்பின் வண்ணம்"</string>
+    <string name="captions_backgroundcolor" msgid="448518890988125453">"பின்புல வண்ணம்"</string>
+    <string name="captions_backgroundopacity" msgid="2643722493273126220">"பின்னணி ஒளிபுகாத்தன்மை"</string>
+    <string name="captioning_preview_text" msgid="72080729155950127">"தலைப்புகள் இப்படி இருக்கும்"</string>
+    <string name="captions_textopacity" msgid="5536765490446288641">"உரை ஒளிபுகாத்தன்மை"</string>
+    <string name="captions_windowcolor" msgid="8986165172260903279">"சாளரத்தின் வண்ணம்"</string>
+    <string name="captions_windowopacity" msgid="2784473496224936703">"சாளர ஒளிபுகாத்தன்மை"</string>
+    <string name="color_none" msgid="5281446963475996688">"ஏதுமில்லை"</string>
+    <string name="color_white" msgid="65537523012024751">"வெள்ளை"</string>
+    <string name="color_gray" msgid="5637299846460438696">"சாம்பல்"</string>
+    <string name="color_black" msgid="8804213372565106403">"கருப்பு"</string>
+    <string name="color_red" msgid="5630553203246525989">"சிவப்பு"</string>
+    <string name="color_green" msgid="3745551274773976763">"பச்சை"</string>
+    <string name="color_blue" msgid="6761708560115194175">"நீலம்"</string>
+    <string name="color_cyan" msgid="796226330055745">"சியான்"</string>
+    <string name="color_yellow" msgid="1023390829879874964">"மஞ்சள்"</string>
+    <string name="color_magenta" msgid="6395786485839439122">"மெஜந்தா"</string>
+    <string name="system_accessibility_status" msgid="4389074529913575327">"நிலை"</string>
+    <string name="system_accessibility_config" msgid="3216531917536720277">"உள்ளமைவு"</string>
+    <string name="system_accessibility_service_on_confirm_title" msgid="8200707259067035823">"<xliff:g id="SERVICE">%1$s</xliff:g> ஐப் பயன்படுத்தவா?"</string>
+    <string name="system_accessibility_service_on_confirm_desc" msgid="1102358356500113060">"கடவுச்சொற்கள் தவிர நீங்கள் உள்ளிடும் எல்லா உரையையும் <xliff:g id="SERVICE">%1$s</xliff:g> ஆல் சேகரிக்க முடியும். கிரெடிட் கார்டு எண்கள் போன்ற தனிப்பட்டத் தரவும் இதில் அடங்கும்."</string>
+    <string name="system_accessibility_service_off_confirm_title" msgid="963297812889694832">"<xliff:g id="SERVICE">%1$s</xliff:g> ஐ நிறுத்தவா?"</string>
+    <string name="system_accessibility_service_off_confirm_desc" msgid="6714782635926048678">"சரி என்பதைத் தேர்வுசெய்வது <xliff:g id="SERVICE">%1$s</xliff:g> ஐ நிறுத்தும்."</string>
+    <string name="system_accessibility_tts_output" msgid="8905477795536714590">"உரையிலிருந்து பேச்சு"</string>
+    <string name="system_speak_passwords" msgid="5264650214879185873">"பேச்சு கடவுச்சொற்கள்"</string>
+    <string name="system_preferred_engine" msgid="8258210139854655567">"விருப்பமான இன்ஜின்"</string>
+    <string name="system_speech_rate" msgid="8099856582088545576">"பேச்சு வீதம்"</string>
+    <string name="system_play_sample" msgid="7187293932891811148">"மாதிரியை இயக்கு"</string>
+    <string name="system_install_voice_data" msgid="8920883886563714355">"குரல் தரவை நிறுவு"</string>
+    <string name="system_general" msgid="3535958631591158282">"பொது"</string>
+    <string name="system_debugging" msgid="7204447785851191331">"பிழைத்திருத்தம்"</string>
+    <string name="system_input" msgid="6164987320529039626">"உள்ளீடு"</string>
+    <string name="system_drawing" msgid="6573389872154957039">"வரைதல்"</string>
+    <string name="system_monitoring" msgid="8424072546138094053">"கண்காணி"</string>
+    <string name="system_apps" msgid="6293850468968494924">"பயன்பாடுகள்"</string>
+    <string name="system_take_bug_report" msgid="3550575498907672342">"பிழை அறிக்கையை எடு"</string>
+    <string name="system_backup_password" msgid="6622796686823406402">"மாற்று கடவுச்சொல்"</string>
+    <string name="system_stay_awake" msgid="1212296404230848490">"செயலில் இரு"</string>
+    <string name="system_hdcp_checking" msgid="8470793875143334320">"HDCP சரிபார்ப்பு"</string>
+    <string name="system_hdmi_optimization" msgid="9120919064234265144">"HDMI உகந்ததாக்கம்"</string>
+    <string name="system_reboot_confirm" msgid="534407910866199191">"மீண்டும் தொடங்கவா?"</string>
+    <string name="system_desc_reboot_confirm" msgid="1367498732529710136">"அமைப்பைப் புதுப்பிக்க, சாதனத்தை மீண்டும் தொடங்க வேண்டும்"</string>
+    <string name="system_never_check" msgid="6666520460705041617">"எப்போதும் சரிபார்க்க வேண்டாம்"</string>
+    <string name="system_check_for_drm_content_only" msgid="8716366734950874267">"DRM உள்ளடக்கத்தை மட்டும் சரிபார்"</string>
+    <string name="system_always_check" msgid="1866566828098009853">"எப்போதும் சரிபார்"</string>
+    <string name="system_bt_hci_log" msgid="2425757846046504431">"புளுடூத் HCI பதிவு"</string>
+    <string name="system_email_address" msgid="8669468986250302378">"மின்னஞ்சல் முகவரி"</string>
+    <string name="system_usb_debugging" msgid="3777895294421924323">"USB பிழைத்திருத்தம்"</string>
+    <string name="system_allow_mock_locations" msgid="3635672039775772910">"போலி இருப்பிடங்களை அனுமதி"</string>
+    <string name="system_select_debug_app" msgid="8592021815119618485">"பிழைத்திருத்தப் பயன்பாட்டைத் தேர்வுசெய்க"</string>
+    <string name="system_wait_for_debugger" msgid="4007354935701089555">"பிழைத்திருத்திக்குக் காத்திருக்கவும்"</string>
+    <string name="system_verify_apps_over_usb" msgid="7340861918835270609">"USB மூலம் பயன்பாடுகளைச் சரிபார்"</string>
+    <string name="system_desc_verify_apps_over_usb" msgid="6722973410408262393">"தீங்கு விளைவிக்கும் செயல்பாட்டை அறிய ADB/ADT மூலம் நிறுவப்பட்டப் பயன்பாடுகளைச் சரிபார்"</string>
+    <string name="system_wifi_verbose_logging" msgid="3474525355071613242">"வைஃபை அதிவிவர நுழைவு"</string>
+    <string name="system_desc_wifi_verbose_logging" msgid="1559904751873455868">"வைஃபை அதிவிவர நுழைவை இயக்கு"</string>
+    <string name="system_show_touches" msgid="2179121368437801757">"தொடுதலைக் காட்டு"</string>
+    <string name="system_pointer_location" msgid="2673764026490179227">"குறிப்பான் இடம்"</string>
+    <string name="system_show_layout_bounds" msgid="645732439882291943">"தளவமைப்பு எல்லைகளைக் காட்டு"</string>
+    <string name="system_show_gpu_view_updates" msgid="7936280271091152459">"GPU காட்சி புதுப்பிப்புகளைக் காட்டு"</string>
+    <string name="system_show_hardware_layer" msgid="7301942527058509453">"வன்பொருள் லேயரைக் காட்டு"</string>
+    <string name="system_show_gpu_overdraw" msgid="707861254106800199">"GPU ஓவர்டிராவைக் காட்டு"</string>
+    <string name="system_show_surface_updates" msgid="8878834675712192327">"மேலோட்ட புதுப்பிப்புகளைக் காட்டு"</string>
+    <string name="system_window_animation_scale" msgid="3213952676672537856">"சாளர அனிமேஷன் அளவு"</string>
+    <string name="system_transition_animation_scale" msgid="2964817709721784757">"அனிமேஷன் மாற்றத்தின் அளவு"</string>
+    <string name="system_animator_duration_scale" msgid="7413512458963984521">"அனிமேட்டர் கால அளவு"</string>
+    <string name="system_strict_mode_enabled" msgid="5728680397806673270">"நிலையான பயன்முறை இயக்கப்பட்டது"</string>
+    <string name="system_show_cpu_usage" msgid="4797599582027671138">"CPU பயன்பாட்டைக் காட்டு"</string>
+    <string name="system_profile_gpu_rendering" msgid="3438771015102629799">"சுயவிவர GPU வழங்கல்"</string>
+    <string name="system_enable_traces" msgid="4038210655699986482">"தடங்களை இயக்கு"</string>
+    <string name="system_dont_keep_activities" msgid="7906911077198718958">"செயல்பாடுகளை வைத்திருக்காதே"</string>
+    <string name="system_background_process_limit" msgid="7921766877363771436">"பின்புலச் செயல்முறை வரம்பு"</string>
+    <string name="system_show_all_anrs" msgid="3601183436857424712">"எல்லா ANRகளையும் காட்டு"</string>
+    <string name="system_desc_take_bug_report" msgid="1627218971851223147">"மின்னஞ்சல் முகவரிக்கு அறிக்கையை அனுப்பு"</string>
+    <string name="system_desc_backup_password" msgid="6454962099870874762">"டெஸ்க்டாப் முழுக் காப்புப்பிரதிகளையும் பாதுகாக்கவும்"</string>
+    <string name="system_desc_stay_awake" msgid="229588006508356238">"உறக்கத்தை முடக்கு"</string>
+    <string name="system_desc_hdcp_checking" msgid="6879753401058891183">"DRM உள்ளடக்கத்திற்கு மட்டும் பயன்படுத்து"</string>
+    <string name="system_desc_hdmi_optimization" msgid="4400727262768931480">"அதிகபட்ச தெளிவுத்திறன் அல்லது ஃப்ரேம் வீதத்திற்கு திரை உகப்பாக்கப்பட்டது. இது அல்ட்ரா HD திரைகளை மட்டும் பாதிக்கும். இந்த அமைப்பை மாற்றுவது, சாதனத்தை மீண்டும் தொடங்கும்."</string>
+    <string name="system_desc_bt_hci_log" msgid="4219265203570411773">"புளுடூத் HCI ஸ்னூப் பதிவை இயக்கு"</string>
+    <string name="system_desc_usb_debugging" msgid="5168830368191788731">"USB இணைக்கப்பட்டிருக்கும்போது பிழைத்திருத்தப் பயன்முறையை அமை"</string>
+    <string name="system_desc_wait_for_debugger" msgid="2342968959255039368">"பிழைத்திருத்தப்பட்ட பயன்பாடு செயல்படுவதற்கு முன்பு பிழைத்திருத்தியை இணைப்பதற்குக் காத்திருக்கிறது"</string>
+    <string name="system_desc_show_layout_bounds" msgid="3449386884226708985">"கிளிப் எல்லைகள், ஓரங்கள், மேலும் பலவற்றைக் காட்டு"</string>
+    <string name="system_desc_show_gpu_view_updates" msgid="8045162296029336710">"GPU மூலம் வரையும்போது சாளரங்களில் காட்சிகளைக் காட்டு"</string>
+    <string name="system_desc_show_hardware_layer" msgid="642854466995400529">"வன்பொருள் லேயர்களைப் புதுப்பிக்கும்போது, அவற்றைப் பச்சை நிறத்தில் காட்டு"</string>
+    <string name="system_desc_show_gpu_overdraw" msgid="8204945204510618865">"அடர்நிறத்திலிருந்து லேசான நிறம் வரை: நீலம், பச்சை, லேசான சிவப்பு, சிவப்பு"</string>
+    <string name="system_desc_show_surface_updates" msgid="8177734845253807688">"சாளர பரப்புகள் புதுப்பிக்கப்படும்போது, அவற்றை முழுவதுமாகக் காட்டு"</string>
+    <string name="system_desc_strict_mode_enabled" msgid="4647420860235689510">"முக்கிய தொடரிழையில் நீண்ட நேரம் செயல்படும்போது திரையைக் காட்சிப்படுத்து"</string>
+    <string name="system_desc_show_cpu_usage" msgid="6151280238151381703">"தற்போதைய CPU பயன்பாட்டைக் காட்டும் திரை மேலடுக்கு"</string>
+    <string name="system_desc_profile_gpu_rendering" msgid="2836283129486718887">"adb shell dumpsys gfxinfo இல் ரெண்டரிங் நேரத்தை அளவிடலாம்"</string>
+    <string name="normal_date_format" msgid="4118071594685269322">"மண்டலம் (<xliff:g id="DATE">%s</xliff:g>)"</string>
+    <string name="action_on_title" msgid="6852389884236870765">"இயக்கு"</string>
+    <string name="action_off_title" msgid="3157728958166559966">"முடக்கு"</string>
+    <string name="action_on_description" msgid="4559342592998850852">"இயக்கு"</string>
+    <string name="action_off_description" msgid="4364261457368041502">"முடக்கு"</string>
+    <string name="agree" msgid="1235622082275451350">"ஏற்கிறேன்"</string>
+    <string name="disagree" msgid="9170636026862400981">"ஏற்கவில்லை"</string>
+    <string name="security_unknown_sources_title" msgid="769762478057744545">"அறியப்படாத மூலங்கள்"</string>
+    <string name="security_unknown_sources_desc" msgid="7197053279914817124">"Play Store ஐத் தவிர்த்து பிற ஆதாரங்களிலிருந்து பயன்பாடுகளின் நிறுவலை அனுமதி"</string>
+    <string name="security_unknown_sources_confirm_desc" msgid="7167350583097191925">"உங்கள் சாதனம் மற்றும் தனிப்பட்ட தரவு ஆகியவை அறியப்படாத மூலங்களிலிருந்து பெற்ற பயன்பாடுகளால் தாக்குதலுக்கு உள்ளாகக்கூடும். இந்தப் பயன்பாடுகளைப் பயன்படுத்தியதன் விளைவாக உங்கள் சாதனம் பாதிக்கப்பட்டால் அல்லது தரவை இழந்தால் அதற்கு நீங்கள் மட்டுமே பொறுப்பு என்பதை ஒப்புக்கொள்கிறீர்கள்."</string>
+    <string name="security_verify_apps_title" msgid="5787946958632254988">"பயன்பாடுகளைச் சரிபார்"</string>
+    <string name="security_verify_apps_desc" msgid="1456317893117818733">"தீங்கு ஏற்படுத்தக்கூடிய பயன்பாடுகளை நிறுவ அனுமதிக்காதே அல்லது நிறுவுவதற்கு முன்பு எச்சரிக்கை செய்"</string>
+  <string-array name="hdcp_checking_summaries">
+    <item msgid="28682351350387246">"எப்போதும் வேண்டாம்"</item>
+    <item msgid="5583820743908145007">"DRM உள்ளடக்கத்திற்கானது"</item>
+    <item msgid="6148080515126921450">"எப்போதும்"</item>
+  </string-array>
+    <string name="no_application" msgid="1746564297589309465">"ஒன்றுமில்லை"</string>
+  <string-array name="enable_opengl_traces_entries">
+    <item msgid="7803412455089800607">"ஏதுமில்லை"</item>
+    <item msgid="1284340221135955876">"Logcat"</item>
+    <item msgid="5054298948370382226">"Systrace (கிராஃபிக்ஸ்)"</item>
+    <item msgid="6650537879885155020">"glGetError இல் அழைப்பின் அடுக்கு"</item>
+  </string-array>
+  <string-array name="window_animation_scale_entries">
+    <item msgid="258143468897415016">"அனிமேஷனை முடக்கு"</item>
+    <item msgid="5618283113978106483">"அனிமேஷன் அளவு .5x"</item>
+    <item msgid="397451685490290179">"அனிமேஷன் அளவு 1x"</item>
+    <item msgid="6331600473492644688">"அனிமேஷன் அளவு 1.5x"</item>
+    <item msgid="7004952449777104295">"அனிமேஷன் அளவு 2x"</item>
+    <item msgid="1063528777234221038">"அனிமேஷன் அளவு 5x"</item>
+    <item msgid="6926378938392529339">"அனிமேஷன் அளவு 10x"</item>
+  </string-array>
+  <string-array name="transition_animation_scale_entries">
+    <item msgid="5604755386232556553">"அனிமேஷனை முடக்கு"</item>
+    <item msgid="5578331490208019526">"அனிமேஷன் அளவு .5x"</item>
+    <item msgid="5338802612080069593">"அனிமேஷன் அளவு 1x"</item>
+    <item msgid="1309704285131661878">"அனிமேஷன் அளவு 1.5x"</item>
+    <item msgid="5654221040036850960">"அனிமேஷன் அளவு 2x"</item>
+    <item msgid="6092484055733043622">"அனிமேஷன் அளவு 5x"</item>
+    <item msgid="4049359393103906268">"அனிமேஷன் அளவு 10x"</item>
+  </string-array>
+  <string-array name="animator_duration_scale_entries">
+    <item msgid="6966595852691619795">"அனிமேஷனை முடக்கு"</item>
+    <item msgid="1302400121783768928">"அனிமேஷன் அளவு .5x"</item>
+    <item msgid="9088460595137551270">"அனிமேஷன் அளவு 1x"</item>
+    <item msgid="5640745580399155880">"அனிமேஷன் அளவு 1.5x"</item>
+    <item msgid="3320199023884342141">"அனிமேஷன் அளவு 2x"</item>
+    <item msgid="5620232666163371843">"அனிமேஷன் அளவு 5x"</item>
+    <item msgid="8580701701183364590">"அனிமேஷன் அளவு 10x"</item>
+  </string-array>
+  <string-array name="track_frame_time_entries">
+    <item msgid="3161533682947406047">"முடக்கு"</item>
+    <item msgid="6446688182396957172">"திரையைப் பட்டிகளாக இயக்கு"</item>
+    <item msgid="9080500692341488612">"adb shell dumpsys gfxinfo இல்"</item>
+  </string-array>
+  <string-array name="app_process_limit_entries">
+    <item msgid="9052853079905663082">"நிலையான வரம்பு"</item>
+    <item msgid="6534728802931195545">"பின்புல செயல்முறைகள் இல்லை"</item>
+    <item msgid="290172167371846384">"அதிகபட்சமாக 1 செயல்முறை"</item>
+    <item msgid="4818593824413771192">"அதிகபட்சமாக 2 செயல்முறைகள்"</item>
+    <item msgid="8337569181800165433">"அதிகபட்சமாக 3 செயல்முறைகள்"</item>
+    <item msgid="8261219565766202947">"அதிகபட்சமாக 4 செயல்முறைகள்"</item>
+  </string-array>
+  <string-array name="tts_rate_entries">
+    <item msgid="6425501867101281228">"மிகவும் மெதுவாக"</item>
+    <item msgid="3458529225374884970">"மெதுவாக"</item>
+    <item msgid="4131204219571166311">"இயல்பு"</item>
+    <item msgid="786682416218616624">"விரைவாக"</item>
+    <item msgid="1708844147149066133">"அதிவேகம்"</item>
+  </string-array>
+    <string name="choose_account_type_title" msgid="34004552592079689">"கணக்கு வகையைத் தேர்வுசெய்க"</string>
+    <string name="choose_account_title" msgid="6672090823838639972">"கணக்கைத் தேர்வுசெய்க"</string>
+    <string name="add_account_button_label" msgid="7950769159839284068">"புதிய கணக்கைச் சேர்"</string>
+    <string name="title_current_keyboard" msgid="4259032357469819835">"நடப்பு விசைப்பலகை"</string>
+    <string name="title_configure" msgid="6929522003149212388">"உள்ளமை"</string>
+    <string name="desc_configure_keyboard" msgid="7187242843867404657">"விசைப்பலகை விருப்பங்கள்"</string>
+    <string name="computing_size" msgid="2955133568424704042">"கணக்கிடுகிறது..."</string>
+    <string name="title_select_wifi_network" msgid="1038871400014761952">"உங்கள் வைஃபை நெட்வொர்க்கைத் தேர்ந்தெடுக்கவும்"</string>
+    <string name="accessories_wifi_display_rename_device" msgid="7416728299196887186">"மறுபெயரிடு"</string>
+    <string name="accessories_wifi_display_enable" msgid="4779506305656453262">"Wi-Fi காட்சி"</string>
+    <string name="accessories_wifi_display_pin_required" msgid="3242645267864813273">"PIN தேவை"</string>
+    <string name="accessories_remote_list_title" msgid="3115459158860792046">"ரிமோட் தகவல்: <xliff:g id="SERIALNUMBER">%1$s</xliff:g>"</string>
+    <string name="system_collecting_bug_report" msgid="5923988155158351543">"பிழை அறிக்கையைச் சேகரிக்கிறது!\nஅறிக்கை தயாரானவுடன் மேலும் தகவலை உங்களிடம் கேட்போம்."</string>
+    <string name="system_collecting_bug_report_error" msgid="1396108342854067722">"பிழை அறிக்கையைச் சேகரிக்க முடியவில்லை!\nபிறகு முயலவும்."</string>
+    <string name="whichApplication" msgid="8382179653567099571">"இதைப் பயன்படுத்தி செயலை முடி"</string>
+    <string name="alwaysUseQuestion" msgid="7128459989232213727">"இந்தச் செயலுக்காக எப்போதும் இதைப் பயன்படுத்தவா?"</string>
+    <string name="alwaysUseOption" msgid="1057645533268907906">"எப்போதும் பயன்படுத்து"</string>
+    <string name="justOnceOption" msgid="6051458702672920102">"இப்போது மட்டும்"</string>
+    <string name="noApplications" msgid="4197983402774959346">"இந்தச் செயலைச் செய்ய பயன்பாடுகள் எதுவுமில்லை."</string>
+    <string name="noAppsGoBack" msgid="5663180241276177314">"முந்தையது"</string>
+    <string name="inputs_inputs" msgid="4249080110281833521">"உள்ளீடுகள்"</string>
+    <string name="inputs_header_cec" msgid="3701104827756278489">"நுகர்வோர் மின்னணு கட்டுப்பாடு (CEC)"</string>
+    <string name="inputs_cec_settings" msgid="8403155117662874704">"சாதன கட்டுப்பாடு அமைப்புகள்"</string>
+    <string name="inputs_blu_ray" msgid="3843526039402969407">"ப்ளு-ரே"</string>
+    <string name="inputs_cable" msgid="9081641596942038538">"கேபிள்"</string>
+    <string name="inputs_dvd" msgid="602486238850738828">"DVD"</string>
+    <string name="inputs_game" msgid="1114086481110094757">"கேம் கன்சோல்"</string>
+    <string name="inputs_aux" msgid="5704676433978730340">"ஆக்ஸ்"</string>
+    <string name="inputs_custom_name" msgid="5584925321693432362">"தனிப்பயன் பெயர்"</string>
+    <string name="inputs_hide" msgid="1575971556150395486">"மறைக்கப்பட்டவை"</string>
+    <string name="inputs_hide_desc" msgid="8172670556559886526">"உள்ளீடுகளை மாற்றும் போது காட்டப்படாது"</string>
+    <string name="inputs_custom_title" msgid="374036983231176581">"தனிப்பயன் பெயர்:"</string>
+    <string name="inputs_hdmi_control" msgid="2462240356665628563">"HDMI கட்டுப்பாடு"</string>
+    <string name="inputs_hdmi_control_desc" msgid="2300590479729796132">"HDMI சாதனங்களை கட்டுப்படுத்த டிவியை அனுமதிக்கிறது"</string>
+    <string name="inputs_device_auto_off" msgid="7510049770946999285">"சாதன ஆற்றலைத் தானாக முடக்கு"</string>
+    <string name="inputs_device_auto_off_desc" msgid="2679638131351116942">"டிவி மூலம் HDMI சாதனங்களை முடக்குகிறது"</string>
+    <string name="inputs_tv_auto_on" msgid="2627932269256793797">"டிவியைத் தானாக இயக்கு"</string>
+    <string name="inputs_tv_auto_on_desc" msgid="7658625130577708249">"HDMI சாதனம் மூலம் டிவியை இயக்குகிறது"</string>
+  <plurals name="inputs_header_connected_input">
+    <item quantity="one" msgid="5569334300062609355">"இணைத்த உள்ளீடு"</item>
+    <item quantity="other" msgid="280747600882155182">"இணைத்த உள்ளீடுகள்"</item>
+  </plurals>
+  <plurals name="inputs_header_standby_input">
+    <item quantity="one" msgid="737206065869471978">"செயலற்ற நிலை உள்ளீடு"</item>
+    <item quantity="other" msgid="1673538341842385592">"செயலற்ற நிலை உள்ளீடுகள்"</item>
+  </plurals>
+  <plurals name="inputs_header_disconnected_input">
+    <item quantity="one" msgid="4711426139459946065">"துண்டித்த உள்ளீடு"</item>
+    <item quantity="other" msgid="4526893384805247472">"துண்டித்த உள்ளீடுகள்"</item>
+  </plurals>
+    <string name="inputs_state_connected" msgid="2463661081264605403">"இணைக்கப்பட்டது"</string>
+    <string name="inputs_state_connected_standby" msgid="2861557722523733817">"செயலற்ற நிலை"</string>
+    <string name="inputs_state_disconnected" msgid="558532410057350104">"துண்டிக்கப்பட்டது"</string>
+    <string name="user_add_profile_item_summary" msgid="2946168478936086933">"உங்கள் கணக்கில் உள்ள பயன்பாடுகள் மற்றும் மற்ற உள்ளடக்கத்தின் அணுகலை வரையறுக்கவும்"</string>
+    <string name="user_new_profile_name" msgid="336521054830056189">"வரம்பிட்ட சுயவிவரம்"</string>
+    <string name="user_restrictions_title" msgid="8317193312532216351">"பயன்பாடு &amp; உள்ளடக்க அணுகல்"</string>
+    <string name="user_restrictions_controlled_by" msgid="2107349341393761750">"<xliff:g id="APP">%1$s</xliff:g> ஆல் கட்டுப்படுத்தப்படுகிறது"</string>
+    <string name="app_not_supported_in_limited" msgid="6818309827329010677">"வரையறுக்கப்பட்ட சுயவிவரங்களில் பயன்பாடு ஆதரிக்கப்படாது"</string>
+    <string name="app_sees_restricted_accounts" msgid="1967195038085624916">"இந்தப் பயன்பாடு கணக்குகளை அணுகலாம்"</string>
+    <string name="restriction_location_enable_title" msgid="2575116135395354938">"இருப்பிடம்"</string>
+    <string name="restriction_location_enable_summary" msgid="4195349388342385870">"பயன்பாடுகள் உங்கள் இருப்பிடத் தகவலைப் பயன்படுத்தலாம்"</string>
+    <string name="restricted_profile_create" msgid="7081117593480952518">"வரம்பிட்ட பயனரை உருவாக்கு"</string>
+    <string name="restricted_profile_switch_to" msgid="1926433350907032138">"கட்டுப்படுத்தப்பட்ட சுயவிவரத்தில் நுழைக"</string>
+    <string name="restricted_profile_switch_out" msgid="1893784095623209495">"கட்டுப்படுத்தப்பட்ட சுயவிவரத்தை விட்டு வெளியேறு"</string>
+    <string name="restricted_profile_delete_title" msgid="3445944923018324707">"கட்டுப்படுத்தப்பட்ட சுயவிவரத்தை நீக்கு"</string>
+    <string name="restricted_profile_configure_title" msgid="4684188123147519620">"அமைப்புகள்"</string>
+    <string name="restricted_profile_configure_apps_title" msgid="11507255932348492">"அனுமதிக்கப்பட்ட பயன்பாடுகள்"</string>
+  <plurals name="restricted_profile_configure_apps_description">
+    <item quantity="one" msgid="5114936540577834412">"1 பயன்பாடு அனுமதிக்கப்படும்"</item>
+    <item quantity="other" msgid="5242661864373721262">"%d பயன்பாடுகள் அனுமதிக்கப்படும்"</item>
+  </plurals>
+    <string name="restricted_profile_allowed" msgid="2903829140619950232">"அனுமதிக்கப்படும்"</string>
+    <string name="restricted_profile_not_allowed" msgid="1622620680118897330">"அனுமதிக்கப்படாது"</string>
+    <string name="restricted_profile_customize_restrictions" msgid="8418415019078825537">"கட்டுப்பாடுகளைத் தனிப்பயனாக்கவும்"</string>
+    <string name="restricted_profile_configure_apps_description_loading" msgid="5269477581791409700">"ஒரு நிமிடம்…"</string>
+    <string name="restricted_profile_change_password_title" msgid="2848537651211816659">"பின்னை மாற்று"</string>
+    <string name="restricted_profile_set_password" msgid="3989154189940037175">"கட்டுப்படுத்தப்பட்ட சுயவிவரத்தை விட்டு வெளியேறுவதற்கான புதிய PIN குறியீட்டை அமைக்கவும்"</string>
+    <string name="restricted_profile_confirm_password" msgid="5749967525546068650">"கட்டுப்படுத்தப்பட்ட சுயவிவரத்தை விட்டு வெளியேறுவதற்கான PIN குறியீட்டை உறுதிப்படுத்தவும்"</string>
+    <string name="restricted_profile_enter_password" msgid="5961473119032585585">"கட்டுப்படுத்தப்பட்ட சுயவிவரத்தை விட்டு வெளியேற PIN குறியீட்டை உள்ளிடவும்"</string>
+    <string name="restricted_profile_delete_dialog_title" msgid="2998929625283492853">"வரம்பிட்ட பயனரை அகற்றவா?"</string>
+    <string name="restriction_description" msgid="3104855945910233028">"<xliff:g id="DESCRIPTION">%1$s</xliff:g>\n<xliff:g id="VALUE">%2$s</xliff:g>"</string>
+    <string name="pin_enter_unlock_channel" msgid="5980400420298506069">"இந்தச் சேனலைப் பார்க்க PINஐ உள்ளிடவும்"</string>
+    <string name="pin_enter_unlock_program" msgid="52453773316071511">"இந்த நிகழ்ச்சியைப் பார்க்க PINஐ உள்ளிடவும்"</string>
+    <string name="pin_enter_pin" msgid="821552376577935497">"PINஐ உள்ளிடவும்"</string>
+    <string name="pin_enter_new_pin" msgid="4788218421265924211">"புதிய PINஐ அமைக்கவும்"</string>
+    <string name="pin_enter_again" msgid="1510456697040826496">"புதிய PINஐ மீண்டும் உள்ளிடவும்"</string>
+    <string name="pin_enter_old_pin" msgid="851029058127630869">"பழைய PINஐ உள்ளிடவும்"</string>
+    <string name="pin_enter_wrong" msgid="5653864140710683928">"5 முறை தவறாக PINஐ உள்ளிட்டுள்ளீர்கள்.\n<xliff:g id="RELATIVE_TIME_SPAN">%1$s</xliff:g>, மீண்டும் முயலவும்."</string>
+    <string name="pin_button_done" msgid="939191809977197451">"முடிந்தது"</string>
+    <string name="pin_button_cancel" msgid="5541414789309863965">"ரத்துசெய்"</string>
+    <string name="pin_toast_wrong" msgid="4628358195224633248">"தவறான PIN, மீண்டும் முயலவும்"</string>
+    <string name="pin_toast_not_match" msgid="5886041789737632996">"மீண்டும் முயலவும், PIN பொருந்தவில்லை"</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Instellingen"</string>
+    <string name="title_activity_main">"Uil verbeteren"</string>
+    <string name="update_online">"Online verbeteren"</string>
+    <string name="update_native">"Lokale verbeteren"</string>
+    <string name="goto_recovery">"Herstel naar verbetering modus?"</string>
+    <string name="progress_dialog_title">"Netwerken in"</string>
+    <string name="not_connect">"Niet aangesloten op het netwerk"</string>
+    <string name="progress_dialog_mgs">"Controleer op de verbetering, even wacht…"</string>
+    <string name="connect_server_wrong">"Server is druk, gelieve het opnieuw te proberen"</string>
+    <string name="current_system_isnew">"Het huidige systeem is de nieuwste versie"</string>
+    <string name="sure">"Zeker"</string>
+    <string name="cancel">"Annuleren"</string>
+    <string name="update_message">"Controleer de nieuwste versie, wilt u het downloaden?"</string>
+    <string name="update_title">"Nieuwe versie verbeteren"</string>
+    <string name="download">"Downloaden"</string>
+    <string name="update_rightnow">"Verbeteren nu"</string>
+    <string name="start_download">"De verbetering pakket begin te downloaden"</string>
+    <string name="update_package">"Verbetering pakket"</string>
+    <string name="download_complete">"Klaar met het downloaden"</string>
+    <string name="download_fail">"Downloaden is mislukt"</string>
+    <string name="md5_check_fail">"MD5 pariteitsfout"</string>
+    <string name="update_package_downloaded">"Verbetering pakket is gedownload"</string>
+    <string name="finish_download">"Klaar t downloaden van verbetering pakket"</string>
+    <string name="update_notice">"\nBegin OTA verbetering:\nHet verbetering proces, het kan niet worden onderbroken, gelieve uw gegevens reserveren.\n"</string>
+    <string name="cancel_download">"Of het downloaden te annuleren?"</string>
+    <string name="wait_downloading">"Wacht, aan het downloaden…"</string>
+    <string name="download_update_file">"Geen verbetering bestand in de SD kaart gids, gelieve het verbetering bestand online te downloaden"</string>
+    <string name="return_native_update">"De lokale verbetering pakket bestaat al, gaat u terug naar de lokale verbetering"</string>
+    <string name="have_update">"Controleer op de systeem verbetering"</string>
+    <string name="notification_update">"In de instellingen, klik op uil om te verbeteren"</string>
+    <string name="download_notice">"Houd het netwerk goed, tijdens het downloaden proces, open het USB verbinding niet"</string>
+    <string name="apk_title">"Uil verbeteren V1.0"</string>
+    <string name="checkbox_title">"Automatisch zoeken naar verbetering"</string>
+    <string name="checkbox_summary">"Haal het vinkje weg, kan het niet automatisch toegang tot het netwerk en server"</string>
+    <string name="checkfrequency_title">"Stel het onderzoek cyclus"</string>
+    <string name="checkfrequency_summary">"Het onderzoek cyclus:"</string>
+    <string name="day">"Dag"</string>
+    <string name="battery_low">"Lage batterij"</string>
+    <string name="battery_notify">"Gelieve de verbetering installeren wanneer het batterijniveau boven 50%1$ is"</string>
+</resources>

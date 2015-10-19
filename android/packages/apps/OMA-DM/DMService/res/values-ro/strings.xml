@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Gestionare dispozitiv</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Mesaj de sistem</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">OK</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Respingere</string>
+    <string name="dm_session_button_confirm">Actualizare</string>
+    <string name="dm_session_button_reject">Anulare</string>
+    <string name="dm_session_confirmation_title">Actualizare sistem</string>
+    <string name="dm_session_confirmation_message">Este disponibilă o actualizare a sistemului pentru telefonul dvs.</string>
+    <string name="dm_session_confirmation_notification_label">Actualizare sistem</string>
+    <string name="dm_session_confirmation_notification_message">Solicitare nouă sesiune DM</string>
+    <string name="dm_session_information_notification_label">Actualizare sistem</string>
+    <string name="dm_session_information_notification_message1">Serverul a iniţiat o solicitare</string>
+    <string name="dm_session_information_notification_message2_success">Dispozitivul a completat solicitarea serverului</string>
+    <string name="dm_session_information_notification_message2_fail">Dispozitivul nu a reuşit să încheie solicitarea serverului</string>
+
+</resources>

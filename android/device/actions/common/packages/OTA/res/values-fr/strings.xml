@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Réglages"</string>
+    <string name="title_activity_main">"Upgrade Owl"</string>
+    <string name="update_online">"Upgrade en ligne"</string>
+    <string name="update_native">"Upgrade local"</string>
+    <string name="goto_recovery">"Restaurez à l\'Upgrade à RECOVERY?"</string>
+    <string name="progress_dialog_title">"Connexion en cours"</string>
+    <string name="not_connect">"Non connecté en réseau"</string>
+    <string name="progress_dialog_mgs">"Vérification de l\'Upgrade en cours, patientez SVP …"</string>
+    <string name="connect_server_wrong">"Le serveur est occupé , veuillez réessayer la connexion"</string>
+    <string name="current_system_isnew">"La version actuelle du système est à jour"</string>
+    <string name="sure">"Validez"</string>
+    <string name="cancel">"Annulez"</string>
+    <string name="update_message">"Nouvelle version existée, souhaitez-vous le télécharger?"</string>
+    <string name="update_title">"Update de la nouvelle version"</string>
+    <string name="download">"Téléchargez"</string>
+    <string name="update_rightnow">"Upgrade maintenant"</string>
+    <string name="start_download">"Télécharget d\'Upgrade"</string>
+    <string name="update_package">"Paquet d\'Upgrade"</string>
+    <string name="download_complete">"Téléchargement est terminé"</string>
+    <string name="download_fail">"Téléchargement échoué"</string>
+    <string name="md5_check_fail">"Erreur de vérification MD5"</string>
+    <string name="update_package_downloaded">"Package d\'Upgrade a été téléchargé"</string>
+    <string name="finish_download">"Le téléchargement du Package d\'Upgrade est terminé"</string>
+    <string name="update_notice">"\ n Commencer OTA Upgrade: . \ n Pendant le processus d\'Upgrade, l\'action ne peut être interrompu , sauvegardez vos données, SVP. \ n"</string>
+    <string name="cancel_download">"Annulez le téléchargement ?"</string>
+    <string name="wait_downloading">"Téléchargement en cours, patientez SVP…"</string>
+    <string name="download_update_file">"Aucun fichier d\'Update dans le répertoire SDCard , Téléchargez en ligne les fichiers d\'Update"</string>
+    <string name="return_native_update">"Le package d\'upgrate local existé, revenez à l\'upgrade local, SVP"</string>
+    <string name="have_update">"Vérifiez les Updates du système"</string>
+    <string name="notification_update">"Réglez l\'Upgrade OWL dans les réglages"</string>
+    <string name="download_notice">"Gardez la libre du réseau, pendant le processus de téléchargement, n\'ouvrez pas la connexion d\'USB"</string>
+    <string name="apk_title">"Owl Upgrade V1.0"</string>
+    <string name="checkbox_title">"Auto-vérification de l\'Update"</string>
+    <string name="checkbox_summary">"Le décrochage peut allunner l\'auto-connexion du serveur"</string>
+    <string name="checkfrequency_title">"Réglez le cycle de consultation"</string>
+    <string name="checkfrequency_summary">"Le cycle de consultation :"</string>
+    <string name="day">"Jour"</string>
+    <string name="battery_low">"Batterie faible"</string>
+    <string name="battery_notify">"Installez l\'Update  lorsque la batterie est supérieure de 50 %"</string>
+</resources>

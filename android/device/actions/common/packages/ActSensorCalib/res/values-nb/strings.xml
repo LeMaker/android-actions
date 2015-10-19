@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Tyngdekraft Kalibrering"</string>
+    <string name="buttonCalib_name">"Utfør kalibrering"</string>
+    <string name="buttonReset_name">"Klar Kalibrering"</string>
+    <string name="info_reset">"Klare tyngdekraft kalibreringsdata"</string>
+    <string name="info_calib">"Spare tyngdekraft kalibreringsdata"</string>
+    <string name="info_tips">"Plasser denne enheten horisontalt, klikker på Kalibrer-knappen."</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"외장SD카드"</string>
+    <string name="storage_usb">"내장 SD카드"</string>
+    <string name="storage_uhost">"U 디스크"</string>
+    <string name="uh_media_checking_notification_title" product="default">"U 디스크 준비중"</string>
+    <string name="uh_media_checking_notification_message" product="default">"오류여부 검사중"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"공백 U 디스크"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"U디스크에 서류시스템이 없거나 지원하지 않음"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"U 디스크 손상"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"\"U 디스크 손상,포맷 필요"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"U디스크 비정상 제거"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"U디스크를 우선 언마운트후 제거하여 데이터를 보호함"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"U디스크를 이미 안전히 제거"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"U디스크를 안전히 제거 가능"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"U디스크를 이미 제거"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"U디스크를 이미 제거. 새로운U디스크 삽입하기."</string>
+    <string name="accelerometer_coordinate">"중력센서 좌표계"</string>
+    <string name="accele_coord_default">"기본 좌표계"</string>
+    <string name="accele_coord_special">"특수 좌표로 부분 계임에 적용"</string>
+    <string name="global_action_reboot_to_recovery">"재부팅및 recovery방식 진입"</string>
+    <string name="global_action_restart">"재부팅 "</string>
+</resources>

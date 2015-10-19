@@ -1,0 +1,19 @@
+|4VGA|~yuv420sp|r30|1|d2
+|z1x|d1
+|z1.5x|d1
+|z2x|d1
+|z2.5x|d1
+|z3x|d1
+|z4x|d1
+|z8x|d1
+|z1x|d1
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0016
+//DESCRIPTION: Camera HAL shall support zooming the preview
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0

@@ -1,0 +1,11 @@
+|A1|4WVGA|~yuv420sp|r30|1|f|d2|d10|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0085
+//DESCRIPTION: Auto focus callback - Accuracy and timeliness
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

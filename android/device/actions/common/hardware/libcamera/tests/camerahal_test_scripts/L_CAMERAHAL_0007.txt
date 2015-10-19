@@ -1,0 +1,17 @@
+|4VGA|~yuv420sp|r30|
+|eauto|1|d5|p|d8|
+|enono|1|d5|p|d8|
+|emono|1|d5|p|d8|
+|enegative|1|d5|p|d8|
+|esolarize|1|d5|p|d8|
+|esepia|1|d5|p|d8|
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0007
+//DESCRIPTION: Camera shall support image capture with (black and white) mono  color effect
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0

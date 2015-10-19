@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Установка "</string>
+    <string name="title_activity_main">"Улучшение совы"</string>
+    <string name="update_online">"Улучшение онлайн "</string>
+    <string name="update_native">"Местное улучшение "</string>
+    <string name="goto_recovery">"Возвращается ли на модель улучшения Recovery?"</string>
+    <string name="progress_dialog_title">"В подклчении к интернету"</string>
+    <string name="not_connect">"Нет сети подключения "</string>
+    <string name="progress_dialog_mgs">"Проверить обновленные информации, подождите …"</string>
+    <string name="connect_server_wrong">"Сервисор занят, еще раз пробуйте соединить"</string>
+    <string name="current_system_isnew">"Версия этой системы новая"</string>
+    <string name="sure">"Подтверждение "</string>
+    <string name="cancel">"Снятие "</string>
+    <string name="update_message">"Проверить то, что есть обновленная версия, выгрузить ли? "</string>
+    <string name="update_title">"Обновленное содержание новой версии"</string>
+    <string name="download">"Выгрузить "</string>
+    <string name="update_rightnow">"Тотчас улучшить "</string>
+    <string name="start_download">"Начать выгружать переходный пакет "</string>
+    <string name="update_package">"Переходный пакет "</string>
+    <string name="download_complete">"Выгрузка кончится "</string>
+    <string name="download_fail">"Выгрузка неудачна "</string>
+    <string name="md5_check_fail">"MD5 проверка ошибочна"</string>
+    <string name="update_package_downloaded">"Переходный пакет выгружен"</string>
+    <string name="finish_download">"Выгрузка переходного пакета кончится "</string>
+    <string name="update_notice">"\n начать улучшение ОТА :\n во время улучшения нельзя перестать акт, копировать ваши данные.\n"</string>
+    <string name="cancel_download">"Снять ли выгрузку? "</string>
+    <string name="wait_downloading">"В выгрузке, подождите…"</string>
+    <string name="download_update_file">"Под каталогом корня SDCard нет обновленного документа, онлайн улучшить и выгрузить обновленный документ "</string>
+    <string name="return_native_update">"На месте существует переходный пакет, возвратите на место для улучшения"</string>
+    <string name="have_update">"Проверить обновление системы "</string>
+    <string name="notification_update">"Проводите пользование установки, щелкать Сова на улучшение "</string>
+    <string name="download_notice">"Сохраните бесперебойную сеть, во время выгрузки нельзя включать соединение USB"</string>
+    <string name="apk_title">"Улучшение Сова V1.0"</string>
+    <string name="checkbox_title">"Автоматическое обновление опроса"</string>
+    <string name="checkbox_summary">"Снять и выбрать сервисор, который может посетить без автоматического подключения к интернету "</string>
+    <string name="checkfrequency_title">"Установить срок опроса"</string>
+    <string name="checkfrequency_summary">"Срок опроса: "</string>
+    <string name="day">"День "</string>
+    <string name="battery_low">"Количество электричества батареи низкое "</string>
+    <string name="battery_notify">"Установите обновление во время количества электричества батареи выше 50%"</string>
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"उपकरण प्रदायक"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"ओहो!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"तपाईँको प्रोफाइल सेट अप गर्नुहोस्"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"तपाईँको संगठनले यो प्रोफाइल नियन्त्रण र सुरक्षित राख्छ। तपाईँले तपाईँको उपकरणमा अरू सबै कुरा नियन्त्रण गर्नुहोस्।"</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"निम्न अनुप्रयोग यो प्रोफाइल पहुँच गर्न आवश्यक हुने छ:"</string>
+    <string name="set_up" msgid="7012862095553564169">"मिलाउनुहोस्"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"तपाईँको कार्य प्रोफाइल स्थापना गर्दै..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"तपाईँको प्रशासकले सञ्जाल गतिविधि र तपाईँको उपकरणको स्थान जानकारी सहित अनुगमन गर्न र तपाईँको प्रोफाइल साथ सेटिङहरू प्रबन्ध, कर्पोरेट पहुँच, अनुप्रयोगहरू र डेटा, व्यवस्थापन गर्न सक्ने क्षमता छ।"</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"तपाईँको प्रशासकले सञ्जाल गतिविधि र तपाईँको उपकरणको स्थान जानकारी सहित अनुगमन गर्न र तपाईँको उपकरण साथ सेटिङहरू प्रबन्ध, कर्पोरेट पहुँच, अनुप्रयोगहरू, डेटा, व्यवस्थापन गर्न सक्ने क्षमता छ।"</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"तपाईँको संगठनको गोपनीयता नीति सहित अधिक जानकारीको लागि तपाईँको प्रशासकसँग सम्पर्क गर्नुहोस्।"</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"थप सिक्नुहोस्"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"रद्द गर्नुहोस्"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"ठीक छ"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"कार्य प्रोफाइल"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"तपाईं संग पहिलेनै तपाईँको उपकरणमा कार्य प्रोफाइल छ। तपाईं यसलाई हटाउन चाहनुहुन्छ?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"तपाईं यो कार्य प्रोफाइल हटाउन निश्चित हुनुहुन्छ? यसको सबै डेटा मेटिनेछ।"</string>
+    <string name="delete_profile" msgid="7107020982626129151">"हटाउनुहोस्"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"रद्द गर्नुहोस्"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"तपाईँको कार्य प्रोफाइल स्थापना जारी गर्न, तपाईँले आफ्नो उपकरण गुप्तिकरण गर्न आवश्यक छ। यसले केही समय लाग्न सक्छ।"</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"रद्द गर्नुहोस्"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"गुप्तिकरण"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"गुप्तिकरण पूर्ण"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"तपाईँको काम प्रोफाइल स्थापना जारी राख्न छुनुहोस्"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"तपाईँको कार्य प्रोफाइल स्थापित गर्न सकिएन। तपाईँको आईटी विभाग सम्पर्क गर्नुहोस् वा पछि फेरि प्रयास गर्नुहोस्।"</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"तपाईंको उपकरणले कार्य प्रोफाइलहरू समर्थन गर्दैन।"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"कार्य प्रोफाइल उपकरण मालिक द्वारा स्थापित गर्न आवश्यक छ"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"तपाईँको कार्य प्रोफाइल यस सुरुवातकर्ता अनुप्रयोग समर्थित छैन। तपाईँले यससँग उपयुक्त एउटा सुरुवातकर्तामा स्विच गर्न आवश्यक छ।"</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"रद्द गर्नुहोस्"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"ठीक छ"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"कार्य उपकरणको प्रयोगकर्ता"</string>
+    <string name="setup_device" msgid="6725265673245816366">"तपाईँको उपकरण स्थापना गर्नुहोस्"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"स्थापना डेटा प्रशोधन गर्दै..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"वाइफाइ जडान गर्दै..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"प्रशासनिक अनुप्रयोग डाउनलोड गर्दै..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"प्रशासनिक अनुप्रयोग स्थापना गर्दै..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"उपकरण मालिक स्थापना गर्दै..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"सेट अप गर्न रोक्नुहुन्छ?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"के तपाईं स्थापना रोक्न र तपाईँको उपकरणको डेटा मेट्न चाहनुहुन्छ?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"रद्द गर्नुहोस्"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"ठीक छ"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"पुनःसेट गर्नुहोस्"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"तपाईँको उपकरण स्थापना गर्न सकिएन। तपाईँको आईटी विभागमा सम्पर्क गर्नुहोस्।"</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"यो उपकरण पहिले देखि नै स्थापित छ"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"वाई-फाई संग जडान हुन सकेन"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"प्रशासन अनुप्रयोग चेकसम त्रुटिको कारणले प्रयोग गर्न सकिएन। तपाईँको आईटी विभागमा सम्पर्क गर्नुहोस्।"</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"प्रशासक अनुप्रयोग डाउनलोड गर्न सकिएन"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"प्रशासन अनुप्रयोग प्रयोग गर्न सकिएन। यो अवयवहरू हराइरहेका वा भ्रष्ट हुन्। तपाईँको आईटी विभागमा सम्पर्क गर्नुहोस्।"</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"प्रशासक अनुप्रयोग स्थापना गर्न सकिएन"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"प्रशासन अनुप्रयोग तपाईँको उपकरणमा स्थापना गरिएको छैन"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"सेट अप गर्न रोक्नुहुन्छ?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"तपाईँ सेटअप गर्न रोक्न निश्चित हुनुहुन्छ?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"होइन"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"हो"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"रद्द गरिँदै..."</string>
+</resources>

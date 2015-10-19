@@ -1,0 +1,28 @@
+|A1|4VGA|~yuv420sp|r30|1|5VGA|30|d5|d4|d2|p|d3
+|52MP|390|d2|p|d3
+|52MP|3180|d2|p|d3
+|52MP|3270|d2|p|d3
+|52MP|30|wauto|d5|d2|p|d3
+|52MP|390|wauto|d2|p|d3
+|52MP|3180|wauto|d2|p|d3
+|52MP|3270|wauto|d2|p|d3
+|52MP|30|wlandscape|d5|d2|p|d3
+|52MP|390|wlandscape|d2|p|d3
+|52MP|3180|wlandscape|d2|p|d3
+|52MP|3270|wlandscape|d2|p|d3
+|52MP|30|wnight|d5|d2|p|d3
+|52MP|390|wnight|d2|p|d3
+|52MP|3180|wnight|d2|p|d3
+|52MP|3270|wnight|d2|p|d3
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0031
+//DESCRIPTION: Camera HAL shall support different scene modes for rotated images
+//     AUTHOR: JShandorov
+//       DATE: 16.04.2010
+//    VERSION: 1.0
+
+

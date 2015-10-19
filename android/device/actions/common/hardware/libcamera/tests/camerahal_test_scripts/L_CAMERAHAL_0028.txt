@@ -1,0 +1,48 @@
+|4VGA|~yuv420sp|r30|1|52MP|30|d5|d3|d2|p|d3
+|52MP|390|d2|p|d3
+|52MP|3180|d2|p|d3
+|52MP|3270|d2|p|d3
+|52MP|z1x|30|d3|d2|p|d3
+|52MP|z1x|390|d2|p|d3
+|52MP|z1x|3180|d2|p|d3
+|52MP|z1x|3270|d2|p|d3
+|52MP|z1.5x|30|d3|d2|p|d3
+|52MP|z1.5x|390|d2|p|d3
+|52MP|z1.5x|3180|d2|p|d3
+|52MP|z1.5x|3270|d2|p|d3
+|52MP|z2x|30|d3|d2|p|d3
+|52MP|z2x|390|d2|p|d3
+|52MP|z2x|3180|d2|p|d3
+|52MP|z2x|3270|d2|p|d3
+|52MP|z2.5x|30|d3|d2|p|d3
+|52MP|z2.5x|390|d2|p|d3
+|52MP|z2.5x|3180|d2|p|d3
+|52MP|z2.5x|3270|d2|p|d3
+|52MP|z3x|30|d3|d2|p|d3
+|52MP|z3x|390|d2|p|d3
+|52MP|z3x|3180|d2|p|d3
+|52MP|z3x|3270|d2|p|d3
+|52MP|z3.5x|30|d3|d2|p|d3
+|52MP|z3.5x|390|d2|p|d3
+|52MP|z3.5x|3180|d2|p|d3
+|52MP|z3.5x|3270|d2|p|d3
+|52MP|z4x|30|d3|d2|p|d3
+|52MP|z4x|390|d2|p|d3
+|52MP|z4x|3180|d2|p|d3
+|52MP|z4x|3270|d2|p|d3
+|52MP|z8x|30|d3|d2|p|d3
+|52MP|z8x|390|d2|p|d3
+|52MP|z8x|3180|d2|p|d3
+|52MP|z8x|3270|d2|p|d3
+|z1x|d1
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0028
+//DESCRIPTION: Camera HAL shall support rotation for zoomed pictures 
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0
+

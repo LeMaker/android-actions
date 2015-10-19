@@ -1,0 +1,11 @@
+# Android fstab file.
+#<src>	<mnt_point>	<type>	<mnt_flags and options>	<fs_mgr_flags>
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# vold-managed volumes ("block device" is actually a sysfs devpath)
+/devices/b0238000.mmc/mmc_host/mmc0/emmc_boot_card/block/mmcblk0/mmcblk0p11     auto        auto        defaults    voldmanaged=sdcard:11,noemulatedsd
+/devices/b0230000.mmc/mmc_host/mmc1     auto        auto        defaults    voldmanaged=sd-ext:auto
+/devices/b0400000.usb/dwc3.0/xhci-hcd     auto        auto        defaults    voldmanaged=uhost:auto
+/devices/platform/aotg_hcd.0   auto        auto        defaults    voldmanaged=uhost1:auto
+/devices/platform/aotg_hcd.1      auto        auto        defaults    voldmanaged=uhost2:auto

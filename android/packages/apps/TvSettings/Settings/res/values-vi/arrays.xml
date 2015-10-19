@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="wifi_status">
+    <item msgid="6120109946893037801"></item>
+    <item msgid="5210943529756743284">"Đang quét…"</item>
+    <item msgid="7895190850044173217">"Đang kết nối…"</item>
+    <item msgid="7589307602609991992">"Đang xác thực…"</item>
+    <item msgid="7439429469102224627">"Đang lấy địa chỉ IP…"</item>
+    <item msgid="7079865889809010740">"Đã kết nối"</item>
+    <item msgid="8018480471737227053">"Bị treo"</item>
+    <item msgid="9110004131358099530">"Đang ngắt kết nối…"</item>
+    <item msgid="2366780999250675263">"Đã ngắt kết nối"</item>
+    <item msgid="944848437579938960">"Không thành công"</item>
+    <item msgid="6501589509838730555">"Đã chặn"</item>
+    <item msgid="1877062378387320625">"Tạm thời tránh kết nối kém"</item>
+  </string-array>
+  <string-array name="wifi_status_with_ssid">
+    <item msgid="8339598300796362026"></item>
+    <item msgid="4703591207522320165">"Đang quét…"</item>
+    <item msgid="7351421574703844779">"Đang kết nối với <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="874502389678205660">"Đang xác thực với <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="7964187733783647040">"Đang lấy địa chỉ IP từ <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="4990222034464002805">"Đã kết nối với <xliff:g id="NETWORK_NAME">%1$s</xliff:g>"</item>
+    <item msgid="5347651564202902346">"Bị treo"</item>
+    <item msgid="4812777464932254477">"Đang ngắt kết nối khỏi <xliff:g id="NETWORK_NAME">%1$s</xliff:g>…"</item>
+    <item msgid="4985746712759777559">"Đã ngắt kết nối"</item>
+    <item msgid="6482743140170037710">"Không thành công"</item>
+    <item msgid="7486075980265993798">"Đã chặn"</item>
+    <item msgid="6842213039083339420">"Tạm thời tránh kết nối kém"</item>
+  </string-array>
+  <string-array name="sleep_timeout_entries">
+    <item msgid="1213527366819650274">"5 phút"</item>
+    <item msgid="3695675702735844029">"10 phút"</item>
+    <item msgid="5742541267966746817">"15 phút"</item>
+    <item msgid="4333958225402992378">"30 phút"</item>
+    <item msgid="3103819305854192542">"1 giờ"</item>
+  </string-array>
+  <string-array name="screen_off_timeout_entries">
+    <item msgid="8244337465472020927">"30 phút"</item>
+    <item msgid="1001586019759702505">"1 giờ"</item>
+    <item msgid="5216959047515554188">"3 giờ"</item>
+    <item msgid="4152882798140628647">"6 giờ"</item>
+    <item msgid="412984226950404956">"12 giờ"</item>
+    <item msgid="2178434662173258997">"Không bao giờ"</item>
+  </string-array>
+  <string-array name="debug_hw_overdraw_entries">
+    <item msgid="6733816499120044964">"Tắt"</item>
+    <item msgid="8974325215258674273">"Hiển thị các vùng vẽ quá"</item>
+    <item msgid="5877416885028854162">"Hiển thị bộ đo mức vẽ quá"</item>
+  </string-array>
+  <string-array name="hdmi_optimization_entries">
+    <item msgid="3490064566563023094">"Độ phân giải tốt nhất"</item>
+    <item msgid="8319005042985738916">"Tốc độ khung hình tốt nhất"</item>
+  </string-array>
+  <string-array name="captioning_typeface_selector_titles">
+    <item msgid="4410581208185456276">"Mặc định"</item>
+    <item msgid="9033306684422202101">"Sans-serif"</item>
+    <item msgid="1864985245839120339">"Sans-serif mật độ cao"</item>
+    <item msgid="2707402752636362906">"Giãn cách đơn Sans-serif"</item>
+    <item msgid="4549910217342216388">"Serif"</item>
+    <item msgid="4764344884232052861">"Giãn cách đơn Serif"</item>
+    <item msgid="8561996903323025702">"Thông thường"</item>
+    <item msgid="8403638572764467550">"Chữ thảo"</item>
+    <item msgid="5560655268137500927">"Chữ viết hoa nhỏ"</item>
+  </string-array>
+  <string-array name="captioning_font_size_selector_titles">
+    <item msgid="4304493614734189861">"Rất nhỏ"</item>
+    <item msgid="1694402928400844023">"Nhỏ"</item>
+    <item msgid="1235495470844109970">"Bình thường"</item>
+    <item msgid="481223375568095790">"Lớn"</item>
+    <item msgid="8614563351231073075">"Rất lớn"</item>
+  </string-array>
+  <string-array name="captioning_edge_type_selector_titles">
+    <item msgid="5333047169042840730">"Không có"</item>
+    <item msgid="7663488423233018922">"Viền ngoài"</item>
+    <item msgid="7891048730741670843">"Bóng đổ"</item>
+    <item msgid="6613725572146700438">"Nổi"</item>
+    <item msgid="1007736533206905292">"Chìm"</item>
+  </string-array>
+  <string-array name="captioning_opacity_selector_titles">
+    <item msgid="7311196539184412021">"25%"</item>
+    <item msgid="4609292560884303243">"50%"</item>
+    <item msgid="1626485489418859846">"75%"</item>
+    <item msgid="1811192455405034366">"100%"</item>
+  </string-array>
+  <string-array name="captioning_preset_selector_titles">
+    <item msgid="7937747884375690010">"Chữ trắng trên nền đen"</item>
+    <item msgid="5187532965364561774">"Chữ đen trên nền trắng"</item>
+    <item msgid="7275908232441066633">"Chữ vàng trên nền đen"</item>
+    <item msgid="3907210401785295669">"Chữ vàng trên nền xanh lam"</item>
+    <item msgid="7050475937183962123">"Tùy chỉnh"</item>
+  </string-array>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Enhetshantering</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Systemmeddelande</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">OK</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Avvisa</string>
+    <string name="dm_session_button_confirm">Uppdatera</string>
+    <string name="dm_session_button_reject">Avbryt</string>
+    <string name="dm_session_confirmation_title">Systemuppdatering</string>
+    <string name="dm_session_confirmation_message">Det finns en systemuppdatering för telefonen</string>
+    <string name="dm_session_confirmation_notification_label">Systemuppdatering</string>
+    <string name="dm_session_confirmation_notification_message">Ny DM-sessionsbegäran</string>
+    <string name="dm_session_information_notification_label">Systemuppdatering</string>
+    <string name="dm_session_information_notification_message1">Servern har initierat en begäran</string>
+    <string name="dm_session_information_notification_message2_success">Enheten har slutfört serverns begäran</string>
+    <string name="dm_session_information_notification_message2_fail">Enheten misslyckades med att slutföra serverns begäran</string>
+
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Gsensor Calibration"</string>
+    <string name="buttonCalib_name">"Run Calibration"</string>
+    <string name="buttonReset_name">"Clear Calibration"</string>
+    <string name="info_reset">"Calibration Data Cleared"</string>
+    <string name="info_calib">"Calibration Data Saved"</string>
+    <string name="info_tips">"Please put device on a level surface and stand still."</string>
+</resources>

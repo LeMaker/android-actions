@@ -1,0 +1,11 @@
+|4VGA|~yuv420sp|r30|1|512MP|d2|p|d10|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0088
+//DESCRIPTION: Image capture memory consumption check
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"सेटिंग"</string>
+    <string name="title_activity_main">"ओल अपग्रेड"</string>
+    <string name="update_online">"ऑनलाइन अपग्रेड"</string>
+    <string name="update_native">"लोकल अपग्रेड"</string>
+    <string name="goto_recovery">"रिकावरि अपग्रेड मोड में रिस्डॉर करें?"</string>
+    <string name="progress_dialog_title">"नेटवर्किंग में "</string>
+    <string name="not_connect">"नेटवर्किंग से जोड़ा नहीं"</string>
+    <string name="progress_dialog_mgs">"अपग्रेड चेक हो रहा है, इंतजार कीजिए"</string>
+    <string name="connect_server_wrong">"सर्वर व्यस्त है, कनेक्शन करने के लिए रिट्रैं कीजिए"</string>
+    <string name="current_system_isnew">"वर्तमान सस्टम वर्शन अप-टू-डोट है"</string>
+    <string name="sure">"ठीक"</string>
+    <string name="cancel">"रद्द"</string>
+    <string name="update_message">"अपडेटिड वर्शन चेक किया गया, डोनलोड किया गया या नहीं？"</string>
+    <string name="update_title">"नये वर्शन अपडेट"</string>
+    <string name="download">"डोनलोड"</string>
+    <string name="update_rightnow">"अब अपग्रेड कीजिए"</string>
+    <string name="start_download">"अपग्रेड का डोनलोड शुरू हो रहा है"</string>
+    <string name="update_package">"उपग्रेड पैंकिज"</string>
+    <string name="download_complete">"डोनलोड पूरा है"</string>
+    <string name="download_fail">"डोनलोड असफल"</string>
+    <string name="md5_check_fail">"एडी5 परिटि गलती"</string>
+    <string name="update_package_downloaded">"उपग्रेड पैंकिज हुआ"</string>
+    <string name="finish_download">"उपग्रेड पैंकिज का डोनलोडिंग पूरा है"</string>
+    <string name="update_notice">"\nStart ओटिए अपग्रेड:\nअपग्रेड हो रहा है, ऐंक्शन बंद या रद्द नहीं होना चाहिए, अपने डेटे का बैंकअप कीजिए.\n"</string>
+    <string name="cancel_download">"डोनलोड रद्द करें या नहीं?"</string>
+    <string name="wait_downloading">"डोनलोड हो रहा है, इंतजार कीजिए..."</string>
+    <string name="download_update_file">"एस.डी.सी कार्ड के डारेक्टरी में अपडेट फाइल नहीं है, कृपया ऑनलाइन अपग्रेड से अपग्रेड फाइल डोनलोड कीज"</string>
+    <string name="return_native_update">"अपग्रेड पैंकेज लोकल में है, लोकल अपग्रेड में वापस कीजिए"</string>
+    <string name="have_update">"सस्टम अपग्रेड चेक कीजिए"</string>
+    <string name="notification_update">"सेटिंग ऐपलिक्शन में प्रवेश करने के लिए ओल अपग्रेड क्लक करके  "</string>
+    <string name="download_notice">"नेटवर्क चलने के लिए डोनलोड के दौरान यू.एस.बी न जोड़िए"</string>
+    <string name="apk_title">"ओल अपग्रेडV1.0"</string>
+    <string name="checkbox_title">"आउटोमैंटिक क्यरी रिफ्रेश"</string>
+    <string name="checkbox_summary">"एकसेस सर्वर नेटर्वक का आटोमैंटिक विजिट करने के लिए अनचेक चुनिए"</string>
+    <string name="checkfrequency_title">"इनक्वारी साइकल सेट कीजिए"</string>
+    <string name="checkfrequency_summary">"इनक्वारी साइकल"</string>
+    <string name="day">"दिन"</string>
+    <string name="battery_low">"लो बैटरी"</string>
+    <string name="battery_notify">"बैंटरी 50% से ज्यादा समय अपडेट इसस्टॉल कीजिए"</string>
+</resources>

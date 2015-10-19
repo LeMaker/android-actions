@@ -1,0 +1,25 @@
+
+# Configuration
+AP_BT_FIRMWARE_DIR := bluetooth
+
+LOCAL_PATH := $(call my-dir)
+
+
+
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := bt_vendor.conf
+LOCAL_MODULE_TAGS := optional eng
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/$(AP_BT_FIRMWARE_DIR)
+LOCAL_SRC_FILES := bt_vendor.conf
+include $(BUILD_PREBUILT)
+
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := bcm43438a0.hcd
+LOCAL_MODULE_TAGS := optional eng
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/$(AP_BT_FIRMWARE_DIR)
+LOCAL_SRC_FILES := bcm43438a0.hcd
+include $(BUILD_PREBUILT)

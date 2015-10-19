@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+       <string name="app_name">TestTvoutScale</string>
+       <string name="value">Value</string>
+       <string name="hint">Please input a value...</string>
+       <string name="ok">Ok</string>
+       <string name="clear">Clear</string>
+    </resources>

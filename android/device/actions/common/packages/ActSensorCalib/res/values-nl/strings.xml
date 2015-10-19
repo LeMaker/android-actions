@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Versnellingsmeter kalibratie"</string>
+    <string name="buttonCalib_name">"Kalibratie uitvoeren"</string>
+    <string name="buttonReset_name">"Kalibratie verwijderen"</string>
+    <string name="info_reset">"Versnellingsmeter kalibratie gegevens verwijderen"</string>
+    <string name="info_calib">"Versnellingsmeter kalibratie gegevens opslaan"</string>
+    <string name="info_tips">"Plaats dit apparaat horizontaal en klik op de kalibratie knop."</string>
+</resources>

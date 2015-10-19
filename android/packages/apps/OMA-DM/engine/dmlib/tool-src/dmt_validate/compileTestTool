@@ -1,0 +1,16 @@
+
+
+$JAVA_HOME/bin/javac com/mot/treetest/*.java
+echo Please check result and press Enter
+read $dummy
+
+rm -f DMTTest.jar
+
+echo Creating jar ...
+$JAVA_HOME/bin/jar cvf DMTTest.jar com/mot/treetest/*.class
+
+echo Removing classes ...
+rm -f com/mot/treetest/*.class
+
+echo
+

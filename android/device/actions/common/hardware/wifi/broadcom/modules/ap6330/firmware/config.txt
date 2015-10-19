@@ -1,0 +1,1 @@
+bcn_timeout=10

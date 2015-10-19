@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="settings_app_name" msgid="4243616485579754401">"ဆက်တင်များ"</string>
+    <string name="launcher_settings_app_name" msgid="5782771766725939392">"ဆက်တင်များ"</string>
+    <string name="launcher_network_app_name" msgid="5107150533945388559">"ကွန်ရက်"</string>
+    <string name="launcher_restricted_profile_app_name" msgid="671448012575234643">"ကန့်သတ် ပရိုဖိုင်"</string>
+    <string name="header_category_device" msgid="4855983928659541345">"ကိရိယာ"</string>
+    <string name="header_category_preferences" msgid="175105555164713972">"ဦးစားပေးချက်များ"</string>
+    <string name="header_category_accessories" msgid="823295909353025991">"အဝေးထိန်း &amp; အသုံးအဆောင်များ"</string>
+    <string name="header_category_personal" msgid="8893959635328775096">"ကိုယ်ရေး"</string>
+    <string name="add_account" msgid="4098060223200619258">"အကောင့် ထည့်ရန်"</string>
+    <string name="account_header_sync" msgid="2679585471372319471">"စင့်က်"</string>
+    <string name="account_header_remove_account" msgid="3288957118207682685">"အကောင့်ကို ဖယ်ရှားရန်"</string>
+    <string name="search_title" msgid="5474988613144349415">"ရှာဖွေရန်"</string>
+    <string name="account_sync" msgid="773808124331714965">"စင့်က် လုပ်ပြီးသား appများကို ရွေးရန်"</string>
+    <string name="sync_now" msgid="8732244492880016471">"ယခု စင့်က် လုပ်ရန်"</string>
+    <string name="sync_cancel" msgid="5839264070098894371">"စင့်က် မလုပ်တော့"</string>
+    <string name="sync_in_progress" msgid="1330721038775646022">"စင့်က် လုပ်နေ…"</string>
+    <string name="last_synced" msgid="6178494892357077274">"နောက်ဆုံး စင့်က် လုပ်မှု <xliff:g id="TIME">%1s</xliff:g>"</string>
+    <string name="sync_disabled" msgid="3089360175872892781">"ပိတ်ထား"</string>
+    <string name="sync_is_failing" msgid="8229476000384257186">"Sync သည် ချက်ချင်း အလုပ် မလုပ်သေးပါ။ ၎င်းသည် မကြာခင်တွင် ပြန်လာပါမည်။"</string>
+    <string name="account_remove" msgid="4313580520737295272">"အကောင့်ကို ဖယ်ရှားရန်"</string>
+    <string name="account_remove_failed" msgid="980654375770693544">"အကောင့်ကို ဖယ်ရှား မရနိုင်"</string>
+  <string-array name="account_detail_settings">
+    <item msgid="2736778804563540468">"အမည်"</item>
+    <item msgid="6466271488216028049">"ဓာတ်ပုံ"</item>
+    <item msgid="5763918836533170723">"လုံခြုံရေး"</item>
+    <item msgid="5219275476980441834">"Google ပိုက်ဆံအိတ်"</item>
+    <item msgid="5333563881963545303">"ဝယ်ယူမှု မှတ်တမ်း"</item>
+    <item msgid="6174147587962184914">"အကောင့်ကို ဖယ်ရှားရန်"</item>
+  </string-array>
+    <string name="connectivity_network" msgid="8321537111272398501">"ကွန်ရက်"</string>
+    <string name="connectivity_wifi" msgid="489974791299647708">"ကြိုးမဲ့"</string>
+    <string name="connectivity_ethernet" msgid="2182407318634700320">"အီသာနက်"</string>
+    <string name="device_daydream" msgid="4933581408059561077">"နေ့ခင်းအိပ်မက်"</string>
+    <string name="device_display" msgid="101455384386372747">"မြင်ကွင်း"</string>
+    <string name="device_sound_effects" msgid="7793281745920228622">"စနစ်၏ အသံများ"</string>
+    <string name="device_apps" msgid="9180435229638772838">"Appများ"</string>
+    <string name="device_storage_reset" msgid="1425978936501134425">"သိုလှောင်မှု &amp; ပြန်ညှိရန်"</string>
+    <string name="device_storage" msgid="5536683600091277826">"သိုလှောင်မှု"</string>
+    <string name="device_backup_restore" msgid="5627523987587511884">"ဘက်အာပ် လုပ်ခြင်း &amp; ပြန်လည်ဖေါ်ထုတ်ခြင်း"</string>
+    <string name="device_reset" msgid="2827002349560023125">"စက်ရုံအတိုင်း ပြန်ညှိရန်"</string>
+    <string name="device_calibration" msgid="8632962533376605191">"စံကိုက်ညှိမှု"</string>
+    <!-- no translation found for device_storage_clear_cache_title (3365635664766067643) -->
+    <skip />
+    <!-- no translation found for device_storage_clear_cache_message (6495570470005696210) -->
+    <skip />
+    <string name="apps_downloaded" msgid="4222190849854323480">"ဒေါင်းလုဒ် လုပ်ထားသည့် Appများ"</string>
+    <string name="apps_system" msgid="2499191125802829425">"စနစ် Appများ"</string>
+    <string name="apps_running" msgid="6430310491739956228">"ဖွင့်သုံးနေသည့် Appများ"</string>
+    <string name="accessories_remote" msgid="2188138914890229082">"အဝေးထိန်း"</string>
+    <string name="accessories_camera" msgid="503302832375993697">"ကင်မရာ"</string>
+    <string name="accessories_add" msgid="1347802656349218830">"အသုံးအဆောင်များ ထည့်ရန်"</string>
+    <string name="accessories_wifi_display" msgid="1107690327150126038">"ကြိုးမဲ့ မြင်ကွင်း"</string>
+    <string name="accessory_state_pairing" msgid="7501989679637780963">"တွဲချိတ်နေ…"</string>
+    <string name="accessory_state_connecting" msgid="8777884957977608529">"ချိတ်ဆက်နေ..."</string>
+    <string name="accessory_state_error" msgid="4529815543328841909">"ချိတ်တွဲ မရနိုင်ခဲ့"</string>
+    <string name="accessory_state_canceled" msgid="4419328837733619447">"ထားတော့"</string>
+    <string name="accessory_state_paired" msgid="1959238931866401476">"ချိတ်တွဲထား"</string>
+    <string name="accessory_options" msgid="4799658564005710297">"အသုံးအဆောင်"</string>
+    <string name="accessory_rename" msgid="3250766501262581206">"အမည်ပြောင်းရန်"</string>
+    <string name="accessory_unpair" msgid="8242725516604465355">"တွဲချိတ်မှုဖြုတ်ရန်"</string>
+    <string name="accessory_unpairing" msgid="7568241162181184667">"ကိရိယာကို တွဲထားမှုမှ ဖြုတ်နေ…"</string>
+    <string name="accessory_connected" msgid="2156489304110030393">"ချိတ်ဆက်ထား"</string>
+    <string name="accessories_add_title" msgid="6940361421891873321">"အသုံးအဆောင်များကို ရှာဖွေနေ…"</string>
+    <string name="accessories_add_bluetooth_inst" msgid="5892952745770640383">"သင်၏ ဘလူးတုသ် ကိရိယာများကို မချိတ်တွဲမီ၊ ၎င်းတို့ ချိတ်တွဲရေး မုဒ် ထဲမှာ ရှိနေတာကို စစ်ကြည့်ပါ"</string>
+    <string name="accessories_autopair_msg" msgid="8618829246837821752">"ကိရိယာ တစ်ခုကို တွေ့ရှိခဲ့ရာ <xliff:g id="COUNTDOWN">%1$s</xliff:g> စက္ကန့် အတွင်းမှာ အလိုအလျောက် ချိတ်တွဲလိမ့်မည်"</string>
+    <string name="accessories_add_title_multiple" msgid="8455249961819802466">"ကိရိယာ အများအပြားကို ရှာတွေ့ခဲ့"</string>
+    <string name="accessories_add_multiple" msgid="3900633668371061399">"အခြား ကိရိယာကို ရွေးရန်၊ ဒီကိရိယာ ထဲက ချိတ်တွဲရေး ခလုတ်ကို နှိပ်ပါ"</string>
+    <string name="accessories_add_multiple_select" msgid="3696794187001405647">"ရွေးထားသည့် ကိရိယာနှင့် ချိတ်တွဲရန်၊ ကိရိယာ၏ ချိတ်တွဲရေး ခလုတ်ကို နှိပ်ထားပြီး &amp; ၅ စက္ကန့်ကြာ ကိုင်ထားပါ"</string>
+    <string name="error_action_not_supported" msgid="300552308104354666">"ဒီလုပ်ဆော်င်ချက်ကို မပံ့ပိုးပါ"</string>
+    <string name="bluetooth_pairing_request" msgid="4523088117471287665">"ဘလူးတုသ် တွဲချိတ်ရန် တောင်းခံချက်"</string>
+    <string name="bluetooth_confirm_passkey_msg" msgid="7031117992819855434">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt; နှင့် ချိတ်တွဲရန်၊ ၎င်းက သော့တံ: &lt;b&gt;<xliff:g id="PASSKEY">%2$s</xliff:g>&lt;/b&gt; ကို ပြသနေတာ သေချာပါစေ"</string>
+    <string name="bluetooth_incoming_pairing_msg" msgid="8234127565393932499">"ထံမှ: &lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt;&lt;br&gt; ဒီကိရိယာနှင့် ချိတ်တွဲရမလား?"</string>
+    <string name="bluetooth_display_passkey_pin_msg" msgid="8951451728250058901">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt;&lt;br&gt; နှင့် ချိတ်တွဲရန်၊ ၎င်းပေါ်မှာ: &lt;b&gt;<xliff:g id="PASSKEY">%2$s</xliff:g>&lt;/b&gt; ဆိုပြီး တိုက်ရိုက်ပါ၊ ၎င်းနောက် ပြန်သွားရန် သို့မဟုတ် အင်တာကို နှိပ်ပါ။"</string>
+    <string name="bluetooth_enter_pin_msg" msgid="7443458826667686394">"&lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt;, &lt;br&gt; နှင့် ချိတ်တွဲရန်၊ လိုအပ်သည့် ကိရိယာ၏ PIN ကို ရိုက်ထည့်ပါ:"</string>
+    <string name="bluetooth_enter_passkey_msg" msgid="7980787196089653577">"ချိတ်တွဲရန်: &lt;b&gt;<xliff:g id="DEVICE_NAME">%1$s</xliff:g>&lt;/b&gt;, &lt;br&gt; ကိရိယာ အတွက် လိုအပ်သည့် သော့တံကို ရိုက်ထည့်ပါ:"</string>
+    <string name="bluetooth_pin_values_hint" msgid="2319900367581543300">"ပုံမှန်အားဖြင့် ၀၀၀၀ သို့မဟုတ် ၁၂၃၄"</string>
+    <string name="bluetooth_pair" msgid="7836818609620478122">"ချိတ်တွဲရန်"</string>
+    <string name="bluetooth_cancel" msgid="4152153558528588479">"ထားတော့"</string>
+    <string name="system_cast" msgid="6421567823845207156">"Google Cast"</string>
+    <string name="system_date_time" msgid="8898457978560618950">"နေ့စွဲ&amp; အချိန်"</string>
+    <string name="system_language" msgid="2337138146114609247">"ဘာသာစကား"</string>
+    <string name="system_keyboard" msgid="7680159735294672514">"ကီးဘုတ်"</string>
+    <string name="system_search" msgid="2837264654143247611">"ရှာဖွေရန်"</string>
+    <string name="system_security" msgid="8230080273993484407">"လုံခြုံရေး &amp; ကန့်သတ်ချက်များ"</string>
+    <string name="system_speech" msgid="8128688499687306982">"နှုတ်စကား"</string>
+    <string name="system_inputs" msgid="2413907183796651102">"ထည့်သွင်းမှုများ"</string>
+    <string name="system_accessibility" msgid="6215431399759498005">"ရယူသုံးနိုင်မှု"</string>
+    <string name="system_developer_options" msgid="3237985523474863638">"ပြုစုပေးခဲ့သူ အတွက် ရွေးစရာများ"</string>
+    <string name="accessibility_none" msgid="3441648940134070004">"မရှိ"</string>
+    <string name="about_system_update" msgid="7282772247661356586">"စနစ် မွမ်းမံမှု"</string>
+    <string name="about_preference" msgid="4131396784531360434">"အကြောင်း"</string>
+    <string name="device_name" msgid="2670488158531273028">"ကိရိယာ အမည်"</string>
+    <string name="restart_button_label" msgid="8153112858638352970">"အစက ပြန်စရန်"</string>
+    <string name="about_legal_info" msgid="8511870741437307531">"ဥပဒေဆိုင်ရာ အချက်အလက်များ"</string>
+    <string name="about_warranty" msgid="5736003473060436384">"အာမခံ"</string>
+    <string name="about_legal_license" msgid="7867205982113209033">"အခမဲ့ ရင်းမြစ် လိုင်စင်များ"</string>
+    <string name="about_terms_of_service" msgid="7743088207977334874">"Google၏ ဥပဒေရေးရာ"</string>
+    <string name="about_license_activity_unavailable" msgid="8522566562321418498">"လိုင်စင် ဒေတာကို ရှာမရ"</string>
+    <string name="about_model" msgid="6625269442206323995">"မော်ဒယ်"</string>
+    <string name="about_version" msgid="1177287676732287266">"ဗားရှင်း"</string>
+    <string name="about_serial" msgid="2723560490027171187">"အမှတ်စဉ်"</string>
+    <string name="about_build" msgid="9148789767199785676">"တည်ဆောက်မှု"</string>
+  <plurals name="show_dev_countdown">
+    <item quantity="one" msgid="5656331074727404150">"သင်သည် ယခု ပြုစုသူ တစ်ဦး ဖြစ်လာရန် ခြေလှမ်း <xliff:g id="STEP_COUNT">%1$d</xliff:g> လိုပါတော့သည်"</item>
+    <item quantity="other" msgid="6907126743472136795">"သင်သည် ယခု ပြုစုသူ တစ်ဦး ဖြစ်လာရန် ခြေလှမ်း <xliff:g id="STEP_COUNT">%1$d</xliff:g> လိုပါတော့သည်"</item>
+  </plurals>
+    <string name="about_ads" msgid="3364786994943748337">"ကြော်ငြာများ"</string>
+    <string name="show_dev_on" msgid="8997172736024819952">"သင်သည် ယခု ပြုစုသူတစ်ဦး ဖြစ်လာပြီ!"</string>
+    <string name="show_dev_already" msgid="7525967300421794483">"မလိုတော့ပါ၊ သင်သည် ပြုစုသူ တစ်ယောက် ဖြစ်နေပါပြီ။"</string>
+    <string name="wifi_security_none" msgid="1241101191574932821">"မရှိ"</string>
+    <string name="wifi_remembered" msgid="710973813096194477">"သိမ်းဆည်းပြီး"</string>
+    <string name="wifi_disabled_generic" msgid="5100439885010143290">"ပိတ်ထား"</string>
+    <string name="wifi_disabled_network_failure" msgid="7558613087615078317">"အားနည်းသည့် အင်တာနက် ဆက်သွယ်မှုကို  ရှောင်ရှားခဲ့"</string>
+    <string name="wifi_disabled_password_failure" msgid="1318626812163574372">"အထောက်အထား စိစစ်မှု ပြဿနာ"</string>
+    <string name="wifi_not_in_range" msgid="342867509887486418">"ဘောင် အတွင်းမှာ မရှိ"</string>
+    <string name="wifi_wps_available_first_item" msgid="2505782834128907733">"WPS ရရှိုနိုင်"</string>
+    <string name="wifi_wps_available_second_item" msgid="375469856423243587">" (WPS ရရှိုနိုင်)"</string>
+    <string name="wifi_secured_first_item" msgid="9147292132572887175">"<xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g>နှင့် လုံခြုံပါသည်"</string>
+    <string name="wifi_secured_second_item" msgid="4204734116810783051">"၊<xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g>နှင့် လုံခြုံစွာ ရှိနေ"</string>
+  <string-array name="wifi_signal_strength">
+    <item msgid="6926038943588801452">"ညံ့"</item>
+    <item msgid="5986166866411161790">"သင့်တင့်"</item>
+    <item msgid="7541004325985469896">"ကောင်း"</item>
+    <item msgid="1546771355788926692">"အလွန်ကောင်း"</item>
+  </string-array>
+    <string name="title_mac_address" msgid="3428401680168668544">"MAC လိပ်စာ"</string>
+    <string name="title_signal_strength" msgid="205478650262078041">"ထုတ်လွင့်မှု အား"</string>
+    <string name="title_ip_address" msgid="4533523100923004711">"IP လိပ်စာ"</string>
+    <string name="title_ssid" msgid="4858945903642469730">"ကြိုးမဲ့ ကွန်ရက်ကို ထည့်သွင်းရန်"</string>
+    <string name="title_internet_connection" msgid="8710084774588697646">"အင်တာနက် ချိတ်ဆက်မှု"</string>
+    <string name="connected" msgid="7563100162902079938">"ချိတ်ဆက်ထား"</string>
+    <string name="not_connected" msgid="6858480380326923017">"ချိတ်ဆက် မထား"</string>
+    <string name="wifi_setting_header_available_networks" msgid="6244107218643835636">"ကြိုးမဲ့"</string>
+    <string name="wifi_setting_header_other_options" msgid="1530334691232749342">"အခြား ရွေးစရာများ"</string>
+    <string name="wifi_setting_see_all" msgid="3217814666041974878">"အားလုံးကို ကြည့်ရန်"</string>
+    <string name="wifi_setting_available_networks" msgid="1244646604369133314">"ရနိုင်သည့် ကွန်ရက်များ"</string>
+    <string name="wifi_setting_other_options_wps" msgid="2320322351779996152">"WPS မှတစ်ဆင့် ချိတ်ဆက်ရန်"</string>
+    <string name="wifi_setting_other_options_add_network" msgid="2791106243851894788">"ကွန်ရက် အသစ် ထည့်ရန်"</string>
+    <string name="add_network" msgid="2074883912462075625">"ကွန်ရက် ထည့်ရန်"</string>
+    <string name="network_ssid" msgid="7653487431810593891">"SSID ကွန်ရက်"</string>
+    <string name="security_type" msgid="524443802004143058">"လုံခြုံရေး ပုံစံ"</string>
+    <string name="password" msgid="1322790875762726719">"စကားဝှက်"</string>
+    <string name="wps_network" msgid="1052148085426051873">"WPS မှတစ်ဆင့် ချိတ်ဆက်ရန်"</string>
+    <string name="other_network" msgid="3539704463099544488">"အခြား ကွန်ရက်…"</string>
+    <string name="skip_network" msgid="6380260543776712357">"ကျော်ရန်"</string>
+    <string name="wifi_security_type_none" msgid="6622722325237471927">"မရှိ"</string>
+    <string name="wifi_security_type_wep" msgid="3836879161029325671">"WEP"</string>
+    <string name="wifi_security_type_wpa" msgid="4948411057925876780">"WPA/WPA2 PSK"</string>
+    <string name="wifi_security_type_eap" msgid="1106303698253987745">"802.1x EAP"</string>
+    <string name="title_wifi_no_networks_available" msgid="7127675763248224969">"စကင် လုပ်နေ…"</string>
+    <string name="title_wifi_could_not_save" msgid="708638317882707069">"<xliff:g id="SSID">%1$s</xliff:g>အတွက် စီစဉ်ဖွဲစည်းမှုကို မသိမ်းဆည်း နိုင်ခဲ့ပါ။"</string>
+    <string name="title_wifi_could_not_connect" msgid="9080004548419447580">"<xliff:g id="SSID">%1$s</xliff:g>သို့ ချိတ်ဆက် မရခဲ့ပါ။"</string>
+    <string name="title_wifi_could_not_connect_timeout" msgid="5158184646985406394">"<xliff:g id="SSID">%1$s</xliff:g>ကို ရှာမတွေ့ခဲ့"</string>
+    <string name="title_wifi_could_not_connect_authentication_failure" msgid="4836595650380723944">"ကြိုးမဲ့ စကားဝှက် မမှန်"</string>
+    <string name="title_wifi_could_not_connect_ap_reject" msgid="328274688839033015">"ကြိုးမဲ့ ကွန်ရက်က ချိတ်ဆက်မှုကို လက်မခံခဲ့"</string>
+    <string name="title_wifi_advanced_options" msgid="5389467736846644832">"<xliff:g id="SSID">%1$s</xliff:g> ပရော့က်စီ နှင့် IP ဆက်တင်များကို စီစဉ်မလား?"</string>
+    <string name="title_wifi_proxy_settings" msgid="7728120764469991303">"ပရော့က်စီ ဆက်တင်များ"</string>
+    <string name="title_wifi_proxy_hostname" msgid="4655634673840885248">"ပရော့က်စီ ဟို့စ်အမည်:"</string>
+    <string name="title_wifi_proxy_port" msgid="9194893429116021337">"ပရော့က်စီ ပို့တ်:"</string>
+    <string name="title_wifi_proxy_bypass" msgid="4522775396659538614">"…အတွက် လမ်းလွဲရေး ပရော့က်စီ"</string>
+    <string name="title_wifi_ip_settings" msgid="1176973848286865602">"IP ဆက်တင်များ"</string>
+    <string name="title_wifi_ip_address" msgid="1176502993805009566">"IP လိပ်စာ:"</string>
+    <string name="title_wifi_gateway" msgid="7210935277165358134">"ဝင်ပေါက်"</string>
+    <string name="title_wifi_network_prefix_length" msgid="4821632382990582038">"ကွန်ရက် ရှေ့ဆက်ပုဒ် အရှည်:"</string>
+    <string name="title_wifi_dns1" msgid="8202712852864206601">"DNS 1:"</string>
+    <string name="title_wifi_dns2" msgid="2673986973918499478">"DNS 2:"</string>
+    <string name="title_wifi_proxy_settings_invalid" msgid="7380479044141040849">"ပရော့က်စီ ဆက်တင်များ မမှန်"</string>
+    <string name="title_wifi_ip_settings_invalid" msgid="7228948551397955678">"IP ဆက်တင်များ မမှန်"</string>
+    <string name="title_wifi_known_network" msgid="819998498700202436">"<xliff:g id="SSID">%1$s</xliff:g> မှာ သိမ်းဆည်းထားသည့် ကွန်ရက်ပါ"</string>
+    <string name="wifi_action_try_again" msgid="3308643222864163092">"ထပ် စမ်းပါ"</string>
+    <string name="wifi_action_view_available_networks" msgid="560074338908947419">"ရနိုင်သည့် ကွန်ရက်များကို ကြည့်ရန်"</string>
+    <string name="wifi_connecting" msgid="1299861268647323455">"<xliff:g id="SSID">%1$s</xliff:g>သို့ ချိတ်ဆက်နေ"</string>
+    <string name="wifi_saving" msgid="1269061570772019215">"<xliff:g id="SSID">%1$s</xliff:g>အတွက် စီစဉ်ဖွဲ့စည်းမှုကို သိမ်းဆည်းနေ"</string>
+    <string name="wifi_connect" msgid="8570424816865506077">"ချိတ်ဆက်ရန်"</string>
+    <string name="wifi_forget_network" msgid="7302755141573045803">"ကွန်ရက်ကို မေ့ပစ်ရန်"</string>
+    <string name="wifi_forget_network_description" msgid="3328285160018330334">"၎င်းက ဒီကွန်ရက်ကို ချိတ်ဆက်စဉ် အသုံးပြုခဲ့သည့် အချက်အလက်များကို၊ သိမ်းဆည်းခဲ့သည့် စကားဝှက် တစ်ခုခု အပါအဝင်ကို၊ ရှင်းပစ်သည်။"</string>
+    <string name="wifi_action_ok" msgid="5932500664228395779">"အိုကေ"</string>
+    <string name="wifi_action_change_network" msgid="5196215981075986148">"ပြောင်းလဲရန်"</string>
+    <string name="wifi_action_dont_change_network" msgid="1449920958930251977">"မပြောင်းလဲပါနှင့်"</string>
+    <string name="wifi_action_advanced_yes" msgid="8586473568311558982">"အိုကေ"</string>
+    <string name="wifi_action_advanced_no" msgid="8165601242122651326">"မသုံးရန် (အကြံပြုထား)"</string>
+    <string name="wifi_action_proxy_none" msgid="4457231399674182650">"မရှိ"</string>
+    <string name="wifi_action_proxy_manual" msgid="8402002777441261064">"လက်ဖြင့်"</string>
+    <string name="wifi_action_dhcp" msgid="6338911832360962268">"DHCP"</string>
+    <string name="wifi_action_save" msgid="4673786410274206843">"သိမ်းဆည်းရန်"</string>
+    <string name="wifi_action_static" msgid="1025855501453321749">"ငြိမ်နေသော"</string>
+    <string name="wifi_action_status_info" msgid="7664354971197839253">"အခြေအနေ အင်ဖို"</string>
+    <string name="wifi_action_advanced_options_title" msgid="3242132674399983503">"အဆင့်မြင့် ရွေးစရာများ"</string>
+    <string name="wifi_action_advanced_options_description" msgid="8615353318560146504">"<xliff:g id="PROXY_SETTINGS_SUMMARY">%1$s</xliff:g>၊ <xliff:g id="IP_SETTINGS_SUMMARY">%2$s</xliff:g>"</string>
+    <string name="wifi_ip_settings_invalid_ip_address" msgid="5228247770505105107">"မှန်ကန်သည့် IP လိပ်စာကို ရိုက်ထည့်ပါ"</string>
+    <string name="wifi_ip_settings_invalid_gateway" msgid="3292444764474145026">"မှန်ကန်သည့် ဝင်ပေါက် လိပ်စာကို ထည့်သွင်းပါ"</string>
+    <string name="wifi_ip_settings_invalid_dns" msgid="6172189835428184828">"မှန်ကန်သည့် DNS လိပ်စာကို ထည့်သွင်းပါ။"</string>
+    <string name="wifi_ip_settings_invalid_network_prefix_length" msgid="6209978918929182270">"၀ နှင့် ၃၂ အကြားရှိ ကွန်ရက် ရှေ့ဆက်ပုဒ် ထည့်ပါ။"</string>
+    <string name="wifi_ip_address_hint" msgid="1895267564692073689">"မှန်ကန်သည့် IP လိပ်စာကို ထည့်သွင်းပါ။ \nဥပမာ: 192.168.1.128"</string>
+    <string name="wifi_dns1_hint" msgid="214345156394229347">"မှန်ကန်သည့် IP လိပ်စာကို ထည့်ပါ သို့မဟုတ် ဗလာ ချန်ထားခဲ့ပါ။\nဥပမာ၊ ၈။၈။၈။၈။"</string>
+    <string name="wifi_dns2_hint" msgid="1075709328208368894">"မှန်ကန်သည့် IP လိပ်စာကို ထည့်ပါ သို့မဟုတ် ဗလာ ချန်ထားခဲ့ပါ။\nဥပမာ၊ ၈။၈။၄။၄။"</string>
+    <string name="wifi_gateway_hint" msgid="7687219682024189028">"မှန်ကန်သည့် ip လိပ်စာကို ရိုက်ထည့်ပါ သို့မဟတ် ဗလာ ချန်ထားခဲ့ပါ။ \n ဥပမာ: 192.168.1.1"</string>
+    <string name="wifi_network_prefix_length_hint" msgid="332915798888599682">"ကွန်ရက် မှန်ကန်သည့် ရှေ့ဆက်ပုဒ်ကို အရှည်ကို ထည့်သွင်းပါ။\nဥပမာ: ၂၄"</string>
+    <string name="proxy_error_invalid_host" msgid="3660415920668138953">"ဟို့စ်အမည် မမှန်ပါ"</string>
+    <string name="proxy_error_invalid_exclusion_list" msgid="4921547051724987804">"ဒီချန်လှပ် စာရင်း မမှန်ပါ။ ချန်လှပ်ထားသည့် ဒိုမိန်းများ၏ စာရင်းကို ကော်မာ ထည့်ပေးလျက် ခြားပေးရန် လိုသည်။"</string>
+    <string name="proxy_error_empty_port" msgid="6835658067776408062">"ပို့တ် အကွက်ကို ဗလာ မဖြစ်နိုင်ပါ"</string>
+    <string name="proxy_error_empty_host_set_port" msgid="4428793978424303244">"ဟို့စ် အကွက် ဗလာဖြစ်နေလျှင်၊ ပို့တ် အကွက်ကို ဗလာ ချန်ထားပါ"</string>
+    <string name="proxy_error_invalid_port" msgid="1434922103959603993">"ပို့တ် မမှန်ပါ"</string>
+    <string name="proxy_warning_limited_support" msgid="6160239282535986523">"HTTP ပရော့က်စီကို ဘရောင်ဇာက သုံးသော်လည်း အခြား appများက သုံးချင်မှ သုံးကြမည်"</string>
+    <string name="proxy_port_hint" msgid="8532733797275927007">"မှန်ကန်သည့် ပို့တ်ကို ရိုက်ထည့်ပါ။ \nဥပမာ: ၈၀၈၀"</string>
+    <string name="proxy_exclusionlist_hint" msgid="86175095050438325">"ခြွင်းချက် ဒိုမိန်းများ အတွက် ကော်မာဖြင့် ခြားထားသည့် စာရင်းကို ထည့်ပေးပါ သို့မဟုတ် ဗလာ ချန်ထားပါ။ \nဥပမာ: example.com,mycomp.test.com,localhost"</string>
+    <string name="proxy_hostname_hint" msgid="3719688422767210803">"မှန်ကန်သည့် ဟို့စ် အမည်ကို ထည့်သွင်းပါ။ \nဥပမာ: proxy.example.com"</string>
+    <string name="wifi_summary_title_connected" msgid="8329216588732277139">"ကွန်ရက် ချိတ်ဆက်ထား"</string>
+    <string name="wifi_summary_title_not_connected" msgid="3799548944869386251">"ကွန်ရက်ကို မချိတ်ဆက်ရသေးပါ"</string>
+    <string name="wifi_summary_description_connected_to_wifi_network" msgid="7583498018733069053">"<xliff:g id="SSID">%1$s</xliff:g>သို့ ချိတ်ဆက်ထားပြီးနေပြီ။ အခြား ကွန်ရက်သို့ ချိတ်ဆက်ရမလား?"</string>
+    <string name="wifi_summary_unknown_network" msgid="7903601448928422642">"မသိရ ကွန်ရက်"</string>
+    <string name="connectivity_advanced_options" msgid="2858199826425132228">"အဆင့်မြင့် ရွေးစရာများ"</string>
+    <string name="connectivity_advanced_options_description" msgid="370129113175689226">"<xliff:g id="SSID_0">%1$s</xliff:g>၊ <xliff:g id="SSID_1">%2$s</xliff:g>"</string>
+    <string name="title_ip_settings" msgid="6408399523925189065">"IP ဆက်တင်များ"</string>
+    <string name="title_test_connection" msgid="1202798409060082670">"ချိတ်ဆက်မှုကို စမ်းသပ်ရန်"</string>
+    <string name="dhcp" msgid="5536822848499568335">"DHCP"</string>
+    <string name="title_static" msgid="6690544371649264526">"ငြိမ်နေသော"</string>
+    <string name="gateway" msgid="2467496590891949814">"ဝင်ပေါက်"</string>
+    <string name="title_network_prefix_length" msgid="3222416880787889272">"ကွန်ယက် ရှေ့ဆက်ပုဒ်၏ အရှည်"</string>
+    <string name="title_dns_1" msgid="1513875539231931892">"DNS 1"</string>
+    <string name="title_dns_2" msgid="7805767982172685879">"DNS ၂"</string>
+    <string name="title_ok" msgid="1021329453788761592">"အိုကေ"</string>
+    <string name="title_cancel" msgid="4846143417666038604">"ထားတော့"</string>
+    <string name="rename_device" msgid="8221482127562510757">"ကိရိယာ အမည်ပြောင်းရန်"</string>
+    <string name="storage_title" msgid="2132026108559493394">"သိုလှောင်မှု"</string>
+    <string name="storage_available" msgid="1241005580092138871">"ရနိုင်သော"</string>
+    <string name="storage_size" msgid="8958530823208352781">"စုစုပေါင်း နေရာ: <xliff:g id="TOTAL_SPACE">%1$s</xliff:g>"</string>
+    <string name="storage_calculating_size" msgid="2644732407412520565">"တွက်ချက်နေ…"</string>
+    <string name="storage_apps_usage" msgid="4366049071039081219">"Appများ"</string>
+    <string name="storage_downloads_usage" msgid="6172975879962599380">"ဒေါင်းလုဒ်များ"</string>
+    <string name="storage_dcim_usage" msgid="2977564696540645452">"ဓာတ်ပုံများ &amp; ဗီဒီယိုများ"</string>
+    <string name="storage_music_usage" msgid="3509327591741514083">"အသံ"</string>
+    <string name="storage_media_misc_usage" msgid="6066868724030127457">"အထွေထွေ"</string>
+    <string name="storage_media_cache_usage" msgid="5906737163212649904">"ကက်ရှလုပ်ထား ဒေတာ"</string>
+    <string name="wifi_wps_cancel_scan" msgid="3562470978552920877">"ထားတော့"</string>
+    <string name="wifi_wps_retry_scan" msgid="6171190323753080808">"ထပ်စမ်း"</string>
+    <string name="wifi_wps_title" msgid="1872305810119408482">"WPS ရူးတားကို ရှာနေ…"</string>
+    <string name="wifi_wps_instructions" msgid="3618110962669110034">"သင်၏ ရောက်တာ ပေါ်က ကြိုးမဲ့ ကာကွယ်မှု စဖွင့်သတ်မှတ်ရေး ခလုတ်ကို နှိပ်ပါ။ \n၎င်းကို \"WPS\" ဆိုပြီး ခေါ်ဝေါ်နိုင်သည် သို့မဟုတ် ဘယ်ဘက်ရှိ သင်္ကေတ ပါရှိနိုင်သည်။"</string>
+    <string name="wifi_wps_onstart_pin" msgid="594985182235834825">"PIN <xliff:g id="NUMBER">%1$s</xliff:g>ကို သင်၏ ကြိုးမဲ့ ရူးတားမှာ ထည့်ပေးပါ"</string>
+    <string name="wifi_wps_onstart_pin_description" msgid="4206001352944024353">"သင်က PIN ကို ထည့်ပေးလိုက်သည့် နောက်မှာ သတ်မှတ်မှု ပြီးဆုံးရန် ၂ မိနစ် အထိ ကြာနိုင်သည်"</string>
+    <string name="wifi_wps_in_progress" msgid="7082889465182680949">"WPS မှာ စပြီး လုပ်ကိုင်နေပြီ ဖြစ်က ပြီးဆုံးရန် ၂ မိနစ် အထိ ကြာနိုင်သည်"</string>
+    <string name="wifi_wps_failed_generic" msgid="8934636373182298397">"ကြိုးမဲ့ ရူးတားကို မတွေ့နိုင်ခဲ့"</string>
+    <string name="wifi_wps_failed_wep" msgid="9158670824165143348">"ကြိုးမဲ့ လုံခြုံရေး ဆက်တင်  (WEP) ကို မပံ့ပိုးပါ"</string>
+    <string name="wifi_wps_failed_tkip" msgid="1712545345594227319">"ကြိုးမဲ့ လုံခြုံရေး ဆက်တင် (TKIP) ကို မပံ့ပိုးပါ"</string>
+    <string name="wifi_wps_failed_overlap" msgid="3091222818050940041">"နောက် WPS ချိတ်ဆက်မှု တစ်ခု ပြုလုပ်နေသည်။ မိနစ် အနည်းငယ် အကြာမှာ ထပ်စမ်းပါ။"</string>
+    <string name="system_date" msgid="2767108116769558081">"ရက်စွဲ"</string>
+    <string name="system_time" msgid="6726022312605226285">"အချိန်"</string>
+    <string name="system_set_date" msgid="2437586307768561116">"ရက်စွဲ  သတ်မှတ်ရန်"</string>
+    <string name="system_set_time" msgid="4661804115501057452">"အချိန် သတ်မှတ်ရန်"</string>
+    <string name="system_set_time_zone" msgid="8239601932757697259">"အချိန် ဇုန်ကို သတ်မှတ်ရန်"</string>
+    <string name="system_set_time_format" msgid="4447882066895090612">"၂၄ နာရီပုံစံကို သုံးမည်"</string>
+    <string name="system_auto_date_time" msgid="3629668599205033272">"အလိုအလျောက် ရက်စွဲ &amp; အချိန်"</string>
+    <string name="desc_auto_date_time" msgid="6997571927680580633">"ကွန်ရက်မှပေးသော အချိန်ကို အသုံးပြုရန်"</string>
+    <string name="system_location" msgid="502463575930545806">"တည်နေရာ"</string>
+    <string name="system_desc_location" msgid="4243551425631207495">"သင်၏ ခွင့်ပြုချက်ကို တောင်းခံခဲ့ကြသည့် appများက သင်၏ တည်နေရာ အချက်အလက်များကို အသုံးပြုကြပါစေ။"</string>
+    <string name="system_network_location" msgid="3095006393148731886">"ကြိုးမဲ့ ကွန်ရက် တည်နေရာ"</string>
+    <string name="system_desc_network_location" msgid="3394374680078903193">"Google က appများအား တည်နေရာ ဆုံးဖြတ်မှုကို ကူညီပါစေ။ appများ အလုပ်မလုပ်တောင်၊ တည်နေရာ ဒေတာကို အမည် မဖေါ်ပြပဘဲ Google ထံသို့ ပို့ပေးမှုကို ဆိုလိုပါသည်။"</string>
+    <string name="system_network_location_confirm" msgid="8435144328428634060">"တည်နေရာ သဘောတူခွင့်ပြုချက်"</string>
+    <string name="system_desc_network_location_confirm" msgid="3929125496258579850">"Google တည်နေရာ ဝန်ဆောင်မှုအား အမည်မသိရ တည်နေရာ ဒေတာကို စုစည်းခွင့် ပြုသည်။ အချို့ဒေတာများကို သင့် ကိရိယာ ထဲမှာ သိမ်းဆည်း ပေးနိုင်သည်။ app တစ်ခုကိုမှ ဖွင့်မသုံး ချိန်မှာတောင် စုစည်းနိုင်သည်။"</string>
+    <string name="location_title" msgid="7600163182794860262">"ကျွန်ုပ်၏ တည်နေရာ"</string>
+    <string name="header_category_system" msgid="3243287334177831637">"စနစ်"</string>
+    <string name="location_mode_title" msgid="6573195849329396150">"မုဒ်"</string>
+    <string name="location_category_recent_location_requests" msgid="3437903422445812245">"မကြာမီက တည်နေရာ တောင်းခံမှုများ"</string>
+    <string name="location_no_recent_apps" msgid="4218851908476344030">"မည်သည့် appကမှ မကြာမီတုန်းက တည်နေရာကို မတောင်းခံခဲ့ပါ။"</string>
+    <string name="location_high_battery_use" msgid="576143332793626088">"ဘက်ထရီ သုံးစွဲမှု များသော"</string>
+    <string name="location_low_battery_use" msgid="5756040390248358148">"ဘက်ထရီ သုံးမှု နည်း"</string>
+    <string name="location_mode_wifi_description" msgid="2778774510654527264">"တည်နေရာကို ခန့်မှန်းရန် ကြိုးမဲ့ကို သုံးပါ"</string>
+    <string name="location_status" msgid="3456414279428237558">"တည်နေရာ အခြေအနေ"</string>
+    <string name="location_services" msgid="5441085185119797200">"တည်နေရာ ဝန်ဆောင်မှုများ"</string>
+    <string name="on" msgid="6683600681314500652">"ဖွင့်ရန်"</string>
+    <string name="off" msgid="5264189545064767245">"မရှိ"</string>
+    <string name="google_location_services_title" msgid="3382840371861269146">"Google တည်နေရာ ဝန်ဆောင်မှုများ"</string>
+    <string name="third_party_location_services_title" msgid="4089136801976399147">"အခြားသူတို့၏ တည်နေရာ ဝန်ဆောင်မှုများ"</string>
+    <string name="location_reporting" msgid="3054236612250063073">"တည်နေရာကို အစီရင်ခံခြင်း"</string>
+    <string name="location_history" msgid="2946680949724247804">"တည်နေရာ မှတ်တမ်း"</string>
+    <string name="location_reporting_desc" msgid="6256424995139430823">"Google သည် ဒီအင်္ဂါရပ်ကို Google Now နှင့် Google မြေပုံများလို ထုတ်ကုန်များ ထဲမှာ အသုံးပြုပါသည်။ တည်နေရာ အစီရင်ခံမှုကို ဖွင့်ထားခြင်းက သင့် ကိရိယာ၏ နောက်ဆုံး တည်နေရာ ဒေတာကို Google အကောင့်နှင့် ဆက်နွှယ်လျက် အသုံးပြုခြင်း နှင့် သိုလှောင်ခြင်းကို ခွင့်ပြုသည်။"</string>
+    <string name="location_history_desc" msgid="3861249867748294369">"တည်နေရာ မှတ်တမ်းကို ဒီအကောင့် အတွက် ဖွင့်ထားလျှင်၊ Google သည် သင်၏ appများ သုံးနိုင်ဖို့ သင့်ကိရိယာ၏ တည်နေရာကို သိုလှောင်ပေးသည်။\n\nဥပမာ၊ Google မြေပုံများက သင့်အား လမ်းညွှန်းမှုများကို ပေးနိုင်သလို၊ Google Now က ယာဉ်ကူးပြောင်းမှု အကြောင်းကို အသိပေးနိုင်သည်။ \n\nသင်သည် တည်နေရာ မှတ်တမ်းကို အချိန်မရွေး ပိတ်ပစ်နိုင်သည်၊ သို့သော် ထိုသို့ လုပ်မှုက ၎င်းကို ဖျက်မည် မဟုတ်ပါ။ သင်၏ တည်နေရာ မှတ်တမ်းကို ကြည့်ရန် နှင့် စီမံကွပ်ကဲရန်၊ maps.google.com/locationhistory ကို ဝင်ကြည့်ပါ။"</string>
+    <string name="delete_location_history_title" msgid="5804802702252280549">"တည်နေရာ မှတ်တမ်း ဖျက်ရန်"</string>
+    <string name="delete_location_history_desc" msgid="4142806827237093397">"၎င်းက ဒီ Google အကောင့် အတွက် ဒီကိရိယာ ထံမှ သိုလှောင်ခဲ့သည့် တည်နေရာ မှတ်တမ်း အားလုံးကို ဖျက်ပစ်မည်။ သင်သည် ဒီဖျက်မှုကို ပြန်မပြင်နိုင်ပါ။ အချို့ appများ၊ Google ယခု အပါအဝင်၊ အလုပ်လုပ်မှု ရပ်တန့်ကြမည်။"</string>
+    <string name="system_services" msgid="7230571820151215779">"ဝန်ဆောင်မှုများ"</string>
+    <string name="accessibility_service_settings" msgid="322888335240595695">"ဝန်ဆောင်မှု ဆက်တင်များ"</string>
+    <string name="accessibility_captions" msgid="6133896463407851079">"စာတန်းများ"</string>
+    <string name="accessibility_captions_description" msgid="4290317621720499628">"ဗီဒီယိုမှာ အပိတ် စာတန်း စာသား အတွက် ဆက်တင်များ"</string>
+    <string name="captions_display" msgid="735692527287125548">"မြင်ကွင်း"</string>
+    <string name="captions_display_on" msgid="1989009878719500520">"ဖွင့်ထား"</string>
+    <string name="captions_display_off" msgid="496953007835201523">"ပိတ်ထား"</string>
+    <string name="display_options" msgid="5504549024985225774">"မြင်ကွင်း ရွေးစရာများ"</string>
+    <string name="captions_configure" msgid="5537548915977371014">"စီစဉ်ပေးရန်"</string>
+    <string name="captions_lanaguage" msgid="3291057448460880449">"ဘာသာစကား"</string>
+    <string name="captions_textsize" msgid="4828195509546070971">"စာလုံး ဆိုက်"</string>
+    <string name="captions_captionstyle" msgid="7423638523487868230">"စာတန်း စတိုင်"</string>
+    <string name="captions_customoptions" msgid="2699780648112330911">"စိတ်ကြိုက် ရွေးစရာများ"</string>
+    <string name="captions_fontfamily" msgid="6840670778173003604">"ဖွန့် မိသားစု"</string>
+    <string name="captions_textcolor" msgid="3233568269335050287">"စာလုံး အရောင်"</string>
+    <string name="captions_edgetype" msgid="841331274533086103">"အနားသတ် ပုံစံ"</string>
+    <string name="captions_edgecolor" msgid="845125757332620884">"အနားသတ် အရောင်"</string>
+    <string name="captions_backgroundcolor" msgid="448518890988125453">"နောက်ခံ အရောင်"</string>
+    <string name="captions_backgroundopacity" msgid="2643722493273126220">"နောက်ခံ အလင်းပိတ်မှု"</string>
+    <string name="captioning_preview_text" msgid="72080729155950127">"စာတန်းများကို ဤသို့ မြင်ရမည်"</string>
+    <string name="captions_textopacity" msgid="5536765490446288641">"စာသား အလင်းပိတ်မှု"</string>
+    <string name="captions_windowcolor" msgid="8986165172260903279">"ဝင်ဒိုး အရောင်"</string>
+    <string name="captions_windowopacity" msgid="2784473496224936703">"ဝင်ဒိုး အလင်းပိတ်မှု"</string>
+    <string name="color_none" msgid="5281446963475996688">"မရှိ"</string>
+    <string name="color_white" msgid="65537523012024751">"အဖြူ"</string>
+    <string name="color_gray" msgid="5637299846460438696">"မီးခိုး"</string>
+    <string name="color_black" msgid="8804213372565106403">"အမည်း"</string>
+    <string name="color_red" msgid="5630553203246525989">"အနီ"</string>
+    <string name="color_green" msgid="3745551274773976763">"အစိမ်း"</string>
+    <string name="color_blue" msgid="6761708560115194175">"အပြာ"</string>
+    <string name="color_cyan" msgid="796226330055745">"စိမ်းပြာ"</string>
+    <string name="color_yellow" msgid="1023390829879874964">"အဝါ"</string>
+    <string name="color_magenta" msgid="6395786485839439122">"ပန်းခရမ်း"</string>
+    <string name="system_accessibility_status" msgid="4389074529913575327">"ပြည်နယ်"</string>
+    <string name="system_accessibility_config" msgid="3216531917536720277">"စီစဉ်ဖွဲ့စည်းမှု"</string>
+    <string name="system_accessibility_service_on_confirm_title" msgid="8200707259067035823">"<xliff:g id="SERVICE">%1$s</xliff:g>ကိုသုံးမလား?"</string>
+    <string name="system_accessibility_service_on_confirm_desc" msgid="1102358356500113060">"<xliff:g id="SERVICE">%1$s</xliff:g> သည် သက် ရိုက်ထည့်သည့် စာသား အားလုံးကို၊ စကားဝှက်များမှ အပ၊ စုစည်းနိုင်သည်။ ၎င်းထဲမှာ အကြွေးကဒ် နံပါတ်များလို ကိုယ်ရေး ဒေတာများ ပါဝင်ကြသည်။"</string>
+    <string name="system_accessibility_service_off_confirm_title" msgid="963297812889694832">"<xliff:g id="SERVICE">%1$s</xliff:g> ကိုရပ်မလား?"</string>
+    <string name="system_accessibility_service_off_confirm_desc" msgid="6714782635926048678">"အိုကေကို ရွေးလိုက်ခြင်းက <xliff:g id="SERVICE">%1$s</xliff:g>ကို ရပ်ပစ်မည်။"</string>
+    <string name="system_accessibility_tts_output" msgid="8905477795536714590">"စာသားမှ နှုတ်စကားသို့"</string>
+    <string name="system_speak_passwords" msgid="5264650214879185873">"စကားဝှက်ကို ပြောပေးရန်"</string>
+    <string name="system_preferred_engine" msgid="8258210139854655567">"ပိုနှစ်သက်သော အင်ဂျင်"</string>
+    <string name="system_speech_rate" msgid="8099856582088545576">"စကားပြောနှုန်း"</string>
+    <string name="system_play_sample" msgid="7187293932891811148">"နမူနာကို ဖွင့်ရန်"</string>
+    <string name="system_install_voice_data" msgid="8920883886563714355">"အသံ ဒေတာကို တပ်ဆင်ပေးခြင်း"</string>
+    <string name="system_general" msgid="3535958631591158282">"အထွေထွေ"</string>
+    <string name="system_debugging" msgid="7204447785851191331">"ဒီဘာဂင်"</string>
+    <string name="system_input" msgid="6164987320529039626">"ရိုက်သွင်းမှု"</string>
+    <string name="system_drawing" msgid="6573389872154957039">"ပုံရေးဆွဲခြင်း"</string>
+    <string name="system_monitoring" msgid="8424072546138094053">"စောင့်ကြပ်ခြင်း"</string>
+    <string name="system_apps" msgid="6293850468968494924">"Appများ"</string>
+    <string name="system_take_bug_report" msgid="3550575498907672342">"ဘာဂ် အစီရင်ခံစာကို ယူရန်"</string>
+    <string name="system_backup_password" msgid="6622796686823406402">"စကားဝှက်ကို ဘက်အာပ် လုပ်ရန်"</string>
+    <string name="system_stay_awake" msgid="1212296404230848490">"ဖွင့်လျက် ရှိနေရန်"</string>
+    <string name="system_hdcp_checking" msgid="8470793875143334320">"HDCP စစ်ဆေးနေ"</string>
+    <string name="system_hdmi_optimization" msgid="9120919064234265144">"HDMI ဆီလျော်အောင် လုပ်ပေးခြင်း"</string>
+    <string name="system_reboot_confirm" msgid="534407910866199191">"ယခု ပြန်ဖွင့်ရမလား?"</string>
+    <string name="system_desc_reboot_confirm" msgid="1367498732529710136">"ဒီဆက်တင်ကို မွမ်းမံရန်၊ သင်၏ ကိရိယာကို ပြန်ပြီးဖွင့်ပေးရန် လိုသည်။"</string>
+    <string name="system_never_check" msgid="6666520460705041617">"မည်သည့်အခါမှ မစစ်ဆေးပါနှင့်"</string>
+    <string name="system_check_for_drm_content_only" msgid="8716366734950874267">"DRM အကြောင်းအရာကိုသာ စစ်ဆေးရန်"</string>
+    <string name="system_always_check" msgid="1866566828098009853">"အမြဲတမ်း စစ်ဆေးရန်"</string>
+    <string name="system_bt_hci_log" msgid="2425757846046504431">"ဘလူးတုသ် HCI မှတ်သားထားခြင်း"</string>
+    <string name="system_email_address" msgid="8669468986250302378">"အီးမေးလ် လိပ်စာ"</string>
+    <string name="system_usb_debugging" msgid="3777895294421924323">"USB ဒီဘာဂင်"</string>
+    <string name="system_allow_mock_locations" msgid="3635672039775772910">"ပုံစံတု တည်နေရာများကို ခွင့်ပြုရန်"</string>
+    <string name="system_select_debug_app" msgid="8592021815119618485">"ဒီဘာဂ် လုပ်ပေးမည့် appကို ရွေးရန်"</string>
+    <string name="system_wait_for_debugger" msgid="4007354935701089555">"ဒီဘာဂါးကို စောင့်ရန်"</string>
+    <string name="system_verify_apps_over_usb" msgid="7340861918835270609">"USB ထဲရှိ appများ စိစစ်ရန်"</string>
+    <string name="system_desc_verify_apps_over_usb" msgid="6722973410408262393">"ADB/ADT မှတစ်ဆင့် တပ်ဆင်ခဲ့သည့် appများကို အန္တရာယ် အပြုအမူများ အတွက် စစ်ကြည့်ရန်"</string>
+    <string name="system_wifi_verbose_logging" msgid="3474525355071613242">"ကြိုးမဲ့ ပြည့်ပြည့်စုံစုံ မှတ်သားခြင်း"</string>
+    <string name="system_desc_wifi_verbose_logging" msgid="1559904751873455868">"ကြိုးမဲ့  ပြည့်ပြည့်စုံစုံ မှတ်သားခြင်းကို ဖွင့်ရန်"</string>
+    <string name="system_show_touches" msgid="2179121368437801757">"ထိတွေ့မှုများကို ပြရန်"</string>
+    <string name="system_pointer_location" msgid="2673764026490179227">"ညွှန်းမြား၏ တည်နေရာ"</string>
+    <string name="system_show_layout_bounds" msgid="645732439882291943">"အဆင်အပြင် ဘောင်များကို ပြရန်"</string>
+    <string name="system_show_gpu_view_updates" msgid="7936280271091152459">"GPU မြင်ကွင်း မွမ်းမံမှုများကို ပြရန်"</string>
+    <string name="system_show_hardware_layer" msgid="7301942527058509453">"ဟာ့ဒ်ဝဲ အလွှာကို ပြရန်"</string>
+    <string name="system_show_gpu_overdraw" msgid="707861254106800199">"GPU ကျော်လွန်မှုကို ပြရန်"</string>
+    <string name="system_show_surface_updates" msgid="8878834675712192327">"မျက်နှာပြင် မွမ်းမံမှုများကို ပြရန်"</string>
+    <string name="system_window_animation_scale" msgid="3213952676672537856">"ဝင်ဒိုး လှုပ်ရှားပုံများ စကေး"</string>
+    <string name="system_transition_animation_scale" msgid="2964817709721784757">"အသွင်ပြောင်း လှုပ်ရှားပုံ စကေး"</string>
+    <string name="system_animator_duration_scale" msgid="7413512458963984521">"လှုပ်ရှားပုံများ ကြာမှု စကေး"</string>
+    <string name="system_strict_mode_enabled" msgid="5728680397806673270">"တင်းကြပ် မုဒ် ဖွင့်ထား"</string>
+    <string name="system_show_cpu_usage" msgid="4797599582027671138">"CPU အသုံးပြုမှုကို ပြသရန်"</string>
+    <string name="system_profile_gpu_rendering" msgid="3438771015102629799">"ပရိုဖိုင် GPU တင်ဆက်နေ"</string>
+    <string name="system_enable_traces" msgid="4038210655699986482">"ခြေရာခံမှု ဖွင့်ထားရန်"</string>
+    <string name="system_dont_keep_activities" msgid="7906911077198718958">"လှုပ်ရှားမှုများကို သိမ်းမထားပါနှင့်"</string>
+    <string name="system_background_process_limit" msgid="7921766877363771436">"နောက်ခံ လုပ်ငန်းစဉ် ကန့်သတ်ချက်"</string>
+    <string name="system_show_all_anrs" msgid="3601183436857424712">"ANRများ အားလုံးကို ပြသရန်"</string>
+    <string name="system_desc_take_bug_report" msgid="1627218971851223147">"အစီရင်ခံစာကို အီးမေးလ် လိပ်စာသို့ ပို့ရန်"</string>
+    <string name="system_desc_backup_password" msgid="6454962099870874762">"ဒက်စ်တော့ အပြည့်အဝ ဘက်အာပ်ကို ကာကွယ်ပေးရန်"</string>
+    <string name="system_desc_stay_awake" msgid="229588006508356238">"အနားယူမှု ပိတ်ထားရန်"</string>
+    <string name="system_desc_hdcp_checking" msgid="6879753401058891183">"DRM အကြောင်းအရာ အတွက်သာ သုံးရန်"</string>
+    <string name="system_desc_hdmi_optimization" msgid="4400727262768931480">"ပြသမှုကို အများဆုံး ပြတ်သားမှု သို့မဟုတ် ပုံရွေ့ရှားနှုန်း အတွက် ဆီလျော်အောင် လုပ်ပေးပါ။ ဒါက Ultra HD ပြကွက်များကိုသာ အကျိုးသက်ရောက်သည်။ ဒီဆက်တင်များကို ပြောင်းလဲခြင်းက သင့်ကိရိယာကို ပြန်ပြီးဖွင့်မည်။"</string>
+    <string name="system_desc_bt_hci_log" msgid="4219265203570411773">"ဘလူးတုသ် HCI ဆိုင်ရာ မှတ်သားခြင်းကို  ဖွင့်ရန်"</string>
+    <string name="system_desc_usb_debugging" msgid="5168830368191788731">"USB ချိတ်ဆက်ထား ချိန်မှာ ဒီဘာဂ် မုဒ်"</string>
+    <string name="system_desc_wait_for_debugger" msgid="2342968959255039368">"ဒီဘာဂ် လုပ်ထားသည့် အပလီကေးရှင်းသည် မလုပ်ကိုင်မီမှာ ဒီဘာဂါးကို ပူးတွဲပေးမှာကို စောင့်ရသည်။"</string>
+    <string name="system_desc_show_layout_bounds" msgid="3449386884226708985">"ကလီပ် အနားသတ်များ၊ မာဂျင်များ စသဖြင့် ပြပါ။"</string>
+    <string name="system_desc_show_gpu_view_updates" msgid="8045162296029336710">"GPU နှင့်အတူ ရေးဆွဲထားလျှင် ၀င်ဒိုးများ အတွင်းပိုင်း လျှပ်တပြက် မြင်ကွင်းများ"</string>
+    <string name="system_desc_show_hardware_layer" msgid="642854466995400529">"ဟာ့ဒ်ဝဲ အလွှာများကို မွမ်းမံ ချိန်မှာ အစိမ်းရောင်ဖြင့် လင်းပြရန်"</string>
+    <string name="system_desc_show_gpu_overdraw" msgid="8204945204510618865">"အကောင်းဆုံးမှ အဆိုးဆုံးဆီသို့: အပြာ၊ အစိမ်း၊ အနီဖျော့၊ အနီ"</string>
+    <string name="system_desc_show_surface_updates" msgid="8177734845253807688">"ဝင်ဒိုး မျက်နှာပြင်များ တစ်ခုလုံးကို မွမ်းမံ နေချိန်မှာ လင်းပြရန်"</string>
+    <string name="system_desc_strict_mode_enabled" msgid="4647420860235689510">"appများက ပင်မ အမျှင်တန်းမှာ ရေရှည် လုပ်ငန်းများ လုပ်ကိုင်နေချိန်မှာ မျက်နှာပြင်ကို လင်းပြရန်"</string>
+    <string name="system_desc_show_cpu_usage" msgid="6151280238151381703">"လက်ရှိ CPU အသုံးပြုမှုကို မျက်နှာပြင် ပေါ်တွင် ပြသမှု"</string>
+    <string name="system_desc_profile_gpu_rendering" msgid="2836283129486718887">"adb အခွံ dumpsys gfxinfo ထဲက တင်ဆက်မှု အချိန်ကို တိုင်းထွာသည်။"</string>
+    <string name="normal_date_format" msgid="4118071594685269322">"ဒေသဆိုင်ရာ (<xliff:g id="DATE">%s</xliff:g>)"</string>
+    <string name="action_on_title" msgid="6852389884236870765">"ဖွင့်ရန်"</string>
+    <string name="action_off_title" msgid="3157728958166559966">"မရှိ"</string>
+    <string name="action_on_description" msgid="4559342592998850852">"ဖွင့်ရန်"</string>
+    <string name="action_off_description" msgid="4364261457368041502">"မရှိ"</string>
+    <string name="agree" msgid="1235622082275451350">"သဘောတူ"</string>
+    <string name="disagree" msgid="9170636026862400981">"သဘောမတူ"</string>
+    <string name="security_unknown_sources_title" msgid="769762478057744545">"မသိရသော ရင်းမြစ်များ"</string>
+    <string name="security_unknown_sources_desc" msgid="7197053279914817124">"ပလေး စတိုး မဟုတ်သည့် အခြား အရင်းအမြစ်များမှ appများ တပ်ဆင်မှုကို ခွင့်ပြုရန်"</string>
+    <string name="security_unknown_sources_confirm_desc" msgid="7167350583097191925">"သင်၏ ကိရိယာ နှင့် ကိုယ်ရေး ဒေတာများမှာ မသိရသည့် ရင်းမြစ်များထဲက appများ၏ တိုက်ခိုက်မှု​ကြောင့် ပိုပြီး ထိခိုက်ပျက်စီးမှာ စိုးရပါသည်။ ယင်း appများကို အသုံးပြုမှုကြောင့် သင့် ကိရိယာ ထိခိုက်ခံရမှာ သို့မဟုတ် ဒေတာ ဆုံးရှုံးခံရမှာ အတွက် သင်သည်သာ လုံးဝ တာဝန်ရှိတာကို သင် သဘောတူပါသည်။"</string>
+    <string name="security_verify_apps_title" msgid="5787946958632254988">"appများကို စိစစ်ရန်"</string>
+    <string name="security_verify_apps_desc" msgid="1456317893117818733">"အန္တရာယ် ဖြစ်စေနိုင်သော appများကို ခွင့်မပြုရန် သို့မဟုတ် မတပ်ဆင်မီ သတိပေးရန်"</string>
+  <string-array name="hdcp_checking_summaries">
+    <item msgid="28682351350387246">"မည်သည့်အခါမျှ"</item>
+    <item msgid="5583820743908145007">"DRM အကြောင်းအရာ အတွက်"</item>
+    <item msgid="6148080515126921450">"အမြဲတမ်း"</item>
+  </string-array>
+    <string name="no_application" msgid="1746564297589309465">"တခုမှမရှိ"</string>
+  <string-array name="enable_opengl_traces_entries">
+    <item msgid="7803412455089800607">"မရှိ"</item>
+    <item msgid="1284340221135955876">"Logcat"</item>
+    <item msgid="5054298948370382226">"စနစ်ခြေရာခံ (ဂရပ်ဖစ်များ)"</item>
+    <item msgid="6650537879885155020">"glGetError ထဲက ခေါ်ဆိုမှု စာရင်း"</item>
+  </string-array>
+  <string-array name="window_animation_scale_entries">
+    <item msgid="258143468897415016">"လှုပ်ရှားများကို ပိတ်ရန်"</item>
+    <item msgid="5618283113978106483">"လှုပ်ရှားပုံများ စကေး ၀.၅ဆ"</item>
+    <item msgid="397451685490290179">"လှုပ်ရှားပုံများ စကေး ၁x"</item>
+    <item msgid="6331600473492644688">"လှုပ်ရှားပုံများ စကေး ၁.၅ဆ"</item>
+    <item msgid="7004952449777104295">"လှုပ်ရှားပုံများ စကေး ၂ဆ"</item>
+    <item msgid="1063528777234221038">"လှုပ်ရှားပုံများ စကေး ၅x"</item>
+    <item msgid="6926378938392529339">"လှုပ်ရှားပုံများ စကေး ၁၀ဆ"</item>
+  </string-array>
+  <string-array name="transition_animation_scale_entries">
+    <item msgid="5604755386232556553">"လှုပ်ရှားပုံများကို ပိတ်ရန်"</item>
+    <item msgid="5578331490208019526">"လှုပ်ရှားပုံများ စကေး ၀.၅ဆ"</item>
+    <item msgid="5338802612080069593">"လှုပ်ရှားပုံများ စကေး ၁x"</item>
+    <item msgid="1309704285131661878">"လှုပ်ရှားပုံများ စကေး ၁.၅ဆ"</item>
+    <item msgid="5654221040036850960">"လှုပ်ရှားပုံများ ၂x"</item>
+    <item msgid="6092484055733043622">"လှုပ်ရှားပုံများ စကေး ၅ဆ"</item>
+    <item msgid="4049359393103906268">"လှုပ်ရှားပုံများ စကေး ၁၀x"</item>
+  </string-array>
+  <string-array name="animator_duration_scale_entries">
+    <item msgid="6966595852691619795">"လှုပ်ရှားပုံများ ပိတ်ရန်"</item>
+    <item msgid="1302400121783768928">"လှုပ်ရှားပုံများ စကေး ၀.၅ဆ"</item>
+    <item msgid="9088460595137551270">"လှုပ်ရှားပုံများ စကေး ၁x"</item>
+    <item msgid="5640745580399155880">"လှုပ်ရှားပုံများ စကေး ၁.၅ဆ"</item>
+    <item msgid="3320199023884342141">"လှုပ်ရှားပုံများ စကေး ၂ဆ"</item>
+    <item msgid="5620232666163371843">"လှုပ်ရှားပုံများ စကေး ၅ဆ"</item>
+    <item msgid="8580701701183364590">"လှုပ်ရှားပုံများ စကေး ၁၀ဆ"</item>
+  </string-array>
+  <string-array name="track_frame_time_entries">
+    <item msgid="3161533682947406047">"မရှိ"</item>
+    <item msgid="6446688182396957172">"မျက်နှာပြင်ပေါ်မှာ ဘားတန်းများလို"</item>
+    <item msgid="9080500692341488612">"adb အခွံ ထဲက dumpsys gfxinfo"</item>
+  </string-array>
+  <string-array name="app_process_limit_entries">
+    <item msgid="9052853079905663082">"ပုံမှန် ကန့်သတ်ချက်"</item>
+    <item msgid="6534728802931195545">"နောက်ခံ လုပ်ငန်းစဉ်များ မရှိ"</item>
+    <item msgid="290172167371846384">"အများဆုံး လုပ်ငန်းစဉ် ၁ ခု"</item>
+    <item msgid="4818593824413771192">"အများဆုံး လုပ်ငန်းစဉ် ၂ ခု"</item>
+    <item msgid="8337569181800165433">"အများဆုံး လုပ်ငန်းစဉ် ၃ ခု"</item>
+    <item msgid="8261219565766202947">"အများဆုံး လုပ်ငန်းစဉ် ၄ ခု"</item>
+  </string-array>
+  <string-array name="tts_rate_entries">
+    <item msgid="6425501867101281228">"အလွန် နှေး"</item>
+    <item msgid="3458529225374884970">"နှေး"</item>
+    <item msgid="4131204219571166311">"ပုံမှန်"</item>
+    <item msgid="786682416218616624">"မြန်"</item>
+    <item msgid="1708844147149066133">"သိပ် မြန်"</item>
+  </string-array>
+    <string name="choose_account_type_title" msgid="34004552592079689">"အကောင့် ပုံစံကို ရွေးရန်"</string>
+    <string name="choose_account_title" msgid="6672090823838639972">"အကောင့် ရွေးရန်"</string>
+    <string name="add_account_button_label" msgid="7950769159839284068">"အကောင့် အသစ် ထည့်ရန်"</string>
+    <string name="title_current_keyboard" msgid="4259032357469819835">"လက်ရှိ ကီးဘုတ်"</string>
+    <string name="title_configure" msgid="6929522003149212388">"စီစဉ်ဖွဲ့စည်းရန်"</string>
+    <string name="desc_configure_keyboard" msgid="7187242843867404657">"ကီးဘုတ် ရွေးစရာများ"</string>
+    <string name="computing_size" msgid="2955133568424704042">"တွက်ချက်နေ…"</string>
+    <string name="title_select_wifi_network" msgid="1038871400014761952">"သင်၏ ကြိုးမဲ့ ကွန်ရက်ကို ရွေးရန်"</string>
+    <string name="accessories_wifi_display_rename_device" msgid="7416728299196887186">"အမည်ပြောင်းရန်"</string>
+    <string name="accessories_wifi_display_enable" msgid="4779506305656453262">"ကြိုးမဲ့ မြင်ကွင်း"</string>
+    <string name="accessories_wifi_display_pin_required" msgid="3242645267864813273">"PIN လိုအပ်"</string>
+    <string name="accessories_remote_list_title" msgid="3115459158860792046">"အဝေးထိန်း အချက်အလက်များ: <xliff:g id="SERIALNUMBER">%1$s</xliff:g>"</string>
+    <string name="system_collecting_bug_report" msgid="5923988155158351543">"ဘာဂ် အစီရင်ခံစာကို စုစည်းနေ!\nအစီရင်ခံစာ အသင့် ဖြစ်လာလျှင် ကျွန်ုပ်တို့သည် သင့်ထံမှ နောက်ထပ် အင်ဖိုကို မေးပါမည်။"</string>
+    <string name="system_collecting_bug_report_error" msgid="1396108342854067722">"ဘာဂ် အစီရင်ခံစာကို မစုစည်းနိုင်ခဲ့ပါ!\nကျေးဇူးပြုပြီး နောက်မှာ ထပ်စမ်းပါ။"</string>
+    <string name="whichApplication" msgid="8382179653567099571">"လုပ်ဆောင်ချက် ပြီးဆုံးစေရန် အသုံးပြုရမည်မှာ"</string>
+    <string name="alwaysUseQuestion" msgid="7128459989232213727">"ဒီလုပ်ဆောင်ချက် အတွက် အမြဲတမ်း ဒီရွေးစရာကို သုံးမလား?"</string>
+    <string name="alwaysUseOption" msgid="1057645533268907906">"အမြဲတမ်း သုံးရန်"</string>
+    <string name="justOnceOption" msgid="6051458702672920102">"တစ်ကြိမ်တည်းသာ"</string>
+    <string name="noApplications" msgid="4197983402774959346">"ဘယ် appကမှ ဒီ လုပ်ဆောင်ချက်ကို မလုပ်ကိုင်နိုင်ပါ။"</string>
+    <string name="noAppsGoBack" msgid="5663180241276177314">"နောက်သို့"</string>
+    <string name="inputs_inputs" msgid="4249080110281833521">"ထည့်သွင်းမှုများ"</string>
+    <string name="inputs_header_cec" msgid="3701104827756278489">"Consumer Electronic Control (CEC)"</string>
+    <string name="inputs_cec_settings" msgid="8403155117662874704">"ကိရိယာ ထိန်းချုပ်ရေး ဆက်တင်များ"</string>
+    <string name="inputs_blu_ray" msgid="3843526039402969407">"Blu-ray"</string>
+    <string name="inputs_cable" msgid="9081641596942038538">"ကြိုးတီဗီ"</string>
+    <string name="inputs_dvd" msgid="602486238850738828">"DVD"</string>
+    <string name="inputs_game" msgid="1114086481110094757">"ဂိမ်း ခလုတ်ခုံ"</string>
+    <string name="inputs_aux" msgid="5704676433978730340">"Aux"</string>
+    <string name="inputs_custom_name" msgid="5584925321693432362">"စိတ်တိုင်းကျ အမည်"</string>
+    <string name="inputs_hide" msgid="1575971556150395486">"ဝှက်ထား၏"</string>
+    <string name="inputs_hide_desc" msgid="8172670556559886526">"ထည့်သွင်းမှုများကို ပြောင်းလဲလျှင် ပြမည် မဟုတ်"</string>
+    <string name="inputs_custom_title" msgid="374036983231176581">"စိတ်တိုင်းကျ အမည်:"</string>
+    <string name="inputs_hdmi_control" msgid="2462240356665628563">"HDMI ထိန်းချုပ်မှု"</string>
+    <string name="inputs_hdmi_control_desc" msgid="2300590479729796132">"တီဗီကို HDMI ကိရိယာများကို ထိန်းချုပ်ခွင့် ပြုရန်"</string>
+    <string name="inputs_device_auto_off" msgid="7510049770946999285">"ကိရိယာ ပါဝါ အော်တို ပိတ်ရန်"</string>
+    <string name="inputs_device_auto_off_desc" msgid="2679638131351116942">"တီဗီကို HDMI ကိရိယာများဖြင့် ပါဝါ ပိတ်ရန်"</string>
+    <string name="inputs_tv_auto_on" msgid="2627932269256793797">"တီဗီ အော်တို ပါဝါ ဖွင့်ရန်"</string>
+    <string name="inputs_tv_auto_on_desc" msgid="7658625130577708249">"တီဗီကို HDMI ကိရိယာဖြင့် ပါဝါ ဖွင့်ရန်"</string>
+  <plurals name="inputs_header_connected_input">
+    <item quantity="one" msgid="5569334300062609355">"ထည့်သွင်းမှု ချိတ်ဆက်ပြီး"</item>
+    <item quantity="other" msgid="280747600882155182">"ထည့်သွင်းမှုများ ချိတ်ဆက်ပြီး"</item>
+  </plurals>
+  <plurals name="inputs_header_standby_input">
+    <item quantity="one" msgid="737206065869471978">"ထည့်သွင်းမှု အရန်သင့်ရှိ"</item>
+    <item quantity="other" msgid="1673538341842385592">"ထည့်သွင်းမှုများ အရန်သင့်ရှိ"</item>
+  </plurals>
+  <plurals name="inputs_header_disconnected_input">
+    <item quantity="one" msgid="4711426139459946065">"ထည့်သွင်းမှု မချိတ်ဆက်မိ"</item>
+    <item quantity="other" msgid="4526893384805247472">"ထည့်သွင်းမှုများ မချိတ်ဆက်မိ"</item>
+  </plurals>
+    <string name="inputs_state_connected" msgid="2463661081264605403">"ချိတ်ဆက်ထား"</string>
+    <string name="inputs_state_connected_standby" msgid="2861557722523733817">"စောင့်နေ"</string>
+    <string name="inputs_state_disconnected" msgid="558532410057350104">"အဆက် ပြတ်သွား"</string>
+    <string name="user_add_profile_item_summary" msgid="2946168478936086933">"သင့်အက​ောင့်ရှိ app များနှင့် တစ်ခြားအရာများအား ဝင်ခွင့်အကန့်အသတ်ရှိခြင်း"</string>
+    <string name="user_new_profile_name" msgid="336521054830056189">"ကန့်သတ် ပရိုဖိုင်"</string>
+    <string name="user_restrictions_title" msgid="8317193312532216351">"App &amp; အကြောင်းအရာ ရယူသုံးမှု"</string>
+    <string name="user_restrictions_controlled_by" msgid="2107349341393761750">"<xliff:g id="APP">%1$s</xliff:g>မှထိန်းချုပ်ထားသည်"</string>
+    <string name="app_not_supported_in_limited" msgid="6818309827329010677">"ဒီappကို ကန့်သတ် ပရိုဖိုင်များတွင် မပံ့ပိုးပါ။"</string>
+    <string name="app_sees_restricted_accounts" msgid="1967195038085624916">"ဒီappသည် သင့်အကောင့်များကို ရယူနိုင်သည်။"</string>
+    <string name="restriction_location_enable_title" msgid="2575116135395354938">"တည်နေရာ"</string>
+    <string name="restriction_location_enable_summary" msgid="4195349388342385870">"သင့်တည်နေရာ သတင်းအချက်အလက်ကို  appများအား သုံးခွင့်ပြုရန်"</string>
+    <string name="restricted_profile_create" msgid="7081117593480952518">"ကန့်သတ်ထားသည့် အသုံးပြုသူကို ဖန်တီးရန်"</string>
+    <string name="restricted_profile_switch_to" msgid="1926433350907032138">"ကန့်သတ် ပရိုဖိုင်သို့ ဝင်ရန်"</string>
+    <string name="restricted_profile_switch_out" msgid="1893784095623209495">"ကန့်သတ် ပရိုဖိုင်မှ ထွက်ရန်"</string>
+    <string name="restricted_profile_delete_title" msgid="3445944923018324707">"ကန့်သတ်ပရိုဖိုင်အား ဖျက်ရန်"</string>
+    <string name="restricted_profile_configure_title" msgid="4684188123147519620">"ဆက်တင်များ"</string>
+    <string name="restricted_profile_configure_apps_title" msgid="11507255932348492">"ခွင့်ပြုထားသော app များ"</string>
+  <plurals name="restricted_profile_configure_apps_description">
+    <item quantity="one" msgid="5114936540577834412">"app ၁ ခု ခွင့်ပြုသည်"</item>
+    <item quantity="other" msgid="5242661864373721262">"appများ %d ခွင့်ပြုသည်"</item>
+  </plurals>
+    <string name="restricted_profile_allowed" msgid="2903829140619950232">"ခွင့်ပြုသည်"</string>
+    <string name="restricted_profile_not_allowed" msgid="1622620680118897330">"ခွင့်မပြုပါ"</string>
+    <string name="restricted_profile_customize_restrictions" msgid="8418415019078825537">"ကန့်သတ်ချက်များ ပြင်ဆင်ရန်"</string>
+    <string name="restricted_profile_configure_apps_description_loading" msgid="5269477581791409700">"ခဏလေး…"</string>
+    <string name="restricted_profile_change_password_title" msgid="2848537651211816659">"pin ကို ပြောင်းရန်"</string>
+    <string name="restricted_profile_set_password" msgid="3989154189940037175">"ကန့်သတ် ပရိုဖိုင်မှ ထွက်ရန် သုံးထားသည့် PIN ကုဒ် အသစ်ပြုလုပ်ပါ"</string>
+    <string name="restricted_profile_confirm_password" msgid="5749967525546068650">"ကန့်သတ်ထားသော ပရိုဖိုင်မှ ထွက်ရန် သုံးထားသည့် PIN ကုဒ်ကို အတည်ပြုပါ"</string>
+    <string name="restricted_profile_enter_password" msgid="5961473119032585585">"ကန့်သတ် ပရိုဖိုင်မှ ထွက်ရန် PIN ကုဒ် ရိုက်ထည့်ပါ"</string>
+    <string name="restricted_profile_delete_dialog_title" msgid="2998929625283492853">"ကန့်သတ်ထားသည့် အသုံးပြုသူကို ဖယ်ရှားရမလား?"</string>
+    <string name="restriction_description" msgid="3104855945910233028">"<xliff:g id="DESCRIPTION">%1$s</xliff:g>\n<xliff:g id="VALUE">%2$s</xliff:g>"</string>
+    <string name="pin_enter_unlock_channel" msgid="5980400420298506069">"ဤချာနယ် ကြည့်ရန် PIN ရိုက်ထည့်ပါ"</string>
+    <string name="pin_enter_unlock_program" msgid="52453773316071511">"ဤအစီအစဉ် ကြည့်ရန် PIN ရိုက်ထည့်ပါ"</string>
+    <string name="pin_enter_pin" msgid="821552376577935497">"PIN ရိုက်ထည့်ရန်"</string>
+    <string name="pin_enter_new_pin" msgid="4788218421265924211">"PIN အသစ်ကို သတ်မှတ်ပေးရန်"</string>
+    <string name="pin_enter_again" msgid="1510456697040826496">"PIN အသစ်ကို ပြန်ရိုက်ထည့်ရန်"</string>
+    <string name="pin_enter_old_pin" msgid="851029058127630869">"PIN အဟောင်းကို ရိုက်ထည့်ရန်"</string>
+    <string name="pin_enter_wrong" msgid="5653864140710683928">"PIN အမှား ၅ကြိမ် ရိုက်ထည့်ပြီး၏။\nထပ်မံကြိုးစားပါ<xliff:g id="RELATIVE_TIME_SPAN">%1$s</xliff:g>။"</string>
+    <string name="pin_button_done" msgid="939191809977197451">"ပြီးစီးကြောင်း"</string>
+    <string name="pin_button_cancel" msgid="5541414789309863965">"ထားတော့"</string>
+    <string name="pin_toast_wrong" msgid="4628358195224633248">"PIN မှားနေ၏၊ ထပ် စမ်းပါ"</string>
+    <string name="pin_toast_not_match" msgid="5886041789737632996">"PIN မှာ မတိုက်ဆိုင်ပါ၊ ထပ်ပြီး စမ်းပါ။"</string>
+</resources>

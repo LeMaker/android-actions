@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE wap-provisioningdoc PUBLIC "-//WAPFORUM//DTD PROV 1.0//EN" "http://www.wapforum.org/DTD/prov.dtd">
+<wap-provisioningdoc version="1.0">
+ <characteristic type="NAPDEF">
+  <parm name="NAPID" value="IM_NAP_PRE1"></parm>
+  <parm name="NAME" value="IM_NAP_PRE1"></parm>
+  <parm name="BEARER" value="GSM-GPRS"></parm>
+  <parm name="NAP-ADDRESS" value="wap.cingular"></parm>
+  <parm name="NAP-ADDRTYPE" value="APN"></parm>
+  <characteristic type="NAPAUTHINFO">
+   <parm name="AUTHTYPE" value="PAP"></parm>
+   <parm name="AUTHNAME" value="wap"></parm>
+   <parm name="AUTHSECRET" value="wap"></parm>
+  </characteristic>
+ </characteristic>
+ <characteristic type="APPLICATION">
+  <parm name="APPID" value="wA">
+  </parm>
+  <parm name="NAME" value="IM_Prepaid1">
+  </parm>
+  <characteristic type="APPADDR">
+   <parm name="ADDR" value="http://aoltest.cwmim.com">
+   </parm>
+   <characteristic type="PORT">
+    <parm name="PORTNBR" value="0">
+    </parm>
+   </characteristic>
+  </characteristic>
+  
+  <characteristic type="APPAUTH">
+   <parm name="AAUTHLEVEL" value="APPSRV">
+   </parm>
+   <parm name="AAUTHNAME" value="">
+   </parm>
+   <parm name="AAUTHSECRET" value="">
+   </parm>
+  </characteristic>
+  <characteristic type="APPAUTH">
+   <parm name="AAUTHLEVEL" value="CLIENT">
+   </parm>
+   <parm name="AAUTHNAME" value="no in use">
+   </parm>
+   <parm name="AAUTHSECRET" value="">
+   </parm>
+  </characteristic>
+  <characteristic type="PROPRIETARY">
+   <parm name="ServerPostURL" value="">
+   </parm>
+   <parm name="LoginAutoResetConversation" value="false">
+   </parm>
+   <parm name="ServerCirSupported" value="false">
+   </parm>
+   <parm name="ServerLoginMethod" value="2WAY">
+   </parm>
+   <parm name="ServerProxyAddress" value="">
+   </parm>
+   <parm name="ServerProxyPassword" value="">
+   </parm>
+   <parm name="ServerProxyUserName" value="">
+   </parm>
+   <parm name="ServerTransportType" value="HTTP">
+   </parm>
+   <parm name="ServerSMSDestinationAddress" value="">
+   </parm>
+   <parm name="ServSMSCirSup" value="false">
+   </parm>
+   <parm name="SvTCPCIRKeepTim" value="0">
+   </parm>
+   <parm name="SvTCPCIRSup" value="false">
+   </parm>
+   <parm name="ServerCloseSocketAfterResponse" value="true">
+   </parm>
+   <parm name="AutoRefreshContactList" value="false">
+   </parm>
+   <parm name="FrbdUnauthoMsgs" value="false">
+   </parm>
+  </characteristic>
+  <parm name="TO-NAPID" value="IM_NAP_PRE1">
+  </parm>
+ </characteristic>
+</wap-provisioningdoc>

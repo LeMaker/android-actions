@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"การปรับเทียบจีเซ็นเซอร์"</string>
+    <string name="buttonCalib_name">"เรียกใช้การสอบเทียบ"</string>
+    <string name="buttonReset_name">"ลบการสอบเทียบ  "</string>
+    <string name="info_reset">"ลบข้อมูลการสอบเทียบแรงโน้มถ่วง"</string>
+    <string name="info_calib">"เก็บบันทึกข้อมูลการสอบเทียบแรงโน้มถ่วง  "</string>
+    <string name="info_tips">"กรุณาวางอุปกรณ์เป็นแนวนอน  คลิกปุ่มสอบเทียบ"</string>
+</resources>

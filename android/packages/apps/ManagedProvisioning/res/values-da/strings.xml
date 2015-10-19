@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Enhedsklargøring"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Hovsa!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Opret din profil"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Din organisation styrer denne profil og sørger for, at den er sikker. Du styrer alt andet på din enhed."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Den følgende app skal have adgang til denne profil:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Konfigurer"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Konfigurerer din arbejdsprofil…"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Din administrator kan overvåge og administrere indstillinger, virksomhedsadgang, apps og data, der er knyttet til profilen, herunder netværksaktivitet og enhedens placeringsoplysninger."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Din administrator kan overvåge og administrere indstillinger, virksomhedsadgang, apps og data, der er knyttet til denne enhed, herunder netværksaktivitet og enhedens placeringsoplysninger."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Kontakt din administrator for at få flere oplysninger, herunder om din organisations privatlivspolitik."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Få flere oplysninger"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Annuller"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"OK"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Arbejdsprofil"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Du har allerede en arbejdsprofil på enheden. Vil du at fjerne den?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Er du sikker på, at du vil fjerne dette arbejdsprofil? Alle profilens data slettes."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Fjern"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Annuller"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Du skal kryptere din enhed, inden du fortsætter med at konfigurere din arbejdsprofil. Dette kan tage et stykke tid."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Annuller"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Kryptér"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Krypteringen er fuldført"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Tryk for at fortsætte konfigurationen af din arbejdsprofil"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Din arbejdsprofil kunne ikke oprettes. Kontakt din IT-afdeling, eller prøv igen senere."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Din enhed understøtter ikke arbejdsprofiler"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Arbejdsprofiler skal oprettes af enhedens ejer"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Din arbejdsprofil understøttes ikke af denne starter. Skift til en starter, der er kompatibel."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Annuller"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Bruger af arbejdsenhed"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Konfigurer din enhed"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Behandler konfigurationsdata..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Opretter forbindelse til Wi-Fi…"</string>
+    <string name="progress_download" msgid="4995057798189799156">"Downloader administrationsapp…"</string>
+    <string name="progress_install" msgid="9169411715762296097">"Installerer administrationsapp…"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Angiver enhedens ejer…"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Vil du standse konfigureringen?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Er du sikker på, at du vil standse konfigurationen og slette enhedens data?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Annuller"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"OK"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Gendan fabriksdata"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Din enhed kunne ikke konfigureres. Kontakt din it-afdeling."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Denne enhed er allerede konfigureret"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Der kunne ikke oprettes forbindelse til Wi-Fi"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Administrationsappen kunne ikke bruges på grund af en fejl i kontrolsummen. Kontakt din it-afdeling."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Administrationsappen kunne ikke hentes"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Administrationsappen kan ikke bruges. Den mangler komponenter eller er beskadiget. Kontakt din it-afdeling."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Administrationsappen kunne ikke installeres"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Administrationsappen er ikke installeret på din enhed"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Vil du standse konfigurationen?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Er du sikker på, at du vil stoppe konfigurationen?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Nej"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Ja"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Annullerer..."</string>
+</resources>

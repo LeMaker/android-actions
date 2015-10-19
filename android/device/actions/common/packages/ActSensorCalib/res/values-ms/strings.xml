@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Kalibrasi Gsensor"</string>
+    <string name="buttonCalib_name">"Menjalankan kalibrasi "</string>
+    <string name="buttonReset_name">"Padam kalibrasi "</string>
+    <string name="info_reset">"Padam data kalibrasi Gsensor"</string>
+    <string name="info_calib">"Simpan data kalibrasi Gsensor"</string>
+    <string name="info_tips">"Meletakkan peranti ini secara melintang, klik butang kalibrasi."</string>
+</resources>

@@ -1,0 +1,43 @@
+|A1|4VGA|~yuv420sp|r30|1|5VGA|d2|p|d4
+|z1x|eauto|8auto|wauto|d2|p|d4
+|z1x|emono|8incandescent|wlandscape|d2|p|d4
+|z1x|enegative|8fluorescent|wlandscape|d2|p|d4
+|z1x|esolarize|8daylight|wnight|d2|p|d4
+|z1x|esepia|8cloudy-daylight|wnight|d2|p|d4
+|z1.5x|eauto|8auto|wauto|d2|p|d4
+|z1.5x|emono|8incandescent|wlandscape|d2|p|d4
+|z1.5x|enegative|8fluorescent|wlandscape|d2|p|d4
+|z1.5x|esolarize|8daylight|wnight|d2|p|d4
+|z1.5x|esepia|8cloudy-daylight|wnight|d2|p|d4
+|z2x|eauto|8auto|wauto|d2|p|d4
+|z2x|emono|8incandescent|wlandscape|d2|p|d4
+|z2x|enegative|8fluorescent|wlandscape|d2|p|d4
+|z2x|esolarize|8daylight|wnight|d2|p|d4
+|z2x|esepia|8cloudy-daylight|wnight|d2|p|d4
+|z2.5x|eauto|8auto|wauto|d2|p|d4
+|z2.5x|emono|8incandescent|wlandscape|d2|p|d4
+|z2.5x|enegative|8fluorescent|wlandscape|d2|p|d4
+|z2.5x|esolarize|8daylight|wnight|d2|p|d4
+|z2.5x|esepia|8cloudy-daylight|wnight|d2|p|d4
+|z3.5x|eauto|8auto|wauto|d2|p|d4
+|z3.5x|emono|8incandescent|wlandscape|d2|p|d4
+|z3.5x|enegative|8fluorescent|wlandscape|d2|p|d4
+|z3.5x|esolarize|8daylight|wnight|d2|p|d4
+|z3.5x|esepia|8cloudy-daylight|wnight|d2|p|d4
+|z4x|eauto|8auto|wauto|d2|p|d4
+|z4x|emono|8incandescent|wlandscape|d2|p|d4
+|z4x|enegative|8fluorescent|wlandscape|d2|p|d4
+|z4x|esolarize|8daylight|wnight|d2|p|d4
+|z4x|esepia|8cloudy-daylight|wnight|d2|p|d4
+|z1x|d1
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0034
+//DESCRIPTION: Camera HAL shall support image capture with different colour effect, exposure , whilte balance and scene mode 
+//     AUTHOR: JShandorov
+//       DATE: 24.06.2010
+//    VERSION: 2.0
+

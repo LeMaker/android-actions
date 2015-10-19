@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="text_size_title">32sp</dimen>
+    <dimen name="text_size_information">20sp</dimen>
+</resources>

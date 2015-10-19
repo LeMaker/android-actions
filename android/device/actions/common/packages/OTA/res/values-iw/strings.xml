@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"הגדרות"</string>
+    <string name="title_activity_main">"שדרוג OWL "</string>
+    <string name="update_online">"שדרוג דרך האינטרנט"</string>
+    <string name="update_native">"שדרוג מקומי"</string>
+    <string name="goto_recovery">"להחזיר למצב שדרוג שחזור ?"</string>
+    <string name="progress_dialog_title">"מתחבר לרשת"</string>
+    <string name="not_connect">"לא מחובר לרשת"</string>
+    <string name="progress_dialog_mgs">"בדיקת עדכונים , אנא המתן ..."</string>
+    <string name="connect_server_wrong">"השרת עסוק, אנא נסו להתחבר שוב"</string>
+    <string name="current_system_isnew">"הגרסה הנוכחית של המערכת הכי חדשה"</string>
+    <string name="sure">"לאשר"</string>
+    <string name="cancel">"לבטל"</string>
+    <string name="update_message">"נמצאה גרסה חדשה, האם להוריד?"</string>
+    <string name="update_title">"שדרוג לגרסה החדשה"</string>
+    <string name="download">"להוריד"</string>
+    <string name="update_rightnow">"לשדרג עכשיו"</string>
+    <string name="start_download">"התחל להוריד את חבילת השדרוג"</string>
+    <string name="update_package">"חבילת השדרוג"</string>
+    <string name="download_complete">"ההורדה הסתיימה"</string>
+    <string name="download_fail">"ההורדה נכשלה"</string>
+    <string name="md5_check_fail">"שגיאת אימות MD5"</string>
+    <string name="update_package_downloaded">"חבילת שדרוג כבר הורדה"</string>
+    <string name="finish_download">"הורדת חבילת השדרוג הסתיימה"</string>
+    <string name="update_notice">"להתחיל שדרוג OTA: מתבצעה תהליך השדרוג, הפעולה אינה יכולה להיות מופסקת, אנא תעשו גיבוי לנתונים."</string>
+    <string name="cancel_download">"לבטל הורדה?"</string>
+    <string name="wait_downloading">"אנא חכו, טוען ..."</string>
+    <string name="download_update_file">"קובץ שדרוג לא נמצא בספריית SDCard, בצעו שדרוג דרך האינטרנט כדי להוריד את קובץ השדרוג"</string>
+    <string name="return_native_update">"חבילת שדרוג מקומית קיימת, אנא חזרו לשדרוג מקומי"</string>
+    <string name="have_update">"בדקו אם יש עדכונים למערכת"</string>
+    <string name="notification_update">"כדי לבצע הגדרות לתוכנה, לחצו על עדכון OWL "</string>
+    <string name="download_notice">"נא לשמור על תעבורת הרשת, מתבצע תהליך הורדה, לא לנתק את חיבור ה-USB"</string>
+    <string name="apk_title">"עדכון OWL גירסה 1.0"</string>
+    <string name="checkbox_title">"עדכון שאילתה אוטומטי"</string>
+    <string name="checkbox_summary">"הסרת הסימון מאפשרת להתחבר לשרת הרשת באופן לא אוטומטי"</string>
+    <string name="checkfrequency_title">"הגדירו את מחזור השאילתא"</string>
+    <string name="checkfrequency_summary">"מחזור השאילתא"</string>
+    <string name="day">"יום"</string>
+    <string name="battery_low">"סוללה חלשה"</string>
+    <string name="battery_notify">"יש להתקין את העדכונים כאשר סוללה מעל 50%"</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DMTestPlugin</string>
+
+    <string name="get_dm_tree_label">Get DM Tree</string>
+    <string name="inject_soap_package_label">Inject test SOAP package</string>
+    <string name="start_client_session_label">Start client session</string>
+</resources>

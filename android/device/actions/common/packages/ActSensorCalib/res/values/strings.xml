@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sensors</string>
+    <string name="button_gsensor">gSensor</string>
+    <string name="button_gyrosensor">gyroSensor</string>
+    <string name="button_compasssensor">compassSensor</string>
+    <string name="buttonCalib_name">Run Calibration</string>
+    <string name="buttonReset_name">Clear Calibration </string>
+    <string name="gyro_buttonCalib_name">Run Calibration</string>
+    <string name="gyro_buttonReset_name">Clear Calibration </string>
+    <string name="info_reset">Calibration Data Cleared</string>
+    <string name="info_calib">Calibration Data Saved</string>
+    <string name="info_tips">Please put device on a level surface and stand still.</string>
+    <string name="info_gyrosensor_tips">Please put device on a level surface and stand still.</string>
+    <string name="info_compasssensor_tips">Please keep waving the tablet in a figure 8 motion to calibrate,until accuracy is 3.</string>
+    <string name="m_gravity">Accelerometer\nSensor</string>
+    <string name="m_light_sense">Light\nSensor</string>
+    <string name="m_gradienter">Orientation\nSensor</string>
+    <string name="m_distance">Proximity\nSensor</string>
+    <string name="m_temperature">Temperature\nSensor</string>
+    <string name="m_gyroscope">Gyroscope\nSensor</string>
+    <string name="m_voice">Sound\nSensor</string>
+    <string name="m_magnetic">Magnetic\nSensor</string>
+    <string name="m_pressure">Pressure\nSensor</string>
+    <string name="gSeneor_activity_name">Accelerometer Sensor</string>
+    <string name="gyroSeneor_activity_name">Gyroscope Sensor</string>
+    <string name="compassSeneor_activity_name">Magnetic Sensor</string>
+</resources>

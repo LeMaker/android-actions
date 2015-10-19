@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"Hiệu chỉnh trọng lực"</string>
+    <string name="buttonCalib_name">"Thực hiện hiệu chỉnh"</string>
+    <string name="buttonReset_name">"Xóa hiệu chỉnh"</string>
+    <string name="info_reset">"Xóa dữ liệu hiệu chỉnh"</string>
+    <string name="info_calib">"Lưu dữ liệu hiệu chỉnh trọng lực"</string>
+    <string name="info_tips">"Đặt thiết bị này nằm ngang, nhấn nút hiệu chỉnh"</string>
+</resources>

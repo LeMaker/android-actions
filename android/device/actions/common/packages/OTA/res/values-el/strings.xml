@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Ρυθμίσεις"</string>
+    <string name="title_activity_main">"       Κουκουβάγια Αναβάθμιση"</string>
+    <string name="update_online">"online αναβάθμιση"</string>
+    <string name="update_native">"Τοπική αναβάθμιση"</string>
+    <string name="goto_recovery">"Επαναφορά στην ανάκαμψη λειτουργία αναβάθμισης ;"</string>
+    <string name="progress_dialog_title">"Δικτύωση στην"</string>
+    <string name="not_connect">"Όχι συνδεδεμένο με το δίκτυο"</string>
+    <string name="progress_dialog_mgs">"Έλεγχος για ενημερώσεις , παρακαλώ περιμένετε ..."</string>
+    <string name="connect_server_wrong">"Ο διακομιστής είναι απασχολημένος , μπορείτε να επαναλάβετε τη σύνδεση"</string>
+    <string name="current_system_isnew">"Η τρέχουσα έκδοση του συστήματος είναι up- to-ημερομηνία"</string>
+    <string name="sure">"βέβαιος"</string>
+    <string name="cancel">"Ακύρωση"</string>
+    <string name="update_message">"Ελέγξτε την ενημερωμένη έκδοση , είτε για να κατεβάσετε ;"</string>
+    <string name="update_title">"Νέες ενημερώσεις έκδοση"</string>
+    <string name="download">"Λήψη"</string>
+    <string name="update_rightnow">"Αναβάθμιση τώρα"</string>
+    <string name="start_download">"Έναρξη για να κατεβάσετε το πακέτο αναβάθμισης"</string>
+    <string name="update_package">"Αναβάθμιση πακέτο"</string>
+    <string name="download_complete">"Download είναι πλήρης"</string>
+    <string name="download_fail">"Κατεβάστε απέτυχε"</string>
+    <string name="md5_check_fail">"MD5 σφάλμα Ισοτιμία"</string>
+    <string name="update_package_downloaded">"Πακέτο αναβάθμισης έχει κατεβάσει"</string>
+    <string name="finish_download">"Πακέτο αναβάθμισης έχει ολοκληρωθεί η λήψη"</string>
+    <string name="update_notice">"\ NStart OTA αναβάθμιση : . \ nΤο ' διαδικασία αναβάθμισης , η προσφυγή δεν μπορεί να διακοπεί , παρακαλούμε να δημιουργήσετε αντίγραφα ασφαλείας των δεδομένων σας \ N"</string>
+    <string name="cancel_download">"Είτε για να ακυρώσετε τη λήψη ;"</string>
+    <string name="wait_downloading">"Περιμένετε , είναι το κατέβασμα ..."</string>
+    <string name="download_update_file">"Δεν το αρχείο ενημέρωσης στο SDCard κατάλογο , online αναβάθμιση για να κατεβάσετε το αρχείο ενημέρωσης"</string>
+    <string name="return_native_update">"Η τοπική υπάρχον πακέτο αναβάθμισης , παρακαλούμε να επιστρέψετε στην τοπική αναβάθμιση"</string>
+    <string name="have_update">"Έλεγχος για ενημερώσεις του συστήματος"</string>
+    <string name="notification_update">"Επιλέξτε Ρυθμίσεις εφαρμογή αναβάθμισης κουκουβάγια"</string>
+    <string name="download_notice">"Παρακαλώ κρατήστε την κυκλοφορία του δικτύου , η διαδικασία λήψης , παρακαλώ μην ανοίξετε τη σύνδεση USB"</string>
+    <string name="apk_title">"Κουκουβάγια UpgradeV1.0"</string>
+    <string name="checkbox_title">"Αυτόματη ερώτημα ανανέωσης"</string>
+    <string name="checkbox_summary">"Καταργήστε την επιλογή δεν μπορεί αυτόματη διακομιστή πρόσβασης δικτύου"</string>
+    <string name="checkfrequency_title">"Ρυθμίστε τον κύκλο έρευνας"</string>
+    <string name="checkfrequency_summary">"Ο κύκλος έρευνα :"</string>
+    <string name="day">"ημέρα"</string>
+    <string name="battery_low">"Χαμηλή μπαταρία"</string>
+    <string name="battery_notify">"παρακαλούμε να εγκαταστήσετε την ενημερωμένη έκδοση, όταν η μπαταρία είναι πάνω από 50 %"</string>
+</resources>

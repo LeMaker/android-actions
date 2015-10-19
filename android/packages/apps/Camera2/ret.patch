@@ -1,0 +1,84 @@
+diff --git a/project.properties b/project.properties
+old mode 100644
+new mode 100755
+index 2f095e1..d731dba
+--- a/project.properties
++++ b/project.properties
+@@ -11,4 +11,4 @@
+ #proguard.config=${sdk.dir}/tools/proguard/proguard-android.txt:proguard-project.txt
+ 
+ # Project target.
+-target=android-L
++target=Google Inc.:Google APIs:21
+diff --git a/res/xml/camera_preferences.xml b/res/xml/camera_preferences.xml
+old mode 100644
+new mode 100755
+index 3266cae..ece2eb1
+--- a/res/xml/camera_preferences.xml
++++ b/res/xml/camera_preferences.xml
+@@ -71,8 +71,8 @@
+   </PreferenceScreen>
+ 
+   <!-- Google Help and feedback launcher -->
+-  <Preference
++  <!--Preference
+       android:key="pref_launch_help"
+-      android:title="@string/setting_google_help_and_feedback" />
++      android:title="@string/setting_google_help_and_feedback" /-->
+ 
+ </PreferenceScreen>
+diff --git a/src/com/android/camera/PhotoModule.java b/src/com/android/camera/PhotoModule.java
+index 19a2f39..4d3baf2 100755
+--- a/src/com/android/camera/PhotoModule.java
++++ b/src/com/android/camera/PhotoModule.java
+@@ -1416,6 +1416,7 @@ public class PhotoModule
+         startPreview();
+ 
+         onCameraOpened();
++		Log.i(TAG, "onCameraAvailable end");
+     }
+ 
+     @Override
+@@ -2017,6 +2018,7 @@ public class PhotoModule
+             new CameraAgent.CameraStartPreviewCallback() {
+                 @Override
+                 public void onPreviewStarted() {
++                Log.i(TAG, "onPreviewStarted");
+                     mFocusManager.onPreviewStarted();
+                     PhotoModule.this.onPreviewStarted();
+                     SessionStatsCollector.instance().previewActive(true);
+@@ -2026,8 +2028,11 @@ public class PhotoModule
+                 }
+             };
+         if (GservicesHelper.useCamera2ApiThroughPortabilityLayer(mActivity)) {
+-            mCameraDevice.startPreview();
+-            startPreviewCallback.onPreviewStarted();
++			///
++            mCameraDevice.startPreview();///here
++            ///
++            startPreviewCallback.onPreviewStarted();///see above
++            
+         } else {
+             mCameraDevice.startPreviewWithCallback(new Handler(Looper.getMainLooper()),
+                     startPreviewCallback);
+diff --git a/src/com/android/camera/settings/CameraSettingsActivity.java b/src/com/android/camera/settings/CameraSettingsActivity.java
+index 740eb3a..1e67ec5 100755
+--- a/src/com/android/camera/settings/CameraSettingsActivity.java
++++ b/src/com/android/camera/settings/CameraSettingsActivity.java
+@@ -139,7 +139,7 @@ public class CameraSettingsActivity extends FragmentActivity {
+             final PreferenceScreen advancedScreen =
+                 (PreferenceScreen) findPreference(PREF_CATEGORY_ADVANCED);
+             setPreferenceScreenIntent(advancedScreen);
+-
++			/*
+             Preference helpPref = findPreference(PREF_LAUNCH_HELP);
+             helpPref.setOnPreferenceClickListener(
+                 new OnPreferenceClickListener() {
+@@ -149,6 +149,7 @@ public class CameraSettingsActivity extends FragmentActivity {
+                         return true;
+                     }
+                 });
++			*/
+             getPreferenceScreen().getSharedPreferences()
+                     .registerOnSharedPreferenceChangeListener(this);
+         }

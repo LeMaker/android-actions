@@ -1,0 +1,10 @@
+|A1|4VGA|~yuv420sp|r30|5VGA|1|d5|p|d20|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0014
+//DESCRIPTION: Camera HAL shall support burst mode, where in successive images can be captured without returning back to the preview
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0

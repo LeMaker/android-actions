@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">خدمة DM</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">إدارة الجهاز</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">رسالة النظام</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">موافق</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">رفض</string>
+    <string name="dm_session_button_confirm">تحديث</string>
+    <string name="dm_session_button_reject">إلغاء</string>
+    <string name="dm_session_confirmation_title">تحديث النظام</string>
+    <string name="dm_session_confirmation_message">تحديث النظام الخاص بهاتفك متاح</string>
+    <string name="dm_session_confirmation_notification_label">تحديث النظام</string>
+    <string name="dm_session_confirmation_notification_message">طلب جلسة DM جديد</string>
+    <string name="dm_session_information_notification_label">تحديث النظام</string>
+    <string name="dm_session_information_notification_message1">قام الخادم بتقديم طلب</string>
+    <string name="dm_session_information_notification_message2_success">أكمل الجهاز طلب الخادم</string>
+    <string name="dm_session_information_notification_message2_fail">فشل الجهاز في إكمال طلب الخادم</string>
+
+</resources>

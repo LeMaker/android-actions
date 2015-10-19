@@ -1,0 +1,12 @@
+|4VGA|~yuv420sp|r30|9H264|vmp4|-AMR_NB|]64K
+|lHD|6|d5|2
+|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0047
+//DESCRIPTION: In video mode, the following output image resolutions and frame rates shall be supported: D1, WVGA, 720p and 1080p
+//     AUTHOR: JShandorov
+//       DATE: 12.04.2010
+//    VERSION: 1.0

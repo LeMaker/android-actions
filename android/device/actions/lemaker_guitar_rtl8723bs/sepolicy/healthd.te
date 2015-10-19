@@ -1,0 +1,4 @@
+allow healthd rootfs:file entrypoint;
+allow healthd self:capability2 *;
+allow healthd system_file:dir r_dir_perms;
+allow healthd system_file:file r_file_perms;

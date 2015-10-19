@@ -1,0 +1,21 @@
+<MgmtTree>
+ <VerDTD>1.1.2</VerDTD>
+ <Man>Motorola</Man>
+ <Mod>Nexus</Mod>
+
+   <Node>
+    <NodeName>ManagedObjects</NodeName>
+    <DFProperties>
+     <DFFormat>
+      <node/>
+     </DFFormat>
+     <AccessType>
+      <Get/>
+      <Add/>
+      <Replace/>
+      <Delete/>
+     </AccessType>
+    </DFProperties>
+     <Type>text/plain</Type>
+   </Node>
+</MgmtTree>

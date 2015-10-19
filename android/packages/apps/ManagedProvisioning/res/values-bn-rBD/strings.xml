@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"ডিভাইস প্রভিশনার"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"ওহো!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"আপনার প্রোফাইল সেট আপ করুন"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"আপনার প্রতিষ্ঠান এই প্রোফাইল নিয়ন্ত্রণ করে এবং একে সুরক্ষিত রাখে। আপনি আপনার ডিভাইসের বাকি সব কিছু নিয়ন্ত্রণ করেন।"</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"নিম্নোল্লিখিত অ্যাপ্লিকেশানটিকে এই প্রোফাইলটি অ্যাক্সেস করতে হবে:"</string>
+    <string name="set_up" msgid="7012862095553564169">"সেট আপ"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"আপনার কর্মস্থলের প্রোফাইল সেট আপ হচ্ছে..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"আপনার প্রশাসক নেটওয়ার্ক কার্যকলাপ ও আপনার ডিভাইসের অবস্থান সম্পর্কিত তথ্য সহ প্রোফাইলটির সাথে সম্পর্কিত সেটিংস, কর্পোরেট অ্যাক্সেস, অ্যাপ্লিকেশান এবং ডেটা নিরীক্ষণ ও পরিচালনা করতে সক্ষম৷"</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"আপনার প্রশাসক নেটওয়ার্ক কার্যকলাপ এবং আপনার ডিভাইসের অবস্থান সম্পর্কিত তথ্য সহ এই ডিভাইসের সাথে সম্পর্কিত সেটিংস, কর্পোরেট অ্যাক্সেস, অ্যাপ্লিকেশান এবং ডেটা নিরীক্ষণ ও পরিচালনা করতে সক্ষম৷"</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"আপনার প্রতিষ্ঠানের গোপনীয়তা নীতি সহ আরো তথ্যের জন্য আপনার প্রশাসকের সাথে যোগাযোগ করুন।"</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"আরো জানুন"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"বাতিল করুন"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"ঠিক আছে"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"কর্মস্থলের প্রোফাইল"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"আপনার ডিভাইসে ইতিমধ্যে একটি কর্মস্থলের প্রফাইল আছে। আপনি কি এটি সরাতে চান?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"আপনি কি নিশ্চিত আপনি কর্মস্থলের প্রফাইল সরাতে চান ? এর সব ডেটা মুছে ফেলা হবে।"</string>
+    <string name="delete_profile" msgid="7107020982626129151">"সরান"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"বাতিল করুন"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"সেট আপ অবিরত রাখতে, আপনাকে আপনার ডিভাইস এনক্রিপ্ট করতে হবে। এর জন্য কিছুক্ষণ সময় লাগবে।"</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"বাতিল করুন"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"এনক্রিপ্ট করুন"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"এনক্রিপশন সম্পূর্ণ"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"আপনার কর্মস্থলের প্রোফাইল সেট আপ করা অব্যাহত রাখতে স্পর্শ করুন।"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"আপনার কর্মস্থলের প্রোফাইলটি সেটআপ করা যায়নি। আপনার IT বিভাগের সাথে যোগাযোগ করুন অথবা পরে আবার চেষ্টা করুন।"</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"আপনার ডিভাইস কর্মস্থলের প্রোফাইলগুলি সমর্থন করে না"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"কর্মস্থলের প্রোফাইলটি ডিভাইসের ব্যবহারকারী মালিকের দ্বারা সেট আপ করতে হবে"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"আপনার কর্মস্থলের প্রোফাইল এই লঞ্চার অ্যাপ্লিকেশান দ্বারা সমর্থিত নয়। আপনাকে একটি সামঞ্জস্যপূর্ণ লঞ্চারে যেতে হবে।"</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"বাতিল করুন"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"ঠিক আছে"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"কর্মস্থলের ডিভাইসের ব্যবহারকারী"</string>
+    <string name="setup_device" msgid="6725265673245816366">"আপনার ডিভাইস সেট আপ করুন"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"সেটআপ ডেটা প্রক্রিয়াকৃত হচ্ছে..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi এ সংযুক্ত হচ্ছে..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"প্রশাসক অ্যাপ্লিকেশান ডাউনলোড হচ্ছে..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"প্রশাসক অ্যাপ্লিকেশান ইনস্টল হচ্ছে..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"ডিভাইসের মালিক সেট করা হচ্ছে..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"সেট আপ করা বন্ধ করবেন?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"আপনি কি নিশ্চিত আপনি আপনার ডিভাইস সেট আপ করা বন্ধ করতে চান ও এর ডেটা সাফ করে ফেলতে চান?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"বাতিল করুন"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"ঠিক আছে"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"পুনরায় সেট করুন"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"আপনার ডিভাইস সেট আপ করা যায়নি। আপনার IT বিভাগের সাথে যোগাযোগ করুন।"</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"এই ডিভাইসটি ইতিমধ্যে সেট আপ হয়ে আছে"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi এর সাথে সংযুক্ত করা যায়নি"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"একটি চেকসাম ত্রুটির কারণে প্রশাসক অ্যাপ্লিকেশান ব্যবহার করা যায়নি। আপনার IT বিভাগের সাথে যোগাযোগ করুন।"</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"প্রশাসক অ্যাপ্লিকেশানটি ডাউনলোড করা যায়নি"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"প্রশাসক অ্যাপ্লিকেশান ব্যবহার করা যাচ্ছে না। এতে কিছু উপাদান অনুপস্থিত আছে বা এটি ক্ষতিগ্রস্ত হয়েছে। আপনার IT বিভাগের সাথে যোগাযোগ করুন।"</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"প্রশাসক অ্যাপ্লিকেশান ইনস্টল করা যায়নি।"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"আপনার ডিভাইসে প্রশাসক অ্যাপ্লিকেশানটি ইনস্টল করা নেই"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"সেটআপ করা বন্ধ করবেন?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"আপনি কি সেটআপ প্রক্রিয়া বন্ধ করার বিষয়ে নিশ্চিত?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"না"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"হ্যাঁ"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"বাতিল হচ্ছে..."</string>
+</resources>

@@ -1,0 +1,796 @@
+#########################################################################
+# Copyright (c) 2009-~ Hu bin
+# 
+# This source code is released for free distribution under the terms of the
+# GNU General Public License
+# 
+# Author:    ian<ian.jiang@artekmicro.com>
+# File Name: write_mac.sh
+# Description: write mac address to Action pad from sd card
+#########################################################################
+#!/system/bin/sh
+
+
+#
+#出错处理
+#
+function error_goto_exit()
+{
+
+	if [ $bt_error_flag -eq $((3)) ];then
+		report_error
+		exit
+	fi
+
+	if [ $bt_error_flag -eq $((4)) ];then
+		report_error
+		exit
+	fi
+
+	
+	if [ $bt_error_flag -eq $((0)) ];then
+
+		echo "mac_addr_type=wifi_mac_addr" > ${MAC_CONFIG_FILE}
+		echo "wifi_addr_min=${wifi_addr_min}" >> ${MAC_CONFIG_FILE}
+		echo "wifi_addr_cur=${wifi_addr_cur}" >> ${MAC_CONFIG_FILE}
+		echo "wifi_addr_max=${wifi_addr_max}" >> ${MAC_CONFIG_FILE}
+
+		write_bt_mac
+		report_error
+		exit
+	fi
+	
+	if [ $bt_error_flag -eq $((1)) ];then
+
+		if [ $wifi_mac_addr_flag -eq $((1)) ];then
+			echo "mac_addr_type=bt_mac_addr" >> ${MAC_CONFIG_FILE}
+		else
+			echo "new write_bt_mac_config_file"
+			echo "mac_addr_type=bt_mac_addr" > ${MAC_CONFIG_FILE}
+		fi
+	
+		echo "bt_addr_min=${bt_addr_min}" >> ${MAC_CONFIG_FILE}
+		echo "bt_addr_cur=${bt_addr_cur}" >> ${MAC_CONFIG_FILE}
+		echo "bt_addr_max=${bt_addr_max}" >> ${MAC_CONFIG_FILE}
+	
+		report_error
+		exit
+	fi
+
+}
+
+
+function mac_format_check_is_valid()
+{
+	if [ $# -ne 1 ]; then
+		echo "error:the mac address format is error(1)!" >> $logfile
+		wifi_error_flag=3
+		bt_error_flag=3
+		error_goto_exit
+		
+	else
+		
+		mac=$1
+		#echo $mac|grep "^[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}$"  > /dev/null
+
+		echo $mac|grep "^[a-z]\{2,4\}_[a-z]\{3,4\}_[a-z]\{3,4\}=[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}$"  > /dev/null
+
+		#echo $mac|grep "^[a-z]\{2,4\}_[a-z]\{3,4\}_[a-z]\{3,4\}=[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}:[0-9a-fA-F]\{1,2\}$"
+
+		if [ $? -ne 0 ];then
+			echo "error:the mac address format is error(2)!" >> $logfile
+			wifi_error_flag=3
+			bt_error_flag=3
+			error_goto_exit
+			
+		fi
+	fi
+}
+
+function read_mac_from_file(){
+
+	while read line
+	do
+		#echo $line
+		if [ $(echo ${line%=*})x = "mac_addr_type"x ]; then
+			mac_addr_type=$(echo ${line#*=})
+			echo "mac_addr_type="$mac_addr_type
+		fi
+
+		#WIFI
+		if [ $(echo $mac_addr_type)x = "wifi_mac_addr"x ]; then
+
+			#set the flag
+			wifi_mac_addr_flag=$((1));
+			
+			if [ $(echo ${line%=*})x = "wifi_addr_min"x ]; then
+				mac_format_check_is_valid $line
+				wifi_addr_min=$(echo ${line#*=})
+				echo "wifi_addr_min="$wifi_addr_min
+			fi
+		
+			if [ $(echo ${line%=*})x = "wifi_addr_cur"x ]; then
+				mac_format_check_is_valid $line
+				wifi_addr_cur=$(echo ${line#*=})
+				echo "wifi_addr_cur="$wifi_addr_cur
+			fi
+		
+			if [ $(echo ${line%=*})x = "wifi_addr_max"x ]; then
+				mac_format_check_is_valid $line
+				wifi_addr_max=$(echo ${line#*=})
+				echo "wifi_addr_max="$wifi_addr_max
+			fi
+		fi
+
+		#BT
+		if [ $(echo $mac_addr_type)x = "bt_mac_addr"x ]; then
+		
+			#set the flag
+			bt_mac_addr_flag=$((1));
+		
+			if [ $(echo ${line%=*})x = "bt_addr_min"x ]; then
+				mac_format_check_is_valid $line
+				bt_addr_min=$(echo ${line#*=})
+				echo "bt_addr_min="$bt_addr_min
+			fi
+		
+			if [ $(echo ${line%=*})x = "bt_addr_cur"x ]; then
+				mac_format_check_is_valid $line
+				bt_addr_cur=$(echo ${line#*=})
+				echo "bt_addr_cur="$bt_addr_cur
+			fi
+		
+			if [ $(echo ${line%=*})x = "bt_addr_max"x ]; then
+				mac_format_check_is_valid $line
+				bt_addr_max=$(echo ${line#*=})
+				echo "bt_addr_max="$bt_addr_max
+			fi
+		fi
+	done < $MAC_CONFIG_FILE
+
+		
+	if [ $(echo $mac_addr_type)x = x ]; then
+		echo "error:the config file is illegal!" >> $logfile
+		wifi_error_flag=4
+		bt_error_flag=4
+		error_goto_exit
+	fi
+
+	#echo "read_mac_from_file end"
+}
+
+
+############################ WIFI MAC ADDRESS ###############################
+
+
+###################################
+#
+#interface
+#input : mac=$wifi_addr_cur    mac=$wifi_addr_min   mac=$wifi_addr_max  
+#output: num_cur_addr/num_cur_vendor  
+##################################
+function wifi_mac2num()
+{
+	mac=$wifi_addr_cur
+	a=$(echo 0x`echo $mac | busybox awk -F':' '{print $1}'`)
+	b=$(echo 0x`echo $mac | busybox awk -F':' '{print $2}'`)
+	c=$(echo 0x`echo $mac | busybox awk -F':' '{print $3}'`)
+	d=$(echo 0x`echo $mac | busybox awk -F':' '{print $4}'`)
+	e=$(echo 0x`echo $mac | busybox awk -F':' '{print $5}'`)
+	f=$(echo 0x`echo $mac | busybox awk -F':' '{print $6}'`)
+
+	a1=$(echo `busybox printf "%02X" $(($a))`)
+	b1=$(echo `busybox printf "%02X" $(($b))`)
+	c1=$(echo `busybox printf "%02X" $(($c))`)
+	d1=$(echo `busybox printf "%02X" $(($d))`)
+	e1=$(echo `busybox printf "%02X" $(($e))`)
+	f1=$(echo `busybox printf "%02X" $(($f))`)
+ 
+ 	wifi_addr_cur="$a1:$b1:$c1:$d1:$e1:$f1"
+
+	#echo $a "=" $(($a))
+	#echo $b "=" $(($b))
+	#echo $c "=" $(($c))
+	#echo $d "=" $(($d))
+	#echo $e "=" $(($e))
+	#echo $f "=" $(($f))
+	
+	num_cur_addr=$(($((d<<16))+$((e<<8))+f))
+	num_cur_vendor=$(($((a<<16))+$((b<<8))+c))
+
+	
+	mac=$wifi_addr_min
+	a=$(echo 0x`echo $mac | busybox awk -F':' '{print $1}'`)
+	b=$(echo 0x`echo $mac | busybox awk -F':' '{print $2}'`)
+	c=$(echo 0x`echo $mac | busybox awk -F':' '{print $3}'`)
+	d=$(echo 0x`echo $mac | busybox awk -F':' '{print $4}'`)
+	e=$(echo 0x`echo $mac | busybox awk -F':' '{print $5}'`)
+	f=$(echo 0x`echo $mac | busybox awk -F':' '{print $6}'`)
+ 
+	num_min_addr=$(($((d<<16))+$((e<<8))+f))
+	num_min_vendor=$(($((a<<16))+$((b<<8))+c))
+	
+	
+	mac=$wifi_addr_max
+	a=$(echo 0x`echo $mac | busybox awk -F':' '{print $1}'`)
+	b=$(echo 0x`echo $mac | busybox awk -F':' '{print $2}'`)
+	c=$(echo 0x`echo $mac | busybox awk -F':' '{print $3}'`)
+	d=$(echo 0x`echo $mac | busybox awk -F':' '{print $4}'`)
+	e=$(echo 0x`echo $mac | busybox awk -F':' '{print $5}'`)
+	f=$(echo 0x`echo $mac | busybox awk -F':' '{print $6}'`)
+ 
+	num_max_addr=$(($((d<<16))+$((e<<8))+f))
+	num_max_vendor=$(($((a<<16))+$((b<<8))+c))
+
+}
+
+function wifi_mac_check_isvalid()
+{
+	if [ $num_cur_vendor -ne $num_min_vendor ]; then
+		wifi_error_flag=1
+		echo "error:the first 24bit of wifi mac addr is different.\n" >> $logfile
+		error_goto_exit
+	fi
+	
+	if [ $num_cur_vendor -ne $num_max_vendor ]; then
+		wifi_error_flag=1
+		echo "error:the first 24bit of wifi mac addr is different.\n" >> $logfile
+		error_goto_exit
+	fi
+	
+	if [ $num_cur_addr -lt $num_min_addr ]; then
+		wifi_error_flag=1
+		echo "error:current wifi mac address smaller than min mac address!\n" >> $logfile
+		error_goto_exit
+	fi
+	
+	if [ $num_cur_addr -gt $num_max_addr ]; then
+		wifi_error_flag=1
+		echo "error:current wifi mac address greater than max mac address!\n" >> $logfile
+		error_goto_exit
+	fi
+
+	if [ $num_cur_addr -eq $num_max_addr ]; then
+		wifi_error_flag=2
+		echo "warning:current wifi mac address has arrived to max mac address!\n" >> $logfile
+	fi
+
+	#the address 00:00:00:00:00:00 is invalid
+	if [ $num_cur_vendor -eq 0 ]; then
+		if [ $num_cur_addr -eq 0 ]; then
+			wifi_error_flag=1
+			echo "error:the mac address 00:00:00:00:00:00 is invalid!\n" >> $logfile
+			error_goto_exit
+		fi
+	fi
+
+
+	#WIFI mac地址第一个字节后两位必须为0
+	tmp=$(($(($num_cur_vendor>>16))%4))
+	if [ $tmp -ne 0 ];then
+			wifi_error_flag=1
+			echo "the first byte of the wifi mac address is "$(($num_cur_vendor>>16))
+			echo "error:the last two bit must be 0 for the first byte of the wifi mac address!\n" >> $logfile
+			error_goto_exit
+	fi
+	
+
+}
+
+function wifi_num2mac()
+{
+	a=$((num_cur_vendor>>16&0xff))
+	b=$((num_cur_vendor>>8&0xff))
+	c=$((num_cur_vendor&0xff))
+	
+	d=$((num_next_addr>>16&0xff))
+	e=$((num_next_addr>>8&0xff))
+	f=$((num_next_addr&0xff))
+	
+	a=$(echo `busybox printf "%02X" $a`)
+	b=$(echo `busybox printf "%02X" $b`)
+	c=$(echo `busybox printf "%02X" $c`)
+	d=$(echo `busybox printf "%02X" $d`)
+	e=$(echo `busybox printf "%02X" $e`)
+	f=$(echo `busybox printf "%02X" $f`)
+ 
+ 	wifi_addr_next="$a:$b:$c:$d:$e:$f"
+    
+	#echo "wifi_addr_next = "$wifi_addr_next
+}
+
+
+function write_wifi_mac_config_file()
+{
+	echo "mac_addr_type=wifi_mac_addr" > ${MAC_CONFIG_FILE}
+	echo "wifi_addr_min=${wifi_addr_min}" >> ${MAC_CONFIG_FILE}
+	echo "wifi_addr_cur=${wifi_addr_next}" >> ${MAC_CONFIG_FILE}
+	echo "wifi_addr_max=${wifi_addr_max}" >> ${MAC_CONFIG_FILE}
+}
+
+function write_mac_addr_to_file()
+{
+	echo "$wifi_addr_cur" > ${WIFI_MAC_ADDR_FILE}
+}
+
+
+function write_wifi_mac()
+{
+	#echo "write_wifi_mac start"
+
+	#echo "wifi_mac_addr_flag="$wifi_mac_addr_flag
+	
+	if [ $((wifi_mac_addr_flag)) -eq $((1)) ]; then
+
+		echo "write_wifi_mac"
+
+		wifi_mac2num
+
+		wifi_mac_check_isvalid
+
+		write_mac_addr_to_file
+
+		echo "$num_cur_addr="$num_cur_addr
+		
+		#the num_cur_addr biggest is 0xffffff
+		if [ $num_cur_addr -lt $((0xffffff)) ]; then
+			num_next_addr=$(($num_cur_addr+1))
+		else
+			#num_next_addr=$(($num_cur_addr))
+			num_next_addr=$(($num_cur_addr+1))
+			num_cur_vendor=$((num_cur_vendor+1))
+			echo "[warn]cur address has arrived the 0xffffff,next time will erro"
+		fi
+
+		wifi_num2mac
+
+		write_wifi_mac_config_file
+
+		$setmacaddr_bin_file  $WIFI_MAC_ADDR_FILE
+
+		if [ $? -ne 0 ];then
+			wifi_error_flag=1
+			echo "error:setmacaddr fail!" >> $logfile
+			error_goto_exit
+		fi
+
+	fi
+}
+
+##################### WIFI END #######################
+
+
+
+
+
+
+############################ BT MAC ADDRESS ###############################
+
+function bt_mac2num()
+{
+	mac=$bt_addr_cur
+	a=$(echo 0x`echo $mac | busybox awk -F':' '{print $1}'`)
+	b=$(echo 0x`echo $mac | busybox awk -F':' '{print $2}'`)
+	c=$(echo 0x`echo $mac | busybox awk -F':' '{print $3}'`)
+	d=$(echo 0x`echo $mac | busybox awk -F':' '{print $4}'`)
+	e=$(echo 0x`echo $mac | busybox awk -F':' '{print $5}'`)
+	f=$(echo 0x`echo $mac | busybox awk -F':' '{print $6}'`)
+ 
+
+	a1=$(echo `busybox printf "%02X" $(($a))`)
+	b1=$(echo `busybox printf "%02X" $(($b))`)
+	c1=$(echo `busybox printf "%02X" $(($c))`)
+	d1=$(echo `busybox printf "%02X" $(($d))`)
+	e1=$(echo `busybox printf "%02X" $(($e))`)
+	f1=$(echo `busybox printf "%02X" $(($f))`)
+ 
+    bt_addr_cur="$a1:$b1:$c1:$d1:$e1:$f1"
+    
+	#echo "bt_addr_cur="$bt_addr_cur
+
+	#echo $a "=" $(($a))
+	#echo $b "=" $(($b))
+	#echo $c "=" $(($c))
+	#echo $d "=" $(($d))
+	#echo $e "=" $(($e))
+	#echo $f "=" $(($f))
+	
+	num_cur_bt_addr=$(($((d<<16))+$((e<<8))+f))
+	num_cur_bt_vendor=$(($((a<<16))+$((b<<8))+c))
+	#echo $num_cur_bt_addr
+	
+	mac=$bt_addr_min
+	a=$(echo 0x`echo $mac | busybox awk -F':' '{print $1}'`)
+	b=$(echo 0x`echo $mac | busybox awk -F':' '{print $2}'`)
+	c=$(echo 0x`echo $mac | busybox awk -F':' '{print $3}'`)
+	d=$(echo 0x`echo $mac | busybox awk -F':' '{print $4}'`)
+	e=$(echo 0x`echo $mac | busybox awk -F':' '{print $5}'`)
+	f=$(echo 0x`echo $mac | busybox awk -F':' '{print $6}'`)
+ 
+	num_min_bt_addr=$(($((d<<16))+$((e<<8))+f))
+	num_min_bt_vendor=$(($((a<<16))+$((b<<8))+c))
+	
+	
+	mac=$bt_addr_max
+	a=$(echo 0x`echo $mac | busybox awk -F':' '{print $1}'`)
+	b=$(echo 0x`echo $mac | busybox awk -F':' '{print $2}'`)
+	c=$(echo 0x`echo $mac | busybox awk -F':' '{print $3}'`)
+	d=$(echo 0x`echo $mac | busybox awk -F':' '{print $4}'`)
+	e=$(echo 0x`echo $mac | busybox awk -F':' '{print $5}'`)
+	f=$(echo 0x`echo $mac | busybox awk -F':' '{print $6}'`)
+ 
+	num_max_bt_addr=$(($((d<<16))+$((e<<8))+f))
+	num_max_bt_vendor=$(($((a<<16))+$((b<<8))+c))
+
+}
+
+#
+#BT Mac address第一个byte必须是0,后面三个字节不可以为 0x9e8b00 ~ 0x9e8b3f
+function bt_check_is_specialprop()
+{
+	bt_mac=$bt_addr_cur
+
+	#echo "bt_check_is_specialprop start"
+	echo "bt_mac="$bt_mac
+		
+	a=$(echo 0x`echo $bt_mac | busybox awk -F':' '{print $1}'`)
+	b=$(echo 0x`echo $bt_mac | busybox awk -F':' '{print $2}'`)
+	c=$(echo 0x`echo $bt_mac | busybox awk -F':' '{print $3}'`)
+	d=$(echo 0x`echo $bt_mac | busybox awk -F':' '{print $4}'`)
+	e=$(echo 0x`echo $bt_mac | busybox awk -F':' '{print $5}'`)
+	f=$(echo 0x`echo $bt_mac | busybox awk -F':' '{print $6}'`)
+
+	echo $a $b  $c  $d $e $f
+	if [ $(($a)) -eq $((0)) ]; then
+		if [ $(($d)) -eq $((0x9e)) ]&&[ $(($e)) -eq $((0x8b)) ]&&[ $(($f)) -le $((0x3f)) ] ; then
+					echo "error:bt_check_is_specialprop NO !"  >> $logfile
+					bt_error_flag=1
+					error_goto_exit
+					
+		else
+			echo "bt_check_is_specialprop OK!"
+		fi
+		
+
+	else
+		echo "error:bt_check_is_specialprop NO !!"   >> $logfile
+		bt_error_flag=1
+		error_goto_exit
+	fi
+
+	#echo "bt_check_is_specialprop end"
+}
+
+function bt_mac_check_isvalid()
+{
+	#echo "num_cur_bt_vendor="$num_cur_bt_vendor
+	#echo "num_min_bt_vendor="$num_min_bt_vendor
+	#echo "num_max_bt_vendor="$num_max_bt_vendor
+	
+	#compare the first 24bit of bt mac address
+	if [ $num_min_bt_vendor -gt $num_max_bt_vendor ]; then
+		bt_error_flag=1
+		echo "error:bt_addr_min is greater than bt_addr_max.\n" >> $logfile
+		error_goto_exit
+	fi
+	
+	if [ $num_cur_bt_vendor -lt $num_min_bt_vendor ]; then
+		bt_error_flag=1
+		echo "error:bt_addr_cur smaller than bt_addr_min.\n" >> $logfile
+		error_goto_exit
+	fi
+	
+	if [ $num_cur_bt_vendor -gt $num_max_bt_vendor ]; then
+		bt_error_flag=1
+		echo "error:bt_addr_cur greater than bt_addr_max.\n" >> $logfile
+		error_goto_exit
+	fi
+	
+	
+	#compare the last 24bit of bt mac address
+	if [ $num_cur_bt_vendor -eq $num_min_bt_vendor ]; then
+		if [ $num_cur_bt_addr -lt $num_min_bt_addr ]; then
+			bt_error_flag=1
+			echo "error:bt_addr_cur smaller than bt_addr_min!\n" >> $logfile
+			error_goto_exit
+		fi
+	fi
+
+	if [ $num_cur_bt_vendor -eq $num_max_bt_vendor ]; then
+	
+		if [ $num_cur_bt_addr -eq $num_max_bt_addr ]; then
+			bt_error_flag=2
+			echo "warning:bt_addr_cur has arrived to bt_addr_max.\n" >> $logfile
+		fi
+		
+		if [ $num_cur_bt_addr -gt $num_max_bt_addr ]; then
+			bt_error_flag=1
+			echo "error:bt_addr_cur greater than bt_addr_max.\n" >> $logfile
+			error_goto_exit
+		fi
+	fi
+
+	#the address 00:00:00:00:00:00 is invalid
+	if [ $num_cur_bt_vendor -eq 0 ]; then
+		if [ $num_cur_bt_addr -eq 0 ]; then
+			bt_error_flag=1
+			echo "error:the mac address 00:00:00:00:00:00 is invalid!\n" >> $logfile
+			error_goto_exit
+		fi
+	fi
+
+	#
+	bt_check_is_specialprop 
+
+}
+
+function bt_num2mac()
+{
+	a=$((num_cur_bt_vendor>>16&0xff))
+	b=$((num_cur_bt_vendor>>8&0xff))
+	c=$((num_cur_bt_vendor&0xff))
+	
+	d=$((num_next_bt_addr>>16&0xff))
+	e=$((num_next_bt_addr>>8&0xff))
+	f=$((num_next_bt_addr&0xff))
+	
+	a=$(echo `busybox printf "%02X" $a`)
+	b=$(echo `busybox printf "%02X" $b`)
+	c=$(echo `busybox printf "%02X" $c`)
+	d=$(echo `busybox printf "%02X" $d`)
+	e=$(echo `busybox printf "%02X" $e`)
+	f=$(echo `busybox printf "%02X" $f`)
+ 
+ 	bt_addr_next="$a:$b:$c:$d:$e:$f"
+	echo "bt_addr_next = "$bt_addr_next
+}
+
+function write_bt_mac_config_file()
+{
+	if [ $wifi_mac_addr_flag -eq $((1)) ];then
+		echo "mac_addr_type=bt_mac_addr" >> ${MAC_CONFIG_FILE}
+	else
+		echo "new write_bt_mac_config_file"
+		echo "mac_addr_type=bt_mac_addr" > ${MAC_CONFIG_FILE}
+	fi
+	
+	echo "bt_addr_min=${bt_addr_min}" >> ${MAC_CONFIG_FILE}
+	echo "bt_addr_cur=${bt_addr_next}" >> ${MAC_CONFIG_FILE}
+	echo "bt_addr_max=${bt_addr_max}" >> ${MAC_CONFIG_FILE}
+}
+
+
+function write_bt_mac_addr_to_file()
+{
+	echo "$bt_addr_cur" > ${BT_MAC_ADDR_FILE}
+}
+
+
+function write_bt_mac()
+{
+	#echo "write_bt_mac"
+	
+	if [ $bt_mac_addr_flag -eq $((1)) ]; then
+
+		bt_mac2num
+
+		bt_mac_check_isvalid
+
+		write_bt_mac_addr_to_file
+
+		#num_next_bt_addr=$(($num_cur_bt_addr+1))
+		#the num_cur_bt_addr biggest is 0xffffff
+		if [ $num_cur_bt_addr -lt $((0xffffff)) ]; then
+			num_next_bt_addr=$(($num_cur_bt_addr+1))
+		else
+			#num_next_bt_addr=$(($num_cur_bt_addr))
+			#num_next_bt_addr=$(($num_cur_bt_addr+1))
+			num_next_bt_addr=$((0))
+			num_cur_bt_vendor=$((num_cur_bt_vendor+1))
+		fi
+
+		#bt mac 地址最后三个字节不可以在0x9e8b00~0x9e8b35之间
+		if [ $num_next_bt_addr -eq $((0x9e8b00)) ];then
+			num_next_bt_addr=$((0x9e8b40))
+		fi
+		
+		bt_num2mac
+
+		write_bt_mac_config_file
+
+		$setbtmacaddr_bin_file  $BT_MAC_ADDR_FILE
+
+		if [ $? -ne 0 ];then
+			bt_error_flag=1
+			error_goto_exit
+		fi
+	fi
+
+}
+#################################  BT END #################################
+
+
+
+
+################################report_error##########################################
+function report_error()
+{
+	echo "wifi_mac_addr_flag="$wifi_mac_addr_flag
+	echo "bt_mac_addr_flag="$bt_mac_addr_flag
+	echo "wifi_error_flag="$wifi_error_flag
+	echo "bt_error_flag="$bt_error_flag
+
+	if [ $wifi_mac_addr_flag -eq $((1)) ]&&[ $bt_mac_addr_flag -eq $((1)) ];then
+	
+		if [ $wifi_error_flag -eq 0 ];then
+			if [ $bt_error_flag -eq 2 ];then
+				echo "warning:wifi success! BT success,but has arrived to the biggest value!"
+			fi
+
+			if [ $bt_error_flag -eq 1 ];then
+				echo "error:wifi success! BT fail!"
+			fi
+
+			if [ $bt_error_flag -eq 0 ];then
+				echo "success:wifi success! BT success!"
+			fi
+
+		fi
+
+		if [ $wifi_error_flag -eq 1 ];then
+			if [ $bt_error_flag -eq 2 ];then
+				echo "error:wifi fail! BT has arrived to the biggest value!"
+			fi
+
+			if [ $bt_error_flag -eq 1 ];then
+				echo "error:wifi fail! BT fail!"
+			fi
+
+			if [ $bt_error_flag -eq 0 ];then
+				echo "error:wifi fail! BT success!"
+			fi
+
+		fi
+
+
+		if [ $wifi_error_flag -eq 2 ];then
+			if [ $bt_error_flag -eq 2 ];then
+				echo "warning:wifi success ,but has arrived to the biggest value! BT success,but has arrived to the biggest value!"
+			fi
+
+			if [ $bt_error_flag -eq 1 ];then
+				echo "error:wifi success ,but has arrived to the biggest value! BT fail!"
+			fi
+
+			if [ $bt_error_flag -eq 0 ];then
+				echo "warning:wifi success,but has arrived to the biggest value! BT success!"
+			fi
+
+		fi
+
+	fi
+
+
+
+
+	if [ $wifi_error_flag -eq 3 ];then
+		if [ $bt_error_flag -eq 3 ];then
+			echo "error:the mac address format is error!"
+		fi
+
+	fi
+
+	if [ $wifi_error_flag -eq 4 ];then
+		if [ $bt_error_flag -eq 4 ];then
+			echo "error:the config file is illegal!"
+		fi
+
+	fi
+		
+
+
+
+	if [ $wifi_mac_addr_flag -eq $((1)) ]&&[ $bt_mac_addr_flag -eq $((0)) ];then
+	
+			if [ $wifi_error_flag -eq 2 ];then
+				echo "warning:wifi has arrived to the biggest value! "
+			fi
+
+			if [ $wifi_error_flag -eq 1 ];then
+				echo "error:wifi fail!"
+			fi
+
+			if [ $wifi_error_flag -eq 0 ];then
+				echo "success:wifi success!"
+			fi
+
+	fi
+
+
+
+	if [ $wifi_mac_addr_flag -eq $((0)) ]&&[ $bt_mac_addr_flag -eq $((1)) ];then
+	
+			if [ $bt_error_flag -eq 2 ];then
+				echo "warning:BT has arrived to the biggest value! "
+			fi
+
+			if [ $bt_error_flag -eq 1 ];then
+				echo "error:BT fail!"
+			fi
+
+			if [ $bt_error_flag -eq 0 ];then
+				echo "success:BT success!"
+			fi
+	fi
+
+	sync
+	sync
+	sync
+	
+}
+
+
+
+
+
+
+#############################################
+#
+#   entry
+#
+#############################################
+
+if [ $1x = x ];then
+	dir=$(pwd)
+else
+	dir=$1
+fi
+
+MAC_CONFIG_FILE=$dir/macaddr.txt
+WIFI_MAC_ADDR_FILE=/data/wifimac.txt
+BT_MAC_ADDR_FILE=/data/misc/bluedroid/bdaddr
+#flagfile=/data/exe_flag
+setmacaddr_bin_file=$dir/setmacaddr
+setbtmacaddr_bin_file=$dir/setbtmacaddr
+logfile=$dir/log/wmac_log.txt
+#logfile=/dev/null
+
+wifi_mac_addr_flag=0
+bt_mac_addr_flag=0
+
+wifi_error_flag=0
+bt_error_flag=0
+
+echo "MAC_CONFIG_FILE=" $MAC_CONFIG_FILE
+
+mkdir $dir/log
+
+echo "" > $logfile
+
+echo "\r\n" >> ${MAC_CONFIG_FILE}
+
+busybox dos2unix ${MAC_CONFIG_FILE}
+
+
+chmod 666 $WIFI_MAC_ADDR_FILE
+
+read_mac_from_file
+
+###########################
+#write wifi mac address
+###########################
+write_wifi_mac
+
+
+###########################
+#write BT mac address
+###########################
+write_bt_mac
+
+report_error
+
+exit
+
+
+
+

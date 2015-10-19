@@ -1,0 +1,99 @@
+<resources>
+
+    <drawable name="white">#FFFFFF</drawable>
+	<drawable name="black">#000000</drawable>
+	<drawable name="cyan">#0096a6</drawable>
+	<drawable name="blue">#0066FF</drawable>
+    <drawable name="upbackground">#3F51B5</drawable>
+    <drawable name="downbackground">#5677FC</drawable>
+	<drawable name="btnbackground">#00a0e9</drawable>
+	
+    <string name="app_name">update</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Owl Upgrade</string>
+    <string name="update_online">Online Upgrade</string>
+    <string name="update_native">Local upgrade</string>
+    <string name="goto_recovery">Restore to Recovery upgrade mode?</string>
+    <string name="progress_dialog_title">Networking in</string>
+    <string name="not_connect">Not connected to the network</string>
+    <string name="connect">"Network has been connected"</string>
+    <string name="progress_dialog_mgs">Checking for updates, please wait...</string>
+    <string name="connect_server_wrong">Server is busy, please retry the connection</string>
+    <string name="current_system_isnew">The current system version is up-to-date</string>
+    <string name="xml_not_exist">The UpdateInfo xml does not exist.</string>
+    <string name="sure">Sure</string>
+    <string name="cancel">Cancel</string>
+    <string name="update_message">Check the updated version, whether to download？</string>
+    <string name="update_title">New version updates</string>
+    <string name="download">Download</string>
+	<string name="update_rightnow">Upgrade Now</string>
+	<string name="start_download">Start to download the upgrade package</string>
+	<string name="update_package">Upgrade package</string>
+	<string name="download_complete">Download is complete</string>
+	<string name="download_fail">Download failed</string>
+	<string name="md5_check_fail">MD5 Parity error.\nPlease confirm whether the correct upgrade.\n</string>
+	<string name="update_package_downloaded">Upgrade package has been downloaded</string>
+	<string name="finish_download">Upgrade package is finished downloading</string>
+	<string name="update_notice">Please back up your data, including photos, videos and so on; \n\tThese data may be deleted.\n</string>	
+    <string name="cancel_download">Whether to cancel the download?</string>
+    <string name="wait_downloading">Upgrade package is downloading. Please wait...</string>
+    <string name="download_update_file">No update file in the SDCard directory, online upgrade to download the update file</string>
+	<string name="return_native_update">The local existing upgrade package, please return to the local upgrade</string>
+    <string name="have_update">Check for system updates</string>
+    <string name="notification_update">Update is available. Click to upgrade</string>
+    <string name="wifi_sleep_policy_default">wifi_sleep_policy_default</string>
+    <string name="version">version</string>
+    <string name="md5">md5</string>
+    <string name="downloadurl">download_url</string>
+    <string name="file_size">file_size</string>
+    <string name="file_name">file_name</string>
+    <string name="download_status">download_status</string>
+    <string name="download_notice">Please keep the network traffic, the download process, please do not open the USB connection</string>
+    <string name="apk_title">Owl Upgrade</string>
+    <string name="checkbox_title">Automatic query refresh</string>
+    <string name="checkbox_summary">Uncheck can not automatic network access server</string>
+    <string name="autocheck">autocheck</string>
+    <string name="checkfrequency">checkfrequency</string>
+    <string name="checkfrequency_title">Set the inquiry cycle</string>
+    <string name="checkfrequency_summary">The inquiry cycle: </string>
+    <string name="day">Day</string>
+    <string name="battery_low">Battery Low</string>
+    <string name="battery_notify">please install the update when battery is above 50%</string>
+    <string name="Check_updates">Check</string>
+    <string name="System_latest_version">The current system version is up-to-date</string>
+    <string name="version_id">Version:\t</string>
+    <string name="Upgrade_information">"Update Message:\t"</string>
+    <string name="last_update_time">Last update time:\t</string>
+    <string name="Updates_available">Update is available</string>
+    <string name="install">Upgrade Now</string>
+    <string name="Quit">Quit</string>
+    <string name="check_fail">Parity error</string>
+    <string name="Will_upgrade">Will start to upgrade...</string>
+    <string name="No_update_file">No update file</string>
+    <string name="No_update_file_Prompt">No update package in the SDCard directory. \n Please copy or download update package(update.zip) to the SDCard directory.\n</string>
+    <string name="MD5_Error">"MD5 Parity error, please confirm whether the update file is correct."</string>
+    <string name="Tip">"Tip：Download the process,please plug the charger,and keep the network open.Please do not connect USB to PC, not delete file, not erase the SD card."</string>
+    <string-array name="update_frequency">
+        <item >1</item>
+        <item >3</item>
+        <item >5</item>
+        <item >7</item>
+    </string-array>
+    <string name="log_version">Version : </string>
+    <string name="log_msg">Update Message : </string>
+	<string name="check_local_dialog_title">Prepare</string>
+	<string name="check_local_dialog_msg">Have you already finished download? Checking...</string>
+	<string name="download_error_unkowon">Unkown</string>
+	<string name="download_error_http">Connectivity error</string>
+	<string name="download_error_local">Local eror</string>
+	<string name="download_error_insufficient_space">Insufficient space</string>
+	<string name="download_error_file_not_found">File not found, Check file path</string>
+	<string name="download_pause_http">Connectivity pause</string>
+	<string name="download_pause">Download paused</string>
+	<string name="download_resume">Download resumed</string>
+	<string name="sdcard_low_free_space">"SDCard low space"</string>
+	<string name="is_local_upgrade">"There have Local upgrade package, whether to local upgrade?"</string>
+	<string name="local_upgrade">"Local Upgrade"</string>
+	<string name="re_download">"Re-Download"</string>
+</resources>

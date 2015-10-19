@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Cihaz Yönetimi</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Sistem İletisi</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">"Tamam"</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Reddet</string>
+    <string name="dm_session_button_confirm">"Güncelle"</string>
+    <string name="dm_session_button_reject">İptal</string>
+    <string name="dm_session_confirmation_title">Sistem Güncellemesi</string>
+    <string name="dm_session_confirmation_message">Telefonunuz için bir sistem güncellemesi var</string>
+    <string name="dm_session_confirmation_notification_label">Sistem Güncellemesi</string>
+    <string name="dm_session_confirmation_notification_message">Yeni DM oturum isteği</string>
+    <string name="dm_session_information_notification_label">Sistem Güncellemesi</string>
+    <string name="dm_session_information_notification_message1">Sunucu bir istek başlattı</string>
+    <string name="dm_session_information_notification_message2_success">Cihaz sunucunun isteğini tamamladı</string>
+    <string name="dm_session_information_notification_message2_fail">Cihaz sunucunun isteğini tamamlayamadı</string>
+
+</resources>

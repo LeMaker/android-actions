@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"کارت SD قابل جابجایی"</string>
+    <string name="storage_usb">"کارت SD داخلی"</string>
+    <string name="storage_uhost">"دیسک یواس بی"</string>
+    <string name="uh_media_checking_notification_title" product="default">"تهیه دیسک یواس بی"</string>
+    <string name="uh_media_checking_notification_message" product="default">"چک کردن خطاها"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"دیسک یواس بی خالی"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"  دیسک یواس بی سیستم فایل را ندارد یا از آن سیستم فایل پشتیبانی نکند"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"دیسک یواس بی آسیب دیده"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"دیسک یوا بی آسیب دیده است. ممکن شما باید آن را دو باره فرمت کنید"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"دیسک یواس بی به درستی حذف نشده است"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">" انصراف از نصب دیسک یواس بی قبل از حذف آن تا جلوگیری از دست دادن داده ها"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"دیسک یواس بی با خیال راحت حذف شده است"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"الان می توانید با خیال راحت دیسک یواس بی را حذف کنید"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"دیسک یواس بی حذف شده است"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"دیسک یواس بی حذف شده است. لطفاً یک دیسک جدید را قرار دهید"</string>
+    <string name="accelerometer_coordinate">"سیستم مختصاب حسگر گرانش"</string>
+    <string name="accele_coord_default">"سیستم مختصاب به طور پیش فرض"</string>
+    <string name="accele_coord_special">"سیستم مختصاب ویژه برای پشتیبانی از بخشی از بازیها"</string>
+    <string name="global_action_reboot_to_recovery">"راه اندازی مجدد به حالت ریکاوری"</string>
+    <string name="global_action_restart">"راه اندازی مجدد"</string>
+</resources>

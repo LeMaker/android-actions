@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Configurações"</string>
+    <string name="title_activity_main">"Actualizar coruja"</string>
+    <string name="update_online">"Actualizar em linha"</string>
+    <string name="update_native">"Actualizar em local"</string>
+    <string name="goto_recovery">"Recuperar para o modo de actualizar Recovery?"</string>
+    <string name="progress_dialog_title">"Está a ligar à rede"</string>
+    <string name="not_connect">"Não se liga à rede"</string>
+    <string name="progress_dialog_mgs">"Está a examinar informações de actualização, por favor guarde..."</string>
+    <string name="connect_server_wrong">"O servidor está ocupado, por favor experimente a ligação de novo"</string>
+    <string name="current_system_isnew">"A versão do sistema presente é a última."</string>
+    <string name="sure">"Confirmar"</string>
+    <string name="cancel">"Cancelar"</string>
+    <string name="update_message">"Examinar que tem a versão actualizada, vai baixar?"</string>
+    <string name="update_title">"Conteúdos de actualização da nova versão"</string>
+    <string name="download">"Baixar"</string>
+    <string name="update_rightnow">"Actualizar agora"</string>
+    <string name="start_download">"Começar a baixar o pacote de actualização"</string>
+    <string name="update_package">"Pacote de actualização"</string>
+    <string name="download_complete">"O carregamento está completado"</string>
+    <string name="download_fail">"O carregamento falhou."</string>
+    <string name="md5_check_fail">"Erro de paridade MD5"</string>
+    <string name="update_package_downloaded">"O pacote de actualização já completou o carregamento."</string>
+    <string name="finish_download">"O pacote de actualização está baixado."</string>
+    <string name="update_notice">"\n começa a actualizar: \n No processo de actualizar, as acções não podem ser interrompidas, por favor faça cópia dos seus dados: \n "</string>
+    <string name="cancel_download">"Vai cancelar o carregamento?"</string>
+    <string name="wait_downloading">"Está a baixar, por favor guarde..."</string>
+    <string name="download_update_file">"Não há ficheiros de actualização sob o Diretório de Cartão SD, por favor baixe os ficheiros de actualização on-line."</string>
+    <string name="return_native_update">"O local já existe o pacote de atualização, por favor volte para actualização local"</string>
+    <string name="have_update">"Examina actualizações do sistema"</string>
+    <string name="notification_update">"Configurações do aplicativo clicam em actualização da coruja"</string>
+    <string name="download_notice">"Por favor mantenha o tráfego da rede, no processo de carregar, por favor não abra a ligação USB"</string>
+    <string name="apk_title">"Actualizar coruja V1.0"</string>
+    <string name="checkbox_title">"Consulta automática de actualizações"</string>
+    <string name="checkbox_summary">"O desmarque pode não visitar o servidor com acesso automática à rede."</string>
+    <string name="checkfrequency_title">"Configurar o ciclo de consulta"</string>
+    <string name="checkfrequency_summary">"Ciclo de consulta:"</string>
+    <string name="day">"Dia"</string>
+    <string name="battery_low">"Bateria baixa"</string>
+    <string name="battery_notify">"Por favor instale actualizações quando a bateria é superior a 50%."</string>
+</resources>

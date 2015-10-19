@@ -1,0 +1,66 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.actions.ota"
+    android:versionCode="2"
+    android:versionName="V4.0 beta"
+    android:sharedUserId="android.uid.system" >
+
+     <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	
+    <application
+        android:name="com.actions.ota.UpdateApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >       
+        <activity
+            android:name="com.actions.ota.MainActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"
+            android:excludeFromRecents="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.actions.settings.SYSTEM_UPDATE_SETTINGS"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.actions.ota.InstallActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="landscape"
+            android:excludeFromRecents="true" >
+        </activity>
+        <activity
+            android:name="com.actions.ota.SettingActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="landscape"
+            
+            android:excludeFromRecents="true" >
+        </activity>
+        
+        <receiver android:name="com.actions.receiver.BootCheckReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.actions.receiver.UpdateCheckReceiver" >
+            <intent-filter>
+                <action android:name="android.alarm.check.UPDATE"/>
+            </intent-filter>
+        </receiver>
+        
+        <service android:name="com.actions.service.DownloadService"
+            android:label="@string/title_activity_main">
+        </service>
+    </application>
+
+</manifest>

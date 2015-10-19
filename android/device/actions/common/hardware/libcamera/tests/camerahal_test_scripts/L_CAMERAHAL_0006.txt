@@ -1,0 +1,25 @@
+|4VGA|~yuv420sp|r30|1|d2
+|b0|d2
+|b1|d2
+|b2|d2
+|b3|d2
+|b4|d2
+|b5|d2
+|b6|d2
+|b-1|d2
+|b-2|d2
+|b-3|d2
+|b-4|d2
+|b-5|d2
+|b-6|d2
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0006
+//DESCRIPTION: Brightness control shall be supported 
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0
+

@@ -1,0 +1,97 @@
+#!/bin/bash
+#====================================================================================================
+#
+# Script Name: DMTConv
+#
+# General Description:  This script converts DMT from .zip to .dmts formats and visa versa.
+#
+#====================================================================================================
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#====================================================================================================
+usage () {
+  echo ""
+  echo "========================================================================================="
+  echo ""
+  echo "Usage: "
+  echo "    DMTConv [-verbose] <fileFrom> <fileTo>"
+  echo ""
+  echo "Where:"
+  echo "             <fileFrom>       DMT source in the .zip or .dmts format, required parm"
+  echo "             <fileTo>         DMT target in the .zip or .dmts format, required parm"
+  echo "             -verbose         enable verbose output, optional parm"
+  echo ""
+  echo "=========================================================================================="
+  echo ""
+}
+
+errorExit() {
+  echo ""
+  echo "$1"
+  usage
+  exit 1
+}
+
+
+# validate parameters 
+if [ "$#" -eq 2 ]
+then
+    DMT1="$1"
+    DMT2="$2"
+elif [ "$#" -eq 3 ]
+then
+   VERBOSE="$1"
+   DMT1="$2"
+   DMT2="$3"
+else
+   usage
+   exit 1
+fi
+
+# validate input files format
+echo "$DMT1" | egrep "(.zip\$)|(.ZIP\$)|(.dmts\$)|(.DMTS\$)" >/dev/null || errorExit "Parameter <fileFrom> has wrong format"
+echo "$DMT2" | egrep "(.zip\$)|(.ZIP\$)|(.dmts\$)|(.DMTS\$)" >/dev/null || errorExit "Parameter <fileTo> has wrong format"
+
+
+# Do some checking on our environment - we need JAVA_HOME present
+if [ -z "$JAVA_HOME" ]
+then
+  echo "Environment variable JAVA_HOME needs to be set first!"
+  exit 1
+fi
+
+
+# check if the parms files are exist and readable 
+if [ ! -r $DMT1 ]
+then
+  echo "Cannot find <fileFrom> with path: $DMT1"
+  exit 1
+fi
+
+
+#Call the com.mot.dm.tool.DMTSTool to perform conversion
+
+echo "Begin conversion..."
+
+$JAVA_HOME/bin/java -classpath lib/GenTool.jar com.mot.dm.tool.DMTSTool $VERBOSE -conversion $DMT1 $DMT2
+
+if [ $? -ne 1 ]
+then
+  echo "Error occured ..."
+  exit 1
+fi
+
+
+
+

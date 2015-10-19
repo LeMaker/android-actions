@@ -1,0 +1,36 @@
+# SIMPLE make file to create 4 so from 8 .a files.
+DEBUG_TARGETS := 	$(DEVSTAGING)/lib/libdmnative.so \
+	$(DEVSTAGING)/lib/libdmssession.so
+
+FINALTARGETS := $(RELEASESTAGING)/lib/libdmnative.so $(RELEASESTAGING)/lib/libdmssession.so \
+	$(DEVSTAGING)/lib/libdmnative.so \
+	$(DEVSTAGING)/lib/libdmssession.so
+
+LINKER := $(COMPILERTOOLPATH)/${COMPILERTOOLPREFIX}gcc
+
+OPTIONS :=  -fcheck-new -Wno-deprecated -shared -Xlinker -O -Xlinker 5  -lpthread -ldl -lstdc++ 
+
+DM_TOP := /vobs/linuxjava/device_mgmt/dm
+
+$(RELEASESTAGING)/lib/libdmnative.so: $(RELEASESTAGING)/lib/libdmnative_static.a $(RELEASESTAGING)/lib/libxpl.a $(RELEASESTAGING)/lib/libconui.a
+	$(LINKER)  $(OPTIONS) -Xlinker --version-script=$(DM_TOP)/lib/dmnative/versionscript  -Xlinker -soname=libdmnative.so.$(MAJOR_VERSION) -o $@ -Xlinker --whole-archive -L$(RELEASESTAGING)/lib -ldmnative_static -lxpl -lconui -Xlinker -no-whole-archive
+
+$(DEVSTAGING)/lib/libdmnative.so: $(DEVSTAGING)/lib/libdmnative_static.a $(DEVSTAGING)/lib/libxpl.a $(DEVSTAGING)/lib/libconui.a
+	$(LINKER) $(OPTIONS) -Xlinker --version-script=$(DM_TOP)/lib/dmnative/versionscript  -Xlinker -soname=libdmnative.so.$(MAJOR_VERSION) -o $@ -Xlinker --whole-archive -L$(DEVSTAGING)/lib -ldmnative_static -lxpl -lconui -Xlinker -no-whole-archive
+
+
+$(RELEASESTAGING)/lib/libdmssession.so: $(RELEASESTAGING)/lib/libdmssession_static.a $(RELEASESTAGING)/lib/libdmnative.so
+	$(LINKER) $(OPTIONS) -L$(RELEASESTAGING)/lib -ldmnative -Xlinker --version-script=$(DM_TOP)/lib/dmssession/dmssession.map  -Xlinker -soname=libdmssession.so.$(MAJOR_VERSION) -o $@ -Xlinker --whole-archive -L$(RELEASESTAGING)/lib -ldmssession_static -Xlinker -no-whole-archive
+	
+
+$(DEVSTAGING)/lib/libdmssession.so: $(DEVSTAGING)/lib/libdmssession_static.a $(DEVSTAGING)/lib/libdmnative.so
+	$(LINKER) $(OPTIONS) -L$(DEVSTAGING)/lib -ldmnative -Xlinker --version-script=$(DM_TOP)/lib/dmssession/dmssession.map  -Xlinker -soname=libdmssession.so.$(MAJOR_VERSION) -o $@ -Xlinker --whole-archive -L$(DEVSTAGING)/lib -ldmssession_static -Xlinker -no-whole-archive
+
+COMPILE_SO: $(FINALTARGETS)
+
+all::  COMPILE_SO
+	@echo -n ""
+
+debug: $(DEBUG_TARGETS)
+	@echo -n ""
+

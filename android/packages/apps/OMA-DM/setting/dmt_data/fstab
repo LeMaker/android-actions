@@ -1,0 +1,13 @@
+#PATH	FILENAME (MUST END WITH .WBXML) fOR NOW, ALL subfile do not overlap
+# first file always is .
+#
+# Also parent URI must be BEFORE child URI
+#
+# This is a sample fstab - PLEASE EDIT this file to match your own tree!!!
+#
+.                     root.wbxml
+./DevDetail/Ext       devdetail_ext.wbxml
+./DevDetail/URI       devdetail_uri.wbxml
+./ManagedObjects      managedobjects.wbxml
+./Customization       customization.wbxml
+./Subscriber          subscriber.wbxml

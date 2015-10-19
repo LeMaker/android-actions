@@ -1,0 +1,14 @@
+|A1|4VGA|~yuv420sp|r30|1|d5|d3|p|d8
+|390|d3|p|d8
+|3180|d3|p|d8
+|3270|d3|p|d8
+|2|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0022
+//DESCRIPTION: Camera HAL shall support image capture with rotation of the captured image
+//     AUTHOR: JShandorov
+//       DATE: 15.04.2010
+//    VERSION: 1.0

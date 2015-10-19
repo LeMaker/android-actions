@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"기기 공급자"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"이런!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"프로필 설정"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"기기에서 프로필에 대한 제어와 보안 유지는 조직에서 담당하고, 나머지는 내가 관리합니다."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"이 프로필에 액세스해야 하는 앱:"</string>
+    <string name="set_up" msgid="7012862095553564169">"설정"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"직장 프로필 설정 중..."</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"관리자는 네트워크 활동 및 기기의 위치 정보를 비롯하여 프로필과 연결된 데이터, 설정, 기업 액세스, 앱을 모니터링하고 관리할 수 있습니다."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"관리자는 설정, 기업 액세스, 앱, 이 기기와 관련된 데이터(예: 네트워크 활동, 기기의 위치 정보)를 모니터링하고 관리할 수 있습니다."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"조직의 개인정보취급방침을 비롯한 자세한 내용은 관리자에게 문의하세요."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"자세히 알아보기"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"취소"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"확인"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"직장 프로필"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"기기에 이미 직장 프로필이 있습니다. 삭제하시겠습니까?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"직장 프로필을 삭제하시겠습니까? 데이터가 모두 삭제됩니다."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"삭제"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"취소"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"직장 프로필 설정을 계속하려면 기기를 암호화해야 합니다. 이 작업은 다소 시간이 걸릴 수 있습니다."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"취소"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"암호화"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"암호화 완료"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"계속해서 직장 프로필을 설정하려면 터치하세요."</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"직장 프로필을 설정할 수 없습니다. IT 부서에 문의하거나 나중에 다시 시도해 주시기 바랍니다."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"직장 프로필을 지원하지 않는 기기입니다."</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"직장 프로필은 기기 소유자만 설정할 수 있습니다."</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"이 런처 앱은 직장 프로필을 지원하지 않습니다. 호환되는 런처로 전환해야 합니다."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"취소"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"확인"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"업무 기기의 사용자"</string>
+    <string name="setup_device" msgid="6725265673245816366">"기기 설정"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"설정 데이터 처리 중..."</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Wi-Fi에 연결 중..."</string>
+    <string name="progress_download" msgid="4995057798189799156">"관리 앱 다운로드 중..."</string>
+    <string name="progress_install" msgid="9169411715762296097">"관리 앱 설치 중..."</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"기기 소유자 설정 중..."</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"설정을 중지하시겠습니까?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"설정을 중단하고 기기의 데이터를 삭제하시겠습니까?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"취소"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"확인"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"초기화"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"기기를 설정할 수 없습니다. IT 부서에 문의해 주시기 바랍니다."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"기기가 이미 설정되었습니다."</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Wi-Fi에 연결할 수 없습니다."</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"체크섬 오류로 인해 관리 앱을 사용할 수 없습니다. IT 부서에 문의해 주시기 바랍니다."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"관리 앱을 다운로드할 수 없습니다."</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"관리 앱을 사용할 수 없습니다. 구성요소가 없거나 손상되었습니다. IT 부서에 문의해 주시기 바랍니다."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"관리 앱을 설치할 수 없습니다."</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"기기에 관리 앱이 설치되어 있지 않습니다."</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"설정을 중지하시겠습니까?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"설정을 중지하시겠습니까?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"아니요"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"예"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"취소 중..."</string>
+</resources>

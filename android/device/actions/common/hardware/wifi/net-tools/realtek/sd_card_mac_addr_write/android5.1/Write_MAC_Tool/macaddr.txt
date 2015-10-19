@@ -1,0 +1,8 @@
+mac_addr_type=wifi_mac_addr
+wifi_addr_min=00:B1:16:00:6A:40
+wifi_addr_cur=00:B1:16:00:6A:46
+wifi_addr_max=00:B1:16:00:6A:FF 
+mac_addr_type=bt_mac_addr
+bt_addr_min=00:B1:16:60:6A:40
+bt_addr_cur=00:B1:16:60:6A:46
+bt_addr_max=00:B1:16:60:6A:ff

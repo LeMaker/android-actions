@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">傳感器</string>
+    <string name="buttonCalib_name">重力校準</string>
+    <string name="buttonReset_name">清除校準</string>
+    <string name="gyro_buttonCalib_name">陀螺校準</string>
+    <string name="gyro_buttonReset_name">清除校準</string>
+    <string name="info_reset">清除校準資料</string>
+    <string name="info_calib">保存校準資料</string>
+    <string name="info_tips">將此裝置水準放置, 點擊校準按鈕。</string>
+    <string name="info_gyrosensor_tips">將此裝置水準放置, 點擊校準按鈕。</string>
+    <string name="gSeneor_activity_name">重力傳感器</string>
+    <string name="gyroSeneor_activity_name">陀螺儀</string>
+    <string name="compassSeneor_activity_name">磁力計</string>
+    <string name="info_compasssensor_tips">請按下圖動畫校准磁力計，直到accuracy值爲3。</string>
+</resources>

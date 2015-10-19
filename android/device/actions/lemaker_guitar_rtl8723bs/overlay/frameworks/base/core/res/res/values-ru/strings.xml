@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Внешняя SD карта "</string>
+    <string name="storage_usb">"Внутренняя SD карта "</string>
+    <string name="storage_uhost">"Флэшка "</string>
+    <string name="uh_media_checking_notification_title" product="default">"Подготовит флэшку "</string>
+    <string name="uh_media_checking_notification_message" product="default">"Проверить то, есть ли ошибка. "</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Пустая флэшка "</string>
+    <string name="uh_media_nofs_notification_message" product="default">"Флэшка нет системы документа, или не поддержит систему документа "</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Флэшка испорчена "</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"\"Флэшка испорчена. Вам нужно снова формализировать ее\" "</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"Флэшка ненормально выведена "</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Сначала отгразить флэшку, потом вывести ее, чтобы данные не потеряны."</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"Флэшка безопасно выведена"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Сейчас вы можете безопасно вывести флэшку. "</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Флэшка выведена."</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"Флэшка выведена. Ввернуть новую флэшку. "</string>
+    <string name="accelerometer_coordinate">"Система координат реакции тяжести "</string>
+    <string name="accele_coord_default">"Молчаливые координаты "</string>
+    <string name="accele_coord_special">"Необычные координаты, чтобы походить частным играм"</string>
+    <string name="global_action_reboot_to_recovery">"Перезапуск и входить в модель recovery"</string>
+    <string name="global_action_restart">"Перезапуск "</string>
+</resources>

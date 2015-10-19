@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">"כיול חיישן G"</string>
+    <string name="buttonCalib_name">"הפעלת כיול"</string>
+    <string name="buttonReset_name">"מחיקת כיול"</string>
+    <string name="info_reset">"נתוני הכיול נמחקו"</string>
+    <string name="info_calib">"נתוני כיול נשמרו"</string>
+    <string name="info_tips">"אנא שימו את המכשיר על משטח ישר ויציב."</string>
+</resources>

@@ -1,0 +1,4 @@
+-verbose
+
+# Keep @VisibleForTesting elements
+-keep @com.android.internal.annotations.VisibleForTesting class *

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+mkdir -p lib
+mkdir -p lib/x86
+mkdir -p lib/xscale
+
+#build for x86
+gcc -shared -I../../api/native -g -I../../portlib/generic/ -I../../portlib/ezx/hdr -I../../portlib/p2k/hdr -I../../dmengine/dm_util/hdr -I./hdr -o ./lib/x86/libdmportlib.so ./src/dmSocketConnector.cpp ./src/port_layer.cc
+
+# build for xscale
+COMPILERTOOLPATH=/vobs/ezx_tools/linux/toolchain/toolchain-3.3/devkit/arm/iwmmxt_le/bin
+COMPILERTOOLPREFIX=${COMPILERTOOLPATH}/arm-linux-
+
+${COMPILERTOOLPREFIX}gcc -shared -I../../api/native -I../../portlib/generic/ -I../../portlib/ezx/hdr -I../../portlib/p2k/hdr -I../../dmengine/dm_util/hdr -I./hdr -o ./lib/xscale/libdmportlib.so ./src/dmSocketConnector.cpp ./src/port_layer.cc
+
+
+

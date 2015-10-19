@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Налады"</string>
+    <string name="title_activity_main">"OWL абнаўленне"</string>
+    <string name="update_online">"Анлайн абнаўленне"</string>
+    <string name="update_native">"Лакальнае абнаўленне"</string>
+    <string name="goto_recovery">"Аднавіць ў рэжым аднаўлення абнаўлення?"</string>
+    <string name="progress_dialog_title">"Падлучэнне да сеткі"</string>
+    <string name="not_connect">"Не падлучаны да сеткі"</string>
+    <string name="progress_dialog_mgs">"Праверка абнаўленьняў, пачакайце ..."</string>
+    <string name="connect_server_wrong">"Сервер заняты, паўторыце спробу злучэння"</string>
+    <string name="current_system_isnew">"Наяўная версія сістэмы з\'яўляецца найноўшай"</string>
+    <string name="sure">"Пацвердзіць"</string>
+    <string name="cancel">"Адмяніць"</string>
+    <string name="update_message">"Выяўлена новая версія, скачаць ці не?"</string>
+    <string name="update_title">"Абнаўлення новай версіі"</string>
+    <string name="download">"Скачаць"</string>
+    <string name="update_rightnow">"Мадэрнізаваць зараз"</string>
+    <string name="start_download">"Пачаць загрузку пакета абнаўлення"</string>
+    <string name="update_package">"Пакет абнаўлення"</string>
+    <string name="download_complete">"Загрузка завершана"</string>
+    <string name="download_fail">"Загрузка не ўдалася"</string>
+    <string name="md5_check_fail">"Памылка праверкі MD5"</string>
+    <string name="update_package_downloaded">"Пакет абнаўлення быў закачан"</string>
+    <string name="finish_download">"Загрузка пакета абнаўлення скончана"</string>
+    <string name="update_notice">"\ NНачать OTA абнаўлення : \ nВыполняется працэс абнаўлення , дзеянне не можа быць перапынена,  створыце рэзервовую копію дадзеных. \ n"</string>
+    <string name="cancel_download">"Адмяніць загрузку ?"</string>
+    <string name="wait_downloading">"Пачакайце, загружаецца ..."</string>
+    <string name="download_update_file">"У каталогу SD карты няма файла абнаўлення, выканайце онлайн абнаўленне, каб скачаць файл абнаўлення"</string>
+    <string name="return_native_update">"Наяўны лакальны пакет абнаўлення, вярніцеся да лакальнага абнаўлення"</string>
+    <string name="have_update">"Праверце наяўнасць абнаўленняў сістэмы"</string>
+    <string name="notification_update">"Для налады праграмы націсніце OWL абнаўлення"</string>
+    <string name="download_notice">"Калі ласка, майце сеткавага трафіку, выконваецца працэс загрузкі, не адчыняйце злучэнне USB"</string>
+    <string name="apk_title">"OWL абнаўленне V1.0"</string>
+    <string name="checkbox_title">"Аўтаматычнае абнаўленне запыту"</string>
+    <string name="checkbox_summary">"Зняцце сцяжка дазваляе не аўтаматычна злучацца да сеткавага сервера"</string>
+    <string name="checkfrequency_title">"Устанавіце цыкл запыту"</string>
+    <string name="checkfrequency_summary">"Цыкл запыту:"</string>
+    <string name="day">"Дзень"</string>
+    <string name="battery_low">"Нізкі зарад батарэі"</string>
+    <string name="battery_notify">"Калі ласка, ўстанаўлівайце абнаўлення, калі батарэя вышэй за 50 %"</string>
+</resources>

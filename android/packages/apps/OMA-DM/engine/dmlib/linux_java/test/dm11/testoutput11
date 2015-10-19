@@ -1,0 +1,1741 @@
+Interaction mode, type "exit" to exit, ? for help
+
+] 
+] 
+] 
+] 
+] Cmd: startCounter
+Counter started!
+
+] 
+] Cmd: get .
+path=.
+isLeaf=false
+name=.
+format=node
+type=
+title=
+acl=Add=*&Delete=*&Exec=*&Get=*&Replace=*
+size=0
+version=0
+children:TestRWPluginNode/TestPluginNode/TEST/CLONE/DMAcc/UnitTest/SyncML/DevInfo/DevDetail/
+
+] Cmd: get ./DevInfo/DevId
+path=./DevInfo/DevId
+isLeaf=true
+name=DevId
+format=chr
+type=text/plain
+title=
+acl=
+size=15
+version=0
+value=000000011234564
+
+] 
+] Cmd: createi ./SyncML/DMAcc/UniTest
+node ./SyncML/DMAcc/UniTest created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/UniTest], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/UniTest/ServerId 1.1.1.1
+node ./SyncML/DMAcc/UniTest/ServerId (1.1.1.1) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/UniTest/ServerId], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: get ./SyncML/DMAcc/UniTest/ServerId
+path=./SyncML/DMAcc/UniTest/ServerId
+isLeaf=true
+name=ServerId
+format=chr
+type=text/plain
+title=
+acl=
+size=7
+version=0
+value=1.1.1.1
+
+] Cmd: replace ./SyncML/DMAcc/UniTest/ServerId 2.2.2.2
+set value of node ./SyncML/DMAcc/UniTest/ServerId to 2.2.2.2 successfully
+path=./SyncML/DMAcc/UniTest/ServerId
+isLeaf=true
+name=ServerId
+format=chr
+type=text/plain
+title=
+acl=
+size=7
+version=1
+value=2.2.2.2
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/UniTest/ServerId], [REPLACE]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: delete ./SyncML/DMAcc/UniTest
+node ./SyncML/DMAcc/UniTest deleted successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/UniTest], [DELETE]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: get .
+path=.
+isLeaf=false
+name=.
+format=node
+type=
+title=
+acl=Add=*&Delete=*&Exec=*&Get=*&Replace=*
+size=0
+version=0
+children:TestRWPluginNode/TestPluginNode/TEST/CLONE/DMAcc/UnitTest/SyncML/DevInfo/DevDetail/
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: dump ./DevInfo
+path=./DevInfo
+isLeaf=false
+name=DevInfo
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:LangAuto/Loc/Sort/Ext/Bearer/Mod/Man/Lang/DmV/DevId/
+
+path=./DevInfo/LangAuto
+isLeaf=true
+name=LangAuto
+format=bool
+type=text/plain
+title=
+acl=
+size=5
+version=0
+value=false
+
+path=./DevInfo/Loc
+isLeaf=true
+name=Loc
+format=chr
+type=text/plain
+title=
+acl=
+size=2
+version=0
+value=US
+
+path=./DevInfo/Sort
+isLeaf=true
+name=Sort
+format=chr
+type=text/plain
+title=
+acl=
+size=5
+version=0
+value=Latin
+
+path=./DevInfo/Ext
+isLeaf=false
+name=Ext
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:null
+
+path=./DevInfo/Bearer
+isLeaf=false
+name=Bearer
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:GSM/
+
+path=./DevInfo/Bearer/GSM
+isLeaf=true
+name=GSM
+format=chr
+type=text/plain
+title=
+acl=
+size=0
+version=0
+value=
+
+path=./DevInfo/Mod
+isLeaf=true
+name=Mod
+format=chr
+type=text/plain
+title=
+acl=
+size=4
+version=0
+value=A780
+
+path=./DevInfo/Man
+isLeaf=true
+name=Man
+format=chr
+type=text/plain
+title=
+acl=
+size=24
+version=0
+value=Motorola, Copyright 2005
+
+path=./DevInfo/Lang
+isLeaf=true
+name=Lang
+format=chr
+type=text/plain
+title=
+acl=
+size=2
+version=0
+value=en
+
+path=./DevInfo/DmV
+isLeaf=true
+name=DmV
+format=chr
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=1.2
+
+path=./DevInfo/DevId
+isLeaf=true
+name=DevId
+format=chr
+type=text/plain
+title=
+acl=
+size=15
+version=0
+value=000000011234564
+
+
+] Cmd: dump ./SyncML
+path=./SyncML
+isLeaf=false
+name=SyncML
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:DMAcc/Con/
+
+path=./SyncML/DMAcc
+isLeaf=false
+name=DMAcc
+format=node
+type=
+title=
+acl=
+size=0
+version=2
+children:null
+
+path=./SyncML/Con
+isLeaf=false
+name=Con
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:null
+
+
+] Cmd: dump ./DevDetail
+path=./DevDetail
+isLeaf=false
+name=DevDetail
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:Ext/PRIChecksum/PRLV/ESNV/FlexV/URI/Bearer/SwV/OEM/LrgObj/HwV/FwV/DevTyp/
+
+path=./DevDetail/Ext
+isLeaf=false
+name=Ext
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:null
+
+path=./DevDetail/PRIChecksum
+isLeaf=true
+name=PRIChecksum
+format=chr
+type=text/plain
+title=
+acl=
+size=6
+version=0
+value=111111
+
+path=./DevDetail/PRLV
+isLeaf=true
+name=PRLV
+format=chr
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=1.0
+
+path=./DevDetail/ESNV
+isLeaf=true
+name=ESNV
+format=chr
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=1.0
+
+path=./DevDetail/FlexV
+isLeaf=true
+name=FlexV
+format=chr
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=1.0
+
+path=./DevDetail/URI
+isLeaf=false
+name=URI
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:MaxTotLen/MaxSegLen/MaxDepth/
+
+path=./DevDetail/URI/MaxTotLen
+isLeaf=true
+name=MaxTotLen
+format=int
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=255
+
+path=./DevDetail/URI/MaxSegLen
+isLeaf=true
+name=MaxSegLen
+format=int
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=128
+
+path=./DevDetail/URI/MaxDepth
+isLeaf=true
+name=MaxDepth
+format=int
+type=text/plain
+title=
+acl=
+size=2
+version=0
+value=20
+
+path=./DevDetail/Bearer
+isLeaf=false
+name=Bearer
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:GSM/CDMA/
+
+path=./DevDetail/Bearer/GSM
+isLeaf=true
+name=GSM
+format=chr
+type=text/plain
+title=
+acl=
+size=8
+version=0
+value=1900-GSM
+
+path=./DevDetail/Bearer/CDMA
+isLeaf=true
+name=CDMA
+format=chr
+type=text/plain
+title=
+acl=
+size=0
+version=0
+value=
+
+path=./DevDetail/SwV
+isLeaf=true
+name=SwV
+format=chr
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=1.0
+
+path=./DevDetail/OEM
+isLeaf=true
+name=OEM
+format=chr
+type=text/plain
+title=
+acl=
+size=8
+version=0
+value=Motorola
+
+path=./DevDetail/LrgObj
+isLeaf=true
+name=LrgObj
+format=bool
+type=text/plain
+title=
+acl=
+size=5
+version=0
+value=false
+
+path=./DevDetail/HwV
+isLeaf=true
+name=HwV
+format=chr
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=1.0
+
+path=./DevDetail/FwV
+isLeaf=true
+name=FwV
+format=chr
+type=text/plain
+title=
+acl=
+size=3
+version=0
+value=1.0
+
+path=./DevDetail/DevTyp
+isLeaf=true
+name=DevTyp
+format=chr
+type=text/plain
+title=
+acl=
+size=0
+version=0
+value=
+
+
+] 
+] 
+] 
+] 
+] 
+] 
+] Cmd: begin
+begin an atomic operation successfully
+
+] Cmd: createi ./SyncML/Con/x
+node ./SyncML/Con/x created successfully
+
+] Cmd: get ./SyncML/Con/x
+path=./SyncML/Con/x
+isLeaf=false
+name=x
+format=node
+type=
+title=
+acl=
+size=0
+version=0
+children:null
+
+] Cmd: rollback
+rollback atomic operations successfully
+
+] 
+] 
+] Cmd: get ./SyncML/Con/x
+[31mError![0m can't get node ./SyncML/Con/x, DmtException: 404
+
+] 
+] 
+] 
+] 
+] 
+] 
+] 
+] 
+] Cmd: get ./TestPluginNode
+path=./TestPluginNode
+isLeaf=false
+name=TestPluginNode
+format=node
+type=text/plain
+title=
+acl=
+size=0
+version=0
+children:a/b/
+
+] Cmd: get ./TestPluginNode/a
+path=./TestPluginNode/a
+isLeaf=true
+name=a
+format=chr
+type=text/plain
+title=
+acl=
+size=5
+version=0
+value=leaf1
+
+] Cmd: get ./TestPluginNode/b
+path=./TestPluginNode/b
+isLeaf=true
+name=b
+format=chr
+type=text/plain
+title=
+acl=
+size=5
+version=0
+value=leaf2
+
+] Cmd: dump ./TestPluginNode
+path=./TestPluginNode
+isLeaf=false
+name=TestPluginNode
+format=node
+type=text/plain
+title=
+acl=
+size=0
+version=0
+children:a/b/
+
+path=./TestPluginNode/a
+isLeaf=true
+name=a
+format=chr
+type=text/plain
+title=
+acl=
+size=5
+version=0
+value=leaf1
+
+path=./TestPluginNode/b
+isLeaf=true
+name=b
+format=chr
+type=text/plain
+title=
+acl=
+size=5
+version=0
+value=leaf2
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: processscript unittest/dm11/testgetscript.xml
+Process WBXML script: false
+Read 501 bytes
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Get</Cmd><TargetRef>./DevInfo/DevId</TargetRef><Data>200</Data></Status><Results><CmdID>2</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Item><Source><LocURI>./DevInfo/DevId</LocURI></Source><Meta><Size xmlns='syncml:metinf'>15</Size></Meta><Data>000000011234564</Data></Item></Results><Final/></SyncBody></SyncML>
+
+
+] Cmd: processscript unittest/dm11/testexecscript.xml
+Process WBXML script: false
+Read 508 bytes
+execute path=. args=uname
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Exec</Cmd><Data>200</Data></Status><Results><CmdID>2</CmdID><CmdRef>1</CmdRef><Item><Source><LocURI>.</LocURI></Source><Meta><Size xmlns='syncml:metinf'>6</Size></Meta><Data>Linux
+</Data></Item></Results><Final/></SyncBody></SyncML>
+
+
+] Cmd: processscript unittest/dm11/testexecscript2.xml
+Process WBXML script: false
+Read 505 bytes
+execute path=. args=ls
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Exec</Cmd><Data>200</Data></Status><Results><CmdID>2</CmdID><CmdRef>1</CmdRef><Item><Source><LocURI>.</LocURI></Source><Meta><Size xmlns='syncml:metinf'>64</Size></Meta><Data>bin
+compile
+dmt_data
+lib
+plugins
+run_test
+settings
+src
+unittest
+</Data></Item></Results><Final/></SyncBody></SyncML>
+
+
+] 
+] Cmd: processscript unittest/dm11/testalertconfirmatomic.xml
+Process WBXML script: false
+Read 884 bytes
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Atomic</Cmd><Data>507</Data></Status><Status><CmdID>2</CmdID><MsgRef>1</MsgRef><CmdRef>2</CmdRef><Cmd>Alert</Cmd><TargetRef></TargetRef><Data>408</Data></Status><Status><CmdID>3</CmdID><MsgRef>1</MsgRef><CmdRef>3</CmdRef><Cmd>Replace</Cmd><TargetRef>./DevDetail/Bearer/GSM</TargetRef><Data>215</Data></Status><Final/></SyncBody></SyncML>
+
+
+] Cmd: processscript unittest/dm11/testalertmultiplechoice.xml
+Process WBXML script: false
+Read 844 bytes
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Alert</Cmd><Data>408</Data><Item><Data>1</Data></Item><Item><Data>3,6</Data></Item></Status><Final/></SyncBody></SyncML>
+
+
+] Cmd: processscript unittest/dm11/testalertconfirm.xml
+Process WBXML script: false
+Read 584 bytes
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>2</CmdRef><Cmd>Alert</Cmd><Data>408</Data></Status><Final/></SyncBody></SyncML>
+
+
+] Cmd: processscript unittest/dm11/testalertsinglechoice.xml
+Process WBXML script: false
+Read 838 bytes
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Alert</Cmd><Data>408</Data><Item><Data>2</Data></Item></Status><Final/></SyncBody></SyncML>
+
+
+] Cmd: processscript unittest/dm11/testalertdisplay.xml
+Process WBXML script: false
+Read 570 bytes
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Alert</Cmd><Data>200</Data></Status><Final/></SyncBody></SyncML>
+
+
+] Cmd: processscript unittest/dm11/testalerttextinput.xml
+Process WBXML script: false
+Read 609 bytes
+The test Script error code 0; text:
+
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.1'><SyncHdr><VerDTD>1.1</VerDTD><VerProto>DM/1.1</VerProto><SessionID>11</SessionID><MsgID>1</MsgID><Target><LocURI>http://199.1.88.66/Scts?4Eq5AA==</LocURI></Target><Source><LocURI>SampleClient</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>20000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>1</CmdRef><Cmd>Alert</Cmd><Data>408</Data><Item><Data>hello+andy!</Data></Item></Status><Final/></SyncBody></SyncML>
+
+
+] 
+] 
+] 
+] 
+] Cmd: processscript unittest/dm11/testget.wbxml 1
+Process WBXML script: true
+Read 380 bytes
+
+Print result in HEX mode: 
+
+Result Size: 327
+0000: 02 00 00 6a 1d 2d 2f 2f 53 59 4e 43 4d 4c 2f 2f  ...j.-//SYNCML//
+0010: 44 54 44 20 53 79 6e 63 4d 4c 20 31 2e 31 2f 2f  DTD SyncML 1.1//
+0020: 45 4e 6d 6c 71 03 31 2e 31 00 01 72 03 44 4d 2f  ENmlq.1.1..r.DM/
+0030: 31 2e 31 00 01 65 03 32 32 31 30 30 00 01 5b 03  1.1..e.22100..[.
+0040: 31 00 01 6e 57 03 68 74 74 70 3a 2f 2f 31 30 2e  1..nW.http://10.
+0050: 37 32 2e 33 34 2e 32 31 37 2f 53 63 74 73 3f 30  72.34.217/Scts?0
+0060: 4a 54 49 41 41 3d 3d 00 01 01 67 57 03 30 30 30  JTIAA==...gW.000
+0070: 30 30 30 30 31 31 32 33 34 35 36 34 00 01 01 5a  000011234564...Z
+0080: 00 01 4c 03 33 35 30 30 00 01 01 01 00 00 6b 69  ..L.3500......ki
+0090: 4b 03 31 00 01 5c 03 31 00 01 4c 03 30 00 01 4a  K.1..\.1..L.0..J
+00a0: 03 53 79 6e 63 48 64 72 00 01 4f 03 32 30 30 00  .SyncHdr..O.200.
+00b0: 01 01 69 4b 03 32 00 01 5c 03 31 00 01 4c 03 34  ..iK.2..\.1..L.4
+00c0: 00 01 4a 03 47 65 74 00 01 6f 03 2e 2f 44 65 76  ..J.Get..o../Dev
+00d0: 44 65 74 61 69 6c 2f 55 52 49 2f 4d 61 78 44 65  Detail/URI/MaxDe
+00e0: 70 74 68 00 01 4f 03 32 30 30 00 01 01 62 4b 03  pth..O.200...bK.
+00f0: 33 00 01 5c 03 31 00 01 4c 03 34 00 01 54 67 57  3..\.1..L.4..TgW
+0100: 03 2e 2f 44 65 76 44 65 74 61 69 6c 2f 55 52 49  ../DevDetail/URI
+0110: 2f 4d 61 78 44 65 70 74 68 00 01 01 5a 00 01 47  /MaxDepth...Z..G
+0120: 03 69 6e 74 00 01 53 03 74 65 78 74 2f 70 6c 61  .int..S.text/pla
+0130: 69 6e 00 01 52 03 32 00 01 01 00 00 4f 03 32 30  in..R.2.....O.20
+0140: 00 01 01 01 12 01 01                             .......
+
+] Cmd: processscript unittest/dm11/testadd.wbxml 1
+Process WBXML script: true
+Read 385 bytes
+
+Print result in HEX mode: 
+
+Result Size: 230
+0000: 02 00 00 6a 1d 2d 2f 2f 53 59 4e 43 4d 4c 2f 2f  ...j.-//SYNCML//
+0010: 44 54 44 20 53 79 6e 63 4d 4c 20 31 2e 31 2f 2f  DTD SyncML 1.1//
+0020: 45 4e 6d 6c 71 03 31 2e 31 00 01 72 03 44 4d 2f  ENmlq.1.1..r.DM/
+0030: 31 2e 31 00 01 65 03 33 30 34 38 33 00 01 5b 03  1.1..e.30483..[.
+0040: 31 00 01 6e 57 03 68 74 74 70 3a 2f 2f 31 30 2e  1..nW.http://10.
+0050: 37 32 2e 33 34 2e 32 31 37 2f 53 63 74 73 3f 34  72.34.217/Scts?4
+0060: 45 4c 49 41 41 3d 3d 00 01 01 67 57 03 30 30 30  ELIAA==...gW.000
+0070: 30 30 30 30 31 31 32 33 34 35 36 34 00 01 01 5a  000011234564...Z
+0080: 00 01 4c 03 33 35 30 30 00 01 01 01 00 00 6b 69  ..L.3500......ki
+0090: 4b 03 31 00 01 5c 03 31 00 01 4c 03 30 00 01 4a  K.1..\.1..L.0..J
+00a0: 03 53 79 6e 63 48 64 72 00 01 4f 03 32 30 30 00  .SyncHdr..O.200.
+00b0: 01 01 69 4b 03 32 00 01 5c 03 31 00 01 4c 03 34  ..iK.2..\.1..L.4
+00c0: 00 01 4a 03 41 64 64 00 01 6f 03 2e 2f 54 65 73  ..J.Add..o../Tes
+00d0: 74 4c 65 61 66 4e 6f 64 65 00 01 4f 03 35 30 30  tLeafNode..O.500
+00e0: 00 01 01 12 01 01                                ......
+
+] Cmd: processscript unittest/dm11/testdelete.wbxml 1
+Process WBXML script: true
+Read 395 bytes
+
+Print result in HEX mode: 
+
+Result Size: 281
+0000: 02 00 00 6a 1d 2d 2f 2f 53 59 4e 43 4d 4c 2f 2f  ...j.-//SYNCML//
+0010: 44 54 44 20 53 79 6e 63 4d 4c 20 31 2e 31 2f 2f  DTD SyncML 1.1//
+0020: 45 4e 6d 6c 71 03 31 2e 31 00 01 72 03 44 4d 2f  ENmlq.1.1..r.DM/
+0030: 31 2e 31 00 01 65 03 31 32 34 36 33 00 01 5b 03  1.1..e.12463..[.
+0040: 31 00 01 6e 57 03 68 74 74 70 3a 2f 2f 31 30 2e  1..nW.http://10.
+0050: 37 32 2e 33 34 2e 32 31 37 2f 53 63 74 73 3f 41  72.34.217/Scts?A
+0060: 4c 76 48 41 41 3d 3d 00 01 01 67 57 03 30 30 30  LvHAA==...gW.000
+0070: 30 30 30 30 31 31 32 33 34 35 36 34 00 01 01 5a  000011234564...Z
+0080: 00 01 4c 03 33 35 30 30 00 01 01 01 00 00 6b 69  ..L.3500......ki
+0090: 4b 03 31 00 01 5c 03 31 00 01 4c 03 30 00 01 4a  K.1..\.1..L.0..J
+00a0: 03 53 79 6e 63 48 64 72 00 01 4f 03 32 30 30 00  .SyncHdr..O.200.
+00b0: 01 01 69 4b 03 32 00 01 5c 03 31 00 01 4c 03 34  ..iK.2..\.1..L.4
+00c0: 00 01 4a 03 44 65 6c 65 74 65 00 01 6f 03 2e 2f  ..J.Delete..o../
+00d0: 54 65 73 74 4c 65 61 66 4e 6f 64 65 00 01 4f 03  TestLeafNode..O.
+00e0: 34 30 34 00 01 01 69 4b 03 33 00 01 5c 03 31 00  404...iK.3..\.1.
+00f0: 01 4c 03 35 00 01 4a 03 44 65 6c 65 74 65 00 01  .L.5..J.Delete..
+0100: 6f 03 2e 2f 54 65 73 74 4c 65 61 66 00 01 4f 03  o../TestLeaf..O.
+0110: 34 30 34 00 01 01 12 01 01                       404......
+
+] Cmd: processscript unittest/dm11/testreplace.wbxml 1
+Process WBXML script: true
+Read 662 bytes
+
+Print result in HEX mode: 
+
+Result Size: 684
+0000: 02 00 00 6a 1d 2d 2f 2f 53 59 4e 43 4d 4c 2f 2f  ...j.-//SYNCML//
+0010: 44 54 44 20 53 79 6e 63 4d 4c 20 31 2e 31 2f 2f  DTD SyncML 1.1//
+0020: 45 4e 6d 6c 71 03 31 2e 31 00 01 72 03 44 4d 2f  ENmlq.1.1..r.DM/
+0030: 31 2e 31 00 01 65 03 32 34 36 37 33 00 01 5b 03  1.1..e.24673..[.
+0040: 31 00 01 6e 57 03 30 30 30 30 30 30 30 31 31 32  1..nW.0000000112
+0050: 33 34 35 36 34 00 01 56 03 53 61 6d 70 6c 65 53  34564..V.SampleS
+0060: 65 72 76 65 72 00 01 01 67 57 03 68 74 74 70 3a  erver...gW.http:
+0070: 2f 2f 31 30 2e 37 32 2e 34 31 2e 31 38 32 3a 38  //10.72.41.182:8
+0080: 30 2f 4d 61 6e 61 67 65 00 01 56 03 53 63 74 73  0/Manage..V.Scts
+0090: 00 01 01 5a 00 01 4c 03 33 35 30 30 00 01 01 01  ...Z..L.3500....
+00a0: 00 00 6b 69 4b 03 31 00 01 5c 03 31 00 01 4c 03  ..kiK.1..\.1..L.
+00b0: 31 00 01 4a 03 41 6c 65 72 74 00 01 4f 03 32 30  1..J.Alert..O.20
+00c0: 30 00 01 01 69 4b 03 32 00 01 5c 03 31 00 01 4c  0...iK.2..\.1..L
+00d0: 03 32 00 01 4a 03 52 65 70 6c 61 63 65 00 01 68  .2..J.Replace..h
+00e0: 03 2e 2f 44 65 76 49 6e 66 6f 2f 44 65 76 49 64  ../DevInfo/DevId
+00f0: 00 01 4f 03 34 30 30 00 01 01 69 4b 03 33 00 01  ..O.400...iK.3..
+0100: 5c 03 31 00 01 4c 03 32 00 01 4a 03 52 65 70 6c  \.1..L.2..J.Repl
+0110: 61 63 65 00 01 68 03 2e 2f 44 65 76 49 6e 66 6f  ace..h../DevInfo
+0120: 2f 44 6d 56 00 01 4f 03 34 30 30 00 01 01 69 4b  /DmV..O.400...iK
+0130: 03 34 00 01 5c 03 31 00 01 4c 03 32 00 01 4a 03  .4..\.1..L.2..J.
+0140: 52 65 70 6c 61 63 65 00 01 68 03 2e 2f 44 65 76  Replace..h../Dev
+0150: 49 6e 66 6f 2f 4c 61 6e 67 00 01 4f 03 34 30 30  Info/Lang..O.400
+0160: 00 01 01 69 4b 03 35 00 01 5c 03 31 00 01 4c 03  ...iK.5..\.1..L.
+0170: 32 00 01 4a 03 52 65 70 6c 61 63 65 00 01 68 03  2..J.Replace..h.
+0180: 2e 2f 44 65 76 49 6e 66 6f 2f 4d 61 6e 00 01 4f  ./DevInfo/Man..O
+0190: 03 34 30 30 00 01 01 69 4b 03 36 00 01 5c 03 31  .400...iK.6..\.1
+01a0: 00 01 4c 03 32 00 01 4a 03 52 65 70 6c 61 63 65  ..L.2..J.Replace
+01b0: 00 01 68 03 2e 2f 44 65 76 49 6e 66 6f 2f 4d 6f  ..h../DevInfo/Mo
+01c0: 64 00 01 4f 03 34 30 30 00 01 01 69 4b 03 37 00  d..O.400...iK.7.
+01d0: 01 5c 03 31 00 01 4c 03 32 00 01 4a 03 52 65 70  .\.1..L.2..J.Rep
+01e0: 6c 61 63 65 00 01 68 03 2e 2f 44 65 76 49 6e 66  lace..h../DevInf
+01f0: 6f 2f 42 65 61 72 65 72 2f 47 53 4d 00 01 4f 03  o/Bearer/GSM..O.
+0200: 34 30 30 00 01 01 69 4b 03 38 00 01 5c 03 31 00  400...iK.8..\.1.
+0210: 01 4c 03 32 00 01 4a 03 52 65 70 6c 61 63 65 00  .L.2..J.Replace.
+0220: 01 68 03 2e 2f 44 65 76 49 6e 66 6f 2f 53 6f 72  .h../DevInfo/Sor
+0230: 74 00 01 4f 03 34 30 30 00 01 01 69 4b 03 39 00  t..O.400...iK.9.
+0240: 01 5c 03 31 00 01 4c 03 32 00 01 4a 03 52 65 70  .\.1..L.2..J.Rep
+0250: 6c 61 63 65 00 01 68 03 2e 2f 44 65 76 49 6e 66  lace..h../DevInf
+0260: 6f 2f 4c 6f 63 00 01 4f 03 34 30 30 00 01 01 69  o/Loc..O.400...i
+0270: 4b 03 31 30 00 01 5c 03 31 00 01 4c 03 32 00 01  K.10..\.1..L.2..
+0280: 4a 03 52 65 70 6c 61 63 65 00 01 68 03 2e 2f 44  J.Replace..h../D
+0290: 65 76 49 6e 66 6f 2f 4c 61 6e 67 41 75 74 6f 00  evInfo/LangAuto.
+02a0: 01 4f 03 34 30 30 00 01 01 12 01 01              .O.400......
+
+] 
+] 
+] 
+] 
+] Cmd: hmaccred scts
+
+] 
+] 
+] 
+] 
+] Cmd: createi ./SyncML/DMAcc/SampleServer
+node ./SyncML/DMAcc/SampleServer created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/ServerId Scts
+node ./SyncML/DMAcc/SampleServer/ServerId (Scts) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/ServerId], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/Addr http://127.0.0.1:80/Manage
+node ./SyncML/DMAcc/SampleServer/Addr (http://127.0.0.1:80/Manage) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/Addr], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/AddrType 1
+node ./SyncML/DMAcc/SampleServer/AddrType (1) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/AddrType], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/ConRef
+node ./SyncML/DMAcc/SampleServer/ConRef () created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/ConRef], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/Name SampleServer
+node ./SyncML/DMAcc/SampleServer/Name (SampleServer) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/Name], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/ServerPW SampleServer
+node ./SyncML/DMAcc/SampleServer/ServerPW (SampleServer) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/ServerPW], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/UserName SampleServer
+node ./SyncML/DMAcc/SampleServer/UserName (SampleServer) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/UserName], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/ClientPW SampleServer
+node ./SyncML/DMAcc/SampleServer/ClientPW (SampleServer) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/ClientPW], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/PortNbr 80
+node ./SyncML/DMAcc/SampleServer/PortNbr (80) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/PortNbr], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/ServerNonce MTIzNDEyMzQxMjM0MTIzNA==
+node ./SyncML/DMAcc/SampleServer/ServerNonce (MTIzNDEyMzQxMjM0MTIzNA==) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/ServerNonce], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/ClientNonce 123abc
+node ./SyncML/DMAcc/SampleServer/ClientNonce (123abc) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/ClientNonce], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/SampleServer/AuthPref syncml:auth-basic
+node ./SyncML/DMAcc/SampleServer/AuthPref (syncml:auth-basic) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/AuthPref], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] 
+] Cmd: connectsid Scts
+start server session, Scts, bin = false
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer/UserName], [REPLACE]
+notification for uri [./SyncML/DMAcc/SampleServer/ClientPW], [REPLACE]
+Commit plug-in: OnCommit <END> 
+[31mError![0m can't start server session, DmtException: 1
+
+] 
+] Cmd: dump ./SyncML/DMAcc/SampleServer
+path=./SyncML/DMAcc/SampleServer
+isLeaf=false
+name=SampleServer
+format=node
+type=
+title=
+acl=
+size=0
+version=12
+children:ServerId/Addr/AddrType/ConRef/Name/ServerPW/UserName/ClientPW/PortNbr/ServerNonce/ClientNonce/AuthPref/
+
+path=./SyncML/DMAcc/SampleServer/ServerId
+isLeaf=true
+name=ServerId
+format=chr
+type=text/plain
+title=
+acl=
+size=4
+version=0
+value=Scts
+
+path=./SyncML/DMAcc/SampleServer/Addr
+isLeaf=true
+name=Addr
+format=chr
+type=text/plain
+title=
+acl=
+size=26
+version=0
+value=http://127.0.0.1:80/Manage
+
+path=./SyncML/DMAcc/SampleServer/AddrType
+isLeaf=true
+name=AddrType
+format=chr
+type=text/plain
+title=
+acl=
+size=1
+version=0
+value=1
+
+path=./SyncML/DMAcc/SampleServer/ConRef
+isLeaf=true
+name=ConRef
+format=chr
+type=text/plain
+title=
+acl=
+size=0
+version=0
+value=
+
+path=./SyncML/DMAcc/SampleServer/Name
+isLeaf=true
+name=Name
+format=chr
+type=text/plain
+title=
+acl=
+size=12
+version=0
+value=SampleServer
+
+path=./SyncML/DMAcc/SampleServer/ServerPW
+isLeaf=true
+name=ServerPW
+format=chr
+type=text/plain
+title=
+acl=
+size=12
+version=0
+value=SampleServer
+
+path=./SyncML/DMAcc/SampleServer/UserName
+isLeaf=true
+name=UserName
+format=chr
+type=text/plain
+title=
+acl=
+size=12
+version=1
+value=SampleServer
+
+path=./SyncML/DMAcc/SampleServer/ClientPW
+isLeaf=true
+name=ClientPW
+format=chr
+type=text/plain
+title=
+acl=
+size=12
+version=1
+value=SampleServer
+
+path=./SyncML/DMAcc/SampleServer/PortNbr
+isLeaf=true
+name=PortNbr
+format=chr
+type=text/plain
+title=
+acl=
+size=2
+version=0
+value=80
+
+path=./SyncML/DMAcc/SampleServer/ServerNonce
+isLeaf=true
+name=ServerNonce
+format=chr
+type=text/plain
+title=
+acl=
+size=24
+version=0
+value=MTIzNDEyMzQxMjM0MTIzNA==
+
+path=./SyncML/DMAcc/SampleServer/ClientNonce
+isLeaf=true
+name=ClientNonce
+format=chr
+type=text/plain
+title=
+acl=
+size=6
+version=0
+value=123abc
+
+path=./SyncML/DMAcc/SampleServer/AuthPref
+isLeaf=true
+name=AuthPref
+format=chr
+type=text/plain
+title=
+acl=
+size=17
+version=0
+value=syncml:auth-basic
+
+
+] 
+] Cmd: delete ./SyncML/DMAcc/SampleServer
+node ./SyncML/DMAcc/SampleServer deleted successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/SampleServer], [DELETE]
+Commit plug-in: OnCommit <END> 
+
+] 
+] 
+] 
+] 
+] Cmd: Exec . ls
+execute path=. args=ls
+execute node . successfully, result=bin
+compile
+dmt_data
+lib
+plugins
+run_test
+settings
+src
+unittest
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: createi ./UnitTest/Profiles11/1
+node ./UnitTest/Profiles11/1 created successfully
+OnTreeSaved, parent uri ./UnitTest/Profiles11
+
+] Cmd: createl ./UnitTest/Profiles11/1/CurProfile 12
+[31mError![0m can't create a node ./UnitTest/Profiles11/1/CurProfile, DmtException: 500
+
+] Cmd: createi ./UnitTest/Profiles11/2
+node ./UnitTest/Profiles11/2 created successfully
+OnTreeSaved, parent uri ./UnitTest/Profiles11
+
+] Cmd: createl ./UnitTest/Profiles11/2/CurProfile 12
+[31mError![0m can't create a node ./UnitTest/Profiles11/2/CurProfile, DmtException: 500
+
+] 
+] Cmd: createi ./SyncML/DMAcc/12
+node ./SyncML/DMAcc/12 created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/12], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] Cmd: createl ./SyncML/DMAcc/12/ServerId some
+node ./SyncML/DMAcc/12/ServerId (some) created successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/12/ServerId], [ADD]
+Commit plug-in: OnCommit <END> 
+
+] 
+] Cmd: createl ./UnitTest/Profiles11/1/CurProfile 12
+node ./UnitTest/Profiles11/1/CurProfile (12) created successfully
+Commit plug-in: OnCommit [profile11]<START> 
+notification for uri [./UnitTest/Profiles11/1/CurProfile], [ADD]
+Commit plug-in: OnCommit <END> 
+OnTreeSaved, parent uri ./UnitTest/Profiles11/1
+
+] Cmd: createl ./UnitTest/Profiles11/2/CurProfile 12
+node ./UnitTest/Profiles11/2/CurProfile (12) created successfully
+Commit plug-in: OnCommit [profile11]<START> 
+notification for uri [./UnitTest/Profiles11/2/CurProfile], [ADD]
+Commit plug-in: OnCommit <END> 
+OnTreeSaved, parent uri ./UnitTest/Profiles11/2
+
+] 
+] Cmd: replace ./SyncML/DMAcc/12/ServerId some3
+set value of node ./SyncML/DMAcc/12/ServerId to some3 successfully
+path=./SyncML/DMAcc/12/ServerId
+isLeaf=true
+name=ServerId
+format=chr
+type=text/plain
+title=
+acl=
+size=5
+version=1
+value=some3
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/12/ServerId], [REPLACE]
+Commit plug-in: OnCommit <END> 
+Commit plug-in: OnCommit [profile11]<START> 
+notification for uri [./UnitTest/Profiles11/1/CurProfile], [INDIRECT UPDATE]
+notification for uri [./UnitTest/Profiles11/2/CurProfile], [INDIRECT UPDATE]
+Commit plug-in: OnCommit <END> 
+OnTreeSaved, parent uri ./UnitTest/Profiles11/1
+OnTreeSaved, parent uri ./UnitTest/Profiles11/2
+
+] Cmd: createl ./SyncML/DMAcc/12/AppID some
+[31mError![0m can't create a node ./SyncML/DMAcc/12/AppID, DmtException: 500
+
+] 
+] 
+] Cmd: delete ./SyncML/DMAcc/12
+[31mError![0m can't delete node ./SyncML/DMAcc/12, DmtException: 500
+
+] 
+] 
+] Cmd: delete ./UnitTest/Profiles11/1
+node ./UnitTest/Profiles11/1 deleted successfully
+Commit plug-in: OnCommit [profile11]<START> 
+notification for uri [./UnitTest/Profiles11/1/CurProfile], [DELETE]
+Commit plug-in: OnCommit <END> 
+OnTreeSaved, parent uri ./UnitTest/Profiles11
+
+] Cmd: delete ./UnitTest/Profiles11/2
+node ./UnitTest/Profiles11/2 deleted successfully
+Commit plug-in: OnCommit [profile11]<START> 
+notification for uri [./UnitTest/Profiles11/2/CurProfile], [DELETE]
+Commit plug-in: OnCommit <END> 
+OnTreeSaved, parent uri ./UnitTest/Profiles11
+
+] Cmd: delete ./SyncML/DMAcc/12
+node ./SyncML/DMAcc/12 deleted successfully
+Commit plug-in: OnCommit [root]<START> 
+notification for uri [./SyncML/DMAcc/12], [DELETE]
+Commit plug-in: OnCommit <END> 
+
+] 
+] Cmd: dump ./TestRWPluginNode
+path=./TestRWPluginNode
+isLeaf=false
+name=TestRWPluginNode
+format=node
+type=text/plain
+title=
+acl=
+size=0
+version=0
+children:branch1/
+
+path=./TestRWPluginNode/branch1
+isLeaf=false
+name=branch1
+format=node
+type=text/plain
+title=
+acl=
+size=0
+version=0
+children:char/int/lob/lobbin/FloatLeaf/DateLeaf/TimeLeaf/
+
+path=./TestRWPluginNode/branch1/char
+isLeaf=true
+name=char
+format=chr
+type=text/plain
+title=
+acl=
+size=10
+version=0
+value=char_value
+
+path=./TestRWPluginNode/branch1/int
+isLeaf=true
+name=int
+format=int
+type=text/plain
+title=
+acl=
+size=4
+version=0
+value=1234
+
+path=./TestRWPluginNode/branch1/lob
+isLeaf=true
+name=lob
+format=chr
+type=text/plain
+title=
+acl=
+size=0
+version=0
+value=
+
+
+path=./TestRWPluginNode/branch1/lobbin
+isLeaf=true
+name=lobbin
+format=bin
+type=text/plain
+title=
+acl=
+size=0
+version=0
+value=
+
+
+path=./TestRWPluginNode/branch1/FloatLeaf
+isLeaf=true
+name=FloatLeaf
+format=float
+type=text/plain
+title=
+acl=
+size=11
+version=0
+value=-1.23456e+2
+
+path=./TestRWPluginNode/branch1/DateLeaf
+isLeaf=true
+name=DateLeaf
+format=date
+type=text/plain
+title=
+acl=
+size=10
+version=0
+value=2005-10-18
+
+path=./TestRWPluginNode/branch1/TimeLeaf
+isLeaf=true
+name=TimeLeaf
+format=time
+type=text/plain
+title=
+acl=
+size=8
+version=0
+value=11:38:58
+
+
+] 
+] 
+] 
+] 
+] Cmd: createl ./TEST/lob
+node ./TEST/lob () created successfully
+OnTreeSaved, parent uri ./TEST
+
+] Cmd: setESN ./TEST/lob unittest/dm11/testlobdata1.dat
+read 11 bytes
+0123456789
+
+
+OnTreeSaved, parent uri ./TEST
+
+] Cmd: get ./TEST/lob
+path=./TEST/lob
+isLeaf=true
+name=lob
+format=chr
+type=text/plain
+title=
+acl=
+size=11
+version=2
+value=
+0123456789
+
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: setESN ./TEST/lob unittest/dm11/testlobdata2.dat
+read 27 bytes
+abcdefghijklmnopqrstunwxyz
+
+
+OnTreeSaved, parent uri ./TEST
+
+] Cmd: get ./TEST/lob
+path=./TEST/lob
+isLeaf=true
+name=lob
+format=chr
+type=text/plain
+title=
+acl=
+size=27
+version=4
+value=
+abcdefghijklmnopqrstunwxyz
+
+
+
+] 
+] 
+] 
+] 
+] Cmd: delete ./CLONE
+node ./CLONE deleted successfully
+OnTreeSaved, parent uri .
+
+] Cmd: clone ./TEST CLONE
+clone ./TEST to CLONE successfully
+OnTreeSaved, parent uri .
+OnTreeSaved, parent uri ./CLONE
+
+] Cmd: get ./CLONE/lob
+path=./CLONE/lob
+isLeaf=true
+name=lob
+format=chr
+type=text/plain
+title=
+acl=
+size=27
+version=2
+value=
+abcdefghijklmnopqrstunwxyz
+
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: delete ./TEST/lob
+node ./TEST/lob deleted successfully
+OnTreeSaved, parent uri ./TEST
+
+] Cmd: delete ./CLONE/lob
+node ./CLONE/lob deleted successfully
+OnTreeSaved, parent uri ./CLONE
+
+] Cmd: get ./TEST/lob
+[31mError![0m can't get node ./TEST/lob, DmtException: 404
+
+] 
+] 
+] 
+] 
+] Cmd: begin
+begin an atomic operation successfully
+
+] Cmd: createl ./TEST/lob
+node ./TEST/lob () created successfully
+
+] Cmd: setESN ./TEST/lob unittest/dm11/testlobdata1.dat
+read 11 bytes
+0123456789
+
+
+
+] Cmd: rollback
+rollback atomic operations successfully
+
+] Cmd: get ./TEST/lob
+[31mError![0m can't get node ./TEST/lob, DmtException: 404
+
+] 
+] 
+] 
+] 
+] Cmd: createlb ./TEST/lobbin
+node ./TEST/lobbin () created successfully
+OnTreeSaved, parent uri ./TEST
+
+] Cmd: setESN ./TEST/lob unittest/dm11/testlobdata1.dat
+read 11 bytes
+[31mError![0m can't get node ./TEST/lob, DmtException: 404
+
+] Cmd: get ./TEST/lobbin
+path=./TEST/lobbin
+isLeaf=true
+name=lobbin
+format=bin
+type=text/plain
+title=
+acl=
+size=0
+version=0
+value=
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: setESN ./TEST/lobbin unittest/dm11/testlobdata2.dat
+read 27 bytes
+abcdefghijklmnopqrstunwxyz
+
+
+OnTreeSaved, parent uri ./TEST
+
+] Cmd: get ./TEST/lobbin
+path=./TEST/lobbin
+isLeaf=true
+name=lobbin
+format=bin
+type=text/plain
+title=
+acl=
+size=27
+version=2
+value=
+abcdefghijklmnopqrstunwxyz
+
+
+
+] 
+] 
+] 
+] 
+] Cmd: delete ./CLONE
+node ./CLONE deleted successfully
+OnTreeSaved, parent uri .
+
+] Cmd: clone ./TEST CLONE
+clone ./TEST to CLONE successfully
+OnTreeSaved, parent uri .
+OnTreeSaved, parent uri ./CLONE
+
+] Cmd: get ./CLONE/lobbin
+path=./CLONE/lobbin
+isLeaf=true
+name=lobbin
+format=bin
+type=text/plain
+title=
+acl=
+size=27
+version=2
+value=
+abcdefghijklmnopqrstunwxyz
+
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: delete ./TEST/lobbin
+node ./TEST/lobbin deleted successfully
+OnTreeSaved, parent uri ./TEST
+
+] Cmd: delete ./CLONE/lobbin
+node ./CLONE/lobbin deleted successfully
+OnTreeSaved, parent uri ./CLONE
+
+] Cmd: get ./TEST/lobbin
+[31mError![0m can't get node ./TEST/lobbin, DmtException: 404
+
+] 
+] 
+] 
+] 
+] Cmd: begin
+begin an atomic operation successfully
+
+] Cmd: createlb ./TEST/lobbin
+node ./TEST/lobbin () created successfully
+
+] Cmd: setESN ./TEST/lobbin unittest/dm11/testlobdata1.dat
+read 11 bytes
+0123456789
+
+
+
+] Cmd: rollback
+rollback atomic operations successfully
+
+] Cmd: get ./TEST/lobbin
+[31mError![0m can't get node ./TEST/lobbin, DmtException: 404
+
+] 
+] 
+] 
+] 
+] Cmd: delete ./TestRWPluginNode/branch1/lob
+node ./TestRWPluginNode/branch1/lob deleted successfully
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: createl ./TestRWPluginNode/branch1/lob
+node ./TestRWPluginNode/branch1/lob () created successfully
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: setESN ./TestRWPluginNode/branch1/lob unittest/dm11/testlobdata1.dat
+read 11 bytes
+0123456789
+
+
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: get ./TestRWPluginNode/branch1/lob
+path=./TestRWPluginNode/branch1/lob
+isLeaf=true
+name=lob
+format=chr
+type=text/plain
+title=
+acl=
+size=11
+version=0
+value=
+0123456789
+
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: setESN ./TestRWPluginNode/branch1/lob unittest/dm11/testlobdata2.dat
+read 27 bytes
+abcdefghijklmnopqrstunwxyz
+
+
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: get ./TestRWPluginNode/branch1/lob
+path=./TestRWPluginNode/branch1/lob
+isLeaf=true
+name=lob
+format=chr
+type=text/plain
+title=
+acl=
+size=27
+version=0
+value=
+abcdefghijklmnopqrstunwxyz
+
+
+
+] 
+] 
+] 
+] 
+] Cmd: delete ./TestRWPluginNode/branch1/lobbin
+node ./TestRWPluginNode/branch1/lobbin deleted successfully
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: createlb ./TestRWPluginNode/branch1/lobbin
+node ./TestRWPluginNode/branch1/lobbin () created successfully
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: setESN ./TestRWPluginNode/branch1/lobbin unittest/dm11/testlobdata1.dat
+read 11 bytes
+0123456789
+
+
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: get ./TestRWPluginNode/branch1/lobbin
+path=./TestRWPluginNode/branch1/lobbin
+isLeaf=true
+name=lobbin
+format=bin
+type=text/plain
+title=
+acl=
+size=11
+version=0
+value=
+0123456789
+
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: setESN ./TestRWPluginNode/branch1/lobbin unittest/dm11/testlobdata2.dat
+read 27 bytes
+abcdefghijklmnopqrstunwxyz
+
+
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: get ./TestRWPluginNode/branch1/lobbin
+path=./TestRWPluginNode/branch1/lobbin
+isLeaf=true
+name=lobbin
+format=bin
+type=text/plain
+title=
+acl=
+size=27
+version=0
+value=
+abcdefghijklmnopqrstunwxyz
+
+
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: delete ./TestRWPluginNode/clone
+[31mError![0m can't delete node ./TestRWPluginNode/clone, DmtException: 404
+
+] Cmd: clone ./TestRWPluginNode/branch1 clone
+[31mError![0m can't clone ./TestRWPluginNode/branch1 to clone, DmtException: 415
+OnTreeSaved, parent uri ./TestRWPluginNode
+OnTreeSaved, parent uri ./TestRWPluginNode/clone
+
+] Cmd: get ./TestRWPluginNode/clone/lob
+[31mError![0m can't get node ./TestRWPluginNode/clone/lob, DmtException: 404
+
+] Cmd: get ./TestRWPluginNode/clone/lobbin
+[31mError![0m can't get node ./TestRWPluginNode/clone/lobbin, DmtException: 404
+
+] 
+] 
+] 
+] 
+] 
+] Cmd: delete ./TestRWPluginNode/clone
+node ./TestRWPluginNode/clone deleted successfully
+OnTreeSaved, parent uri ./TestRWPluginNode
+
+] Cmd: delete ./TestRWPluginNode/branch1/lob
+node ./TestRWPluginNode/branch1/lob deleted successfully
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: delete ./TestRWPluginNode/branch1/lobbin
+node ./TestRWPluginNode/branch1/lobbin deleted successfully
+OnTreeSaved, parent uri ./TestRWPluginNode/branch1
+
+] Cmd: get ./TestRWPluginNode/clone/lobbin
+[31mError![0m can't get node ./TestRWPluginNode/clone/lobbin, DmtException: 404
+
+] Cmd: get ./TestRWPluginNode/branch1/lob
+[31mError![0m can't get node ./TestRWPluginNode/branch1/lob, DmtException: 404
+
+] Cmd: get ./TestRWPluginNode/branch1/lobbin
+[31mError![0m can't get node ./TestRWPluginNode/branch1/lobbin, DmtException: 404
+
+] 
+] 
+] 
+] 
+] Cmd: begin
+begin an atomic operation successfully
+
+] Cmd: createl ./TestRWPluginNode/branch1/lob
+node ./TestRWPluginNode/branch1/lob () created successfully
+
+] Cmd: setESN ./TestRWPluginNode/branch1/lob unittest/dm11/testlobdata1.dat
+read 11 bytes
+0123456789
+
+
+
+] Cmd: rollback
+rollback atomic operations successfully
+
+] Cmd: get ./TestRWPluginNode/branch1/lob
+[31mError![0m can't get node ./TestRWPluginNode/branch1/lob, DmtException: 404
+
+] 
+] 
+] 
+] 
+] Cmd: begin
+begin an atomic operation successfully
+
+] Cmd: createlb ./TestRWPluginNode/branch1/lobbin
+node ./TestRWPluginNode/branch1/lobbin () created successfully
+
+] Cmd: setESN ./TestRWPluginNode/branch1/lobbin unittest/dm11/testlobdata1.dat
+read 11 bytes
+0123456789
+
+
+
+] Cmd: rollback
+rollback atomic operations successfully
+
+] Cmd: get ./TestRWPluginNode/branch1/lobbin
+[31mError![0m can't get node ./TestRWPluginNode/branch1/lobbin, DmtException: 404
+
+] 
+] Cmd: getCounter
+Number of tested cases: 272
+
+] 
+] Cmd: quit

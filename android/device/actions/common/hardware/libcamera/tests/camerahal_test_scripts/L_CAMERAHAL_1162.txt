@@ -1,0 +1,16 @@
+|A1|4VGA|~yuv420sp|r30
+|d2|9H264|vmp4|-AMR_NB|]64K|lVGA|6|d5|2|d2
+|512MP|1|d2|p|d5|2|d2
+|d2|9H264|vmp4|-AMR_NB|]64K|lVGA|6|d5|2|d2
+|512MP|1|d2|p|d5|2|d2
+|q
+
+
+**************SCRIPT SUCCESS******************
+
+//SCRIPT NAME: L_CAMERAHAL_0162
+//DESCRIPTION: Switching between video mode and image capture Video record resolution: Any Format: YUV420NV12 Image Capture Resolution: 12MP, High Quality Image Capture Format: JPEG
+//     AUTHOR: Ivpetrov
+//       DATE: 08.02.2010
+//    VERSION: 1.0
+

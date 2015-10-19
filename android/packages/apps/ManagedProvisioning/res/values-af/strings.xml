@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="4699090302771328296">"Toestelopsteller"</string>
+    <string name="provisioning_error_title" msgid="6320515739861578118">"Oeps!"</string>
+    <string name="setup_work_space" msgid="6539913744903244870">"Stel jou profiel op"</string>
+    <string name="company_controls_workspace" msgid="2808025277267917221">"Jou organisasie beheer hierdie profiel en hou dit veilig. Jy beheer alle ander goed op jou toestel."</string>
+    <string name="the_following_is_your_mdm" msgid="6613658218262376404">"Die volgende program sal toegang tot hierdie profiel moet hê:"</string>
+    <string name="set_up" msgid="7012862095553564169">"Stel op"</string>
+    <string name="setting_up_workspace" msgid="6116976629983614927">"Stel tans jou werkprofiel op …"</string>
+    <string name="admin_has_ability_to_monitor_profile" msgid="8782160676037188061">"Jou administrateur het die vermoë om instellings, korporatiewe toegang, programme en data wat met die profiel geassosieer word, insluitend netwerkaktiwiteit en jou toestel se ligginginligting, te monitor en te bestuur."</string>
+    <string name="admin_has_ability_to_monitor_device" msgid="4534011355086694158">"Jou administrateur het die vermoë om instellings, korporatiewe toegang, programme en data wat met hierdie toestel geassosieer word, insluitend netwerkaktiwiteit en jou toestel se ligginginligting, te monitor en te bestuur."</string>
+    <string name="contact_your_admin_for_more_info" msgid="6870084889394621288">"Kontak jou administrateur vir meer inligting, insluitend jou organisasie se privaatheidbeleide."</string>
+    <string name="learn_more_link" msgid="3012495805919550043">"Kom meer te wete"</string>
+    <string name="cancel_setup" msgid="2949928239276274745">"Kanselleer"</string>
+    <string name="ok_setup" msgid="5148111905838329307">"Goed"</string>
+    <string name="default_managed_profile_name" msgid="5370257687074907055">"Werkprofiel"</string>
+    <string name="managed_profile_already_present" msgid="888277922880582498">"Jy het reeds \'n werkprofiel op jou toestel. Wil jy dit te verwyder?"</string>
+    <string name="sure_you_want_to_delete_profile" msgid="3612824117836349973">"Is jy seker jy wil hierdie werkprofiel verwyder? Al sy data sal uitgevee word."</string>
+    <string name="delete_profile" msgid="7107020982626129151">"Verwyder"</string>
+    <string name="cancel_delete_profile" msgid="5155447537894046036">"Kanselleer"</string>
+    <string name="encrypt_device_text" msgid="6762208577171389053">"Jy moet jou toestel enkripteer om voort te gaan om jou werkprofiel op te stel. Dit kan \'n ruk duur."</string>
+    <string name="encrypt_device_cancel" msgid="5644516574936584926">"Kanselleer"</string>
+    <string name="encrypt_device_launch_settings" msgid="826115154646195837">"Enkripteer"</string>
+    <string name="continue_provisioning_notify_title" msgid="5191449100153186648">"Enkripsie voltooi"</string>
+    <string name="continue_provisioning_notify_text" msgid="3027317630111909095">"Raak om voort te gaan om jou werkprofiel op te stel"</string>
+    <string name="managed_provisioning_error_text" msgid="7063621174570680890">"Kon nie jou werkprofiel opstel nie. Kontak jou IT-afdeling of probeer later weer."</string>
+    <string name="managed_provisioning_not_supported" msgid="6582227325719911795">"Jou toestel steun nie werkprofiele nie"</string>
+    <string name="user_is_not_owner" msgid="4358772243716976929">"Werkprofiele moet deur die toesteleienaar opgestel word"</string>
+    <string name="managed_provisioning_not_supported_by_launcher" msgid="8710138269807942163">"Hierdie lanseerderprogram steun nie jou werkprofiel nie. Jy moet oorskakel na \'n lanseerder wat versoenbaar is."</string>
+    <string name="cancel_provisioning" msgid="3408069559452653724">"Kanselleer"</string>
+    <string name="pick_launcher" msgid="4257084827403983845">"OK"</string>
+    <string name="default_owned_device_username" msgid="3915120202811807955">"Gebruiker van werktoestel"</string>
+    <string name="setup_device" msgid="6725265673245816366">"Stel jou toestel op"</string>
+    <string name="progress_data_process" msgid="7099462614425874283">"Verwerk tans opstellingdata …"</string>
+    <string name="progress_connect_to_wifi" msgid="9214694010080838763">"Koppel tans aan Wi-Fi …"</string>
+    <string name="progress_download" msgid="4995057798189799156">"Laai tans die administrasieprogram af …"</string>
+    <string name="progress_install" msgid="9169411715762296097">"Installeer tans die administrasieprogram …"</string>
+    <string name="progress_set_owner" msgid="1292946927202510987">"Stel tans die toesteleienaar …"</string>
+    <string name="device_owner_cancel_title" msgid="7909285135975063120">"Hou op om op te stel?"</string>
+    <string name="device_owner_cancel_message" msgid="7928007377743469904">"Is jy seker jy wil stop om jou toestel se data op te stel en uit te vee?"</string>
+    <string name="device_owner_cancel_cancel" msgid="1052951540909389275">"Kanselleer"</string>
+    <string name="device_owner_error_ok" msgid="2556654993515978854">"Goed"</string>
+    <string name="device_owner_error_reset" msgid="1609782972753569267">"Stel terug"</string>
+    <string name="device_owner_error_general" msgid="5962462955470123776">"Kon nie jou toestel opstel nie. Kontak jou IT-afdeling."</string>
+    <string name="device_owner_error_already_provisioned" msgid="1902305486832057049">"Hierdie toestel is reeds opgestel"</string>
+    <string name="device_owner_error_wifi" msgid="4256310285761332378">"Kon nie aan Wi-Fi koppel nie"</string>
+    <string name="device_owner_error_hash_mismatch" msgid="184518450016295596">"Kon nie die administrasieprogram gebruik nie weens \'n checksum-fout. Kontak jou IT-afdeling."</string>
+    <string name="device_owner_error_download_failed" msgid="4520111971592657116">"Kon nie die administrasieprogram aflaai nie"</string>
+    <string name="device_owner_error_package_invalid" msgid="3816725179069202140">"Kan nie die administrasieprogram gebruik nie. Komponente ontbreek of dit is korrup. Kontak jou IT-afdeling."</string>
+    <string name="device_owner_error_installation_failed" msgid="684566845601079360">"Kon nie die administrasieprogram installeer nie"</string>
+    <string name="device_owner_error_package_not_installed" msgid="6095079346537408556">"Die administrasieprogram is nie op jou toestel geïnstalleer nie"</string>
+    <string name="profile_owner_cancel_title" msgid="1087667875324931402">"Hou op om op te stel?"</string>
+    <string name="profile_owner_cancel_message" msgid="3397782777804924267">"Is jy seker jy wil ophou om op te stel?"</string>
+    <string name="profile_owner_cancel_cancel" msgid="4408725524311574891">"Nee"</string>
+    <string name="profile_owner_cancel_ok" msgid="5951679183850766029">"Ja"</string>
+    <string name="profile_owner_cancelling" msgid="2007485854183176973">"Kanselleer tans …"</string>
+</resources>

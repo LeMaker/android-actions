@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Cài đặt"</string>
+    <string name="title_activity_main">"Nâng cấp cú mèo"</string>
+    <string name="update_online">"Nâng cấp trực tuyến"</string>
+    <string name="update_native">"Nâng cấp nội bộ"</string>
+    <string name="goto_recovery">"Phục hồi tới kiểu nâng cấp Recovery"</string>
+    <string name="progress_dialog_title">"Trong mạng"</string>
+    <string name="not_connect">"Không kết nối mạng"</string>
+    <string name="progress_dialog_mgs">"Đang kiểm tra thông tin cập nhật, hãy đợi…"</string>
+    <string name="connect_server_wrong">"Máy chủ bận, hãy thử kết nối lại"</string>
+    <string name="current_system_isnew">"Phiên bản hệ thống hiện tại là mới nhất"</string>
+    <string name="sure">"Xác định"</string>
+    <string name="cancel">"Hủy"</string>
+    <string name="update_message">"Kiểm tra thấy phiên bản mới, có tải không?"</string>
+    <string name="update_title">"Nội dung cập nhật phiên bản mới"</string>
+    <string name="download">"Tải"</string>
+    <string name="update_rightnow">"Nâng cấp ngay"</string>
+    <string name="start_download">"Bắt đầu tải gói nâng cấp"</string>
+    <string name="update_package">"Gói nâng cấp"</string>
+    <string name="download_complete">"Tải xong"</string>
+    <string name="download_fail">"Tải thất bại"</string>
+    <string name="md5_check_fail">"MD5 kiểm tra thất bại"</string>
+    <string name="update_package_downloaded">"Gói nâng cấp đã được tải"</string>
+    <string name="finish_download">"Tải xong gói nâng cấp"</string>
+    <string name="update_notice">"\nBắt đầu OTA nâng cấp:\n Trong quá trình nâng cấp，không được để gián đoạn, hãy sao dữ liệu của bạn.\n"</string>
+    <string name="cancel_download">"Có hủy tải không?"</string>
+    <string name="wait_downloading">"Đang tải, hãy đợi…"</string>
+    <string name="download_update_file">"Không có tệp nâng cấp trong danh sách SDCard, hãy nâng cấp trực tuyến để tải tệp nâng cấp"</string>
+    <string name="return_native_update">"Nội bộ đã có gói nâng cấp, hãy quay lại nâng cấp nội bộ"</string>
+    <string name="have_update">"Kiểm tra có cập nhật hệ thống"</string>
+    <string name="notification_update">"Vào ứng dụng cài đặt nhấn nâng cấp cú mèo"</string>
+    <string name="download_notice">"Hãy đảm bảo mạng thông suốt, trong khi tải, không mở kết nối USB"</string>
+    <string name="apk_title">"Nâng cấp cú mèo V1.0"</string>
+    <string name="checkbox_title">"Tự động kiểm tra cập nhật"</string>
+    <string name="checkbox_summary">"Hủy chọn có thể không tự động kết nối mạng vào máy chủ"</string>
+    <string name="checkfrequency_title">"Cài chu kỳ tra cứu"</string>
+    <string name="checkfrequency_summary">"Chu kỳ tra cứu:"</string>
+    <string name="day">"Ngày"</string>
+    <string name="battery_low">"Pin yếu"</string>
+    <string name="battery_notify">"Hãy cài cập nhật khi pin trên 50%"</string>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">logger</string>
+    <string name="stop">stop</string>
+    <string name="start">start</string>
+    <string name="save">save</string>
+    <string name="clear">clear all log file</string>
+	<string name="cancle">cancel</string>
+    <string name="home">running background</string>
+    <string name="filename">file name:</string>
+    <string name="newDirFailed">create directory failed!</string>
+    <string name="sdcardinvaliable">can not find the TF card</string>
+    <string name="flashinvaliable">can not find the Internal Storage</string>
+    <string name="allinvaliable">Both the External and Internal Storage are invalibale!</string>
+    <string name="nostart">confirm that you have started logging</string>
+    <string name="nostop">confirm that you have stopped logging</string>
+    <string name="lognotfound">error! we can not find any log.log file</string>
+    <string name="fileexist">file already exists!</string>
+    <string name="fileissaved">Congratulations! save file success!</string>
+    <string name="invaliableName">please input a correct name!</string>
+    <string name="nosave">do you want to save this file?</string>
+    <string name="yes">save</string>
+    <string name="no">abort</string>
+    <string name="OK">yes</string>
+    <string name="NO">abort</string>
+    <string name="BACK">back</string>
+    <string name="saveto">save to:</string>
+    <string name="savesucess">Congratulations! save file success!</string>
+    <string name="surePermission">sure that the file: /dev/log/system and /dev/log/main have a other-user read permisstion!</string>
+    <string name="sdcardable">TF card is ready to use!</string>
+    <string name="surehome">you still not logging, sure let it background?</string>
+    <string name="sureclear">YOU WILL CLEAR ALL LOG FILES!!! SURE?</string>
+    <string name="stopforclear">please stop logging at first!</string>
+    <string name="copy2extenal">copy log files to TF card</string>
+    <string name="wait">wait a minute...</string>
+    <string name="pathhint">press \"start\" to get a default name</string>
+	<string name="sizehint">Default max file size is </string>
+    <string name="copyfilename">copy file:</string>
+    <string name="override">replace this</string>
+    <string name="alloverride">replace all</string>
+    <string name="noonverride">not replace</string>
+    <string name="allnoonverride">all not</string>
+    <string name="copyfileexist">file already exists!replace file(%1$d bytes) with file(%2$d bytes)?</string>
+    <string name="defaultalarm">_____________________________________________________</string>
+    <string name="about">about</string>
+	<string name="copytoflash">Copy to Flash?</string>
+	<string name="saveposition">Save Position</string>
+	<string name="interstorage">Internal storage</string>
+	<string name="extstorage">External storage</string>
+	<string name="storagefree">Free size: </string>
+	<string name="storageexist">Exist size: </string>
+	<string name="storagesuggest">Suggest size: </string>
+	<string name="status">Status: </string>
+	<string name="recording">Recording: </string>
+	<string name="stopped">Stopped: </string>
+	<string name="invalidfilesize">文件大小是一个非法值</string>
+	<string name="unit">MBytes</string>
+	<string name="filemaxsize">Size Limitation</string>
+	<string name="sysinfo"> 系统信息</string>
+	<string name="memorysize">内存大小</string>
+	<string name="model"> 型号</string>
+	<string name="kernelversion">内核版本</string>
+	<string name="buildversion">版本号</string>
+    <string name="aboutlogger">this application help you to print the system log message into files.
+    \nNormal steps for logging:
+    \n1)Press \"Start\" to start logging.
+    \n2)Press \"running background\", let it run on back.Then do anything that you want,
+    \nsuch as reappearing a bug or doing a long-time-test!
+    \n3)Open this application,enter the name of the log file.
+    \n4)Press \"Save\" to save the log file.
+    \nBy defaults, the log files will storage in /data/data/com.actions.logcat/log/.
+    \nyou can Press \"copy log files to TF card\" to copy it to the TF card.
+    \n</string>
+    <string name="alarmstoresize">there is too many log file in the storage, you can press \"clear all log file\" to clear it!</string>
+    <string name="exstoragefull">TF card is full now! retry it after clear some files.</string>
+    <string name="readme">
+    "========================================\n
+     ===   该log文件一般情况下分为三部分：\n
+     ===   1)开始打印log的时刻系统的dumpstate信息.\n
+     ===   2)logcat信息（包括kernel信息）\n
+     ===   3)结束打印log的时刻系统的dumpstate信息 \n
+     ===   注：如果log没有正常保存（由于系统掉电等原因造成）将没有第\n
+     ===   三部分的信息。\n
+     ===   查看dumpstate信息可以通过搜索\"dumpstate\"直接跳转 。\n
+     ===   查看第2部分的logcat信息可以通过搜索\"actionslogcat: start\"直接跳转，\n
+     =========================================\n
+    "
+    </string>
+</resources>

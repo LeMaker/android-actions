@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/*
+* Copyright (C) 2008 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="wallpapers" msgid="7646602778647576267">"இசை காட்சிப்படுத்தல் வால்பேப்பர்கள்"</string>
+    <string name="author" msgid="6199067265817633685">"Google"</string>
+    <string name="vis2_desc" msgid="192540837551311681">"தற்போது இயங்குகின்ற இசை டிராக்கின் ஒலி அலையை வரைகிறது."</string>
+    <string name="vis3_desc" msgid="3878566533630652215">"தற்போது இயங்குகின்ற இசை டிராக்கின் அதிர்வெண் ஸ்பெக்ட்ரத்தைக் காட்டுகிறது."</string>
+    <string name="vis4_desc" msgid="2752246332053894804">"தொடர்முறை ஒலி மீட்டரை உருவகப்படுத்துகிறது."</string>
+    <string name="vis5_desc" msgid="4777817231155032917">"எல்லா இசைக் காட்சிகளும் ஒன்றிணைந்து மெதுவாக 3D ஒலியமைப்பில் சுற்றுதல்."</string>
+</resources>

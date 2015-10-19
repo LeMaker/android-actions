@@ -1,0 +1,62 @@
+#!/bin/bash
+
+PLATFORM=$1
+
+if [ "-$PLATFORM" == "-" ]; then
+    PLATFORM=both
+fi
+
+function build
+{
+	PLTM=$1
+	if [ "$PLTM" == "x86" ]; then
+	    CC=/usr/bin/gcc
+	else
+		CC=/vobs/jem/cee4_lsp/mobilinux/devkit/arm/v6_vfp_le/bin/arm_v6_vfp_le-g++
+	fi
+
+	#make clean	
+	rm -rf plugins/$PLTM
+        rm -rf lib/$PLTM
+        rm -rf bin/$PLTM
+	#create subdirs	
+        mkdir -p plugins/$PLTM
+        mkdir -p lib/$PLTM
+        mkdir -p bin/$PLTM
+	#make 
+	CC_FLAGS="-fno-rtti -fno-exceptions -fPIC -g -DLOB_SUPPORT"
+	CC_LINKS="-L../lib/$PLTM.d -ldmnative -ldmssession -ldl -lpthread"
+	CC_INCLUDES="-I../include/ -I../portlib"
+    	$CC -L./lib/$PLTM -o bin/$PLTM/testexe src/dmt_test.cc src/dmt_stress.cc $CC_LINKS $CC_INCLUDES  $CC_FLAGS || exit 1
+    	$CC -shared $CC_INCLUDES -o plugins/$PLTM/libmandatoryconstplugin.so src/plugin_dll_test_constraint.cc $CC_FLAGS $CC_LINKS || exit
+    	$CC -shared $CC_INCLUDES -o plugins/$PLTM/libtestexecplugin.so src/plugin_dll_test_exec.cc $CC_FLAGS $CC_LINKS || exit 1
+    	$CC -shared $CC_INCLUDES -o plugins/$PLTM/libtestrwplugin.so src/test_rwplugin.cc $CC_FLAGS $CC_LINKS || exit 1
+    	$CC -shared $CC_INCLUDES -o plugins/$PLTM/libtestdataplugin.so src/plugin_dll_test_data.cc $CC_FLAGS $CC_LINKS || exit 1
+    	$CC -shared $CC_INCLUDES -o plugins/$PLTM/libtestcommitplugin.so src/plugin_dll_test_commit.cc $CC_FLAGS $CC_LINKS || exit 1
+
+        #link file system plugin .so 
+        pushd plugins/x86       
+        ln -s ../../../lib/x86.d/libdmfsplugin.so libdmfsplugin.so
+        popd
+
+	cp -f settings/*.ini plugins/$PLTM
+}
+
+
+if [ "$PLATFORM" == "x86" ] || [ "$PLATFORM" == "both" ]; then
+    echo build unittest for x86...
+    build x86
+fi
+
+if [ "$PLATFORM" == "xscale" ] || [ "$PLATFORM" == "both" ]; then
+    echo build unitttest for xscale
+    build xscale
+fi
+
+# create sample tree
+cd ../tools/dmt-tools
+./generateDMT $PWD/../../samples/settings/Dmt.zip || exit 1
+cd ../../samples
+mkdir -p dmt_data
+cp -f ../tools/dmt-tools/treedata/* $PWD/dmt_data/
+cp -f ../tools/dmt-tools/fstab dmt_data/

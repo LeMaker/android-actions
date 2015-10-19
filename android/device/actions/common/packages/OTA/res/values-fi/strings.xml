@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_settings">"Asetukset"</string>
+    <string name="title_activity_main">"Owl-päivitys"</string>
+    <string name="update_online">"Online-päivitys"</string>
+    <string name="update_native">"Paikallinenpäivitys"</string>
+    <string name="goto_recovery">"Palauta ohjelman päivitystilaan?"</string>
+    <string name="progress_dialog_title">"Verkkotilassa"</string>
+    <string name="not_connect">"Ei verkkoyhteyttä"</string>
+    <string name="progress_dialog_mgs">"Tarkastetaan päivityksiä. Ole hyvä ja odota…"</string>
+    <string name="connect_server_wrong">"Palvelin on varattu, yritä yhteyttä uudelleen"</string>
+    <string name="current_system_isnew">"Nykyinen järjestelmä versio on ajantasalla"</string>
+    <string name="sure">"Oletko varma"</string>
+    <string name="cancel">"Peruuta"</string>
+    <string name="update_message">"Tarkista haluatko ladata päivitetyn version?"</string>
+    <string name="update_title">"Uuden version päivitykset"</string>
+    <string name="download">"Lataa"</string>
+    <string name="update_rightnow">"Päivitä nyt"</string>
+    <string name="start_download">"Aloita päivityspaketin lataaminen"</string>
+    <string name="update_package">"Päivityspaketti"</string>
+    <string name="download_complete">"Lataus on valmis"</string>
+    <string name="download_fail">"Lataaminen epäonnistui"</string>
+    <string name="md5_check_fail">"MD5 Pariteettivirhe"</string>
+    <string name="update_package_downloaded">"Päivityspaketti on ladattu"</string>
+    <string name="finish_download">"Päivityspaketin lataus on valmis"</string>
+    <string name="update_notice">"\nAloita OTA-päivitys:\ns Päivitysprosessi, toimintoa ei voi keskeyttää. Varmuuskopioi tietosi.\n"</string>
+    <string name="cancel_download">"Perutaanko päivitys?"</string>
+    <string name="wait_downloading">"Odota, lataus käynnissä..."</string>
+    <string name="download_update_file">"Ei päivitettyä tiedostoa SD-kortin "</string>
+    <string name="return_native_update">"Paikallinen päivityspaketti,palaa takaisin paikalliseen päivitykseen"</string>
+    <string name="have_update">"Tarkista järjestelmäpäivitykset"</string>
+    <string name="notification_update">"Asetukset-sovellus, napauta owl-päivitystä"</string>
+    <string name="download_notice">"Pidä verkkoliikenne, päivitysprosessi, älä aktivoi USB-yhteyttä"</string>
+    <string name="apk_title">"Owl-päivitys V1.0"</string>
+    <string name="checkbox_title">"Automaattinen kyselyn refresh-toiminto"</string>
+    <string name="checkbox_summary">"Poista-valinta ei toimi automaattisesti verkkoyhteydenottopalvelimessa"</string>
+    <string name="checkfrequency_title">"Aseta kyselyjakso"</string>
+    <string name="checkfrequency_summary">"Kyselyjakso:"</string>
+    <string name="day">"Päivä"</string>
+    <string name="battery_notify">"Asenna päivitys, kun akussa on yli 50% virtaa jäljellä"</string>
+</resources>

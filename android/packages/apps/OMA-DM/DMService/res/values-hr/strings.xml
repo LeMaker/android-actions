@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DMService</string>
+    <string name="DM_SERVICE_ALERT_TITLE_DEVICE_MGMT">Upravljanje uređajem</string>
+    <string name="DM_SERVICE_ALERT_TITLE_SYSTEM_MESSAGE">Poruka sustava</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_YES">U redu</string>
+    <string name="DM_SERVICE_ALERT_BUTTON_NO">Odbij</string>
+    <string name="dm_session_button_confirm">Ažuriraj</string>
+    <string name="dm_session_button_reject">Odustani</string>
+    <string name="dm_session_confirmation_title">Ažuriranje sustava</string>
+    <string name="dm_session_confirmation_message">Dostupno je ažuriranje sustava za vaš telefon</string>
+    <string name="dm_session_confirmation_notification_label">Ažuriranje sustava</string>
+    <string name="dm_session_confirmation_notification_message">Novi zahtjev za sesiju upravljanja uređajem</string>
+    <string name="dm_session_information_notification_label">Ažuriranje sustava</string>
+    <string name="dm_session_information_notification_message1">Poslužitelj je pokrenuo zahtjev</string>
+    <string name="dm_session_information_notification_message2_success">Uređaj je izvršio zahtjev poslužitelja</string>
+    <string name="dm_session_information_notification_message2_fail">Uređaj nije uspio izvršiti zahtjev poslužitelja</string>
+
+</resources>

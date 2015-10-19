@@ -1,0 +1,38 @@
+echo JAVA_HOME=$JAVA_HOME
+
+$JAVA_HOME/bin/javac com/mot/dm/io/*.java
+
+echo Please check compilation result for com/mot/dm/io/*.java 
+echo press Enter if OK or Ctrl+C
+read $dummy
+
+$JAVA_HOME/bin/javac -classpath .:../dmt-tools/lib/joda-time-1.1.jar:../dmt-tools/lib/jakarta-regexp-1.4.jar com/mot/dm/core/*.java
+
+echo Please check compilation result for com/mot/dm/core/*.java 
+echo press Enter if OK or Ctrl+C
+read $dummy
+
+$JAVA_HOME/bin/javac com/mot/dm/tool/*.java
+
+echo Please check compilation result for com/mot/dm/tool/*.java 
+echo press Enter if OK or Ctrl+C
+read $dummy
+
+rm -f GenTool.jar
+
+echo Creating jar ...
+
+$JAVA_HOME/bin/jar cvf GenTool.jar com/mot/dm/core/*.class
+
+$JAVA_HOME/bin/jar uvf GenTool.jar com/mot/dm/tool/*.class
+
+$JAVA_HOME/bin/jar uvf GenTool.jar com/mot/dm/io/*.class
+
+echo Removing classes ...
+
+rm -f com/mot/dm/core/*.class
+rm -f com/mot/dm/tool/*.class
+rm -f com/mot/dm/io/*.class
+
+echo done
+

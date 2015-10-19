@@ -1,0 +1,54 @@
+================================================================================
+Server credential autogeneration tool users guide
+================================================================================
+
+1. Prepare a plain text file containing all the IMEIs that you are going to 
+   process. 
+
+   For example, the text file named IMEI.txt might contain the following text:
+
+        354358001352586
+
+2. The syntax for the command is:
+
+        servercred <input_file_path> <input_file_name>.txt
+
+   A file will be created in the <input_file_path> directory. The format of the 
+   file name is:
+
+        <input_file_name>_Cred-<time_date_stamp>.txt
+
+3. As an example, enter:
+
+        servercred . IMEI.txt
+
+   The program will print out:
+
+        file fd_IMEI opened
+
+        ENTER THE SERVER ID
+
+   Enter the Server Id that you need to generate. 
+   For example, the server id might be: ibm
+
+   The program will print out:
+
+        filew fd_Cred opened
+
+        GENERATED CRED VALUES  EACH SEPARATED BY SPACE CHAR  IN IMEI_Cred-14.32.19-18-02-2005.txt
+
+        IMEI  ServerPW   ClientPW   UserName  ServerNonce  ClientNonce
+
+        ENTER A KEY TO EXIT
+
+   Press any key to exit.
+
+   The file  IMEI_Cred-14.32.19-18-02-2005.txt will contains the following info:
+
+        354358001352586 EtYTmcmXUPjteHV8i+4f1g== 6DEU6GduEznJfqD08puMyA== LXgpyGcdtADjNX9EsgBwpg== MTRZSjU1Tkk2NVJTMjVXQQ== NTNMSTYyTUkyM0hFMzNTVA==
+
+   This is the credentials in the following order:
+
+        IMEI  ServerPW   ClientPW   UserName  ServerNonce  ClientNonce
+
+

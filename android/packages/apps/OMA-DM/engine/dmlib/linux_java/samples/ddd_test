@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export dm_setting_root=$PWD/dmt_data
+export dm_setting_version="1.2"
+
+PLATFORM=$1
+if [ ".$PLATFORM" = ".xscale" ]; then
+    export LD_LIBRARY_PATH=$PWD/../lib/xscale.d:$PWD/../lib/xscale.r
+    export dm_setting_plugin=$PWD/plugins/xscale
+else
+    PLATFORM=x86
+    export LD_LIBRARY_PATH=$PWD/../lib/x86.d:$PWD/lib/../x86
+    export dm_setting_plugin=$PWD/plugins/x86
+fi
+
+ddd $PWD/bin/$PLATFORM/testexe $2
+
+

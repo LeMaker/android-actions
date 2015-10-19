@@ -1,0 +1,38 @@
+#
+# DESCRIPTION:
+#   Makefile for jni shared object
+#
+########### Revision History ########################################
+#
+#  Date       Author     Reference
+#  ========   ========   ================================
+#  03-08-07   fdp101     initial draft 
+#
+#####################################################################
+
+# java home
+ifndef JAVA_HOME
+JAVA_HOME := /opt/jdk1.3.1
+endif
+
+GLOBAL_TARGET_SUBDIR := lib
+GLOBAL_TARGET_FILENAME := libconui.a
+
+GLOBAL_SUBDIRS_A = linux_java/samples/conui/src
+
+GLOBAL_EXTRA_CC_FLAGS = \
+      -I$(DIR_DM)/portlib/generic \
+      -I$(DIR_DM)/api/common \
+      -I$(DIR_DM)/api/native \
+      -I$(DIR_DM)/linux_java/samples/conui/hdr \
+      -I$(DIR_XPL)/code/portlib/hdr \
+      -I$(DIR_XPL)/code/portlib/linux/hdr \
+      -DEZX_PORT
+
+GLOBAL_CREATE_LIB = 1
+
+GLOBAL_DEP_FILENAME = deps_xpl
+
+include /vobs/linuxjava/device_mgmt/dm/core/src/linux_java/mkfiles/GenericMake
+
+
