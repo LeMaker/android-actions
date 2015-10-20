@@ -1,0 +1,23 @@
+# The rules in this file are only applied at compile time.
+# Because the Chrome buildsystem does not automatically touch the files
+# mentioned here, changing this file requires clobbering all MSan bots.
+#
+# Please think twice before you add or remove these rules.
+
+# False positive in ffmpeg due to assembly code. http://crbug.com/344505
+fun:ff_get_cpu_flags_x86
+
+# Uninit in zlib. http://crbug.com/116277
+fun:*MOZ_Z_deflate*
+
+# Uninit in Mesa. http://crbug.com/347967
+fun:unpack_RGBA8888
+fun:unpack_RGB888
+
+# Bug in MSan, fixed in clang r210020. http://crbug.com/378909
+fun:*convolveVertically_SSE2*
+
+# MSan issue, http://crbug.com/381233
+# (Both functions call __mm_maddubs_epi16()).
+fun:*ProcessPixelPairHelper*
+fun:*ProcessOnePixel*

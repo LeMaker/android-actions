@@ -1,0 +1,119 @@
+#
+# Copyright (C) 2014 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+LOCAL_PATH := $(call my-dir)
+test_makefile := external/libcxx/test/localization/locale.stdcvt/Android.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16_out
+test_src := codecvt_utf16_out.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16_unshift
+test_src := codecvt_utf16_unshift.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16_length
+test_src := codecvt_utf16_length.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16_always_noconv
+test_src := codecvt_utf16_always_noconv.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16
+test_src := codecvt_utf16.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_length
+test_src := codecvt_utf8_length.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_utf16_encoding
+test_src := codecvt_utf8_utf16_encoding.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_utf16_length
+test_src := codecvt_utf8_utf16_length.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/version
+test_src := version.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_utf16_always_noconv
+test_src := codecvt_utf8_utf16_always_noconv.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_utf16_in
+test_src := codecvt_utf8_utf16_in.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16_in
+test_src := codecvt_utf16_in.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16_encoding
+test_src := codecvt_utf16_encoding.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_unshift
+test_src := codecvt_utf8_unshift.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_mode
+test_src := codecvt_mode.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_always_noconv
+test_src := codecvt_utf8_always_noconv.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_in
+test_src := codecvt_utf8_in.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8
+test_src := codecvt_utf8.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf16_max_length
+test_src := codecvt_utf16_max_length.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_utf16_max_length
+test_src := codecvt_utf8_utf16_max_length.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_out
+test_src := codecvt_utf8_out.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_utf16_out
+test_src := codecvt_utf8_utf16_out.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_encoding
+test_src := codecvt_utf8_encoding.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_utf16_unshift
+test_src := codecvt_utf8_utf16_unshift.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+test_name := localization/locale.stdcvt/codecvt_utf8_max_length
+test_src := codecvt_utf8_max_length.pass.cpp
+include external/libcxx/test/Android.build.mk
+
+include $(call all-makefiles-under,$(LOCAL_PATH))

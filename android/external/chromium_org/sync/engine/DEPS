@@ -1,0 +1,10 @@
+include_rules = [
+  "+sync/base",
+  "+sync/internal_api/public",
+  "+sync/notifier",
+  "+sync/protocol",
+  "+sync/sessions",
+  "+sync/syncable",
+  "+sync/test",
+  "+sync/util",
+]

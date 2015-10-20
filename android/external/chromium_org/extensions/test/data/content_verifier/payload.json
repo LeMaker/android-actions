@@ -1,0 +1,25 @@
+{
+  "content_hashes": [
+    {
+      "block_size": 4096,
+      "hash_block_size": 4096,
+      "format": "treehash",
+      "files": [
+        {
+          "path": "manifest.json",
+          "root_hash": "-vyyIIn7iSCzg7X3ICUI5wZa3tG7w7vyiCckxZdJGfs"
+        },
+        {
+          "path": "background.js",
+          "root_hash": "txHiG5KQvNoPOSH5FbQo9Zb5gJ23j3oFB0Ru9DOnziw"
+        },
+        {
+          "path": "foo/bar.html",
+          "root_hash": "L37LFbT_hmtxRL7AfGZN9YTpW6yoz_ZiQ1opLJn1NZU"
+        }
+      ]
+    }
+  ],
+  "item_id": "abcdefghijklmnopabcdefghijklmnop",
+  "item_version": "1.2.3"
+}

@@ -1,0 +1,16 @@
+########################################################
+# BSNL Capitel,TechFaith
+
+DefaultVendor= 0x1d09
+DefaultProduct=0x1000
+
+TargetVendor=  0x1d09
+#TargetProduct= 0xe000
+TargetProduct=0x1010
+
+TargetClass=0xff
+
+MessageContent="5553424348C97A83000000000000061B000000020000000000000000000000"
+#MessageContent2="55534243c0c47f86000000000000061b000000030000000000000000000000"
+CheckSuccess=20
+

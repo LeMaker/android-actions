@@ -1,0 +1,22 @@
+include_rules = [
+  "+chromeos",
+  "+components/pref_registry",
+  "+components/user_prefs",
+  "+third_party/cros_system_api",
+
+  # Override apps/DEPS to be more selective about content includes.
+  "-content",
+  "+content/public/browser",
+  "+content/public/common",
+  "+content/public/test",
+
+  # Pieces of content_shell reused in app_shell.
+  "+content/shell/browser/shell_browser_context.h",
+  "+content/shell/browser/shell_devtools_delegate.h",
+  "+content/shell/browser/shell_net_log.h",
+
+  "+sync/api",
+
+  # Disallow views to keep the binary size down.
+  "-ui/views",
+]

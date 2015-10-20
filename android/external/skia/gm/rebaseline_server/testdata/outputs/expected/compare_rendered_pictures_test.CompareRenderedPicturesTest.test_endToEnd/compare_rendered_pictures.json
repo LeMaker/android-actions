@@ -1,0 +1,141 @@
+{
+  "extraColumnHeaders": {
+    "builder": {
+      "headerText": "builder", 
+      "isFilterable": true, 
+      "isSortable": true, 
+      "valuesAndCounts": [
+        [
+          "TODO", 
+          4
+        ]
+      ]
+    }, 
+    "config": {
+      "headerText": "config", 
+      "isFilterable": true, 
+      "isSortable": true, 
+      "valuesAndCounts": [
+        [
+          "whole-image", 
+          4
+        ]
+      ]
+    }, 
+    "resultType": {
+      "headerText": "resultType", 
+      "isFilterable": true, 
+      "isSortable": true, 
+      "valuesAndCounts": [
+        [
+          "failed", 
+          1
+        ], 
+        [
+          "no-comparison", 
+          2
+        ], 
+        [
+          "succeeded", 
+          1
+        ]
+      ]
+    }, 
+    "test": {
+      "headerText": "test", 
+      "isFilterable": true, 
+      "isSortable": true, 
+      "valuesAndCounts": [
+        [
+          "changed.skp", 
+          1
+        ], 
+        [
+          "only-in-after.skp", 
+          1
+        ], 
+        [
+          "only-in-before.skp", 
+          1
+        ], 
+        [
+          "unchanged.skp", 
+          1
+        ]
+      ]
+    }
+  }, 
+  "header": {
+    "dataHash": "-595743736412687673", 
+    "isEditable": false, 
+    "isExported": true, 
+    "schemaVersion": 3, 
+    "timeNextUpdateAvailable": null, 
+    "timeUpdated": 12345678, 
+    "type": "all"
+  }, 
+  "imagePairs": [
+    {
+      "extraColumns": {
+        "builder": "TODO", 
+        "config": "whole-image", 
+        "resultType": "failed", 
+        "test": "changed.skp"
+      }, 
+      "imageAUrl": "changed_skp/bitmap-64bitMD5_3101044995537104462.png", 
+      "imageBUrl": "changed_skp/bitmap-64bitMD5_13623922271964399662.png", 
+      "isDifferent": true
+    }, 
+    {
+      "extraColumns": {
+        "builder": "TODO", 
+        "config": "whole-image", 
+        "resultType": "no-comparison", 
+        "test": "only-in-after.skp"
+      }, 
+      "imageAUrl": null, 
+      "imageBUrl": "only-in-after_skp/bitmap-64bitMD5_2320185040577047131.png", 
+      "isDifferent": true
+    }, 
+    {
+      "extraColumns": {
+        "builder": "TODO", 
+        "config": "whole-image", 
+        "resultType": "no-comparison", 
+        "test": "only-in-before.skp"
+      }, 
+      "imageAUrl": "only-in-before_skp/bitmap-64bitMD5_2320185040577047131.png", 
+      "imageBUrl": null, 
+      "isDifferent": true
+    }, 
+    {
+      "extraColumns": {
+        "builder": "TODO", 
+        "config": "whole-image", 
+        "resultType": "succeeded", 
+        "test": "unchanged.skp"
+      }, 
+      "imageAUrl": "unchanged_skp/bitmap-64bitMD5_3322248763049618493.png", 
+      "imageBUrl": "unchanged_skp/bitmap-64bitMD5_3322248763049618493.png", 
+      "isDifferent": false
+    }
+  ], 
+  "imageSets": {
+    "diffs": {
+      "baseUrl": "/static/generated-images/diffs", 
+      "description": "color difference per channel"
+    }, 
+    "imageA": {
+      "baseUrl": "http://chromium-skia-gm.commondatastorage.googleapis.com/render_pictures/images", 
+      "description": "before_patch"
+    }, 
+    "imageB": {
+      "baseUrl": "http://chromium-skia-gm.commondatastorage.googleapis.com/render_pictures/images", 
+      "description": "after_patch"
+    }, 
+    "whiteDiffs": {
+      "baseUrl": "/static/generated-images/whitediffs", 
+      "description": "differing pixels in white"
+    }
+  }
+}

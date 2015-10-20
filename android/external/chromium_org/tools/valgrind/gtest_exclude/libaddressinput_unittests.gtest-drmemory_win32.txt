@@ -1,0 +1,8 @@
+# fail in native run
+RuleTest.CanonicalizeSubKeyTest
+# fail on bot only and fail natively, cannot reproduce locally
+AddressValidatorTest.*
+CountryRulesAggregatorTest.ValidRulesets
+ExampleAddressValidatorTest.examples
+RetrieverTest.*
+FakeDownloaderTest.*

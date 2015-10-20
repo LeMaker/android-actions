@@ -1,0 +1,98 @@
+#!/system/bin/sh
+
+export PATH=$PATH:/system/bin
+
+#******************************************
+# Usage       :awlog [log_string]
+# Description :Print the log to the anddroid log system 
+#              or the shell .
+#******************************************
+function awlog(){
+if [ $# -eq 1 ]
+then
+	echo $1
+	log -t AW-PPPoE $1
+fi
+}
+
+#******************************************
+# Usage       : usage
+# Description : Print the usage of the pppoe-connect
+#               to the shell . 
+#******************************************
+function usage(){
+echo "**********************************************"
+echo "Version : 1.0                                 "
+echo "Author  : huanglong@allwinnertech             "
+echo "Usage   :                                     "
+echo "          pppoe-connect [interface] [username]"
+echo "**********************************************"
+}
+
+function check_session(){
+RESULT=0
+if [ $# -eq 1 ]
+then
+	RESULT=`busybox egrep -c "^[0-9]*:[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5}$" $1`
+fi
+if [ $RESULT -eq 1 ]
+then
+	return 0
+else
+	return 1
+fi
+}
+
+###########################################
+if [ $# -ne 2 ]
+then
+	usage
+	exit 1
+fi
+
+EXIT_CODE=1
+PPPOE_PARM_INTERFACE=$1
+PPPOE_PARM_UNAME=$2
+PPPOE_SESSION_FILE=/data/system/pppoe.session
+PPPOE_PID_FILE=/data/system/pppoe.pid
+
+setprop "net.pppoe.ppp-exit" ""
+setprop "net.pppoe.reason" ""
+setprop "net.pppoe.interface" ""
+
+awlog "Starting pppd"
+
+# Try to kill the last session , some time it would cause create session failed.
+if [ -e $PPPOE_SESSION_FILE ] && [ -f $PPPOE_SESSION_FILE ] && check_session $PPPOE_SESSION_FILE
+then 
+	PPPOE_SESSION=`cat $PPPOE_SESSION_FILE`
+	awlog "The last session is $PPPOE_SESSION, try to kill it."
+	/system/bin/pppoe -I $PPPOE_PARM_INTERFACE -e $PPPOE_SESSION -k 
+fi
+
+# Create a new session throught the PPPoE 
+PPPOE_SESSION=`/system/bin/pppoe -p /etc/ppp/pppoe.pid -I $PPPOE_PARM_INTERFACE -T 80 -U -m 1412 -d`
+
+# If the session create successfully, then establish a connection throught pppd
+echo $PPPOE_SESSION > $PPPOE_SESSION_FILE
+if [ $? -eq 0 ] && check_session $PPPOE_SESSION_FILE
+then
+	awlog "The current session is $PPPOE_SESSION, try to connect."
+	/system/bin/pppd pty "/system/bin/pppoe -p $PPPOE_PID_FILE -I $PPPOE_PARM_INTERFACE -T 80 -U -m 1412 -e $PPPOE_SESSION" \
+		noipdefault noauth default-asyncmap nodefaultroute hide-password nodetach \
+		usepeerdns mtu 1492 mru 1492 noaccomp nodeflate nopcomp novj novjccomp user \
+		$PPPOE_PARM_UNAME lcp-echo-interval 10 lcp-echo-failure 2 linkname pppoe
+
+	EXIT_CODE=$?
+	awlog "pppd exited with $EXIT_CODE"
+else
+	awlog "PPPoE create session failed."
+	EXIT_CODE=1
+fi
+
+awlog "PPPoE exit!"
+# Save the exit code
+setprop "net.pppoe.ppp-exit" "$EXIT_CODE"
+setprop "net.pppoe.reason" "gone"
+setprop "net.pppoe.interface" ""
+

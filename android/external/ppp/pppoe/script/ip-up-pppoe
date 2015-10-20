@@ -1,0 +1,60 @@
+#!/system/bin/sh
+case $1 in
+    ppp[1-9])
+	/android/bin/iptables --flush;
+	/android/bin/iptables --table nat --flush;
+	/android/bin/iptables --delete-chain;
+	/android/bin/iptables --table nat --append POSTROUTING --out-interface ppp0 -j MASQUERADE;
+	/android/bin/iptables --append FORWARD --in-interface $1 -j ACCEPT;
+	echo 0 > /proc/sys/net/ipv4/ip_forward;
+	echo 1 > /proc/sys/net/ipv4/ip_forward;
+	echo $PPPD_PID > /etc/ppp/$1.pid;
+	;;
+    ppp0)
+        #/system/bin/setprop "net.interfaces.defaultroute" "gprs";
+        echo $PPPD_PID > /etc/ppp/ppp0.pid;
+        ;;
+esac
+
+#just for debug ...............shuge@allwinnertech.com
+#/system/bin/log -t aw-pppoe "0: $0"
+#/system/bin/log -t aw-pppoe "1: $1"
+#/system/bin/log -t aw-pppoe "2: $2"
+#/system/bin/log -t aw-pppoe "3: $3"
+#/system/bin/log -t aw-pppoe "4: $4"
+#/system/bin/log -t aw-pppoe "5: $5"
+#/system/bin/log -t aw-pppoe "6: $6"
+#
+#/system/bin/log -t aw-pppoe "LINKNAME: $LINKNAME"
+#/system/bin/log -t aw-pppoe "IFNAME: $IFNAME"
+#/system/bin/log -t aw-pppoe "DEVICE: $DEVICE"
+#/system/bin/log -t aw-pppoe "PPPLOGNAME: $PPPLOGNAME"
+#/system/bin/log -t aw-pppoe "PPPD_PID: $PPPD_PID"
+#/system/bin/log -t aw-pppoe "PEERNAME: $PEERNAME"
+#/system/bin/log -t aw-pppoe "SPEED: $SPEED"
+#/system/bin/log -t aw-pppoe "USEPEERDNS: $USEPEERDNS"
+
+# Use interface name if linkname is not available
+NAME=${LINKNAME:-"$1"}
+
+/system/bin/setprop "net.$NAME.dns1" "$DNS1"
+/system/bin/setprop "net.$NAME.dns2" "$DNS2" 
+/system/bin/setprop "net.$NAME.local-ip" "$IPLOCAL" 
+/system/bin/setprop "net.$NAME.remote-ip" "$IPREMOTE" 
+/system/bin/setprop "net.pppoe.reason" "running"
+/system/bin/setprop "net.pppoe.interface" "$1"
+/system/bin/setprop "net.dns1" "$DNS1"
+/system/bin/setprop "net.dns2" "$DNS2"
+#del the route table
+while true
+do    
+    i=`/system/bin/busybox route | /system/bin/busybox grep default -c`
+    if /system/bin/busybox test $i = 0
+    then
+        break
+    fi
+    `/system/bin/busybox route del default`
+done
+#add the pppoe remote ip to route table
+/system/bin/busybox route add -net 0.0.0.0 gw "$IPREMOTE" netmask 0.0.0.0 dev "$NAME"
+

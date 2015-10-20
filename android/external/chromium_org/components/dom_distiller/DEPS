@@ -1,0 +1,20 @@
+include_rules = [
+  "+components/leveldb_proto",
+  "+google", # For third_party/protobuf.
+  "+grit",  # For generated headers.
+  "+jni",
+  "+sync/api",
+  "+sync/protocol",
+  "+third_party/dom_distiller_js",
+  "+net/base",
+  "+net/http",
+  "+net/url_request",
+  "+ui/base/l10n",
+  "+ui/base/resource",
+
+  # The dom distiller is a layered component; subdirectories must explicitly
+  # introduce the ability to use the content layer as appropriate.
+  # http://www.chromium.org/developers/design-documents/layered-components-design
+  "-components/dom_distiller",
+  "+components/dom_distiller/core",
+]

@@ -1,0 +1,186 @@
+$article-width: 70%;
+$toc-width: 28%;
+
+// TOC on article pages
+.inline-toc {
+  line-height: 1.3em;
+
+  a,
+  a:link,
+  a:visited {
+    color: $gray-medium;
+    font-weight: normal;
+
+    &:hover,
+    &:focus {
+      color: $black;
+    }
+  }
+  li li a,
+  li li a:link,
+  li li a:visited {
+    color: $gray-medium;
+
+    &:hover,
+    &:focus {
+      color: $black;
+    }
+  }  
+
+  a {
+    @include display-flex();
+    padding: 0.5em 0;
+  }
+
+  .related {
+    display: block;
+    background-color: $gray-light;
+    box-shadow: $nav-box-shadow;
+    padding: 1em 1em 0.5em 1em;
+    margin-bottom: 1em; /* so the box shadow doesn't get cut off */
+
+    h3 {
+      margin-top: 0;
+    }
+
+    li a {
+      &.active {
+        color: $black;
+      }
+      &:hover {
+        background-image: $nav-hover-gradient;
+      }
+    }
+  }
+
+  #toc {
+    display: none;
+
+    .toplevel {
+      > a {
+        font-weight: bold;
+        color: $black;
+
+        &.hastoc::after {
+          content: '+';
+          @include flex(1);
+          text-align: right;
+        }
+      }
+    }
+  
+    //> .toc > li {
+    .toplevel {
+      &.active {
+        .toc {
+          display: block;
+        }
+        > a.hastoc {
+          &::after {
+            content: ''; /* don't make it look like you can toggle it closed */
+          }
+        }
+      }
+    }
+  }
+
+  .toc {
+    margin: 0;
+    padding: 0.3em 0 0 0;
+    border-top: $default-border;
+
+    .toc {
+      display: none;
+    }
+
+    .toc li {
+      padding-left: 1em;
+      border-bottom: $default-border; 
+    }
+  }
+}
+
+// Footer at bottom of articles
+#cc-info {
+  @include display-flex();
+  @include align-items(center);
+  font-style: italic;
+  //font-size: $small-label-size;
+  font-size: 0.8em;
+  color: lighten($text, 5%);
+  .cc-logo img {
+    width: 90px;
+    height: 32px;
+  }
+  .last-updated {
+    @include flex(1);
+  }
+}
+
+// Large than mobile.
+@media only screen and (min-width: $break-small)  { 
+  .inline-toc { 
+    position: absolute;
+    top: 0;
+    width: $toc-width;
+    right: 0;
+    overflow: auto;
+    overflow-x: hidden;
+
+    #toc {
+      display: block;
+      // article.js adds and removes the fixed nav depending on the scroll position.
+      &.sticky {
+        top: 0;
+        position: fixed;
+        -webkit-transform: translateZ(0); /* repaint issue */
+      }
+    }
+  }
+  .article-content {
+    width: $article-width;
+    padding-right: 5%;
+    border-right: 1px solid $gray-light;
+    min-height: 250px; /* add min-height so fatnav and sidenav doesn't overlap badly */
+  }
+  .cc-logo {
+    margin: 0 0 0 auto;
+  }
+}
+
+// Phone
+@media only screen and (max-width: $break-small)  { 
+  .article-content [itemprop="articleBody"] {
+    > .collapsible {
+      height: 58px;
+      overflow: hidden;
+
+      &.active {
+        height: auto;
+        h2::before {
+          content: '-';
+        }
+      }
+
+      h2 {
+        position: relative;
+        margin: 0;
+        padding: $default-padding - 5 $default-padding  - 5 $default-padding  - 5 0;
+        border-top: $default-border;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &::before {
+          position: absolute;
+          right: 0;
+          content: '+';
+        }
+      }
+    }
+    .related {
+      margin: $default-padding 0;
+    }
+  }
+}
+

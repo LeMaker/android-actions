@@ -1,0 +1,16 @@
+apply plugin: 'java'
+
+// static version of okhttp for inclusion in apps targeting older releases
+sourceSets {
+    main {
+        java {
+            srcDirs = [
+                'src/main/java',
+            ]
+        }
+    }
+}
+
+compileJava {
+    options.compilerArgs += ['-encoding', 'UTF-8']
+}

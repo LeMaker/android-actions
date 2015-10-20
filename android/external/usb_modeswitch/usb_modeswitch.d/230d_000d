@@ -1,0 +1,15 @@
+########################################################
+# Linktop (BSNL Teracom)
+
+DefaultVendor= 0x230d
+DefaultProduct=0x000d
+
+#TargetVendor=  0x230d
+#TargetProduct= 0x000d
+TargetClass=0xff
+Configuration=3
+#MessageContent="555342434834ae86000000000000061b000000020000000000000000000000"
+#MessageContent="55534243b0f3bd860800000080010a25000000000000000000000000000000"
+#NeedResponse=1
+
+CheckSuccess=20

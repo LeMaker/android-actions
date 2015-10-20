@@ -1,0 +1,31 @@
+include_rules = [
+  "+chrome_elf",
+  "+components/autofill/content/common",
+  "+components/autofill/content/renderer",
+  "+components/autofill/core/common",
+  "+components/cdm/renderer",
+  "+components/data_reduction_proxy/common",
+  "+components/nacl/renderer",
+  "+components/plugins/renderer",
+  "+components/signin/core/common",
+  "+components/translate/content/common",
+  "+components/translate/core/common",
+  "+components/translate/core/language_detection",
+  "+components/visitedlink/renderer",
+  "+content/public/child",
+  "+content/public/renderer",
+  "+extensions/common",
+  "+extensions/renderer",
+  "+grit",  # For generated headers
+  "+ppapi/c",
+  "+ppapi/shared_impl",
+  "+skia",
+
+  "+webkit/child",
+  "+webkit/common",
+  "+webkit/glue",
+  "+webkit/renderer",
+
+  "+third_party/cld_2",
+  "+third_party/sqlite",
+]

@@ -1,0 +1,12 @@
+#######################################################
+# EVDO
+
+DefaultVendor=  0x1c9e
+DefaultProduct= 0x6003
+
+Configuration=2
+
+
+
+
+

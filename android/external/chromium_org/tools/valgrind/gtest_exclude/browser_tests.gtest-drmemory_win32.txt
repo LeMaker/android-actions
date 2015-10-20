@@ -1,0 +1,71 @@
+# TODO(zhaoqin): File bugs for those failing browser tests.
+
+# Dr.Memory i#1052: http://code.google.com/p/drmemory/issues/detail?id=1052
+#
+# The list is too long for gtest_filter, so we exclude the whole
+# test case if any of its tests failed.
+*FLAKY*
+
+# it takes too long to run all browser_tests with Dr.Memory,
+# and we only select subset to run
+# A*
+Act*
+Adv*
+All*
+AppA*
+AppL*
+AppW*
+Autof*.Do*
+Autof*.Hi*
+Autof*Edit*
+AutofillTest.*
+# B*
+BackgroundApp*.R*
+Bluetooth*
+BitmapFetcher*
+BookmarksT*
+BrowserAcc*
+BrowserActionA*.*
+BrowserCloseM*
+BrowserN*
+BrowserT*
+# C*
+Cap*
+Cas*
+Clear*
+Click*
+Com*
+ChromeC*
+ChromeR*
+Con*UITest.*
+Con*.Re*
+# D*
+Dec*
+Dev*
+DnsP*
+DoNot*
+Down*Ext*.*
+DownloadTest.*
+Drive*
+# E*
+F*
+G*
+H*
+I*
+J*
+K*
+L*
+M*
+N*
+O*
+P*
+Q*
+R*
+S*
+T*
+U*
+V*
+W*
+X*
+Y*
+Z*

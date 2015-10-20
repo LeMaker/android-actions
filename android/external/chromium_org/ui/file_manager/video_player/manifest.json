@@ -1,0 +1,58 @@
+{
+  // chrome-extension://jcgeabjmjgoblfofpppfkcoakmfobdko/
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw0/gRbJc545iEGRZs20Rl/HtrSUp8H3gJd4Y6hCe0CG1xQiJhZ5nc8qZyxa96gMxRAKBq54S6sjVVtV6uS70oU6FvrvwItByYkkqr4ZE7eMJKwMqnGItxWbh6KBodf89lpKoIy6MtYTqubBhXB/IQBZsXah90tXwRzaaJNWw+2BBRIhcPsH3ng+wgN7rwFxo4HIv9ZpqkYlx90rwkfjOmKPPnSXyXFIBJfmqfdbd8PLtcxzzOTE+vxwoXZuYWrthKm4uKfNqXIYns74sSJlqyKfctuR+nQdNh8uePv0e+/Ul3wER1/jIXULLjfyoaklyDs+ak3SDf+xWScJ+0LJ0AwIDAQAB",
+  "manifest_version": 2,
+  "name": "Video Player",
+  "version": "1.0",
+  "description": "Video Player",
+  "display_in_launcher": false,
+  "incognito" : "split",
+  "icons": {
+    "16": "images/100/icon.png",
+    "32": "images/200/icon.png"
+  },
+  "permissions": [
+    "fileSystem",
+    "fileBrowserPrivate",
+    "fullscreen",
+    "mediaPlayerPrivate",
+    "storage",
+    "chrome://resources/",
+    "chrome://theme/"
+  ],
+  "file_handlers": {
+    "video": {
+      "types": [
+        "video/*"
+      ],
+      "extensions": [
+        "3gp",
+        "avi",
+        "m4v",
+        "mkv",
+        "mov",
+        "mp4",
+        "mpeg",
+        "mpeg4",
+        "mpg",
+        "mpg4",
+        "ogm",
+        "ogv",
+        "ogx",
+        "webm"
+      ],
+      // TODO(yoshiki): localize this.
+      "title": "Watch"
+    }
+  },
+  "app": {
+    "background": {
+      "scripts": [
+        "js/error_util.js",
+        "js/test_util.js",
+        "js/background.js"
+      ]
+    },
+    "content_security_policy": "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' chrome://resources chrome://theme data:; media-src 'self'; object-src 'self'"
+  }
+}

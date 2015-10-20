@@ -1,0 +1,35 @@
+#!/system/bin/sh
+case $1 in
+    ppp[1-9])
+	echo 0 > /proc/sys/net/ipv4/ip_forward;
+	;;
+esac
+
+rm /etc/ppp/$1.pid
+
+# Use interface name if linkname is not available
+NAME=${LINKNAME:-"$1"}
+
+#just for debug ...............shuge@allwinnertech.com
+#/system/bin/log -t ppp-pppoe "0: $0"
+#/system/bin/log -t ppp-pppoe "1: $1"
+#/system/bin/log -t ppp-pppoe "2: $2"
+#/system/bin/log -t ppp-pppoe "3: $3"
+#/system/bin/log -t ppp-pppoe "4: $4"
+#/system/bin/log -t ppp-pppoe "5: $5"
+#/system/bin/log -t ppp-pppoe "6: $6"
+#
+#/system/bin/log -t ppp-pppoe "LINKNAME: $LINKNAME"
+#/system/bin/log -t ppp-pppoe "IFNAME: $IFNAME"
+#/system/bin/log -t ppp-pppoe "DEVICE: $DEVICE"
+#/system/bin/log -t ppp-pppoe "PPPLOGNAME: $PPPLOGNAME"
+#/system/bin/log -t ppp-pppoe "PPPD_PID: $PPPD_PID"
+#/system/bin/log -t ppp-pppoe "PEERNAME: $PEERNAME"
+#/system/bin/log -t ppp-pppoe "SPEED: $SPEED"
+#/system/bin/log -t ppp-pppoe "USEPEERDNS: $USEPEERDNS"
+
+#/system/bin/setprop "net.dns1" ""
+#/system/bin/setprop "net.dns2" "" 
+/system/bin/setprop "net.$NAME.local-ip" "" 
+/system/bin/setprop "net.$NAME.remote-ip" "" 
+/system/bin/setprop "net.pppoe.interface" ""

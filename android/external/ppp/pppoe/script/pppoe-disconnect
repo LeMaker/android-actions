@@ -1,0 +1,7 @@
+#!/system/bin/sh
+PPPOE_PID_1=`cat /data/system/pppoe.pid`
+PPPOE_PID_2=`ps | busybox grep system/bin/pppoe | busybox awk '{print $2}'`
+if [ -n $PPPOE_PID_1 ] && [ -n $PPPOE_PID_2 ] && [ $PPPOE_PID_1 = $PPPOE_PID_2 ]
+then
+    kill -1 $PPPOE_PID_1
+fi

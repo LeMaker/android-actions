@@ -1,0 +1,92 @@
+import org.apache.tools.ant.taskdefs.Delete
+
+buildscript {
+    repositories {
+        mavenCentral()
+        // TODO: remove this when robolectric 2.4 is released.
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
+    }
+    dependencies {
+        classpath 'org.robolectric:robolectric-gradle-plugin:0.11.+'
+        classpath 'com.android.tools.build:gradle:0.11.2'
+    }
+}
+
+apply plugin: 'android-library'
+apply plugin: 'robolectric'
+
+repositories {
+    mavenCentral()
+    // TODO: remove this when robolectric 2.4 is released.
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+dependencies {
+    compile project(':third_party:gif_decoder')
+
+    compile 'com.android.support:support-v4:19.1.+'
+    compile 'com.mcxiaoke.volley:library:1.0.+'
+    compile 'com.jakewharton:disklrucache:2.0.+'
+
+    androidTestCompile 'org.hamcrest:hamcrest-core:1.3'
+    androidTestCompile 'junit:junit:4.11'
+    androidTestCompile 'org.mockito:mockito-all:1.9.5'
+    androidTestCompile 'org.robolectric:robolectric:2.3'
+    androidTestCompile group: 'org.robolectric', name: 'robolectric', version: '2.4-SNAPSHOT', changing: true
+}
+
+ext {
+    versionMajor = 3
+    versionMinor = 2
+    versionPatch = 0
+    versionBuild = 5
+}
+
+def getVersionName() {
+    return "${versionMajor}.${versionMinor}.${versionPatch}a"
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion = '19.1.0'
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 19
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName getVersionName()
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs         = ['src/main/java']
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+
+        androidTest {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+}
+
+def getJarName() {
+    return "glide-${getVersionName()}.jar"
+}
+
+//Build a jar, from http://stackoverflow.com/a/19037807/1002054
+task clearJar(type: org.gradle.api.tasks.Delete) {
+    delete "build/libs/${getJarName()}"
+}
+
+task makeJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('build/libs/')
+    include('classes.jar')
+    rename ('classes.jar', getJarName())
+}
+
+makeJar.dependsOn(clearJar, build)

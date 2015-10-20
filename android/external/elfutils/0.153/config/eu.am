@@ -1,0 +1,60 @@
+## Common automake fragments for elfutils subdirectory makefiles.
+##
+## Copyright (C) 2010 Red Hat, Inc.
+## This file is part of Red Hat elfutils.
+##
+## Red Hat elfutils is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by the
+## Free Software Foundation; version 2 of the License.
+##
+## Red Hat elfutils is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+## General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License along
+## with Red Hat elfutils; if not, write to the Free Software Foundation,
+## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+##
+## Red Hat elfutils is an included package of the Open Invention Network.
+## An included package of the Open Invention Network is a package for which
+## Open Invention Network licensees cross-license their patents.  No patent
+## license is granted, either expressly or impliedly, by designation as an
+## included package.  Should you wish to participate in the Open Invention
+## Network licensing program, please visit www.openinventionnetwork.com
+## <http://www.openinventionnetwork.com>.
+##
+
+DEFS = -D_GNU_SOURCE -DHAVE_CONFIG_H -DLOCALEDIR='"${localedir}"'
+INCLUDES = -I. -I$(srcdir) -I$(top_srcdir)/lib -I..
+AM_CFLAGS = -std=gnu99 -Wall -Wshadow \
+	    $(if $($(*F)_no_Werror),,-Werror) \
+	    $(if $($(*F)_no_Wunused),,-Wunused -Wextra) \
+	    $(if $($(*F)_no_Wformat),-Wno-format,-Wformat=2) \
+	    $($(*F)_CFLAGS)
+
+if MUDFLAP
+AM_CFLAGS += -fmudflap
+libmudflap = -lmudflap
+else
+libmudflap =
+endif
+
+COMPILE.os = $(filter-out -fprofile-arcs -ftest-coverage $(no_mudflap.os),\
+	     		  $(COMPILE))
+
+%.os: %.c %.o
+if AMDEP
+	if $(COMPILE.os) -c -o $@ -fpic -DPIC -DSHARED -MT $@ -MD -MP \
+	  -MF "$(DEPDIR)/$*.Tpo" `test -f '$<' || echo '$(srcdir)/'`$<; \
+	then cat "$(DEPDIR)/$*.Tpo" >> "$(DEPDIR)/$*.Po"; \
+	     rm -f "$(DEPDIR)/$*.Tpo"; \
+	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+	fi
+else
+	$(COMPILE.os) -c -o $@ -fpic -DPIC -DSHARED $<
+endif
+
+CLEANFILES = *.gcno *.gcda
+
+textrel_check = if readelf -d $@ | fgrep -q TEXTREL; then exit 1; fi

@@ -1,0 +1,7 @@
+# Sagem F@ST 9520-35-GLR
+
+TargetVendor=  0x23A2
+TargetProduct= 0x1234
+
+GCTMode=1
+

@@ -1,0 +1,7 @@
+#define VERSION_MAJOR  1
+#define VERSION_MINOR  3
+#define VERSION_PATCH  0
+#define VERSION_EXTRA  "2239-g4fffefe"
+#define VERSION_PACKED ((VERSION_MAJOR<<16)|(VERSION_MINOR<<8)|(VERSION_PATCH))
+#define VERSION_STRING_NOSP "v1.3.0-2239-g4fffefe"
+#define VERSION_STRING      " v1.3.0-2239-g4fffefe"
