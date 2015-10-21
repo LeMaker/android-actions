@@ -1,0 +1,2 @@
+// allow other projects to directly use 'ub-uiautomator.jar'
+artifacts.add("default", file('ub-uiautomator.jar'))

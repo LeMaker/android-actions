@@ -1,0 +1,3 @@
+// allow other projects to directly use 'android-support-test.jar'
+artifacts.add("default", file('android-support-test.jar'))
+artifacts.add("default", file('espresso-core.jar'))

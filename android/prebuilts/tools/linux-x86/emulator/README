@@ -1,0 +1,6 @@
+This folder contains a prebuilt of the emulator
+and its host GL rendering libraries.
+
+It matches the emulator released publicly with
+SDK Tools r22.6.4
+

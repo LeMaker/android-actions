@@ -1,0 +1,29 @@
+LOCAL_PATH := $(my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_IS_HOST_MODULE := true
+LOCAL_MODULE := libSDL
+LOCAL_MODULE_CLASS := STATIC_LIBRARIES
+LOCAL_SRC_FILES_x86 := libSDL.a
+LOCAL_SRC_FILES_x86_64 := lib64SDL.a
+LOCAL_MODULE_SUFFIX := .a
+LOCAL_MULTILIB := both
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_IS_HOST_MODULE := true
+LOCAL_MODULE := libSDLmain
+LOCAL_MODULE_CLASS := STATIC_LIBRARIES
+LOCAL_SRC_FILES_x86 := libSDLmain.a
+LOCAL_SRC_FILES_x86_64 := lib64SDLmain.a
+LOCAL_MODULE_SUFFIX := .a
+LOCAL_MULTILIB := both
+include $(BUILD_PREBUILT)
+
+# 32-bit host build still needs those lib64* libs.
+include $(CLEAR_VARS)
+LOCAL_PREBUILT_LIBS := \
+    lib64SDL.a \
+    lib64SDLmain.a
+
+include $(BUILD_HOST_PREBUILT)
