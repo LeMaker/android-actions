@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Externí SD karta"</string>
+    <string name="storage_usb">"Vestavěná SD karta"</string>
+    <string name="storage_uhost">"USB disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"USB disk se připravuje"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Kontrolu chyb"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Prázdný USB disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB disk je bez souborů systému nebo soubor systému není podporován"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB disk je poškozen"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB disk je poškozen budete muset přeformátovat"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB disk není správně odstraněn"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Prosím odinstalujte USB disk, a pak odstraní, aby se zabránilo ztrátě dat"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB disk je bezpečně odstraněn"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Můžete bezpečně odebrat USB disk"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB disk je odstraněn"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB disk je odstraněn. Vložte novou kartu"</string>
+    <string name="accelerometer_coordinate">"Souřadnice pro akcelerometr"</string>
+    <string name="accele_coord_default">"Výchozí souřadnice"</string>
+    <string name="accele_coord_special">"Speciální souřadnice na podporu nějaké hry"</string>
+    <string name="global_action_reboot_to_recovery">"Restartujte do režimu obnovy"</string>
+    <string name="global_action_restart">"Restart"</string>
+</resources>

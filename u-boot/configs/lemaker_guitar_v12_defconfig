@@ -188,7 +188,7 @@ CONFIG_TARGET_S500=y
 # ARM debug
 #
 # CONFIG_DEBUG_LL is not set
-CONFIG_DEFAULT_DEVICE_TREE="lemaker_guitar_rtl8723bs_lvds_1024x600"
+CONFIG_DEFAULT_DEVICE_TREE="lemaker_guitar_lcd_1024x600"
 
 #
 # General setup

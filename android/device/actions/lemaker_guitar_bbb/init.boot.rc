@@ -1,0 +1,24 @@
+on fs
+
+# try to mount /cache
+    wait /dev/block/mmcblk0p6
+    mount ext4 /dev/block/mmcblk0p6 /cache wait noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc
+    setupfs /dev/block/mmcblk0p6
+    umount /cache
+    exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/mmcblk0p6
+    mount ext4 /dev/block/mmcblk0p6 /cache wait noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc
+
+# try to mount /data
+	wait /dev/block/mmcblk0p5
+	mount ext4 /dev/block/mmcblk0p5 /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc,discard
+	setupfs /dev/block/mmcblk0p5
+	umount /data
+	exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/mmcblk0p5	
+	mount ext4 /dev/block/mmcblk0p5 /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc,discard
+
+ # mount /misc media vendor
+    mount vfat /dev/block/mmcblk0p1 /misc ro wait noatime nodiratime umask=0022
+    mount vfat /dev/block/mmcblk0p9 /mnt/media ro noatime nodiratime umask=0022 utf8
+    mount vfat /dev/block/mmcblk0p8 /vendor/app ro noatime nodiratime umask=0022 utf8
+    symlink /vendor/app/lib /vendor/lib
+

@@ -1,0 +1,3 @@
+
+allow file_type unlabeled:filesystem associate;
+

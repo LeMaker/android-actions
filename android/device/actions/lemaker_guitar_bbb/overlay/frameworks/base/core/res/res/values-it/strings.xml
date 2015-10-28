@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Scheda SD rimovibile"</string>
+    <string name="storage_usb">"Scheda SD interna"</string>
+    <string name="storage_uhost">"Usb Disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Preparazione di USB Disk"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Controllo degli errori."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"USB Disk Vuoto"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB Disk Vuoto o il sistema di file non supportato"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB Disk Danneggiato "</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB Disk danneggiato. Potrebbe essere necessario riformattarlo"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB Disk inaspettatamente rimossa"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Smonta USB Disk prima della rimozione per evitare la perdita di dati"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB Disk sicuro per rimuovere"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"È possibile rimuovere in modo sicuro Disk USB"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Rimosso USB Disk"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB Disk rimosso. Inserirne uno nuovo"</string>
+    <string name="accelerometer_coordinate">"Coordinato accelerometro"</string>
+    <string name="accele_coord_default">"Coordinato predefinito"</string>
+    <string name="accele_coord_special">"Coordinato speciale per sostenere alcuni giochi"</string>
+    <string name="global_action_reboot_to_recovery">"Riavviare per il recupero"</string>
+    <string name="global_action_restart">"Riavviare"</string>
+</resources>

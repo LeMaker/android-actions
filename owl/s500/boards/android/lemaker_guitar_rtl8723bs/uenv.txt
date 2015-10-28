@@ -1,2 +1,0 @@
-uenvcmd=setenv os_type android;
-bootargs=earlyprintk clk_ignore_unused selinux=0

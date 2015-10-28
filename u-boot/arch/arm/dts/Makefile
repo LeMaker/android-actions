@@ -3,6 +3,7 @@ dtb-$(CONFIG_OWL) +=  s500-lt705a.dtb \
 	actduino_s500_lcd_768x1024.dtb \
 	lemaker_guitar_lcd_768x1024.dtb \
 	lemaker_guitar_rtl8723bs_lvds_1024x600.dtb \
+	lemaker_guitar_lcd_1024x600.dtb \
 	actduino_bubble_gum_v10.dtb\
 	actduino_s500_upgrade.dtb
 dtb-$(CONFIG_MACH_SUN7I) +=  sun7i-a20-pcduino3.dtb

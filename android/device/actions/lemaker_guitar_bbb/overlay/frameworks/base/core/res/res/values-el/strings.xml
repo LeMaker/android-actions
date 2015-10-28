@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Αφαιρούμενη κάρτα SD"</string>
+    <string name="storage_usb">"Εσωτερική SD Card"</string>
+    <string name="storage_uhost">"USB Disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Προετοιμασία USB Disk"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Έλεγχος για σφάλματα ."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Λευκά USB Disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB κενό δίσκο ή έχει μη υποστηριζόμενο σύστημα αρχείων"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Κατεστραμμένο USB Disk"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB Disk καταστραφεί . Ίσως χρειαστεί να διαμορφώσετε το"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB Disk αφαιρεθεί απροσδόκητα"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Αποπροσαρτήστε USB Disk πριν αφαιρέσετε για την αποφυγή απώλειας δεδομένων"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB Disk ασφαλές να αφαιρέσετε"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Μπορείτε να αφαιρέσετε με ασφάλεια USB Disk"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Αφαιρέθηκε USB Disk"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB Disk αφαιρεθεί . Τοποθετήστε ένα νέο"</string>
+    <string name="accelerometer_coordinate">"συντεταγμένων επιταχυνσιόμετρο"</string>
+    <string name="accele_coord_default">"προεπιλογή συντονίζουν"</string>
+    <string name="accele_coord_special">"Ειδικές συντεταγμένων για να υποστηρίξει ορισμένα παιχνίδια"</string>
+    <string name="global_action_reboot_to_recovery">"Επανεκκίνηση της ανάκαμψης"</string>
+    <string name="global_action_restart">"Επανεκκίνηση"</string>
+</resources>

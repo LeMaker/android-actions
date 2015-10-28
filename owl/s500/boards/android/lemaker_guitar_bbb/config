@@ -1,0 +1,8 @@
+ARCH=arm
+KERNEL_DTS=lemaker_guitar_lcd_1024x600
+KERNEL_DEFCONFIG=lemaker_guitar_defconfig
+UBOOT_DEFCONFIG=lemaker_guitar_v12_defconfig
+
+MISC_IMAGE_SIZE=48
+RECOVERY_IMAGE_SIZE=48
+

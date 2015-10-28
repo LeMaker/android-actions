@@ -1,0 +1,11 @@
+allow rild self:capability { dac_override };
+allow rild proc:file rw_file_perms;
+allow rild proc:dir rw_dir_perms;
+allow rild self:capability { sys_module dac_override };
+allow rild ppp_exec:file rx_file_perms;
+allow rild ppp_device:chr_file rw_file_perms;
+allow rild self:capability { setgid };
+allow rild system_prop:property_service set;
+allow netd self:capability { sys_module dac_override };
+allow netd kernel:system module_request;
+allow rild net_radio_prop:property_service set;

@@ -1,0 +1,4 @@
+# add perm for vendor apk or media
+allow installd sdcard_external:dir rw_dir_perms;
+allow installd sdcard_external:file getattr;
+allow installd sdcard_external:file rwx_file_perms;
