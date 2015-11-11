@@ -302,7 +302,7 @@
                 saturation = <7>;
                 contrast = <5>;
 
-	/*
+/*	
                 lcd_mode0:mode@1280x800p60 {
                 refresh = <60>;
                         xres = <1280>; 
@@ -316,12 +316,11 @@
                         vsync_len = <8>;
                         vmode = <0>;
                 };
-                */
+*/
                 lcd_mode0:mode@1024x600p60 {
                         refresh = <60>;
                         xres = <1024>;
                         yres = <600>;
-                        /*in pico second, 0.000 000 000 001s*/
                         pixclock = <23333>;
                         left_margin = <56>;
                         right_margin = <60>;
@@ -329,10 +328,9 @@
                         lower_margin = <18>;
                         hsync_len = <4>;
                         vsync_len = <4>;
-                        /*0: FB_VMODE_NONINTERLACED, 1:FB_VMODE_INTERLACED*/
                         vmode = <0>;
                 };
-
+		
         };
 
 

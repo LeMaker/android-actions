@@ -1,2 +1,0 @@
-# /sys/class/rfkill/rfkill0/state
-allow bluetooth sysfs:file write;

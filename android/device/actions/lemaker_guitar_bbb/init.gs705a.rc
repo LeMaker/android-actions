@@ -46,7 +46,8 @@ on early-init
     insmod /misc/modules/atc260x_pm.ko
     insmod /misc/modules/atc260x_rtc.ko
     insmod /misc/modules/atc260x_onoff.ko
-
+	insmod /misc/modules/spidev.ko
+	insmod /misc/modules/i2c-dev.ko
     #insmod /misc/modules/atv5202_fb.ko
 	#insmod lcd driver
 	insmod /misc/modules/ncs8801.ko

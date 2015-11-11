@@ -531,7 +531,7 @@ int owl_lcdc_display_enable(struct owl_dss_device *dssdev)
     if (r)
         goto err_mgr_enable;
     
-    if (!lcdc->lcdc_enabled) {
+    if (lcdc->lcdc_enabled) {
         lcdchw_power_enable(lcdcdev, true);
 
         lcdchw_display_init_lcdc(dssdev);

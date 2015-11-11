@@ -90,6 +90,8 @@ struct spidev_data {
 static LIST_HEAD(device_list);
 static DEFINE_MUTEX(device_list_lock);
 
+struct spidev_data   *spidev_for_user;
+
 static unsigned bufsiz = 4096;
 module_param(bufsiz, uint, S_IRUGO);
 MODULE_PARM_DESC(bufsiz, "data bytes in biggest supported SPI message");
@@ -316,7 +318,7 @@ spidev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 	u32			tmp;
 	unsigned		n_ioc;
 	struct spi_ioc_transfer	*ioc;
-
+//LEE
 	/* Check type and command number */
 	if (_IOC_TYPE(cmd) != SPI_IOC_MAGIC)
 		return -ENOTTY;
@@ -338,6 +340,7 @@ spidev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 	 * we issue this ioctl.
 	 */
 	spidev = filp->private_data;
+	spidev_for_user = filp->private_data;
 	spin_lock_irq(&spidev->spi_lock);
 	spi = spi_dev_get(spidev->spi);
 	spin_unlock_irq(&spidev->spi_lock);
@@ -569,6 +572,73 @@ static const struct file_operations spidev_fops = {
  * It also simplifies memory management.
  */
 
+
+static ssize_t spi_show(struct device *dev,
+                struct device_attribute *attr, char *buf)
+{
+	struct spi_device       *spi;
+        
+	if (spidev_for_user == NULL){
+                return sprintf(buf, "%s\n", "Please,config your spi.");
+	} else{
+		spin_lock_irq(&spidev_for_user->spi_lock);
+		spi = spi_dev_get(spidev_for_user->spi);
+		spin_unlock_irq(&spidev_for_user->spi_lock);
+
+       		return sprintf(buf, "spi->mode:%02x, spi->bits:%d,spi->speed:%d\n", spi->mode,spi->bits_per_word,spi->max_speed_hz);
+	}
+}
+
+static ssize_t bits_show(struct device *dev,
+                struct device_attribute *attr, char *buf)
+{
+        struct spi_device       *spi;
+
+        if (spidev_for_user == NULL){
+                return sprintf(buf, "%s\n", "Please,config your spi.");
+        } else{
+		spin_lock_irq(&spidev_for_user->spi_lock);
+                spi = spi_dev_get(spidev_for_user->spi);
+                spin_unlock_irq(&spidev_for_user->spi_lock);
+
+                return sprintf(buf, "%d\n", spi->bits_per_word);
+        }
+}
+
+static ssize_t bits_store(struct device *dev,
+                struct device_attribute *attr, const char *buf, size_t size)
+{
+                long   value;
+		ssize_t	status;
+		struct spi_device	*spi;
+
+		if (spidev_for_user == NULL){
+			printk("%s\n", "Please,config your spi.");
+			status = -EIO;
+		} else {
+			spin_lock_irq(&spidev_for_user->spi_lock);
+			spi = spi_dev_get(spidev_for_user->spi);
+			spin_unlock_irq(&spidev_for_user->spi_lock);
+
+			status = strict_strtol(buf, 0, &value);
+			if(status == 0){
+				spi->bits_per_word = value;
+			}
+		}
+
+        return status;
+}
+
+static struct device_attribute spi_class_attrs[] = {
+        __ATTR(configs, 0666, spi_show, NULL),
+//	__ATTR(buf, 0666, buf_show, buf_store),
+	__ATTR(bits, 0666, bits_show, bits_store),
+//	__ATTR(mode, 0666, mode_show, mode_store),
+//	__ATTR(speed, 0666, speed_show, speed_store),
+        __ATTR_NULL,
+};
+
+
 static struct class *spidev_class;
 
 /*-------------------------------------------------------------------------*/
@@ -600,9 +670,11 @@ static int spidev_probe(struct spi_device *spi)
 		struct device *dev;
 
 		spidev->devt = MKDEV(SPIDEV_MAJOR, minor);
+		spidev_class->dev_attrs = spi_class_attrs;
 		dev = device_create(spidev_class, &spi->dev, spidev->devt,
 				    spidev, "spidev%d.%d",
 				    spi->master->bus_num, spi->chip_select);
+		//spidev_class->dev_attrs = spi_class_attrs;
 		status = PTR_RET(dev);
 	} else {
 		dev_dbg(&spi->dev, "no minor number available!\n");
@@ -687,7 +759,7 @@ static int __init spidev_init(void)
 		unregister_chrdev(SPIDEV_MAJOR, spidev_spi_driver.driver.name);
 		return PTR_ERR(spidev_class);
 	}
-
+	spidev_class->dev_attrs = spi_class_attrs;
 	status = spi_register_driver(&spidev_spi_driver);
 	if (status < 0) {
 		class_destroy(spidev_class);
