@@ -31,6 +31,9 @@ elif [ "$BUILD_MODULE" = "rootfs" ]; then
 	cd $TOP_DIR/owl
 	make rootfs
 
+elif [ "$BUILD_MODULE" = "sd_boot" ]; then
+        cd $TOP_DIR/owl
+        make sd_boot
 else
 	cd $TOP_DIR/owl
 	make

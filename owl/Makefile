@@ -2,7 +2,7 @@
 
 .PHONY: all clean
 .PHONY: kernel_clean u-boot_clean bootloader_clean rootfs_clean distclean mrproper
-.PHONY: kernel kernel-config modules u-boot bootloader rootfs initramfs misc firmware md5sum recovery
+.PHONY: kernel kernel-config modules u-boot bootloader rootfs initramfs misc firmware md5sum recovery sd_boot
 .PHONY: burn burn_clean
 
 include .config
@@ -30,13 +30,15 @@ KERNEL_OUT_DIR=$(OUT_DIR)/kernel
 UBOOT_OUT_DIR=$(OUT_DIR)/u-boot
 K_BLD_CONFIG=$(KERNEL_OUT_DIR)/.config
 
+SD_STR=/dev/loop0
+
 CROSS_COMPILE=$(TOP_DIR)/../toolchain/arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
 export PATH:=$(TOOLS_DIR)/utils:$(PATH)
 
 DATE_STR=$(shell date +%y%m%d)
 FW_NAME=$(IC_NAME)_$(OS_NAME)_$(BOARD_NAME)_$(DATE_STR)
 
-all: burn kernel modules u-boot rootfs firmware md5sum
+all: burn kernel modules u-boot rootfs firmware md5sum sd_boot
 
 burn:
 	$(Q)$(MAKE) -C $(BURN_SRC) CROSS_COMPILE=$(CROSS_COMPILE) all
@@ -98,6 +100,62 @@ firmware: bootloader misc recovery
 md5sum:
 	@cd $(IMAGE_DIR) && md5sum *.* > image.md5
 
+sd_boot:
+	@echo "Make SD boot........"
+	@rm -rf $(IMAGE_DIR)/system
+	@rm -rf $(IMAGE_DIR)/tmp
+	@rm -rf $(IMAGE_DIR)/Android_For_Guitar_SD_v$(DATE_STR).img
+	@sudo dd if=/dev/zero of=$(IMAGE_DIR)/Android_For_Guitar_SD_v$(DATE_STR).img bs=1M count=3500
+	@sudo losetup $(SD_STR) $(IMAGE_DIR)/Android_For_Guitar_SD_v$(DATE_STR).img
+	@echo "SD image mount to "$(SD_STR)
+	@sudo parted $(SD_STR) --script mklabel gpt
+	@sudo parted $(SD_STR) --script unit s
+	@sudo parted $(SD_STR) --script mkpart MISC 16384s 114687s
+	@sudo parted $(SD_STR) --script mkpart RECOVERY 114688s 212991s
+	@sudo parted $(SD_STR) --script mkpart SYSTEM 212992s 2260992s
+	@sudo parted $(SD_STR) --script mkpart BOOT_MSG 2260993s 2263041s
+	@sudo parted $(SD_STR) --script mkpart DATA 2263042s 4360194s
+	@sudo parted $(SD_STR) --script mkpart CACHE 4360195s 4622339s
+	@sudo parted $(SD_STR) --script mkpart DATA_BAK 4622340s 4624388s
+	@sudo parted $(SD_STR) --script mkpart VENDOR_APP 4624389s 4626437s
+	@sudo parted $(SD_STR) --script mkpart MNT_MEDIA 4626438s 4628486s
+	@sudo parted $(SD_STR) --script mkpart SWAP 4628487s 4890631s
+	@sudo parted $(SD_STR) --script mkpart UDISK 4890632s 7167966s
+	@sudo parted $(SD_STR) --script unit s
+	@sudo parted $(SD_STR) --script set 1 msftdata on
+	@sudo parted $(SD_STR) --script set 2 msftdata on
+	@sudo parted $(SD_STR) --script set 3 msftdata on
+	@sudo parted $(SD_STR) --script set 4 msftdata on
+	@sudo parted $(SD_STR) --script set 5 msftdata on
+	@sudo parted $(SD_STR) --script set 6 msftdata on
+	@sudo parted $(SD_STR) --script set 7 msftdata on
+	@sudo parted $(SD_STR) --script set 8 msftdata on
+	@sudo parted $(SD_STR) --script set 9 msftdata on
+	@sudo parted $(SD_STR) --script set 10 msftdata on
+	@sudo parted $(SD_STR) --script set 11 msftdata on
+	@sudo sudo mkfs -t fat $(SD_STR)p1
+	@sudo sudo mkfs -t fat $(SD_STR)p2
+	@sudo sudo mkfs -t ext4 $(SD_STR)p3
+	@sudo sudo mkfs -t vfat $(SD_STR)p4
+	@sudo sudo mkfs -t ext4 $(SD_STR)p5
+	@sudo sudo mkfs -t ext4 $(SD_STR)p6
+	@sudo sudo mkfs -t vfat $(SD_STR)p11
+	@sudo dd if=$(IMAGE_DIR)/bootloader.bin of=$(SD_STR) bs=512 seek=4097
+	@sudo dd if=$(IMAGE_DIR)/u-boot-dtb.img of=$(SD_STR) bs=512 seek=6144
+	@sudo dd if=$(IMAGE_DIR)/misc.img of=$(SD_STR)p1
+	@sudo dd if=$(IMAGE_DIR)/recovery.img of=$(SD_STR)p2
+	@./../android/out/host/linux-x86/bin/simg2img $(IMAGE_DIR)/system.img $(IMAGE_DIR)/tmp
+	@mkdir $(IMAGE_DIR)/system
+	@sudo mount -t ext4 -o loop $(IMAGE_DIR)/tmp $(IMAGE_DIR)/system
+	@sudo mount -t ext4 -o loop $(SD_STR)p3 /mnt
+	@sudo cp -a $(IMAGE_DIR)/system/* /mnt
+	@sync
+	@sudo umount $(IMAGE_DIR)/system
+	@sudo umount /mnt
+	@sudo losetup -d $(SD_STR)
+	@sudo rm -rf $(IMAGE_DIR)/system
+	@sudo rm -rf $(IMAGE_DIR)/tmp
+	@echo "Make SD && EMMC boot success!"
 
 clean: burn_clean kernel_clean u-boot_clean bootloader_clean
 	#$(Q)rm -rf $(TOP_DIR)/out
