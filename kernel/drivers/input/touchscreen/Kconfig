@@ -935,6 +935,18 @@ config TOUCHSCREEN_FT5X06
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called ft5x06.
+
+config TOUCHSCREEN_GT9XX
+        tristate "gt9xx I2C Touchscreen"
+        depends on I2C
+        help
+          Say Y here if you have gt9xx series I2C touchscreen
+          connected to your system.
+
+          If unsure, say N.
+
+          To compile this driver as a module, choose M here: the
+          module will be called gt9xx.
 	  
 config TOUCHSCREEN_DETECT
 	tristate "CTP_DETECT I2C Touchscreen"

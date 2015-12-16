@@ -302,7 +302,7 @@
                 saturation = <7>;
                 contrast = <5>;
 
-/*	
+	
                 lcd_mode0:mode@1280x800p60 {
                 refresh = <60>;
                         xres = <1280>; 
@@ -316,7 +316,7 @@
                         vsync_len = <8>;
                         vmode = <0>;
                 };
-*/
+/*
                 lcd_mode0:mode@1024x600p60 {
                         refresh = <60>;
                         xres = <1024>;
@@ -330,9 +330,8 @@
                         vsync_len = <4>;
                         vmode = <0>;
                 };
-		
+*/		
         };
-
 
         dsi: dsi@b0220000 {
                 status = "disabled";

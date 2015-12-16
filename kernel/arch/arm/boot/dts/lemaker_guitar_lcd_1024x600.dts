@@ -564,7 +564,7 @@
 				//speaker_en_gpios = <&gpio 126 1>; /*hr280ac GPIOD(30) 0: high, 1: low*/
 				earphone_output_mode = <0>; /*0: direct mode, 1: undirect mode*/
 				mic_num = <1>; /*just suport 1, 2*/
-				mic0_gain = < 0xf 0xf >; /*<Lchannel,Rchannel> [0x0~0xF]*/
+				mic0_gain = < 0x3 0x3 >; /*<Lchannel,Rchannel> [0x0~0xF]*/
 				speaker_gain = < 0xaa 0xaa >; /*<Lchannel,Rchannel>[0x00~0xbebe]*/
 				earphone_gain = < 0xbe 0xbe >; /*<Lchannel,Rchannel>[0x00~0xbebe]*/
 				mic_mode = <1>; /* 1: differential,  2: single end*/
@@ -785,8 +785,8 @@
 			tp_vcc = "ldo5";
 			reset_gpios = <&gpio 35 1>; /*GPIOB(3) 0: high, 1: low*/
 			max_points = <5>;
-			x_pixel = <1024>;
-			y_pixel = <600>;
+			x_pixel = <1280>;
+			y_pixel = <800>;
 			x_revert_en = <0>;
 			y_revert_en = <0>;
 			xy_swap_en = <0>;
@@ -811,6 +811,23 @@
     		//interrupts =< 0 0x4 >; /*SIRQ0*/
 			vol_range = <3100000 3110000>;
 		};
+
+		gt9xx@5d {
+                        compatible = "Goodix-TS";
+                        reg = <0x5d>;
+                        tp_vcc = "ldo5";
+                        reset_gpios = <&gpio 35 1>; /*GPIOB(3) 0: high, 1: low*/
+                        max_points = <5>;
+                        x_pixel = <1024>;
+                        y_pixel = <600>;
+                        x_revert_en = <0>;
+                        y_revert_en = <0>;
+                        xy_swap_en = <0>;
+                        rotate_degree = <270>;  /* 0 90 180 270 */
+                interrupt-parent = <&sirq>;
+                interrupts =< 0 0x4 >; /*SIRQ0*/
+                        vol_range = <3100000 3110000>;
+                };
 
 		hdmi_read_edid@30 {
                         compatible = "actions,hdmi_read_edid";
@@ -1130,7 +1147,7 @@
 		saturation = <7>;
 		contrast = <5>;
 
-	/*	
+		
 		lcd_mode0:mode@1280x800p60 {
 		refresh = <60>;
                         xres = <1280>; 
@@ -1144,7 +1161,7 @@
                         vsync_len = <8>;
                         vmode = <0>;
 		};
-	*/
+/*
 		lcd_mode0:mode@1024x600p60 {
                         refresh = <60>;
                         xres = <1024>;
@@ -1158,7 +1175,8 @@
                         vsync_len = <4>;
                         vmode = <0>;
                 };
-	
+*/
+
 	};
 	dsi: dsi@b0220000 {
 		status = "disabled";
@@ -1276,7 +1294,7 @@
 			GSLX6X0 =  <0>;
 			FT52-406 = <0>;
 			FT5606 =   <0>;
-			GT813 =    <0>;
+			Goodix-TS =<1>;
 			AW5206 =   <0>;
 			AW5209 =   <0>;
 			CT36X =    <0>;

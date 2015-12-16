@@ -29,6 +29,7 @@ VERSION_DATE=$(shell date "+%y%m%d")
 PRODUCT_COPY_FILES := \
     device/actions/lemaker_guitar_bbb/kernel:kernel \
 	device/actions/lemaker_guitar_bbb/ft5x06-touch.idc:system/usr/idc/ft5x06-touch.idc \
+	device/actions/lemaker_guitar_bbb/goodix-ts-touch.idc:system/usr/idc/goodix-ts-touch.idc \
 	device/actions/lemaker_guitar_bbb/gl5203-adckey.kl:system/usr/keylayout/gl5203-adckey.kl \
 	device/actions/lemaker_guitar_bbb/vold.fstab:system/etc/vold.fstab \
 	device/actions/lemaker_guitar_bbb/apns-conf.xml:system/etc/apns-conf.xml \

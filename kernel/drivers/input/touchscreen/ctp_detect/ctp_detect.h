@@ -59,11 +59,11 @@ struct ctp_device ctp_device_list[]=
 	},
 	//GT813
 	{
-		"GT813",			//0.IC名称
-		"ctp_goodix_touch.ko",	//1.ko名称
+		"Goodix-TS",			//0.IC名称
+		"ctp_gt9xx.ko",	//1.ko名称
 		true,				//2.是否扫描
 		0x5d,				//3.i2c地址
-		true,				//4.有chipid
+		false,				//4.有chipid
 		0xf7d,				//5.chipid寄存器
 		0x13,				//6.chipid
 	},
