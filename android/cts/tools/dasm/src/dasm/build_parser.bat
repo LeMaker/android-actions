@@ -1,1 +1,0 @@
-java -jar ..\..\etc\java_cup.jar < parser.cup

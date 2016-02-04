@@ -382,6 +382,7 @@ int uvc_queue_enable(struct uvc_video_queue *queue, int enable)
 {
 	unsigned long flags;
 	int ret;
+	struct uvc_streaming *stream = container_of(queue, struct uvc_streaming, queue);
 
 	mutex_lock(&queue->mutex);
 	if (enable) {
@@ -390,7 +391,9 @@ int uvc_queue_enable(struct uvc_video_queue *queue, int enable)
 			goto done;
 
 		queue->buf_used = 0;
+		queue->framesdropped = 0;
 	} else {
+		uvc_trace(UVC_TRACE_FRAME_ERR, "## framesdropped:%d, totalframes:%d.\n",queue->framesdropped,stream->sequence);
 		ret = vb2_streamoff(&queue->queue, queue->queue.type);
 		if (ret < 0)
 			goto done;
@@ -446,8 +449,15 @@ struct uvc_buffer *uvc_queue_next_buffer(struct uvc_video_queue *queue,
 {
 	struct uvc_buffer *nextbuf;
 	unsigned long flags;
-
-	if ((queue->flags & UVC_QUEUE_DROP_CORRUPTED) && buf->error) {
+	/**
+ 	* BUGFIX: Add specific usbcamera dropframes demand support .
+ 	*ActionsCode(author:liyuan, change_code)
+ 	*/
+	if (((queue->flags & UVC_QUEUE_DROP_CORRUPTED) && buf->error) ||
+	      queue->framestodrop > 0) {
+		if(queue->framestodrop > 0)
+			queue->framestodrop--;
+		queue->framesdropped++;
 		buf->error = 0;
 		buf->state = UVC_BUF_STATE_QUEUED;
 		buf->bytesused = 0;

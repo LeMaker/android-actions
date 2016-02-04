@@ -69,17 +69,17 @@
 #include "aotg_mon.h"
 
 static int aotg0_slew_rate = -1;
-module_param(aotg0_slew_rate, uint, S_IRUGO | S_IWUSR);
+module_param(aotg0_slew_rate, int, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(aotg0_slew_rate, "aotg0_slew_rate");
 static int aotg0_tx_bias = -1;
-module_param(aotg0_tx_bias, uint, S_IRUGO | S_IWUSR);
+module_param(aotg0_tx_bias, int, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(aotg0_tx_bias, "aotg0_tx_bias");
 
 static int aotg1_slew_rate = -1;
-module_param(aotg1_slew_rate, uint, S_IRUGO | S_IWUSR);
+module_param(aotg1_slew_rate, int, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(aotg1_slew_rate, "aotg1_slew_rate");
 static int aotg1_tx_bias = -1;
-module_param(aotg1_tx_bias, uint, S_IRUGO | S_IWUSR);
+module_param(aotg1_tx_bias, int, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(aotg1_tx_bias, "aotg1_tx_bias");
 
 #define	DRIVER_DESC	"AOTG USB Host Controller Driver"
@@ -1969,7 +1969,6 @@ static void aotg_hub_hotplug_timer(unsigned long data)
 	return;
 }
 
-
 static inline int aotg_print_ep_timeout(struct aotg_hcep *ep)
 {
 	int ret = 0;
@@ -1989,6 +1988,47 @@ static inline int aotg_print_ep_timeout(struct aotg_hcep *ep)
 		}
 	}
 	return ret;
+}
+
+static void aotg_check_trb_timer(unsigned long data)
+{
+	unsigned long flags;
+	struct aotg_hcep *ep;
+	int i;
+	struct aotg_hcd *acthcd = (struct aotg_hcd *)data;
+
+	if (unlikely(IS_ERR_OR_NULL((void *)data))) {
+		ACT_HCD_DBG
+		return;
+	}
+	if (acthcd->hcd_exiting != 0) {
+		ACT_HCD_DBG
+		return;
+	}
+
+	spin_lock_irqsave(&acthcd->lock, flags);
+	if (acthcd->check_trb_mutex) {
+		mod_timer(&acthcd->check_trb_timer, jiffies + msecs_to_jiffies(1));
+		spin_unlock_irqrestore(&acthcd->lock, flags);
+		return;
+	}
+
+	for (i = 1; i < MAX_EP_NUM; i++) {
+		ep = acthcd->inep[i];
+		if (ep && (ep->ring) && (ep->ring->type == PIPE_BULK))
+				handle_ring_dma_tx(acthcd,i);
+	}
+
+	for (i = 1; i < MAX_EP_NUM; i++) {
+		ep = acthcd->outep[i];
+		if (ep && (ep->ring) && (ep->ring->type == PIPE_BULK))
+			handle_ring_dma_tx(acthcd,i | AOTG_DMA_OUT_PREFIX);
+	}
+
+	mod_timer(&acthcd->check_trb_timer, jiffies + msecs_to_jiffies(3));
+
+	spin_unlock_irqrestore(&acthcd->lock, flags);
+	return;
 }
 
 static void aotg_hub_trans_wait_timer(unsigned long data)
@@ -2304,16 +2344,6 @@ static int aotg_hub_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, unsigned m
 		return -ENODEV;
 	}
 
-	/*
-	 * because urb_enqueue may be called via irq handler when excute complete(), 
-	 * so we should avoid call disable_irq in irq context. 
-	 */
-	//if (in_irq()) {
-	if (in_interrupt()) {
-		disable_irq_nosync(acthcd->uhc_irq);
-	} else {
-		disable_irq(acthcd->uhc_irq);
-	}
 	spin_lock_irqsave(&acthcd->lock, flags);
 	
 	ep = urb->ep->hcpriv;
@@ -2356,6 +2386,8 @@ static int aotg_hub_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, unsigned m
 			//enable_overflow_irq(acthcd, ep);
 		}
 		urb->ep->hcpriv	= ep;
+		if (type == PIPE_BULK)
+			mod_timer(&acthcd->check_trb_timer, jiffies + msecs_to_jiffies(100));
 	}
 
 	urb->hcpriv = hcd;
@@ -2365,7 +2397,6 @@ static int aotg_hub_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, unsigned m
 		if (unlikely(!q)) {
 			dev_err(acthcd->dev, "<QUEUE>  alloc dma queue failed\n");
 			spin_unlock_irqrestore(&acthcd->lock, flags);
-			enable_irq(acthcd->uhc_irq);
 			return -ENOMEM;
 		}		
 
@@ -2486,7 +2517,6 @@ static int aotg_hub_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, unsigned m
 	}
 out:
 	spin_unlock_irqrestore(&acthcd->lock, flags);
-	enable_irq(acthcd->uhc_irq);
 	tasklet_hi_schedule(&acthcd->urb_tasklet);
 	return retval;
 exit1:
@@ -2522,7 +2552,6 @@ exit0:
 		}
 	}
 	spin_unlock_irqrestore(&acthcd->lock, flags);
-	enable_irq(acthcd->uhc_irq);
 	return retval;
 }
 
@@ -2692,7 +2721,6 @@ void urb_tasklet_func(unsigned long data)
 		}
 	} while (status == 0);
 
-	//disable_irq_nosync(acthcd->uhc_irq);
 	disable_irq(acthcd->uhc_irq);
 	spin_lock_irqsave(&acthcd->lock, flags);
 
@@ -3470,6 +3498,7 @@ static int aotg_hcd_init(struct usb_hcd *hcd, struct platform_device *pdev)
 	acthcd->put_aout_msg = 0;
 	acthcd->discon_happened = 0;
 	acthcd->uhc_irq = 0;
+	acthcd->check_trb_mutex = 0;
 	for (i = 0; i < AOTG_QUEUE_POOL_CNT; i++) {
 		acthcd->queue_pool[i] = NULL;
 	}
@@ -3563,19 +3592,19 @@ static int aotg_platform_device_init(struct platform_device *pdev)
 	}
 
 	if (!of_find_property(of_node, "vbus_otg_en_gpio", NULL)) {
-		printk("can't find vbus_otg_en_gpio config\n");
+		pr_info("can't find vbus_otg_en_gpio config\n");
 		vbus_otg_en_gpio[pdev->id][0] = -1;
 	} else {
 		vbus_otg_en_gpio[pdev->id][0] = of_get_named_gpio_flags(of_node, "vbus_otg_en_gpio",0, &flags);
 		vbus_otg_en_gpio[pdev->id][1] = flags & 0x01;
 		if (gpio_request(vbus_otg_en_gpio[pdev->id][0], aotg_hcd_of_match[pdev->id].compatible)) {
-			dev_err(&pdev->dev, "fail to request vbus gpio [%d]\n", vbus_otg_en_gpio[pdev->id][0]);
+			dev_dbg(&pdev->dev, "fail to request vbus gpio [%d]\n", vbus_otg_en_gpio[pdev->id][0]);
 			//return -3;
 		}
 		gpio_direction_output(vbus_otg_en_gpio[pdev->id][0], 1);
 	}
 	
-	printk("vbus_otg_en_gpio:%d\n",vbus_otg_en_gpio[pdev->id][0]);
+	pr_info("vbus_otg_en_gpio:%d\n",vbus_otg_en_gpio[pdev->id][0]);
 	
 	aotg_power_onoff(pdev->id,1);
 
@@ -3670,6 +3699,9 @@ static int aotg_hub_probe(struct platform_device *pdev)
 	init_timer(&acthcd->trans_wait_timer);
 	acthcd->trans_wait_timer.function = aotg_hub_trans_wait_timer;
 	acthcd->trans_wait_timer.data = (unsigned long)acthcd;
+	init_timer(&acthcd->check_trb_timer);
+	acthcd->check_trb_timer.function = aotg_check_trb_timer;
+	acthcd->check_trb_timer.data = (unsigned long)acthcd;
 	
 	retval = usb_add_hcd(hcd, irq, 0);
 	if (likely(retval == 0)) {
@@ -3697,6 +3729,7 @@ static int aotg_hub_probe(struct platform_device *pdev)
 	
 	del_timer_sync(&acthcd->hotplug_timer);
 	del_timer_sync(&acthcd->trans_wait_timer);
+	del_timer_sync(&acthcd->check_trb_timer);
 err3:
 	if (acthcd != NULL) {
 		aotg_hcd_clk_enable(acthcd, 0);
@@ -3801,6 +3834,7 @@ static int aotg_hub_remove(struct platform_device *pdev)
 
 	tasklet_kill(&acthcd->urb_tasklet);
 	del_timer_sync(&acthcd->trans_wait_timer);
+	del_timer_sync(&acthcd->check_trb_timer);
 	del_timer_sync(&acthcd->hotplug_timer);
 	remove_debug_file(acthcd);
 	iounmap(hcd->regs);

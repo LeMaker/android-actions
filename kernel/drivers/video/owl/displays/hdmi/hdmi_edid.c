@@ -187,7 +187,7 @@ RETRY:
 
 	if (ret != 3) {
 		
-		DEBUG_ERR("[in %s]fail to read EDID\n",__func__);
+		DEBUG_ERR("[in %s]fail to read EDID ret %d \n",__func__,ret);
 		ret = -1;
 		goto RETURN1;
 		
@@ -452,11 +452,7 @@ int parse_hdmi_vsdb(struct hdmi_edid *edid, u8 * pbuf,u8 size)
 	}
 	else
 	{
-#ifndef CONFIG_VIDEO_OWL_NO_DVI		
 		edid->isHDMI = HDMI_DVI;
-#else
-		edid->isHDMI = HDMI_HDMI;
-#endif		
 		return 0;
 	}
 	
@@ -496,6 +492,36 @@ int parse_hdmi_vsdb(struct hdmi_edid *edid, u8 * pbuf,u8 size)
 	return 0;
 }
 
+int read_edid(u8 * edid , int len)
+{
+	int r, l;
+
+	if (len < 128)
+		return -EINVAL;
+		
+	if(i2c_check_adapter())
+	{
+		DEBUG_ERR("iic adapter error!!!\n");
+		return -1;		
+	}
+	
+	if(ddc_read(0,0,edid)<0)
+	{
+		DEBUG_ERR("read edid error!!!\n");
+		return -1;
+	}
+	
+	l = 128;
+
+	if (len >= 128 * 2 && edid[0x7e] > 0) {
+		r = ddc_read(1,0x80,edid + 0x80);
+		if (r)
+			return r;
+		l += 128;
+	}
+	return l;
+	
+}
 int parse_edid(struct hdmi_edid *edid)
 {
     //collect the EDID ucdata of segment 0
@@ -615,11 +641,7 @@ int parse_edid(struct hdmi_edid *edid)
 				{
 					if(offset == 4)
 					{
-						#ifndef CONFIG_VIDEO_OWL_NO_DVI		
-							edid->isHDMI = HDMI_DVI;
-						#else
-							edid->isHDMI = HDMI_HDMI;
-						#endif	
+						edid->isHDMI = HDMI_DVI;
 						EDID_DEBUG("dvi mode\n");
 					}				
 					while(offset < (0x80-18))

@@ -203,6 +203,7 @@ static void aotg_dev_unregister(struct work_struct *w)
 
 	lock_system_sleep();
 	wake_lock_timeout(&umon->aotg_wake_lock, 15*HZ);
+	unlock_system_sleep();
 
 	aotg_device_exit(umon->id);
 	umon->aotg_uhost_det = 1;
@@ -223,7 +224,6 @@ static void aotg_dev_unregister(struct work_struct *w)
 	}
 	
 	mod_timer(&umon->hotplug_timer, jiffies + msecs_to_jiffies(1000));
-	unlock_system_sleep();
 	return;
 }
 
@@ -270,56 +270,43 @@ void aotg_uhost_mon_init(void)
 {
 	struct device_node *of_node;
 	enum of_gpio_flags flags;
-
-/*	ret = get_config("usb2_ports.port0_host_plug_detect", (char *)(&port_host_plug_detect[0]), sizeof(unsigned int));
-	if (ret != 0) {
-		port_host_plug_detect[0] = 0;
-	} else {        
-		printk("port_host_plug_detect[0]:%d\n", port_host_plug_detect[0]);
-	}
-	ret = get_config("usb2_ports.port1_host_plug_detect", (char *)(&port_host_plug_detect[1]), sizeof(unsigned int));
-	if (ret != 0) {
-		port_host_plug_detect[1] = 0;
-	} else {        
-		printk("port_host_plug_detect[1]:%d\n", port_host_plug_detect[1]);
-	}*/
 	
 	of_node = of_find_compatible_node(NULL, NULL, "actions,owl-usb-2.0-0");
 	if (of_node) {
 		if (!of_find_property(of_node, "port0_host_plug_detect", NULL)) {
-			printk("can't find port0_host_plug_detect config\n");
+			pr_info("can't find port0_host_plug_detect config\n");
 			port_host_plug_detect[0] = 0;
 		}	else {
 			port_host_plug_detect[0] = be32_to_cpup((const __be32 *)of_get_property(of_node,  "port0_host_plug_detect",NULL));
 		}
-		printk("port_host_plug_detect[0]:%d\n", port_host_plug_detect[0]);
+		pr_info("port_host_plug_detect[0]:%d\n", port_host_plug_detect[0]);
 		
 		if (!of_find_property(of_node, "vbus_otg_en_gpio", NULL)) {
-			printk("can't find vbus_otg0_en_gpio config\n");
+			pr_debug("can't find vbus_otg0_en_gpio config\n");
 			vbus_otg_en_gpio[0][0] = -1;
 		}	else {
 			vbus_otg_en_gpio[0][0] = of_get_named_gpio_flags(of_node,  "vbus_otg_en_gpio",0, &flags);
 			vbus_otg_en_gpio[0][1] = flags & 0x01;
 			if (gpio_request(vbus_otg_en_gpio[0][0], aotg_hcd_of_match[0].compatible))
-				pr_err("fail to request vbus gpio [%d]\n", vbus_otg_en_gpio[0][0]);
+				pr_debug("fail to request vbus gpio [%d]\n", vbus_otg_en_gpio[0][0]);
 			if (port_host_plug_detect[0] != 2)
 				gpio_direction_output(vbus_otg_en_gpio[0][0], !!port_host_plug_detect[0]);
 		}
-		printk("port0_vubs_en:%d\n",vbus_otg_en_gpio[0][0]);
+		pr_info("port0_vubs_en:%d\n",vbus_otg_en_gpio[0][0]);
 	}
 	else {
-		printk("can't find usbh0 dts node\n");
+		pr_debug("can't find usbh0 dts node\n");
 	}
 	
 	of_node = of_find_compatible_node(NULL, NULL, "actions,owl-usb-2.0-1");
 	if (of_node) {
 		if (!of_find_property(of_node, "port1_host_plug_detect", NULL)) {
-			printk("can't find port1_host_plug_detect config\n");
+			pr_info("can't find port1_host_plug_detect config\n");
 			port_host_plug_detect[1] = 0;
 		}	else {
 			port_host_plug_detect[1] = be32_to_cpup((const __be32 *)of_get_property(of_node,  "port1_host_plug_detect",NULL));
 		}
-		printk("port_host_plug_detect[1]:%d\n", port_host_plug_detect[1]);
+		pr_info("port_host_plug_detect[1]:%d\n", port_host_plug_detect[1]);
 		
 		if (!of_find_property(of_node, "vbus_otg_en_gpio", NULL)) {
 			printk("can't find vbus_otg1_en_gpio config\n");
@@ -328,14 +315,14 @@ void aotg_uhost_mon_init(void)
 			vbus_otg_en_gpio[1][0] = of_get_named_gpio_flags(of_node,  "vbus_otg_en_gpio",0, &flags);
 			vbus_otg_en_gpio[1][1] = flags & 0x01;
 			if (gpio_request(vbus_otg_en_gpio[1][0], aotg_hcd_of_match[1].compatible))
-				pr_err("fail to request vbus gpio [%d]\n", vbus_otg_en_gpio[1][0]);
+				pr_debug("fail to request vbus gpio [%d]\n", vbus_otg_en_gpio[1][0]);
 			if (port_host_plug_detect[1] != 2)
 				gpio_direction_output(vbus_otg_en_gpio[1][0], !!port_host_plug_detect[1]);
 		}
-		printk("port1_vubs_en:%d\n",vbus_otg_en_gpio[1][0]);
+		pr_info("port1_vubs_en:%d\n",vbus_otg_en_gpio[1][0]);
 	}
 	else {
-		printk("can't find usbh1 dts node\n");
+		pr_debug("can't find usbh1 dts node\n");
 	}
 	
 	if (port_host_plug_detect[0]) {

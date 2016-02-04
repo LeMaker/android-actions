@@ -54,6 +54,7 @@ int storage_read(void *buf, int size, int count, storage_io_t *io) {
 		DATA_LOGV("storage_read() read upto the end of stream !!! storage->mOffset: %lld need_size: %d", storage->mOffset, need_size);
 	}else {
 		ALOGE("storage_read() read error !!! storage->mOffset: %lld need_size: %d", storage->mOffset, need_size);
+		n = 0;
 	}
 	#else
     if (n > 0)

@@ -145,6 +145,70 @@ actions_server_DisplayService_getHdmiMode(JNIEnv *env, jclass clazz){
     return env->NewStringUTF("");
 }
 
+
+//CVBS setting
+
+
+static jboolean
+actions_server_DisplayService_setCvbsMode(JNIEnv *env, jclass clazz, jstring modeObj){
+    ALOGD("actions_server_DisplayService_setCvbsMode");
+    const char * modeStr = env->GetStringUTFChars(modeObj, NULL);
+    if(modeStr != NULL)
+    {
+    	int vid = owl_hdmi_mode2vid((char*)modeStr);
+    	ALOGD("modeStr %s vid %d mDisplayManager ~~ %p",modeStr,vid,mDisplayManager);
+        if(mDisplayManager != NULL && mDisplayManager->set_cvbs_vid != NULL)
+	    {
+	    	ALOGD("set cvbs mode  %d",vid);
+	    	mDisplayManager->set_cvbs_vid(mDisplayManager,vid);
+	    } 
+    }
+    env->ReleaseStringUTFChars(modeObj, modeStr);
+    return true;
+
+}
+
+
+static void
+actions_server_DisplayService_setCvbsEnable(JNIEnv *env, jclass clazz, jboolean enable){
+    ALOGD("actions_server_DisplayService_setCvbsEnable");
+    if(mDisplayManager != NULL && mDisplayManager->set_cvbs_enable != NULL)
+    {
+    	ALOGD("set cvbs function state %s",enable? "enable" : "disable");
+    	mDisplayManager->set_cvbs_enable(mDisplayManager,enable);
+    }   
+}
+
+static jboolean
+actions_server_DisplayService_getCvbsEnable(JNIEnv *env, jclass clazz){ 
+    ALOGD("actions_server_DisplayService_getCvbsEnable");
+    if(mDisplayManager != NULL && mDisplayManager->get_cvbs_enable != NULL)
+    {
+    	ALOGD("get hdmi function state ");
+    	return mDisplayManager->get_cvbs_enable(mDisplayManager);
+    }
+    return false;   
+}
+
+static jstring
+actions_server_DisplayService_getCvbsMode(JNIEnv *env, jclass clazz){
+    ALOGD("actions_server_DisplayService_getCvbsMode mDisplayManager %p",mDisplayManager);
+    char * mode = NULL;
+    if(mDisplayManager != NULL && mDisplayManager->get_cvbs_vid != NULL)
+	{
+		int vid = mDisplayManager->get_cvbs_vid(mDisplayManager);
+		
+		mode = owl_hdmi_vid2mode(vid);
+		ALOGD("actions_server_DisplayService_getHdmiMode vid %d mode %s ",vid,mode);
+	} 
+	if(mode != NULL){
+		return env->NewStringUTF(mode);
+	}
+    return env->NewStringUTF("");
+}
+
+
+
 static jobjectArray
 actions_server_DisplayService_getHdmiSupportedModesList(JNIEnv *env, jclass clazz){
     ALOGD("actions_server_DisplayService_getHdmiSupportedModesList");
@@ -371,6 +435,10 @@ static const JNINativeMethod displayServiceMethods[] = {
 { "_getHdmiFitScreen", "()I",(void*) actions_server_DisplayService_getHdmiFitScreen },
 {"_getDisplayInfo", "(I[II)I",(void *) actions_server_DisplayService_getDisplayInfo},	
 {"_setDisplayInfo", "(I[II)I",(void *) actions_server_DisplayService_setDisplayInfo},
+{"_getCvbsMode", "()Ljava/lang/String;",(void*) actions_server_DisplayService_getCvbsMode },
+{"_setCvbsMode", "(Ljava/lang/String;)Z",(void*) actions_server_DisplayService_setCvbsMode },
+{ "_setCvbsEnable", "(Z)V",(void*) actions_server_DisplayService_setCvbsEnable },
+{ "_getCvbsEnable", "()Z",(void*) actions_server_DisplayService_getCvbsEnable },
 };
 
 /*

@@ -13,6 +13,14 @@ interface IDisplayService
     
     String getHdmiMode();
     
+    void setCvbsEnable(boolean enable);
+    
+    boolean setCvbsMode(String mode);
+	
+	boolean getCvbsEnable();
+    
+    String getCvbsMode();
+    
     String[] getHdmiSupportedModesList();
     
     void setHdmiViewFrameSize(int dx, int dy);

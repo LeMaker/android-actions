@@ -246,7 +246,7 @@ dtb-$(CONFIG_ARCH_OWL) += actduino_bubble_gum.dtb \
 	actduino_s500_probatch.dtb \
 	lemaker_guitar_rtl8723bs_lvds_1024x600.dtb \
 	lemaker_guitar_lcd_1024x600.dtb \
-	lemaker_guitar_probatch.dtb
+	actduino_lemaker_guitar_probatch.dtb
 	
 ifeq ($(CONFIG_ARCH_OWL),y)
 DTC_FLAGS = -R -4 -p 0x1000

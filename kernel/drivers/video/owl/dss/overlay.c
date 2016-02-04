@@ -494,10 +494,8 @@ static void dss_apply_ovl_enable(struct owl_overlay *ovl, bool enable)
 int dss_ovl_enable(struct owl_overlay *ovl)
 {
 	struct ovl_priv_data *op = get_ovl_priv(ovl);
-	//unsigned long flags;
-	int r;
 
-	//mutex_lock(&apply_lock);
+	int r;
 
 	if (op->enabled) {
 		r = 0;
@@ -506,34 +504,15 @@ int dss_ovl_enable(struct owl_overlay *ovl)
 
 	if (ovl->manager == NULL || ovl->manager->device == NULL) {
 		r = -EINVAL;
+		DSSERR("dss_ovl_enable %d ovl->manager %p \n", ovl->id,ovl->manager);
 		goto err1;
 	}
-
-	//spin_lock_irqsave(&data_lock, flags);
-
-	op->enabling = true;
-
-	/*r = dss_check_settings(ovl->manager, ovl->manager->device);
-	if (r) {
-		DSSERR("failed to enable overlay %d: check_settings failed\n",
-				ovl->id);
-		goto err2;
-	}*/
-
-	op->enabling = false;
 	
 	dss_apply_ovl_enable(ovl, true);
 
-	//spin_unlock_irqrestore(&data_lock, flags);
-
-	//mutex_unlock(&apply_lock);
-
 	return 0;
-//err2:
-	//op->enabling = false;
-	//spin_unlock_irqrestore(&data_lock, flags);
 err1:
-	//mutex_unlock(&apply_lock);
+
 	return r;
 }
 
@@ -597,7 +576,7 @@ int  dss_ovl_set_manager(struct owl_overlay *ovl,
 		goto err;
 	}
 
-	op->channel = mgr->id;
+	op->channel = mgr->de_path_id;
 	op->extra_info_dirty = true;
 
 	ovl->manager = mgr;
@@ -845,54 +824,6 @@ void dss_init_overlays(struct platform_device *pdev)
 			DSSERR("failed to create sysfs file\n");
 	}
 }
-
-/* connect overlays to the new device, if not already connected. if force
- * selected, connect always. */
-void dss_recheck_connections(struct owl_dss_device *dssdev, bool force)
-{
-	int i;
-	struct owl_overlay_manager *lcd_mgr;
-	struct owl_overlay_manager *tv_mgr;
-	struct owl_overlay_manager *mgr = NULL;
-	printk("dss_recheck_connections dssdev->type %d \n",dssdev->type);
-	lcd_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_LCD);
-	tv_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_TV);
-
-	if (dssdev->type == OWL_DISPLAY_TYPE_LCD
-			|| dssdev->type == OWL_DISPLAY_TYPE_DSI
-			|| dssdev->type == OWL_DISPLAY_TYPE_EDP) {
-		if (!lcd_mgr->device || force) {
-			if (lcd_mgr->device)
-				lcd_mgr->unset_device(lcd_mgr);
-			lcd_mgr->set_device(lcd_mgr, dssdev);
-			mgr = lcd_mgr;
-		}
-	}
-
-	if (dssdev->type == OWL_DISPLAY_TYPE_CVBS
-			|| dssdev->type == OWL_DISPLAY_TYPE_YPBPR
-			|| dssdev->type == OWL_DISPLAY_TYPE_HDMI) {
-		if (!tv_mgr->device || force) {
-			if (tv_mgr->device)
-				tv_mgr->unset_device(tv_mgr);
-			tv_mgr->set_device(tv_mgr, dssdev);
-			mgr = tv_mgr;
-		}
-	}
-
-	if (mgr) {
-		for (i = 0; i < dss_feat_get_num_ovls(); i++) {
-			struct owl_overlay *ovl;
-			ovl = owl_dss_get_overlay(i);
-			if (!ovl->manager || force) {
-				if (ovl->manager)
-					ovl->unset_manager(ovl);
-				ovl->set_manager(ovl, mgr);
-			}
-		}
-	}
-}
-
 void dss_uninit_overlays(struct platform_device *pdev)
 {
 	int i;

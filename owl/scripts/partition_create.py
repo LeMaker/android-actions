@@ -64,6 +64,8 @@ def OutFile(fileName, partion_list):
             continue;
         if part.downloadfile == 'FMT':
             line ='PARTITION_F=%d, "%s", "", "%s", "FMT", 0x1;\n' %(num, part.label, part.fstype);
+        elif part.downloadfile == 'DIR':
+            line ='PARTITION_F=%d, "%s", "", "%s", "DIR", 0x10;\n' %(num, part.label, part.fstype);
         elif ( (part.downloadfile == None) or (len(part.downloadfile)==0 ) ) :
             line ='PARTITION_O=%d, "%s", "", "%s", "IMG", 0x20;\n' %(num, part.label, part.fstype);
         else :

@@ -1,6 +1,0 @@
-Code completion in anim1.xml for ^<set xmlns:
-<alpha />
-<rotate />
-<scale />
-<set ></set>
-<translate />

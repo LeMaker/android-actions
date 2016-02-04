@@ -22,20 +22,9 @@
 #include <linux/of.h>
 #include <linux/of_device.h>
 #include <linux/pinctrl/consumer.h>
+#include <mach/module-owl.h>
 
 #define DRIVER_NAME			"asoc_spi"
-
-#if 0
-#define SPI_PRINT(fmt, args...) printk(KERN_ALERT fmt, ##args)
-#else
-#define SPI_PRINT(fmt, args...)
-#endif
-/*
-u32 asoc_get_sclk(void)
-{
-	return 24000000;
-}
-*/
 
 /**********************************************************/
 
@@ -50,18 +39,16 @@ u32 asoc_get_sclk(void)
 #define SPI_RXCR		0x20
 
 #define MAX_SPI_POLL_LOOPS		5000
-
+#define MAX_SPI_DMA_LEN			8192
 #define BYTES_4_DMA_XFER		64
-#define BYTES_4_DMA_XFER_MAX        4096
 
 struct asoc_spi {
 /*	struct spi_master	*master;*/
 /*	unsigned int irq; */
 /*	struct owl_gpio *owl_spi_cs_table; */
+	struct device *dev;
+
 	unsigned int irq;
-	struct dma_slave_config *dma_config;
-	struct owl_dma_slave *atslave;
-	struct pinctrl *ppc;
 	spinlock_t		lock;
 	struct clk *clk;
 
@@ -73,22 +60,26 @@ struct asoc_spi {
 	/* Lock access to transfer list.	*/
 	struct list_head	msg_queue;
 
-	struct completion done;
-	u8 busy;
 	u8 enable_dma;
-	void * dma_buf; //contiguous buf for dma
+
+#ifdef CONFIG_DMA_ENGINE
+	struct dma_chan			*dma_rx_channel;
+	struct dma_chan			*dma_tx_channel;
+	struct sg_table			sgt_rx;
+	struct sg_table			sgt_tx;
+	bool				dma_running;
+#endif
 
 };
 
 static inline void dump_spi_registers(struct asoc_spi *asoc_spi)
 {
-	SPI_PRINT("asoc_spi: SPI0_CTL(0x%x) = 0x%x\n", asoc_spi->base + SPI_CTL,
+	dev_dbg(asoc_spi->dev, "asoc_spi: SPI0_CTL(0x%x) = 0x%x\n", asoc_spi->base + SPI_CTL,
 	       act_readl(asoc_spi->base + SPI_CTL));
-	SPI_PRINT("asoc_spi: SPI0_STAT(0x%x) = 0x%x\n", asoc_spi->base + SPI_STAT,
+	dev_dbg(asoc_spi->dev, "asoc_spi: SPI0_STAT(0x%x) = 0x%x\n", asoc_spi->base + SPI_STAT,
 	       act_readl(asoc_spi->base + SPI_STAT));
-	SPI_PRINT("asoc_spi: SPI0_CLKDIV(0x%x) = 0x%x\n", asoc_spi->base + SPI_CLKDIV,
+	dev_dbg(asoc_spi->dev, "asoc_spi: SPI0_CLKDIV(0x%x) = 0x%x\n", asoc_spi->base + SPI_CLKDIV,
 	       act_readl(asoc_spi->base + SPI_CLKDIV));
-
 }
 
 static inline u32 spi_reg(struct asoc_spi *asoc_spi, u32 reg)
@@ -204,8 +195,8 @@ static int asoc_spi_baudrate_set(struct spi_device *spi, unsigned int speed)
 	if (clk_div == 0)
 		clk_div = 1;
 
-	SPI_PRINT("asoc_spi: required speed = %d\n", speed);
-	SPI_PRINT("asoc_spi:spi clock = %d KHz(hclk = %d,clk_div = %d)\n",
+	dev_dbg(&spi->dev, "asoc_spi: required speed = %d\n", speed);
+	dev_dbg(&spi->dev, "asoc_spi:spi clock = %d KHz(hclk = %d,clk_div = %d)\n",
 	       spi_source_clk_hz / (clk_div * 2) / 1000, spi_source_clk_hz, clk_div);
 
 	act_writel(SPIx_CLKDIV_CLKDIV(clk_div), clkdiv_reg);
@@ -246,7 +237,7 @@ int asoc_spi_wait_till_ready(struct asoc_spi *asoc_spi)
 		if (act_readl(stat_reg) & SPIx_STAT_TCOM) {
 			act_writel(act_readl(stat_reg) | SPIx_STAT_TCOM, stat_reg);
 			//dump_spi_registers(asoc_spi);
-			SPI_PRINT("wait num = %d\n", i);
+			dev_dbg(asoc_spi->dev, "wait num = %d\n", i);
 			return 1;
 		}
 	}
@@ -259,7 +250,6 @@ int asoc_spi_wait_till_ready(struct asoc_spi *asoc_spi)
 
 static void spi_callback(void *completion)
 {
-	SPI_PRINT("spi callback ok\n");
 	complete(completion);
 }
 
@@ -275,11 +265,13 @@ asoc_spi_write_read_8bit(struct spi_device *spi,
 	u8 *rx_buf = xfer->rx_buf;
 	unsigned int count = xfer->len;
 
-	SPI_PRINT("%s(len:0x%x)\n", __func__, xfer->len);
-	if (rx_buf != NULL)
-		SPI_PRINT("  rx_buf:0x%x)\n", ((const u8 *)(xfer->rx_buf))[0]);
-	if (tx_buf != NULL)
-		SPI_PRINT("  tx_buf:0x%x)\n", ((const u8 *)(xfer->tx_buf))[0]);
+	dev_dbg(&spi->dev, "%s(len:0x%x)\n", __func__, xfer->len);
+	if (rx_buf != NULL) {
+		dev_dbg(&spi->dev, "  rx_buf:0x%x)\n", ((const u8 *)(xfer->rx_buf))[0]);
+	}
+	if (tx_buf != NULL) {
+		dev_dbg(&spi->dev, "  tx_buf:0x%x)\n", ((const u8 *)(xfer->tx_buf))[0]);
+	}
 
 
 	asoc_spi = spi_master_get_devdata(spi->master);
@@ -318,10 +310,12 @@ asoc_spi_write_read_8bit(struct spi_device *spi,
 
 	} while (count);
 
-	if (rx_buf != NULL)
-		SPI_PRINT("  rx_buf:0x%x)\n", ((const u8 *)(xfer->rx_buf))[0]);
-	if (tx_buf != NULL)
-		SPI_PRINT("  tx_buf:0x%x)\n", ((const u8 *)(xfer->tx_buf))[0]);
+	if (rx_buf != NULL) {
+		dev_dbg(&spi->dev, "  rx_buf:0x%x)\n", ((const u8 *)(xfer->rx_buf))[0]);
+	}
+	if (tx_buf != NULL) {
+		dev_dbg(&spi->dev, "  tx_buf:0x%x)\n", ((const u8 *)(xfer->tx_buf))[0]);
+	}
 
 	return count;
 }
@@ -337,8 +331,9 @@ asoc_spi_write_read_16bit(struct spi_device *spi,
 	u16 *rx_buf = xfer->rx_buf;
 	unsigned int count = xfer->len;
 
-	if (tx_buf)
-		SPI_PRINT("    tx_buf 0x%x  0x%x\n", tx_buf[0], tx_buf[1]);
+	if (tx_buf) {
+		dev_dbg(&spi->dev, "    tx_buf 0x%x  0x%x\n", tx_buf[0], tx_buf[1]);
+	}
 
 	asoc_spi = spi_master_get_devdata(spi->master);
 	ctl_reg = spi_reg(asoc_spi, SPI_CTL);
@@ -371,7 +366,7 @@ asoc_spi_write_read_16bit(struct spi_device *spi,
 
 		if (rx_buf) {
 			*rx_buf++ = act_readl(rx_reg);
-			SPI_PRINT("rx_buf 0x%x\n", rx_buf[-1]);
+			dev_dbg(&spi->dev, "rx_buf 0x%x\n", rx_buf[-1]);
 		}
 
 		count -= 2;
@@ -431,365 +426,582 @@ asoc_spi_write_read_32bit(struct spi_device *spi,
 	return count;
 }
 
-static unsigned int asoc_spi_config_write_dma_mode(unsigned int base)
+static int asoc_spi_get_channel_no(unsigned int base)
 {
-	unsigned int dma_mode = 0;
-
 	switch (base) {
 		case SPI0_BASE:
-			dma_mode = PRIORITY_ZERO | SRC_INCR | DST_CONSTANT |
-		SRC_DCU | DST_DEV | SPI0_T;
-			break;
+			return 0;
 		case SPI1_BASE:
-			dma_mode =PRIORITY_ZERO | SRC_INCR | DST_CONSTANT |
-		SRC_DCU | DST_DEV | SPI1_T;
-			break;
+			return 1;
 		case SPI2_BASE:
-			dma_mode = PRIORITY_ZERO | SRC_INCR | DST_CONSTANT |
-		SRC_DCU | DST_DEV | SPI2_T;
-			break;	
+			return 2;
 		case SPI3_BASE:
-			dma_mode = PRIORITY_ZERO | SRC_INCR | DST_CONSTANT |
-		SRC_DCU | DST_DEV | SPI3_T;
-			break;
-		default:
-			pr_err("error: 0x%x.spi do not support\n", base);
-			return -1;
+			return 3;
 	}
-
-	return dma_mode;
+	return -1;
 }
 
-static unsigned int asoc_spi_config_read_dma_mode(unsigned int base)
+static unsigned int asoc_spi_get_write_dma_trig(unsigned int base)
 {
-	unsigned int dma_mode = 0;
-
-	switch (base) {
-		case SPI0_BASE:
-			dma_mode = PRIORITY_ZERO | DST_INCR |
-		SRC_CONSTANT | DST_DCU | SRC_DEV | SPI0_R;
-			break;
-		case SPI1_BASE:
-			dma_mode = PRIORITY_ZERO | DST_INCR |
-		SRC_CONSTANT | DST_DCU | SRC_DEV | SPI1_R;
-			break;
-		case SPI2_BASE:
-			dma_mode = PRIORITY_ZERO | DST_INCR |
-		SRC_CONSTANT | DST_DCU | SRC_DEV | SPI2_R;
-			break;	
-		case SPI3_BASE:
-			dma_mode = PRIORITY_ZERO | DST_INCR |
-		SRC_CONSTANT | DST_DCU | SRC_DEV | SPI3_R;
-			break;
-		default:
-			pr_err("error: 0x%x.spi do not support\n", base);
-			return -1;
+	static unsigned int trigs[] = {SPI0_T, SPI1_T, SPI2_T, SPI3_T};
+	
+	int spi_no = asoc_spi_get_channel_no(base);
+	if(spi_no < 0) {
+		pr_err("error: 0x%x.spi do not support\n", base);
+		return -1;
 	}
-
-	return dma_mode;
+	
+	return trigs[spi_no];
 }
 
+static inline unsigned int asoc_spi_get_read_dma_trig(unsigned int base)
+{
+	static unsigned int trigs[] = {SPI0_R, SPI1_R, SPI2_R, SPI3_R};
+	int spi_no = asoc_spi_get_channel_no(base);
+	if(spi_no < 0) {
+		pr_err("error: 0x%x.spi do not support\n", base);
+		return -1;
+	}
+	
+	return trigs[spi_no];
+}
 
-static int asoc_spi_write_by_dma(struct spi_device *spi,
+static struct page *asoc_spi_virt_to_page(const void *addr)
+{
+	if (is_vmalloc_addr(addr))
+		return vmalloc_to_page(addr);
+	else
+		return virt_to_page(addr);
+}
+
+static void asoc_spi_setup_dma_scatter(struct asoc_spi *asoc_spi,
+			      void *buffer,
+			      unsigned int length,
+			      struct sg_table *sgtab)
+{
+	struct scatterlist *sg;
+	int bytesleft = length;
+	void *bufp = buffer;
+	int mapbytes;
+	int i;
+
+	if (buffer) {
+		for_each_sg(sgtab->sgl, sg, sgtab->nents, i) {
+			if(bytesleft == 0) {
+				sg_mark_end(sg);
+				sgtab->nents = i;
+				break;
+			}
+			/*
+			 * If there are less bytes left than what fits
+			 * in the current page (plus page alignment offset)
+			 * we just feed in this, else we stuff in as much
+			 * as we can.
+			 */
+			if (bytesleft < (PAGE_SIZE - offset_in_page(bufp)))
+				mapbytes = bytesleft;
+			else
+				mapbytes = PAGE_SIZE - offset_in_page(bufp);
+			sg_set_page(sg, asoc_spi_virt_to_page(bufp),
+				    mapbytes, offset_in_page(bufp));
+			bufp += mapbytes;
+			bytesleft -= mapbytes;
+			dev_dbg(asoc_spi->dev,
+				"set RX/TX target page @ %p, %d bytes, %d left\n",
+				bufp, mapbytes, bytesleft);
+		}
+	}
+	
+	BUG_ON(bytesleft);
+}
+
+static int asoc_spi_write_by_dma(struct asoc_spi *asoc_spi,
 	struct spi_transfer *xfer)
 {
-	u32 tx_reg, rx_reg, ctl_reg, stat_reg, txcr_reg;
-	struct asoc_spi *asoc_spi;
-	u32 tmp;
-	unsigned int count = xfer->len;
-	dma_cap_mask_t mask;
-	int retval = 0;
+	struct dma_slave_config tx_conf = {
+		.dst_addr = spi_reg(asoc_spi, SPI_TXDAT),
+		.direction = DMA_MEM_TO_DEV,
+	};
+	struct owl_dma_slave tx_atslave = {
+		.mode = PRIORITY_ZERO | SRC_INCR | DST_CONSTANT
+					| SRC_DCU | DST_DEV 
+					| asoc_spi_get_write_dma_trig(asoc_spi->base),
+		.dma_dev = asoc_spi->dma_tx_channel->device->dev,
+		.trans_type = SLAVE,
+	};
+	u32 ctl_reg = spi_reg(asoc_spi, SPI_CTL);
+	u32 stat_reg = spi_reg(asoc_spi, SPI_STAT);
+	u32 txcr_reg = spi_reg(asoc_spi, SPI_TXCR);
 
-	struct completion cmp;
-	struct dma_chan *chan;
+	struct dma_chan *txchan = asoc_spi->dma_tx_channel;
+	unsigned int pages;
+	int len, left;
+	void *tx_buf;
+	int tx_sglen;
+	struct dma_async_tx_descriptor *txdesc;
+	u32 val;
+	int retval;
+
+	struct completion tx_cmp;
 	dma_cookie_t		cookie;
 	enum dma_status		status;
-	struct dma_slave_config *dma_config;
-	struct owl_dma_slave *atslave;
-	struct dma_async_tx_descriptor *tx;
-	int err;
 
-	SPI_PRINT("start write\n");
-	SPI_PRINT("count = %d\n", count);
-
-	asoc_spi = spi_master_get_devdata(spi->master);
-	ctl_reg = spi_reg(asoc_spi, SPI_CTL);
-	tx_reg = spi_reg(asoc_spi, SPI_TXDAT);
-	rx_reg = spi_reg(asoc_spi, SPI_RXDAT);
-	stat_reg = spi_reg(asoc_spi, SPI_STAT);
-	txcr_reg = spi_reg(asoc_spi, SPI_TXCR);
-
-	dma_cap_zero(mask);
-	dma_cap_set(DMA_SLAVE, mask);
-	chan = dma_request_channel(mask, NULL, NULL);
-
-	if (!chan) {
-		SPI_PRINT("SPI: write request channel fail!\n");
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-
-	SPI_PRINT("request dma ok\n");
-
-
-	dma_config = asoc_spi->dma_config;
-	atslave = asoc_spi->atslave;
-	atslave->mode =  asoc_spi_config_write_dma_mode(asoc_spi->base);
-	if(atslave->mode == -1){		
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-	atslave->dma_dev  =  chan->device->dev;
-
-	chan->private = (void *) atslave;
-
-	dma_config->dst_addr = tx_reg;
-	dma_config->direction = DMA_MEM_TO_DEV;
-
-	err = dmaengine_slave_config(chan, dma_config);
-
-	if (err) {
-		SPI_PRINT("call the write slave config error\n");
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-
-	tmp = act_readl(ctl_reg);
-	tmp &= (~(SPIx_CTL_RWC(3) |
-		SPIx_CTL_RDIC(3) |
-		SPIx_CTL_TDIC(3) |
-		SPIx_CTL_SDT(7) |
-		SPIx_CTL_DTS |
-		SPIx_CTL_TIEN |
-		SPIx_CTL_RIEN |
-		SPIx_CTL_TDEN |
-		SPIx_CTL_RDEN));
-	tmp |= (SPIx_CTL_RWC(1) |
-		SPIx_CTL_RDIC(2) |
-		SPIx_CTL_TDIC(2) |
-		SPIx_CTL_TDEN);
-	act_writel(tmp, ctl_reg);
-
-	tx = dmaengine_prep_slave_single(chan, xfer->tx_dma,
-		count, DMA_MEM_TO_DEV, 0);
-
-	if (!tx) {
-		SPI_PRINT("prep write error!\n");
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
+	/* Create sglists for the transfers */
+	left = xfer->len;
+	tx_buf = (void*)xfer->tx_buf;
+	len = left > MAX_SPI_DMA_LEN ? MAX_SPI_DMA_LEN : left;
 	
-	tmp = count / 4;
-	act_writel(tmp, txcr_reg);
+	pages = DIV_ROUND_UP(len, PAGE_SIZE);
+	retval = sg_alloc_table(&asoc_spi->sgt_tx, pages, GFP_ATOMIC);
+	if (retval)
+		goto err_slave;
 
-	init_completion(&cmp);
-	tx->callback = spi_callback;
-	tx->callback_param = &cmp;
-	cookie = dmaengine_submit(tx);
-
-	if (dma_submit_error(cookie)) {
-		SPI_PRINT("submit write error!\n");
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-
-
-	dma_async_issue_pending(chan);
-
-
-	/* setup the dma */
-	SPI_PRINT("write start dma\n");
-	if (!wait_for_completion_timeout(&cmp, 5 * HZ)) {
-		dev_err(&spi->dev, "wait_for_completion timeout while send by dma\n");
-		dump_spi_registers(asoc_spi);
-		owl_dma_dump_all(chan);
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-
-	status = dma_async_is_tx_complete(chan, cookie, NULL, NULL);
-
-	if (status != DMA_SUCCESS) {
-		dev_err(&spi->dev, "transfer not succeed\n");
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-
-	SPI_PRINT("wake\n");
-
-	dump_spi_registers(asoc_spi);
-
-	if (asoc_spi_wait_till_ready(asoc_spi) < 0) {
-		dev_err(&spi->dev, "TXS timed out\n");
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-
-	SPI_PRINT("check txs complete ok\n");
-
-	if (act_readl(stat_reg) &
-	    (SPIx_STAT_RFER | SPIx_STAT_TFER | SPIx_STAT_BEB)) {
-		dev_err(&spi->dev, "spi state error while send by dma\n");
-		dump_spi_registers(asoc_spi);
-		retval = -EINVAL;
-		goto dma_write_err;
-	}
-
-	SPI_PRINT("check bus ok\n");
-
+	while(left > 0) {
+		len = left > MAX_SPI_DMA_LEN ? MAX_SPI_DMA_LEN : left;
+		left -= len;
+		
+		val = act_readl(ctl_reg);
+		val &= (~(SPIx_CTL_RWC(3) |
+			SPIx_CTL_RDIC(3) |
+			SPIx_CTL_TDIC(3) |
+			SPIx_CTL_SDT(7) |
+			SPIx_CTL_DTS |
+			SPIx_CTL_TIEN |
+			SPIx_CTL_RIEN |
+			SPIx_CTL_TDEN |
+			SPIx_CTL_RDEN));
+		val |= (SPIx_CTL_RWC(1) |
+			SPIx_CTL_RDIC(2) |
+			SPIx_CTL_TDIC(2) |
+			SPIx_CTL_TDEN);
+		act_writel(val, ctl_reg);
 	
+		act_writel(len/4, txcr_reg);
 
-	dma_release_channel(chan);
-	
-	return retval;
+		txchan->private = (void *)&tx_atslave;
+		retval = dmaengine_slave_config(txchan, &tx_conf);
+		if (retval) {
+			dev_err(asoc_spi->dev, "call the write slave config error\n");
+			goto err_slave;
+		}
 
-dma_write_err:
+		/* Fill in the scatterlists for the TX buffers */
+		asoc_spi_setup_dma_scatter(asoc_spi, tx_buf, len, &asoc_spi->sgt_tx);
+		tx_sglen = dma_map_sg(txchan->device->dev, asoc_spi->sgt_tx.sgl,
+				   asoc_spi->sgt_tx.nents, DMA_TO_DEVICE);
+		if (!tx_sglen)
+			goto err_sgmap;
+
+		tx_buf += len;
+
+		/* Send scatterlists */
+		txdesc = dmaengine_prep_slave_sg(txchan,
+					      asoc_spi->sgt_tx.sgl,
+					      tx_sglen,
+					      DMA_MEM_TO_DEV,
+					      0);
+		if (!txdesc)
+			goto err_desc;
+
+		init_completion(&tx_cmp);
 	
-	dma_release_channel(chan);
-	return retval;
+		txdesc->callback = spi_callback;
+		txdesc->callback_param = &tx_cmp;
+
+		cookie = dmaengine_submit(txdesc);
+		if (dma_submit_error(cookie)) {
+			dev_err(asoc_spi->dev, "submit write error!\n");
+			goto err_desc;
+		}
+
+		dma_async_issue_pending(txchan);
+
+		dev_dbg(asoc_spi->dev, "write start dma\n");
+		if (!wait_for_completion_timeout(&tx_cmp, 5 * HZ)) {
+			dev_err(asoc_spi->dev, "wait_for_completion timeout while send by dma\n");
+			owl_dma_dump_all(txchan);
+			goto err_desc;
+		}
+
+		status = dma_async_is_tx_complete(txchan, cookie, NULL, NULL);
+		if (status != DMA_SUCCESS) {
+			dev_err(asoc_spi->dev, "transfer not succeed\n");
+			goto err_desc;
+		}
+
+		if (asoc_spi_wait_till_ready(asoc_spi) < 0) {
+			dev_err(asoc_spi->dev, "TXS timed out\n");
+			goto err_desc;
+		}
+
+		if (act_readl(stat_reg) &
+		    (SPIx_STAT_RFER | SPIx_STAT_TFER | SPIx_STAT_BEB)) {
+			dev_err(asoc_spi->dev, "spi state error while send by dma\n");
+			dump_spi_registers(asoc_spi);
+			goto err_desc;
+		}
+
+		dma_unmap_sg(txchan->device->dev, asoc_spi->sgt_tx.sgl,
+			     asoc_spi->sgt_tx.nents, DMA_TO_DEVICE);
+	}
+	sg_free_table(&asoc_spi->sgt_tx);
+	return 0;
+
+err_desc:
+	dmaengine_terminate_all(txchan);
+err_sgmap:
+	sg_free_table(&asoc_spi->sgt_tx);
+err_slave:
+	return -EINVAL;
 }
 
-static int asoc_spi_read_by_dma(struct spi_device *spi,
+static int asoc_spi_read_by_dma(struct asoc_spi *asoc_spi,
 			   struct spi_transfer *xfer)
 {
-	u32 tx_reg, rx_reg, ctl_reg, stat_reg, tcnt_reg, rxcr_reg;
-	struct asoc_spi *asoc_spi;
-	u32 tmp;
-	unsigned int count = xfer->len;
-	int retval = 0;
-	struct completion cmp;
-	struct dma_chan *chan;
+	struct dma_slave_config rx_conf = {
+		.src_addr = spi_reg(asoc_spi, SPI_RXDAT),
+		.direction = DMA_DEV_TO_MEM,
+	};
+	struct owl_dma_slave rx_atslave = {
+		.mode = PRIORITY_ZERO | DST_INCR | SRC_CONSTANT 
+					| DST_DCU | SRC_DEV 
+					| asoc_spi_get_read_dma_trig(asoc_spi->base),
+		.dma_dev = asoc_spi->dma_rx_channel->device->dev,
+		.trans_type = SLAVE,
+	};
+	u32 ctl_reg = spi_reg(asoc_spi, SPI_CTL);
+	u32 stat_reg = spi_reg(asoc_spi, SPI_STAT);
+	u32 rxcr_reg = spi_reg(asoc_spi, SPI_RXCR);
+	u32 tcnt_reg = spi_reg(asoc_spi, SPI_TCNT);
+	struct dma_chan *rxchan = asoc_spi->dma_rx_channel;
+	unsigned int pages;
+	int len, left;
+	void *rx_buf;
+	int rx_sglen;
+	struct dma_async_tx_descriptor *rxdesc;
+	
+	u32 val;
+	int retval;
+
+	struct completion rx_cmp;
 	dma_cookie_t		cookie;
 	enum dma_status		status;
-	struct dma_slave_config *dma_config;
-	struct owl_dma_slave *atslave;
-	struct dma_async_tx_descriptor *tx;
-	dma_cap_mask_t mask;
-	int err;
+	
+	/* Create sglists for the transfers */
+	left = xfer->len;
+	rx_buf = xfer->rx_buf;
+	len = left > MAX_SPI_DMA_LEN ? MAX_SPI_DMA_LEN : left;
+	
+	pages = DIV_ROUND_UP(len, PAGE_SIZE);
+	retval = sg_alloc_table(&asoc_spi->sgt_rx, pages, GFP_ATOMIC);
+	if (retval)
+		goto err_slave;
 
-	asoc_spi = spi_master_get_devdata(spi->master);
-	ctl_reg = spi_reg(asoc_spi, SPI_CTL);
-	tx_reg = spi_reg(asoc_spi, SPI_TXDAT);
-	rx_reg = spi_reg(asoc_spi, SPI_RXDAT);
-	stat_reg = spi_reg(asoc_spi, SPI_STAT);
-	rxcr_reg = spi_reg(asoc_spi, SPI_RXCR);
-	tcnt_reg = spi_reg(asoc_spi, SPI_TCNT);
+	while(left > 0) {
+		len = left > MAX_SPI_DMA_LEN ? MAX_SPI_DMA_LEN : left;
+		left -= len;
+		
+		val = act_readl(ctl_reg);
+		val &= (~(SPIx_CTL_RWC(3) |
+			SPIx_CTL_RDIC(3) |
+			SPIx_CTL_TDIC(3) |
+			SPIx_CTL_SDT(7) |
+			SPIx_CTL_DTS |
+			SPIx_CTL_TIEN |
+			SPIx_CTL_RIEN |
+			SPIx_CTL_TDEN |
+			SPIx_CTL_RDEN));
+		val |= (SPIx_CTL_RWC(2) |
+			SPIx_CTL_RDIC(2) |
+			SPIx_CTL_TDIC(2) |
+			SPIx_CTL_SDT(1) |
+			SPIx_CTL_DTS |
+			SPIx_CTL_RDEN);
+		act_writel(val, ctl_reg);
 
-	dma_cap_zero(mask);
-	dma_cap_set(DMA_SLAVE, mask);
-	chan = dma_request_channel(mask, NULL, NULL);
-	if (!chan) {
-		SPI_PRINT("SPI: read request channel fail!\n");		
-		retval = -EINVAL;
-		goto dma_read_err;
+		act_writel(len/4, tcnt_reg);
+		act_writel(len/4, rxcr_reg);
+		
+		rxchan->private = (void *)&rx_atslave;
+		retval = dmaengine_slave_config(rxchan, &rx_conf);
+		if (retval) {
+			dev_err(asoc_spi->dev, "call the read slave config error\n");
+			goto err_slave;
+		}
+
+		/* Fill in the scatterlists for the RX buffers */
+		asoc_spi_setup_dma_scatter(asoc_spi, rx_buf, len, &asoc_spi->sgt_rx);
+		rx_sglen = dma_map_sg(rxchan->device->dev, asoc_spi->sgt_rx.sgl,
+				   asoc_spi->sgt_rx.nents, DMA_FROM_DEVICE);
+		if (!rx_sglen)
+			goto err_sgmap;
+
+		rx_buf += len;
+		
+		/* Send scatterlists */
+		rxdesc = dmaengine_prep_slave_sg(rxchan,
+					      asoc_spi->sgt_rx.sgl,
+					      rx_sglen,
+					      DMA_DEV_TO_MEM,
+					      0);
+		if (!rxdesc)
+			goto err_desc;
+
+		init_completion(&rx_cmp);
+	
+		rxdesc->callback = spi_callback;
+		rxdesc->callback_param = &rx_cmp;
+	
+		cookie = dmaengine_submit(rxdesc);
+		if (dma_submit_error(cookie)) {
+			dev_err(asoc_spi->dev, "submit read error!\n");
+			goto err_desc;
+		}
+
+		dma_async_issue_pending(rxchan);
+
+		dev_dbg(asoc_spi->dev, "read start dma\n");
+		if (!wait_for_completion_timeout(&rx_cmp, 5 * HZ)) {
+			dev_err(asoc_spi->dev, "read wait_for_completion timeout while receive by dma\n");
+			owl_dma_dump_all(rxchan);
+			goto err_desc;
+		}
+	
+		status = dma_async_is_tx_complete(rxchan, cookie, NULL, NULL);
+		if (status != DMA_SUCCESS) {
+			dev_err(asoc_spi->dev, "transfer not succeed\n");
+			goto err_desc;
+		}
+	
+		if (asoc_spi_wait_till_ready(asoc_spi) < 0) {
+			dev_err(asoc_spi->dev, "RXS timed out\n");
+			goto err_desc;
+		}
+	
+		if (act_readl(stat_reg) &
+		    (SPIx_STAT_RFER | SPIx_STAT_TFER | SPIx_STAT_BEB)) {
+			dev_err(asoc_spi->dev, "spi state error while send by dma\n");
+			dump_spi_registers(asoc_spi);
+			goto err_desc;
+		}
+	
+		dma_unmap_sg(rxchan->device->dev, asoc_spi->sgt_rx.sgl,
+			     asoc_spi->sgt_rx.nents, DMA_FROM_DEVICE);
 	}
+	sg_free_table(&asoc_spi->sgt_rx);
+	return 0;
+	
+err_desc:
+	dmaengine_terminate_all(rxchan);
+err_sgmap:
+	sg_free_table(&asoc_spi->sgt_rx);
+err_slave:
+	return -EINVAL;
+}
 
-	SPI_PRINT("request dma ok\n");
 
-	dma_config = asoc_spi->dma_config;
-	atslave = asoc_spi->atslave;
+static int asoc_spi_write_read_by_dma(struct asoc_spi *asoc_spi,
+			   struct spi_transfer *xfer)
+{
+	struct dma_slave_config tx_conf = {
+		.dst_addr = spi_reg(asoc_spi, SPI_TXDAT),
+		.direction = DMA_MEM_TO_DEV,
+	};
+	struct owl_dma_slave tx_atslave = {
+		.mode = PRIORITY_ZERO | SRC_INCR | DST_CONSTANT
+					| SRC_DCU | DST_DEV 
+					| asoc_spi_get_write_dma_trig(asoc_spi->base),
+		.dma_dev = asoc_spi->dma_tx_channel->device->dev,
+		.trans_type = SLAVE,
+	};
+	struct dma_slave_config rx_conf = {
+		.src_addr = spi_reg(asoc_spi, SPI_RXDAT),
+		.direction = DMA_DEV_TO_MEM,
+	};
+	struct owl_dma_slave rx_atslave = {
+		.mode = PRIORITY_ZERO | DST_INCR | SRC_CONSTANT 
+					| DST_DCU | SRC_DEV 
+					| asoc_spi_get_read_dma_trig(asoc_spi->base),
+		.dma_dev = asoc_spi->dma_rx_channel->device->dev,
+		.trans_type = SLAVE,
+	};
+	u32 ctl_reg = spi_reg(asoc_spi, SPI_CTL);
+	u32 stat_reg = spi_reg(asoc_spi, SPI_STAT);
+	u32 txcr_reg = spi_reg(asoc_spi, SPI_TXCR);
+	u32 rxcr_reg = spi_reg(asoc_spi, SPI_RXCR);
+	struct dma_chan *txchan = asoc_spi->dma_tx_channel;
+	struct dma_chan *rxchan = asoc_spi->dma_rx_channel;
+	unsigned int pages;
+	int len, left;
+	void *tx_buf, *rx_buf;
+	int rx_sglen, tx_sglen;
+	struct dma_async_tx_descriptor *rxdesc;
+	struct dma_async_tx_descriptor *txdesc;
+	
+	u32 val;
+	int retval;
 
-	atslave->mode =  asoc_spi_config_read_dma_mode(asoc_spi->base);
-	if(atslave->mode == -1){
-		retval = -EINVAL;
-		goto dma_read_err;
+	struct completion rx_cmp, tx_cmp;
+	dma_cookie_t		cookie;
+	enum dma_status		status;
+
+	/* Create sglists for the transfers */
+	left = xfer->len;
+	tx_buf = (void*)xfer->tx_buf;
+	rx_buf = xfer->rx_buf;
+	len = left > MAX_SPI_DMA_LEN ? MAX_SPI_DMA_LEN : left;
+
+	pages = DIV_ROUND_UP(len, PAGE_SIZE);
+	retval = sg_alloc_table(&asoc_spi->sgt_tx, pages, GFP_ATOMIC);
+	if (retval)
+		goto err_slave;
+	retval = sg_alloc_table(&asoc_spi->sgt_rx, pages, GFP_ATOMIC);
+	if (retval)
+		goto err_slave;
+
+	while(left > 0) {
+		len = left > MAX_SPI_DMA_LEN ? MAX_SPI_DMA_LEN : left;
+		left -= len;
+
+		val = act_readl(ctl_reg);
+		val &= (~(SPIx_CTL_RWC(3) |
+			SPIx_CTL_RDIC(3) |
+			SPIx_CTL_TDIC(3) |
+			SPIx_CTL_SDT(7) |
+			SPIx_CTL_DTS |
+			SPIx_CTL_TIEN |
+			SPIx_CTL_RIEN |
+			SPIx_CTL_TDEN |
+			SPIx_CTL_RDEN));
+		val |= (SPIx_CTL_RWC(0) |
+			SPIx_CTL_RDIC(2) |
+			SPIx_CTL_TDIC(2) |
+			SPIx_CTL_SDT(1) |
+			SPIx_CTL_DTS |
+			SPIx_CTL_RDEN |
+			SPIx_CTL_TDEN);
+		act_writel(val, ctl_reg);
+	
+		act_writel(len/4, txcr_reg);
+		act_writel(len/4, rxcr_reg);
+
+		txchan->private = (void *)&tx_atslave;
+		retval = dmaengine_slave_config(txchan, &tx_conf);
+		if (retval) {
+			dev_err(asoc_spi->dev, "call the write slave config error\n");
+			goto err_slave;
+		}
+		rxchan->private = (void *)&rx_atslave;
+		retval = dmaengine_slave_config(rxchan, &rx_conf);
+		if (retval) {
+			dev_err(asoc_spi->dev, "call the read slave config error\n");
+			goto err_slave;
+		}
+
+		/* Fill in the scatterlists for the TX buffers */
+		asoc_spi_setup_dma_scatter(asoc_spi, tx_buf, len, &asoc_spi->sgt_tx);
+		tx_sglen = dma_map_sg(txchan->device->dev, asoc_spi->sgt_tx.sgl,
+				   asoc_spi->sgt_tx.nents, DMA_TO_DEVICE);
+		if (!tx_sglen)
+			goto err_sgmap;
+		asoc_spi_setup_dma_scatter(asoc_spi, rx_buf, len, &asoc_spi->sgt_rx);
+		rx_sglen = dma_map_sg(rxchan->device->dev, asoc_spi->sgt_rx.sgl,
+				   asoc_spi->sgt_rx.nents, DMA_FROM_DEVICE);
+		if (!rx_sglen)
+			goto err_sgmap;
+
+		tx_buf += len;
+		rx_buf += len;
+
+		/* Send scatterlists */
+		txdesc = dmaengine_prep_slave_sg(txchan,
+					      asoc_spi->sgt_tx.sgl,
+					      tx_sglen,
+					      DMA_MEM_TO_DEV,
+					      0);
+		if (!txdesc)
+			goto err_desc;	
+		rxdesc = dmaengine_prep_slave_sg(rxchan,
+					      asoc_spi->sgt_rx.sgl,
+					      rx_sglen,
+					      DMA_DEV_TO_MEM,
+					      0);
+		if (!rxdesc)
+			goto err_desc;
+
+		init_completion(&tx_cmp);
+		txdesc->callback = spi_callback;
+		txdesc->callback_param = &tx_cmp;
+		cookie = dmaengine_submit(txdesc);
+		if (dma_submit_error(cookie)) {
+			dev_err(asoc_spi->dev, "submit write error!\n");
+			goto err_desc;
+		}
+
+		init_completion(&rx_cmp);
+		rxdesc->callback = spi_callback;
+		rxdesc->callback_param = &rx_cmp;
+		cookie = dmaengine_submit(rxdesc);
+		if (dma_submit_error(cookie)) {
+			dev_err(asoc_spi->dev, "submit read error!\n");
+			goto err_desc;
+		}
+
+		dma_async_issue_pending(txchan);
+		dma_async_issue_pending(rxchan);
+
+		dev_dbg(asoc_spi->dev, "write&read start dma\n");
+		if (!wait_for_completion_timeout(&tx_cmp, 5 * HZ)) {
+			dev_err(asoc_spi->dev, "write wait_for_completion timeout while send by dma\n");
+			owl_dma_dump_all(txchan);
+			goto err_desc;
+		}
+		if (!wait_for_completion_timeout(&rx_cmp, 1 * HZ)) {
+			dev_err(asoc_spi->dev, "read wait_for_completion timeout while receive by dma\n");
+			owl_dma_dump_all(rxchan);
+			goto err_desc;
+		}
+	
+		status = dma_async_is_tx_complete(txchan, cookie, NULL, NULL);
+		if (status != DMA_SUCCESS) {
+			dev_err(asoc_spi->dev, "transfer not succeed\n");
+			goto err_desc;
+		}
+		status = dma_async_is_tx_complete(rxchan, cookie, NULL, NULL);
+		if (status != DMA_SUCCESS) {
+			dev_err(asoc_spi->dev, "transfer not succeed\n");
+			goto err_desc;
+		}
+	
+		if (asoc_spi_wait_till_ready(asoc_spi) < 0) {
+			dev_err(asoc_spi->dev, "TXS&RXS timed out\n");
+			goto err_desc;
+		}
+
+		if (act_readl(stat_reg) &
+		    (SPIx_STAT_RFER | SPIx_STAT_TFER | SPIx_STAT_BEB)) {
+			dev_err(asoc_spi->dev, "spi state error while send by dma\n");
+			dump_spi_registers(asoc_spi);
+			goto err_desc;
+		}
+
+		dma_unmap_sg(txchan->device->dev, asoc_spi->sgt_tx.sgl,
+			     asoc_spi->sgt_tx.nents, DMA_TO_DEVICE);
+		dma_unmap_sg(rxchan->device->dev, asoc_spi->sgt_rx.sgl,
+			     asoc_spi->sgt_rx.nents, DMA_FROM_DEVICE);
 	}
-	atslave->dma_dev  =  chan->device->dev;
-
-	chan->private = (void *) atslave;
-
-	dma_config->src_addr = rx_reg;
-	dma_config->direction = DMA_DEV_TO_MEM;
-
-	err = dmaengine_slave_config(chan, dma_config);
-
-	if (err) {
-		SPI_PRINT("call the read slave config error\n");
-		retval = -EINVAL;
-		goto dma_read_err;
-	}
-
-	tmp = act_readl(ctl_reg);
-	tmp &= (~(SPIx_CTL_RWC(3) |
-		SPIx_CTL_RDIC(3) |
-		SPIx_CTL_TDIC(3) |
-		SPIx_CTL_SDT(7) |
-		SPIx_CTL_DTS |
-		SPIx_CTL_TIEN |
-		SPIx_CTL_RIEN |
-		SPIx_CTL_TDEN |
-		SPIx_CTL_RDEN));
-	tmp |= (SPIx_CTL_RWC(2) |
-		SPIx_CTL_RDIC(2) |
-		SPIx_CTL_TDIC(2) |
-		SPIx_CTL_SDT(1) |
-		SPIx_CTL_DTS |
-		SPIx_CTL_RDEN);
-	act_writel(tmp, ctl_reg);
-
-	tx = dmaengine_prep_slave_single
-		(chan, xfer->rx_dma, count, DMA_DEV_TO_MEM, 0);
-
-	if (!tx) {
-		SPI_PRINT("prep read error!\n");
-		retval = -EINVAL;
-		goto dma_read_err;
-	}
-
-	tmp = count / 4;
-	act_writel(tmp, tcnt_reg);
-
-	tmp = count / 4;
-	act_writel(tmp, rxcr_reg);
-
-	init_completion(&cmp);
-	tx->callback = spi_callback;
-	tx->callback_param = &cmp;
-	cookie = dmaengine_submit(tx);
-
-	if (dma_submit_error(cookie)) {
-		SPI_PRINT("submit read error!\n");
-		retval = -EINVAL;
-		goto dma_read_err;
-	}
-
-	dma_async_issue_pending(chan);
-
-	if (!wait_for_completion_timeout(&cmp, 5 * HZ)) {
-		dev_err(&spi->dev, "read wait_for_completion timeout while receive by dma\n");
-		owl_dma_dump_all(chan);
-		retval = -EINVAL;
-		goto dma_read_err;
-	}
-
-	status = dma_async_is_tx_complete(chan, cookie, NULL, NULL);
-
-	if (status != DMA_SUCCESS) {
-		dev_err(&spi->dev, "transfer not succeed\n");
-		retval = -EINVAL;
-		goto dma_read_err;
-	}
-
-	if (asoc_spi_wait_till_ready(asoc_spi) < 0) {
-		dev_err(&spi->dev, "RXS timed out\n");
-		retval = -EINVAL;
-		goto dma_read_err;
-	}
-
-	if (act_readl(stat_reg) &
-	    (SPIx_STAT_RFER | SPIx_STAT_TFER | SPIx_STAT_BEB)) {
-		dev_err(&spi->dev, "spi state error while send by dma\n");
-		dump_spi_registers(asoc_spi);
-		retval = -EINVAL;
-		goto dma_read_err;
-	}
-
-	dma_release_channel(chan);
-
-	return retval;
-dma_read_err:
-	dma_release_channel(chan);
-	return retval;
+	sg_free_table(&asoc_spi->sgt_tx);
+	sg_free_table(&asoc_spi->sgt_rx);
+	return 0;
+	
+err_desc:
+	dmaengine_terminate_all(rxchan);
+	dmaengine_terminate_all(txchan);
+err_sgmap:
+	sg_free_table(&asoc_spi->sgt_rx);
+	sg_free_table(&asoc_spi->sgt_tx);
+err_slave:
+	return -EINVAL;
 }
 
 static unsigned int
@@ -806,12 +1018,11 @@ asoc_spi_write_read(struct spi_device *spi, struct spi_transfer *xfer)
 	spi_clear_stat(asoc_spi);
 	
 	if ((len < BYTES_4_DMA_XFER) ||
-		(len > BYTES_4_DMA_XFER_MAX) ||
 		(asoc_spi->enable_dma == 0) ||
 		(xfer->bits_per_word != 32)) {
 		unsigned int count = 0;
 
-		SPI_PRINT("cpu wr\n");
+		dev_dbg(asoc_spi->dev, "cpu wr\n");
 
 		if (word_len == 8)
 			count = asoc_spi_write_read_8bit(spi, xfer);
@@ -824,33 +1035,18 @@ asoc_spi_write_read(struct spi_device *spi, struct spi_transfer *xfer)
 
 	} else {
 		int retval = 0;
-		const void *tx = xfer->tx_buf;
-		void *rx = xfer->rx_buf;
 
-		SPI_PRINT("dma wr\n");
-		SPI_PRINT("tx addr = 0x%x\n", tx);
-
-		if (tx && (!rx)) {
-			memcpy(asoc_spi->dma_buf, tx, len);
-			xfer->tx_dma = dma_map_single
-				(NULL, asoc_spi->dma_buf, len, DMA_TO_DEVICE);
-
-			retval = asoc_spi_write_by_dma(spi, xfer);
-
-			dma_unmap_single(NULL,
-				xfer->tx_dma, len, DMA_TO_DEVICE);
-		} else if ((!tx) && rx) {
-			memcpy(asoc_spi->dma_buf, rx, len);
-			xfer->rx_dma = dma_map_single
-				(NULL, (void *)rx, len, DMA_FROM_DEVICE);
-
-			retval = asoc_spi_read_by_dma(spi, xfer);
-
-			dma_unmap_single(NULL, xfer->rx_dma,
-				len, DMA_FROM_DEVICE);
-
-		} else {
-			dev_err(&spi->dev, "cannot support full duplex xfer by dma yet!\n");
+		if (xfer->tx_buf && (!xfer->rx_buf)) {
+			dev_dbg(asoc_spi->dev, "dma w%d\n", xfer->len);
+			retval = asoc_spi_write_by_dma(asoc_spi, xfer);
+		} else if ((!xfer->tx_buf) && xfer->rx_buf) {
+			dev_dbg(asoc_spi->dev, "dma r%d\n", xfer->len);
+			retval = asoc_spi_read_by_dma(asoc_spi, xfer);
+		} else if((xfer->tx_buf) && (xfer->rx_buf)) {
+			dev_dbg(asoc_spi->dev, "dma w&r%d\n", xfer->len);
+			retval = asoc_spi_write_read_by_dma(asoc_spi, xfer);
+  		} else {
+			dev_err(&spi->dev, "cannot find valid xfer buffer\n");
 			return 0;
 		}
 
@@ -946,7 +1142,7 @@ static int asoc_spi_transfer_check(struct spi_device *spi,
 		bits_per_word = 32;
 	else
 		return -EINVAL;
-	//printk("#######%d %d\n", t->len,  bits_per_word);
+
 	/*transfer length should be alignd according to bits_per_word*/
 	if (t->len & ((bits_per_word >> 3) - 1)) {
 		dev_err(&spi->dev, "bad transfer length!!\n");
@@ -962,8 +1158,7 @@ static void asoc_spi_work(struct work_struct *work)
 	struct asoc_spi *asoc_spi =
 		container_of(work, struct asoc_spi, work);
 
-	SPI_PRINT("ASOC SPI: enter spi work\n");
-
+	dev_dbg(asoc_spi->dev, "ASOC SPI: enter spi work\n");
 
 	spin_lock_irq(&asoc_spi->lock);
 	while (!list_empty(&asoc_spi->msg_queue)) {
@@ -974,7 +1169,7 @@ static void asoc_spi_work(struct work_struct *work)
 		int status = 0;
 		int cs_active = 0;
 
-		SPI_PRINT("asoc_spi: start one message\n");
+		dev_dbg(asoc_spi->dev, "asoc_spi: start one message\n");
 
 		m = container_of(asoc_spi->msg_queue.next, struct spi_message,
 				 queue);
@@ -992,7 +1187,7 @@ static void asoc_spi_work(struct work_struct *work)
 			goto msg_done;
 
 		list_for_each_entry(t, &m->transfers, transfer_list) {
-			SPI_PRINT("asoc_spi: start one transfer\n");
+			dev_dbg(asoc_spi->dev, "asoc_spi: start one transfer\n");
 
 			status = asoc_spi_transfer_check(spi, t);
 			if (status < 0)
@@ -1022,8 +1217,7 @@ static void asoc_spi_work(struct work_struct *work)
 				asoc_spi_deactivate_cs(spi);
 				cs_active = 0;
 			}
-			SPI_PRINT("asoc_spi: end one transfer\n");
-
+			dev_dbg(asoc_spi->dev, "asoc_spi: end one transfer\n");
 		}
 
 msg_done:
@@ -1033,14 +1227,13 @@ msg_done:
 		m->status = status;
 		m->complete(m->context);
 
-		SPI_PRINT("asoc_spi: end one message\n");
+		dev_dbg(asoc_spi->dev, "asoc_spi: end one message\n");
 		spin_lock_irq(&asoc_spi->lock);
 	}
 
 	spin_unlock_irq(&asoc_spi->lock);
 
-	SPI_PRINT("ASOC SPI: quit spi work\n");
-
+	dev_dbg(asoc_spi->dev, "ASOC SPI: quit spi work\n");
 }
 
 static int asoc_spi_setup(struct spi_device *spi)
@@ -1048,7 +1241,7 @@ static int asoc_spi_setup(struct spi_device *spi)
 	struct asoc_spi *asoc_spi;
 	unsigned int spi_source_clk_hz;
 
-	SPI_PRINT("ASOC SPI: enter spi setup\n");
+	dev_dbg(&spi->dev, "ASOC SPI: enter spi setup\n");
 
 	asoc_spi = spi_master_get_devdata(spi->master);
 
@@ -1060,14 +1253,13 @@ static int asoc_spi_setup(struct spi_device *spi)
 
 	spi_source_clk_hz = clk_get_rate(asoc_spi->clk);
 
-	pr_info("ahb freq is %d\n", spi_source_clk_hz);
-
+	dev_dbg(&spi->dev, "ahb freq is %d\n", spi_source_clk_hz);
 
 	if ((spi->max_speed_hz == 0)
 			|| (spi->max_speed_hz > spi_source_clk_hz))
 		spi->max_speed_hz = spi_source_clk_hz;
 
-	SPI_PRINT("ASOC SPI: ok spi setup\n");
+	dev_dbg(&spi->dev, "ASOC SPI: ok spi setup\n");
 
 	/*
 	 * baudrate & width will be set asoc_spi_setup_transfer
@@ -1121,23 +1313,118 @@ static const struct of_device_id acts_spi_dt_ids[] = {
 MODULE_DEVICE_TABLE(of, acts_spi_dt_ids);
 
 
-//static int spi_set_pin_mux(struct platform_device *pdev,
-//	struct pinctrl *ppc)
-//{
-//	int ret = 0;
-//
-//	ppc =  pinctrl_get_select_default(&pdev->dev);
-//	ret = IS_ERR(ppc);
-//	if (ret) {
-//		printk("spi pinctrl get failed, ret = %d\n", ret);
-//		return ret;
-//	}
-//}
 
-static void spi_put_pin_mux(struct asoc_spi *spi)
+static int asoc_spi_dma_probe(struct asoc_spi *asoc_spi)
 {
-	if (spi->ppc)
-		pinctrl_put(spi->ppc);
+	dma_cap_mask_t mask;
+
+	if (!asoc_spi->enable_dma) {
+		dev_dbg(asoc_spi->dev, "spi dma is disabled\n");
+		return 0;
+	}
+
+	/* Try to acquire a generic DMA engine slave channel */
+	dma_cap_zero(mask);
+	dma_cap_set(DMA_SLAVE, mask);
+	/*
+	 * We need both RX and TX channels to do DMA, else do none
+	 * of them.
+	 */
+	asoc_spi->dma_rx_channel = dma_request_channel(mask, NULL, NULL);
+	if (!asoc_spi->dma_rx_channel) {
+		dev_err(asoc_spi->dev, "no RX DMA channel!\n");
+		goto err_no_rxchan;
+	}
+
+	asoc_spi->dma_tx_channel = dma_request_channel(mask, NULL, NULL);
+	if (!asoc_spi->dma_tx_channel) {
+		dev_err(asoc_spi->dev, "no TX DMA channel!\n");
+		goto err_no_txchan;
+	}
+
+	dev_dbg(asoc_spi->dev, "setup for DMA on RX %s, TX %s\n",
+		 dma_chan_name(asoc_spi->dma_rx_channel),
+		 dma_chan_name(asoc_spi->dma_tx_channel));
+
+	return 0;
+
+err_no_txchan:
+	dma_release_channel(asoc_spi->dma_rx_channel);
+	asoc_spi->dma_rx_channel = NULL;
+err_no_rxchan:
+	dev_err(asoc_spi->dev, "Failed to work in dma mode, work without dma!\n");
+	return -ENODEV;
+}
+
+static void asoc_spi_unmap_free_dma_scatter(struct asoc_spi *asoc_spi)
+{
+	/* Unmap and free the SG tables */
+	dma_unmap_sg(asoc_spi->dma_tx_channel->device->dev, asoc_spi->sgt_tx.sgl,
+		     asoc_spi->sgt_tx.nents, DMA_TO_DEVICE);
+	dma_unmap_sg(asoc_spi->dma_rx_channel->device->dev, asoc_spi->sgt_rx.sgl,
+		     asoc_spi->sgt_rx.nents, DMA_FROM_DEVICE);
+	sg_free_table(&asoc_spi->sgt_rx);
+	sg_free_table(&asoc_spi->sgt_tx);
+}
+
+static void asoc_spi_terminate_dma(struct asoc_spi *asoc_spi)
+{
+	struct dma_chan *rxchan = asoc_spi->dma_rx_channel;
+	struct dma_chan *txchan = asoc_spi->dma_tx_channel;
+
+	dmaengine_terminate_all(rxchan);
+	dmaengine_terminate_all(txchan);
+	asoc_spi_unmap_free_dma_scatter(asoc_spi);
+	asoc_spi->dma_running = false;
+}
+
+static void asoc_spi_dma_remove(struct asoc_spi *asoc_spi)
+{
+	if (asoc_spi->dma_running)
+		asoc_spi_terminate_dma(asoc_spi);
+	if (asoc_spi->dma_tx_channel)
+		dma_release_channel(asoc_spi->dma_tx_channel);
+	if (asoc_spi->dma_rx_channel)
+		dma_release_channel(asoc_spi->dma_rx_channel);
+}
+
+static int asoc_spi_clk_enable(struct asoc_spi *asoc_spi)
+{
+	static int mod_ids[] = {MOD_ID_SPI0, MOD_ID_SPI1, MOD_ID_SPI2, MOD_ID_SPI3};
+	
+	int mod_id;
+	int spi_no = asoc_spi_get_channel_no(asoc_spi->base);
+	if(spi_no < 0)
+		return -1;
+		
+	asoc_spi->clk = clk_get(asoc_spi->dev, "H_CLK");
+	if (IS_ERR(asoc_spi->clk)) {
+		return PTR_ERR(asoc_spi->clk);
+	}
+
+	mod_id = mod_ids[spi_no];
+	
+	module_clk_enable(mod_id);
+	module_reset(mod_id);
+	return 0;
+}
+
+static int asoc_spi_clk_disable(struct asoc_spi *asoc_spi)
+{
+	static int mod_ids[] = {MOD_ID_SPI0, MOD_ID_SPI1, MOD_ID_SPI2, MOD_ID_SPI3};
+	
+	int mod_id;
+	int spi_no = asoc_spi_get_channel_no(asoc_spi->base);
+	if(spi_no < 0)
+		return -1;
+		
+	if (!IS_ERR(asoc_spi->clk))
+		clk_put(asoc_spi->clk);
+
+	mod_id = mod_ids[spi_no];
+	
+	module_clk_disable(mod_id);
+	return 0;
 }
 
 static int __init asoc_spi_probe(struct platform_device *pdev)
@@ -1149,10 +1436,8 @@ static int __init asoc_spi_probe(struct platform_device *pdev)
 	const struct of_device_id *match;
 	int ret = 0;
 
-	printk("ASOC SPI: enter spi probe\n");
-
-	SPI_PRINT("pdev->name: %s\n", pdev->name ? pdev->name : "<null>");
-
+	dev_dbg(&pdev->dev, "ASOC SPI: enter spi probe\n");
+	dev_dbg(&pdev->dev, "pdev->name: %s\n", pdev->name ? pdev->name : "<null>");
 
 	if (np == NULL)
 		return -ENODEV;
@@ -1182,35 +1467,17 @@ static int __init asoc_spi_probe(struct platform_device *pdev)
 	dev_set_drvdata(&pdev->dev, master);
 
 	asoc_spi = spi_master_get_devdata(master);
+	asoc_spi->dev = &pdev->dev;
 	asoc_spi->irq = platform_get_irq(pdev, 0);
 	asoc_spi->base =
 		(platform_get_resource(pdev, IORESOURCE_MEM, 0)->start);
 
-
-	asoc_spi->clk = clk_get(&pdev->dev, "H_CLK");
-	if (IS_ERR(asoc_spi->clk)) {
-		ret = PTR_ERR(asoc_spi->clk);
-		goto out0;
-	}
-/*
-	ret = spi_set_pin_mux(pdev, asoc_spi->ppc);
-	if (ret)
-		goto out0;
-*/
+	asoc_spi_clk_enable(asoc_spi);
 	asoc_spi->enable_dma = spi_pdata->enable_dma;
-
-	if (asoc_spi->enable_dma) {
-		asoc_spi->dma_config = kzalloc(sizeof(struct dma_slave_config), GFP_KERNEL);
-		asoc_spi->atslave = kzalloc(sizeof(struct owl_dma_slave), GFP_KERNEL);
-		asoc_spi->atslave->trans_type  =  SLAVE;
-		asoc_spi->dma_buf = kmalloc(4096, GFP_KERNEL);
-		memset(asoc_spi->dma_buf, 0, 4096);
-	}
-
-	SPI_PRINT("%s_%d:\n", __FUNCTION__, __LINE__);
+	if(asoc_spi_dma_probe(asoc_spi) < 0)
+		goto out0;
 
 	spin_lock_init(&asoc_spi->lock);
-	init_completion(&asoc_spi->done);
 	INIT_WORK(&asoc_spi->work, asoc_spi_work);
 	INIT_LIST_HEAD(&asoc_spi->msg_queue);
 	asoc_spi->workqueue = create_singlethread_workqueue(
@@ -1224,20 +1491,17 @@ static int __init asoc_spi_probe(struct platform_device *pdev)
 	if (ret < 0)
 		goto out1;
 
-	SPI_PRINT("ASOC SPI: spi probe ok\n");
-
-    if(asoc_spi->base == 0xb0208000) {
-		act_writel(act_readl(0xb01600a4) | (0x1 << 12), 0xb01600a4);
-		act_writel(act_readl(0xb01600ac) | (0x1 << 10), 0xb01600ac);
-		act_writel(act_readl(0xb01b004c) | (0x1 << 2) , 0xb01b004c);
-    }
+	dev_dbg(&pdev->dev, "ASOC SPI: spi probe ok\n");
 
 	return ret;
 
 out1:
 	destroy_workqueue(asoc_spi->workqueue);
 out0:
+	asoc_spi_dma_remove(asoc_spi);
 	spi_master_put(master);
+	
+	dev_dbg(&pdev->dev, "ASOC SPI: spi probe failed\n");
 	return ret;
 }
 
@@ -1247,23 +1511,19 @@ static int __exit asoc_spi_remove(struct platform_device *pdev)
 	struct spi_master *master;
 	struct asoc_spi *asoc_spi;
 
-	printk("spi remove\n");
+	dev_dbg(&pdev->dev, "spi remove\n");
 
 	master = dev_get_drvdata(&pdev->dev);
 	asoc_spi = spi_master_get_devdata(master);
-	spi_put_pin_mux(asoc_spi);
-	clk_put(asoc_spi->clk);
-
-	if (asoc_spi->enable_dma) {
-		kfree(asoc_spi->dma_config);
-		kfree(asoc_spi->atslave);
-		kfree(asoc_spi->dma_buf);
-	}
 
 	cancel_work_sync(&asoc_spi->work);
+	asoc_spi_dma_remove(asoc_spi);
+	asoc_spi_clk_disable(asoc_spi);
 
 	spi_unregister_master(master);
 
+	dev_dbg(&pdev->dev, "spi remove ok\n");
+	
 	return 0;
 }
 

@@ -34,39 +34,6 @@
 #define LAYER_FAKE_DISABLE  1
 DECLARE_GLOBAL_DATA_PTR;
 
-/* videomode lib */
-const struct fb_videomode owl_mode_800_480 = {
-    .name       = "800x480p-60",
-    .refresh    = 60,
-    .xres       = 800,
-    .yres       = 480,
-    .pixclock   = 31250,
-    .left_margin    = 86,
-    .right_margin   = 42,
-    .upper_margin   = 33,
-    .lower_margin   = 10,
-    .hsync_len  = 128,
-    .vsync_len  = 2,
-    .sync       = 0,
-    .vmode      = FB_VMODE_NONINTERLACED
-};
-
-const struct fb_videomode owl_mode_1280_720 = {
-    .name       = "1280x720p-60",
-    .refresh    = 60,
-    .xres       = 1280,
-    .yres       = 720,
-    .pixclock   = 13426,
-    .left_margin    = 192,
-    .right_margin   = 64,
-    .upper_margin   = 22,
-    .lower_margin   = 1,
-    .hsync_len  = 136,
-    .vsync_len  = 3,
-    .sync       = FB_SYNC_COMP_HIGH_ACT | FB_SYNC_VERT_HIGH_ACT,
-    .vmode      = FB_VMODE_NONINTERLACED
-};
-
 struct fb_addr {
     void *vaddr;        /* Virtual address */
     u32 paddr;      /* 32-bit physical address */
@@ -75,6 +42,7 @@ struct fb_addr {
 
 struct owl_display {
     u32 display_id;
+	const char * name;
     int data_width;
     int rotate;
     struct display_ops *ops;
@@ -488,6 +456,10 @@ static void de_hw_path_config(struct owl_display * display,int channel_id)
         |PATH_SIZE_WIDTH(display_mode->xres - 1);
         
     writel(tmp, PATHx_SIZE(channel_id));
+
+	is_interlace =
+		((display_mode->vmode & FB_VMODE_INTERLACED) ? 1 : 0);
+
     
     /********config patch ctl **********************/
     
@@ -569,6 +541,12 @@ static void de_hw_output_config(struct owl_display * display,int * channel_id,in
         printf("de: not support yet\n");
         return -1;
     }
+	/* if this is default display */
+	if(dss.display && dss.display->display_id == display->display_id&&display->display_id!=TV_CVBS_DISPLAYER){
+		debug("display->name %s is a default display ,used channel 0 and layer 0 \n",display->name);
+		*channel_id = 0;
+        *layer_id  = 0;
+	}
     tmp = readl(OUTPUT_CTL);
     if (*channel_id == 0) {
         tmp &= (~OUTPUT_CTL_PATH0_SEL_MASK);
@@ -653,9 +631,19 @@ static struct owl_display *get_display(u32 display_id)
 
     return NULL;
 }
+static struct owl_display *get_display_by_name(const char * name)
+{
+    int i;
+    for (i = 0; i < MAX_NUM_DISP_DEV; i++) {
+        if (strcmp(display_list[i].name,name) == 0)
+            return &display_list[i];
+    }
+
+    return NULL;
+}
 
 /********display drivers use  ******************************/
-int owl_display_register(u32 display_id,
+int owl_display_register(u32 display_id,const char * name,
         struct display_ops *ops,
         const struct fb_videomode *def_mode,int data_width,int rotate)
 {
@@ -663,7 +651,7 @@ int owl_display_register(u32 display_id,
     int find_slot = 0;
     struct owl_display *display;
 
-    debug("OWL VIDEO: display 0x%x register\n", display_id);
+    debug("OWL VIDEO: display 0x%x register def_mode %p\n", display_id,def_mode);
 
     for (i = 0; i < MAX_NUM_DISP_DEV; i++) {
         if (display_list[i].display_id == 0) {
@@ -680,6 +668,7 @@ int owl_display_register(u32 display_id,
         display->mode = def_mode;
         display->data_width = data_width;
         display->rotate = rotate;
+		display->name = name;
     } else {
         return -1;
     }
@@ -706,7 +695,7 @@ int disp_enable(void)
             if(display->ops->enable){
                 r = display->ops->enable();
                 if (r){
-                   printf(" owl display enable error %d \n", display->display_id);
+                   //printf("owl display enable error %d \n", display->display_id);
                    return -1;
                 }
             }
@@ -782,87 +771,6 @@ int lcdi_convertion_disable(struct lcdi_convertion *lcdic)
         ret = lcdic->ops->disable(lcdic);
 
     return ret;
-}
-/*************************/
-
-
-/*******display string <---> display_id******************************/
-struct display_def {
-    int id;
-    char *name;
-};
-
-static struct display_def display_def_list[] = {
-    {HDMI_DISPLAYER, "hdmi"},
-    {TV_YPbPr_DISPLAYER, "ypbpr"},
-    {TV_CVBS_DISPLAYER, "cvbs"},
-    {LCD_DISPLAYER, "lcd"}
-};
-
-static int next_displayer(const char **cmds, const char **disp_str)
-{
-    const char *start = *cmds;
-    char *end;
-
-    if (*start == '\0') {
-        debug("start = 0\n");
-        return -1;
-    }
-
-    while ((end = strchr(start, ',')) && end == start)
-        start = end + 1;
-
-    if (!end) {
-        debug("last str\n");
-        *disp_str = start;
-        return 0;
-    }
-
-    debug("remain str\n");
-    *end = 0;
-    *cmds = end + 1;
-    *disp_str = start;
-    return 1;
-}
-
-unsigned int rev_displayer_string(u32 *disp_dev_ids, const char *name)
-{
-    int i = 0;
-    char *disp_name;
-
-    *disp_dev_ids = 0;
-    for (i = 0; i  < ARRAY_SIZE(display_def_list); i++) {
-        disp_name = display_def_list[i].name;
-        if (strcmp(disp_name, name) == 0) {
-            *disp_dev_ids |= display_def_list[i].id;
-            return 0;
-        }
-    }
-    return -1;
-}
-
-int parse_displayers_str(const char *buf, u32 *disp_dev_ids)
-{
-    int r;
-    const char *disp_str;
-    u32 disp_ids;
-
-    while ((r = next_displayer(&buf, &disp_str)) >= 0) {
-        debug("disp_str = %s\n", disp_str);
-
-        if (rev_displayer_string(&disp_ids, disp_str)) {
-            debug("error string %s\n", disp_str);
-            *disp_dev_ids = 0;
-            return -1;
-        }
-
-        if (r == 0) {
-            *disp_dev_ids = disp_ids;
-            break;
-        }
-
-    }
-    return 0;
 }
 /*****************************************************/
 
@@ -982,7 +890,7 @@ int string_to_arrange_id(const char *name)
             return arrange_name_list[i].id;
     }
 
-    return -1;
+    return ARR_SCALE_FULL_SIZE;
 }
 
 int owl_dss_enable(void)
@@ -1021,56 +929,70 @@ int owl_dss_remove(void)
     return 0;
 }
 
-int fdtdec_get_fb_par(void)
+int fdtdec_get_fb_par(struct owl_dss * dss)
 {
     int dev_node;
     int subnode;
-    struct owl_dss *par;
     const char *arrange_name;
+	const char *def_display_name;
     int len;
     int bpp;
     int temp;
 
-    par = &dss;
     subnode = fdtdec_next_compatible(
         gd->fdt_blob, 0, COMPAT_ACTIONS_OWL_FRAMEBUFFER);
     if (subnode <= 0) {
-        debug("Can't get framebuffer device node\n");
+        printf("Can't get framebuffer device node\n");
         return -1;
     }
 
-    debug("get fb par 1\n");
-    par->node = subnode;   
-    
+    dss->node = subnode; 
+
+	def_display_name = fdt_getprop(
+            gd->fdt_blob, subnode, "def_display", &len);
+    if (!def_display_name)
+        return -1;
+    printf("def_display_name %s \n", def_display_name);
+	
+	dss->display = get_display_by_name(def_display_name);
+	
+	if(dss->display == NULL)
+	{
+	    debug("def_display_name  %s not found \n", def_display_name);
+	}
+	
     bpp = fdtdec_get_int(
-            gd->fdt_blob, subnode, "bpp", -1);
+            gd->fdt_blob, subnode, "bpp", -1);			
     if (bpp <= 0)
-        par->bytespp = 0;
-    else
-        par->bytespp = (bpp >> 3);
+        dss->bytespp = 0;
+	
+	dss->bytespp = bpp;
+	
+	debug("bpp %d \n", bpp);
+    dss->img_w = fdtdec_get_int(
+            gd->fdt_blob, subnode, "xres", -1);
+    if (dss->img_w <= 0 &&  dss->display != NULL){
+		dss->img_w = dss->display->mode->xres;
+	}
+	
+    debug("get fb dss, img_w = %d\n", dss->img_w);
 
-    par->img_w = fdtdec_get_int(
-            gd->fdt_blob, subnode, "img_width", -1);
-    if (par->img_w <= 0)
-        return -1;
-
-    debug("get fb par, img_w = %d\n", par->img_w);
-
-    par->img_h = fdtdec_get_int(
-            gd->fdt_blob, subnode, "img_height", -1);
-    if (par->img_h <= 0)
-        return -1;
-
+    dss->img_h = fdtdec_get_int(
+            gd->fdt_blob, subnode, "yres", -1);
+    if (dss->img_h <= 0 &&  dss->display != NULL)
+        dss->img_h =  dss->display->mode->yres;
+	
+	debug("get fb dss, img_h = %d\n", dss->img_h);
+	dss->img_par_required = 1;
+	
     arrange_name = fdt_getprop(
             gd->fdt_blob, subnode, "arrange", &len);
-    if (!arrange_name)
-        return -1;
-
-    par->arrange = string_to_arrange_id(arrange_name);
-    if (par->arrange < 0)
-        return -1;
-
-    par->img_par_required = 1;
+    if (arrange_name){
+		dss->arrange = string_to_arrange_id(arrange_name);
+	}
+    if (dss->arrange <= 0){
+        dss->arrange = ARR_SCALE_FULL_SIZE; 
+	}
     return 0;
 }
 
@@ -1122,112 +1044,60 @@ int owl_dss_gamma_init(int channel_id)
     return 0;
 }
 
-int owl_dss_init(u16 xres, u16 yres, u32 depth, const char *disp_str)
+int owl_dss_init(struct owl_dss * dss)
 {
     int r;
     u32 display_id;
 
-    dss.de_clk_source = DECLK_SRC_DEVPLL;
+    dss->de_clk_source = DECLK_SRC_DEVPLL;
+	
+	if(!dss->display){
+		if (registered_display_ids & LCD_DISPLAYER)
+			display_id = LCD_DISPLAYER;
+		else if (registered_display_ids & DSI_DISPLAYER)
+			display_id = DSI_DISPLAYER;
+		else if (registered_display_ids & HDMI_DISPLAYER)
+			display_id = HDMI_DISPLAYER;
+	  else if (registered_display_ids & TV_CVBS_DISPLAYER)
+			display_id = TV_CVBS_DISPLAYER;
+		else
+			return -1;
+		
+		debug("OWL VIDEO: dss init display id = 0x%x\n", display_id);
+		
+		dss->display = get_display(display_id);
+		if (!dss->display)
+			return -1;
+	}
 
-    if (disp_str) {
-        if (parse_displayers_str(disp_str, &display_id))
-            return -1;
-
-    } else {
-        if (registered_display_ids & LCD_DISPLAYER)
-            display_id = LCD_DISPLAYER;
-        else if (registered_display_ids & DSI_DISPLAYER)
-            display_id = DSI_DISPLAYER;
-        else if (registered_display_ids & HDMI_DISPLAYER)
-            display_id = HDMI_DISPLAYER;
-        else
-            return -1;
-    }
-
-    debug("OWL VIDEO: dss init display id = 0x%x\n", display_id);
-
-
-    dss.display = get_display(display_id);
-    if (!dss.display)
-        return -1;
-
-/* Convert the X,Y resolution pair into a single number */
-#define RESOLUTION(x, y) (((u32)(x) << 16) | (y))
-
-    switch (RESOLUTION(xres, yres)) {
-    case RESOLUTION(0, 0):
-        xres = dss.display->mode->xres;
-        yres = dss.display->mode->yres;
-        break;
-
-    case RESOLUTION(800, 480):
-        dss.display->mode = &owl_mode_800_480;
-        break;
-    case RESOLUTION(1280, 720):
-        dss.display->mode = &owl_mode_1280_720;
-        break;
-    /*
-    case RESOLUTION(1920, 1080):
-        break;
-    */
-    default:
-        printf(
-            "OWL VIDEO:   Unsupported resolution %ux%u\n",
-            xres, yres);
-        return -1;
-    }
-
-
-    debug(
-        "OWL VIDEO: xres = %d, yres = %d, depth = %d\n",
-        xres, yres, depth);
-
-    if (!dss.img_par_required) {
-        dss.arrange = ARR_SCALE_FULL_SIZE;
-        dss.img_w = xres;
-        dss.img_h = yres;
-    }
-
-    if (!dss.bytespp)
-        dss.bytespp = (depth >> 3);
-
-    switch (dss.bytespp) {
+    switch (dss->bytespp) {
     case 2:
-        dss.pixfmt = GDF_16BIT_565RGB;
+        dss->pixfmt = GDF_16BIT_565RGB;
         break;
     case 4:
-        dss.pixfmt = GDF_32BIT_X888RGB;
+        dss->pixfmt = GDF_32BIT_X888RGB;
         break;
-    default:
-        printf("OWL VIDEO: err bpp\n");
-        return -1;
+    default:		
+		dss->pixfmt = GDF_32BIT_X888RGB;
+		dss->bytespp = 4;
+        break;
     }
-
-    dss.mem_size = dss.img_w * dss.img_h * dss.bytespp;
+	
+    dss->mem_size = dss->img_w * dss->img_h * dss->bytespp;
 
     /* Memory allocation for framebuffer */
-    r = allocate_fb(&dss.addr, dss.mem_size);
+    r = allocate_fb(&dss->addr, dss->mem_size);
     if (r) {
-        printf("OWL VIDEO:   Out of memory\n");
+        printf("OWL VIDEO: Out of memory\n");
         return -1;
     }
-
-    /* Initialize the cursor */
-
-
+	
     de_hw_reset();
 
-    if ((dss.display->display_id == LCD_DISPLAYER) ||
-        (dss.display->display_id == DSI_DISPLAYER)) {
-
+    if ((dss->display->display_id == LCD_DISPLAYER) ||
+        (dss->display->display_id == DSI_DISPLAYER)) {
         owl_dss_gamma_init(0);
-
     }
-
-    /* Program hw registers */
-    /*owl_dss_enable();
-    */
-
     return 0;
 }
 
@@ -1236,7 +1106,7 @@ static void owl_dss_power_on(void)
 {
     u32 tmp, i;
     
-    printf("OWL VIDEO: power on\n");
+    debug("OWL VIDEO: power on\n");
     
     /* 
     * 1. assert reset
@@ -1265,7 +1135,7 @@ static void owl_dss_power_on(void)
         /* bit 13 is DS ACK */
         mdelay(1);
     }
-    printf("OWL VIDEO: wait res %d, %x\n", i, readl(SPS_PG_CTL));
+    debug("OWL VIDEO: wait res %d, %x\n", i, readl(SPS_PG_CTL));
     
     
     /* 
@@ -1314,7 +1184,6 @@ void *video_hw_init(void)
 #else
     static GraphicDevice ctfb;
     const char *options;
-    const char *disp_str;
     unsigned int depth, freq, xres, yres;
 
     debug("OWL VIDEO: video hw init\n");
@@ -1322,8 +1191,6 @@ void *video_hw_init(void)
 #if defined(CONFIG_ATM7059A)
     owl_dss_power_on();
 #endif
-
-	fdtdec_get_fb_par();
 	
 #ifdef CONFIG_OWL_DISPLAY_LCD
     owl_lcd_init();
@@ -1336,27 +1203,16 @@ void *video_hw_init(void)
 #ifdef CONFIG_OWL_DISPLAY_HDMI
      hdmi_init();
 #endif
-
-    if (video_get_video_mode(
-        &xres, &yres, &depth, &freq, &options)) {
-        /* Find the monitor port, which is a required option */
-        if (!options)
-            return NULL;
-        if (strncmp(options, "monitor=", 8) != 0)
-            return NULL;
-        disp_str = options + 8;
-    } else {
-        debug("OWL VIDEO: video hw init use dft mode\n");
-
-        xres = 0;
-        yres = 0;
-        depth = 32;
-        disp_str = NULL;
-    }
-    if (owl_dss_init(xres, yres, depth, disp_str))
+#ifdef CONFIG_OWL_DISPLAY_CVBS
+     cvbs_init();
+#endif
+	
+	fdtdec_get_fb_par(&dss);
+	
+    if (owl_dss_init(&dss))
         return NULL;
 
-    debug("dss init ok\n");
+    debug("owl_dss_init ok ,xres %d\n yres %d\n",xres,yres);
 
     /* fill in Graphic device struct */
 
@@ -1413,6 +1269,6 @@ void kinfo_init(void)
     
     rsv_size = get_owl_reserved_size();
     kinfo = (struct kernel_reserve_info *)(gd->ram_size - rsv_size);
-    printf("set kinfo addr = %p\n", kinfo);
+    debug("set kinfo addr = %p\n", kinfo);
 }
 /**********************/

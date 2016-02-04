@@ -394,13 +394,13 @@ int dss_mgr_wait_for_go(struct owl_overlay_manager *mgr)
 	enum de_irq_type irq;
 	int rc = 0;
 	
-	if(!mgr || !mgr->device){
-		DSSERR("dss_mgr_wait_for_vsync but mgr is null or device is null \n");
+	if(!mgr){
+		DSSERR("dss_mgr_wait_for_vsync but mgr is null\n",mgr->name);
 		return -ENOENT;
 	}	
 	mp = get_mgr_priv(mgr);
 	
-	if(!mp->enabled){
+	if(!mp->enabled ||!mgr->device){
 		return 0;
 	}
 	
@@ -423,7 +423,7 @@ int dss_mgr_wait_for_go(struct owl_overlay_manager *mgr)
 			DSSERR("display type ( %d )is not support \n",mgr->device->type);
 		    return -ENOENT;						
 	}
-	rc = de_wait_for_irq_interruptible_timeout(irq, timeout);
+	rc = de_wait_for_irq_interruptible_timeout(irq, mgr->de_path_id,timeout);
 	return rc ;
 }
 
@@ -543,6 +543,23 @@ void dss_mgr_get_info(struct owl_overlay_manager *mgr,
 	//spin_unlock_irqrestore(&data_lock, flags);
 }
 
+int dss_cursor_set_info(struct owl_overlay_manager *mgr, struct owl_cursor_info *info)
+{
+	struct mgr_priv_data *mp = get_mgr_priv(mgr);
+	int r;
+
+	mp->user_cursor = *info;
+	mp->user_cursor_dirty = true;
+
+	return 0;
+}
+
+void dss_cursor_get_info(struct owl_overlay_manager *mgr,struct owl_cursor_info *info)
+{
+	struct mgr_priv_data *mp = get_mgr_priv(mgr);
+	*info = mp->cursor;	
+}
+
 static void dss_mgr_write_regs(struct owl_overlay_manager *mgr)
 {
 	struct mgr_priv_data *mp = get_mgr_priv(mgr);
@@ -563,17 +580,22 @@ static void dss_mgr_write_regs(struct owl_overlay_manager *mgr)
 		ovl->write_hw_regs(ovl);
 	}
 	
-	de_mgr_set_path_size(mgr->id, mp->info.out_width, mp->info.out_height);
+	/* commit cursor info*/
+	if (mp->cursor_dirty) {
+		de_mgr_cursor_setup(mgr->de_path_id, &mp->cursor);
+	}
+	
+	de_mgr_set_path_size(mgr->de_path_id, mp->info.out_width, mp->info.out_height);
 	
 	if (dssdev){
-		de_mgr_set_device_type(mgr->id,dssdev->type);
+		de_mgr_set_device_type(mgr->de_path_id,dssdev->type);
 	}	
 	
 	if (mp->info_dirty) {
 		DSSDBG("de_mgr_setup mgr->id %d mp->info %p\n",
 			mgr->id, &mp->info);
 
-		de_mgr_setup(mgr->id, &mp->info);
+		de_mgr_setup(mgr->de_path_id, &mp->info);
 
 		mp->info_dirty = false;
 	}
@@ -652,7 +674,7 @@ static int dss_mgr_check_and_enable_mmu(struct owl_overlay_manager *mgr)
     	return 0;
     }
     
-    de_mgr_go(mgr->id);
+    de_mgr_go(mgr->de_path_id);
     //if we enable mmu, we set all overlay mmu enable acquiescently!
 	for (i = 0; i < num_ovls; i++) {
 		struct owl_overlay *ovl = owl_dss_get_overlay(i);
@@ -688,9 +710,9 @@ static void dss_mgr_send_vsync_work(struct work_struct *work)
 	
 	if (mgr->gamma_info_dirty && de_is_vb_valid(mgr->id, mgr->device->type)) {
 		if (mgr->gamma_info.enabled) {
-			de_set_gamma_table(mgr->id, (u32 *)mgr->gamma_info.value);
+			de_set_gamma_table(mgr->de_path_id, (u32 *)mgr->gamma_info.value);
 		}
-		de_enable_gamma_table(mgr->id, mgr->gamma_info.enabled);
+		de_enable_gamma_table(mgr->de_path_id, mgr->gamma_info.enabled);
 		mgr->gamma_info_dirty = false;
 	} else if (mgr->gamma_info_dirty) {
 		//DSSINFO("gamma lost because of VB invalid\n");
@@ -823,13 +845,23 @@ static int dss_mgr_apply_mgr_info(struct owl_overlay_manager *mgr)
 	struct mgr_priv_data *mp;
     
 	mp = get_mgr_priv(mgr);
-	DSSDBG("owl_dss_mgr_apply_mgr(%s),mp->user_info_dirty %d\n", mgr->name,mp->user_info_dirty);
+	DSSDBG("owl_dss_mgr_apply_mgr(%s),mp->user_info_dirty %d mp->user_cursor_dirty %d\n", mgr->name,mp->user_info_dirty,mp->user_cursor_dirty);
+	
+	if(mp->user_cursor_dirty)
+	{
+		mp->user_cursor_dirty = false;
+		mp->cursor_dirty = true;
+		mp->cursor = mp->user_cursor;
+	}
+	
 	if (!mp->user_info_dirty)
 		return 0;
 
 	mp->user_info_dirty = false;
 	mp->info_dirty = true;
 	mp->info = mp->user_info;
+	
+	
 
     return 0;
 }
@@ -890,12 +922,14 @@ int dss_init_overlay_managers(struct platform_device *pdev)
 		struct mgr_priv_data *mp = get_mgr_priv(mgr);
 		switch (i) {
 		case 0:
-			mgr->name = "lcd";
-			mgr->id = OWL_DSS_CHANNEL_LCD;
+			mgr->name = "primary";
+			mgr->id = OWL_DSS_OVL_MGR_PRIMARY;
+			mgr->de_path_id = OWL_DSS_PATH1_ID;
 			break;
 		case 1:
-			mgr->name = "tv";
-			mgr->id = OWL_DSS_CHANNEL_DIGIT;
+			mgr->name = "external";
+			mgr->id = OWL_DSS_OVL_MGR_EXTERNAL;
+			mgr->de_path_id = OWL_DSS_PATH2_ID;
 			break;
 		}		
 		mgr->set_device = &dss_mgr_set_device;
@@ -904,6 +938,10 @@ int dss_init_overlay_managers(struct platform_device *pdev)
 		mgr->set_manager_info = &dss_mgr_set_info;
 		mgr->get_manager_info = &dss_mgr_get_info;
 		mgr->apply_manager_info = &dss_mgr_apply_mgr_info;
+		
+		mgr->set_cursor_info = &dss_cursor_set_info;
+		mgr->get_cursor_info = &dss_cursor_get_info;
+		
 		mgr->enable_hw_vsync = &dss_mgr_enable_hw_vsync;
 		mgr->set_mmu_state = &dss_mgr_set_mmu_state;
 
@@ -1088,7 +1126,7 @@ int dss_mgr_enable(struct owl_overlay_manager *mgr)
 
 	mp->enabled = true;
 	
-	if(dss_check_channel_boot_inited(mgr->id))
+	if(dss_check_channel_boot_inited(mgr->de_path_id))
 	{
 		goto out;
 	}
@@ -1097,8 +1135,8 @@ int dss_mgr_enable(struct owl_overlay_manager *mgr)
 	if(mgr->device != NULL && mgr->device->driver != NULL){
 		mgr->device->driver->get_resolution(mgr->device, &dw, &dh);
 	}
-	de_mgr_set_path_size(mgr->id,dw,dh);		
-	de_mgr_enable(mgr->id, true);
+	de_mgr_set_path_size(mgr->de_path_id,dw,dh);		
+	de_mgr_enable(mgr->de_path_id, true);
 	dss_set_go_bits(mgr);
 out:
 	mutex_unlock(&apply_lock);
@@ -1115,7 +1153,7 @@ void dss_mgr_disable(struct owl_overlay_manager *mgr)
 	if (!mp->enabled)
 		goto out;
 
-	de_mgr_enable(mgr->id, false);
+	de_mgr_enable(mgr->de_path_id, false);
 
 	//spin_lock_irqsave(&data_lock, flags);
 
@@ -1129,7 +1167,7 @@ out:
 EXPORT_SYMBOL(dss_mgr_disable);
 
 
-void dss_mgr_set_gamma_table(enum owl_channel channel,
+void dss_mgr_set_gamma_table(enum owl_de_path_id channel,
 				struct owl_gamma_info *gamma_info)
 {
 	struct owl_overlay_manager *mgr = owl_dss_get_overlay_manager(channel);		
@@ -1140,7 +1178,7 @@ void dss_mgr_set_gamma_table(enum owl_channel channel,
 EXPORT_SYMBOL(dss_mgr_set_gamma_table);
 
 /* just return the backup, do not read from register */
-void dss_mgr_get_gamma_table(enum owl_channel channel,
+void dss_mgr_get_gamma_table(enum owl_de_path_id channel,
 				struct owl_gamma_info *gamma_info)
 {
 	struct owl_overlay_manager *mgr = owl_dss_get_overlay_manager(channel);		
@@ -1150,7 +1188,7 @@ void dss_mgr_get_gamma_table(enum owl_channel channel,
 EXPORT_SYMBOL(dss_mgr_get_gamma_table);
 
 
-bool dss_check_channel_boot_inited(enum owl_channel channel)
+bool dss_check_channel_boot_inited(enum owl_de_path_id channel)
 {
 	return de_channel_check_boot_inited(channel);
 }

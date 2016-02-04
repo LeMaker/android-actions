@@ -29,7 +29,7 @@
 #include <linux/device.h>
 #include <linux/platform_device.h>
 #include <mach/dss_user-owl.h>
-
+#include <linux/of_device.h>
 #include <video/owldss.h>
 #include <video/owlfb.h>
 #include <mach/bootdev.h>
@@ -39,13 +39,6 @@
 
 #define OWLFB_PLANE_XRES_MIN		8
 #define OWLFB_PLANE_YRES_MIN		8
-
-static char *def_mode;
-static int def_rotate;
-static bool auto_update;
-static unsigned int auto_update_freq;
-module_param(auto_update, bool, 0);
-module_param(auto_update_freq, uint, 0644);
 
 #ifdef DEBUG
 bool owlfb_debug = true;
@@ -540,35 +533,7 @@ int check_fb_var(struct fb_info *fbi, struct fb_var_screeninfo *var)
 	}
 
 	var->grayscale          = 0;
-
-	if (display && display->driver->get_timings) {
-		struct owl_video_timings timings;
-		display->driver->get_timings(display, &timings);
-
-		/* pixclock in ps, the rest in pixclock */
-		var->pixclock = timings.pixel_clock != 0 ?
-			KHZ2PICOS(timings.pixel_clock) :
-			0;
-		var->left_margin = timings.hbp;
-		var->right_margin = timings.hfp;
-		var->upper_margin = timings.vbp;
-		var->lower_margin = timings.vfp;
-		var->hsync_len = timings.hsw;
-		var->vsync_len = timings.vsw;
-	} else {
-		var->pixclock = 0;
-		var->left_margin = 0;
-		var->right_margin = 0;
-		var->upper_margin = 0;
-		var->lower_margin = 0;
-		var->hsync_len = 0;
-		var->vsync_len = 0;
-	}
-
-	/* TODO: get these from panel->config */
-	var->vmode              = FB_VMODE_NONINTERLACED;
-	var->sync               = 0;
-
+ 
 	return 0;
 }
 
@@ -579,16 +544,28 @@ int check_fb_var(struct fb_info *fbi, struct fb_var_screeninfo *var)
  */
 static int owlfb_open(struct fb_info *fbi, int user)
 {
+	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct owlfb_device *fbdev = ofbi->fbdev;
+	if(fbdev->mirror_fb_id != 0 && ofbi->id != 0)
+	{
+		return -1;
+	}	
 	return 0;
 }
 
 static int owlfb_release(struct fb_info *fbi, int user)
 {
+	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct owlfb_device *fbdev = ofbi->fbdev;
+	if(fbdev->mirror_fb_id != 0 && ofbi->id != 0)
+	{
+		return -1;
+	}	
 	return 0;
 }
 
-static unsigned calc_rotation_offset_dma(const struct fb_var_screeninfo *var,
-		const struct fb_fix_screeninfo *fix, int rotation)
+static unsigned calc_offset_dma(const struct fb_var_screeninfo *var,
+		const struct fb_fix_screeninfo *fix)
 {
 	unsigned offset;
 
@@ -598,49 +575,51 @@ static unsigned calc_rotation_offset_dma(const struct fb_var_screeninfo *var,
 	return offset;
 }
 
-#if 0
-static unsigned calc_rotation_offset_vrfb(const struct fb_var_screeninfo *var,
-		const struct fb_fix_screeninfo *fix, int rotation)
+static void owlfb_hotplug_notify(struct owl_dss_device *dssdev, int state)
 {
-	unsigned offset;
-
-	if (rotation == FB_ROTATE_UD)
-		offset = (var->yres_virtual - var->yres) *
-			fix->line_length;
-	else if (rotation == FB_ROTATE_CW)
-		offset = (var->yres_virtual - var->yres) *
-			(var->bits_per_pixel >> 3);
-	else
-		offset = 0;
-
-	if (rotation == FB_ROTATE_UR)
-		offset += var->yoffset * fix->line_length +
-			var->xoffset * (var->bits_per_pixel >> 3);
-	else if (rotation == FB_ROTATE_UD)
-		offset -= var->yoffset * fix->line_length +
-			var->xoffset * (var->bits_per_pixel >> 3);
-	else if (rotation == FB_ROTATE_CW)
-		offset -= var->xoffset * fix->line_length +
-			var->yoffset * (var->bits_per_pixel >> 3);
-	else if (rotation == FB_ROTATE_CCW)
-		offset += var->xoffset * fix->line_length +
-			var->yoffset * (var->bits_per_pixel >> 3);
-
-	return offset;
+	struct owl_overlay_manager *external_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_EXTERNAL);
+	int vid ;
+	if(external_mgr != NULL 
+		&& external_mgr->device != NULL 
+		&& external_mgr->mirror_context 
+		&& external_mgr->device->type == dssdev->type)
+	{
+		if(state == 1){
+			dssdev->driver->get_vid(dssdev,&vid);
+			dssdev->driver->set_vid(dssdev,vid);		
+			dssdev->driver->enable(dssdev);	
+		}else{
+			dssdev->driver->disable(dssdev);    	
+		}
+		if(external_mgr->link_fbi != NULL){
+			owlfb_get_mem_region(FB2OFB(external_mgr->link_fbi)->region);
+			owlfb_apply_changes(external_mgr->link_fbi, 0);
+			owlfb_put_mem_region(FB2OFB(external_mgr->link_fbi)->region);
+			DBG("owlfb_hotplug_notify  dssdev %s  state %d \n",dssdev->name,state);
+		}		
+	}	
 }
-#endif
+
+static void owlfb_register_hotplug_notify(struct owl_dss_device *dssdev)
+{
+	if(dssdev && dssdev->driver){
+		if(!dssdev->driver->hot_plug_nodify){
+			dssdev->driver->hot_plug_nodify = owlfb_hotplug_notify;
+			DBG("owlfb_register_hotplug_notify  dssdev %s  \n",dssdev->name);
+		}
+	}
+}
 
 static void owlfb_calc_addr(const struct owlfb_info *ofbi,
 			     const struct fb_var_screeninfo *var,
-			     const struct fb_fix_screeninfo *fix,
-			     int rotation, u32 *paddr)
+			     const struct fb_fix_screeninfo *fix, u32 *paddr)
 {
 	u32 data_start_p;
 	int offset;
 
 	data_start_p = owlfb_get_region_paddr(ofbi);
 
-	offset = calc_rotation_offset_dma(var, fix, rotation);
+	offset = calc_offset_dma(var, fix);
 
 	data_start_p += offset;
 
@@ -665,34 +644,20 @@ int owlfb_setup_overlay(struct fb_info *fbi, struct owl_overlay *ovl,
 	u32 data_start_p = 0;
 	struct owl_overlay_info info;
 	int xres, yres;
-	int screen_width = 0;       /* TODO, pls fixup me */
 
 	int rotation = var->rotate;
 	int i;
 
 	WARN_ON(!atomic_read(&ofbi->region->lock_count));
 
-	for (i = 0; i < ofbi->num_overlays; i++) {
-		if (ovl != ofbi->overlays[i])
-			continue;
-
-		rotation = (rotation + ofbi->rotation[i]) % 4;
-		break;
-	}
-
 	DBG("setup_overlay %d, posx %d, posy %d, outw %d, outh %d\n", ofbi->id,
 			posx, posy, outw, outh);
 
-	if (rotation == FB_ROTATE_CW || rotation == FB_ROTATE_CCW) {
-		xres = var->yres;
-		yres = var->xres;
-	} else {
-		xres = var->xres;
-		yres = var->yres;
-	}
+	xres = var->xres;
+	yres = var->yres;
 
 	if (ofbi->region->size)
-		owlfb_calc_addr(ofbi, var, fix, rotation, &data_start_p);
+		owlfb_calc_addr(ofbi, var, fix, &data_start_p);
 
 	r = fb_mode_to_dss_mode(var, &mode);
 	if (r) {
@@ -703,7 +668,9 @@ int owlfb_setup_overlay(struct fb_info *fbi, struct owl_overlay *ovl,
 	ovl->get_overlay_info(ovl, &info);
 
 	info.paddr = data_start_p;
-	info.screen_width = screen_width;
+	info.screen_width = xres;	
+	info.img_width = xres;
+	info.img_height = yres;
 	info.width = xres;
 	info.height = yres;
 	info.color_mode = mode;
@@ -732,8 +699,11 @@ int owlfb_apply_changes(struct fb_info *fbi, int init)
 {
 	int r = 0;
 	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct owlfb_device *fbdev = ofbi->fbdev;
 	struct fb_var_screeninfo *var = &fbi->var;
+	struct owl_dss_device *dssdev = NULL;
 	struct owl_overlay *ovl;
+	u16 overscan_width, overscan_height;
 	u16 posx, posy;
 	u16 outw, outh;
 	int i;
@@ -743,12 +713,17 @@ int owlfb_apply_changes(struct fb_info *fbi, int init)
 		fill_fb(fbi);
 #endif
 
+	if(fbdev->mirror_fb_id == 1 &&  ofbi->id == 1)
+	{
+		return 0;
+	}
+
 	WARN_ON(!atomic_read(&ofbi->region->lock_count));
 
 	for (i = 0; i < ofbi->num_overlays; i++) {
 		ovl = ofbi->overlays[i];
 
-		DBG("apply_changes, fb %d, ovl %d\n", ofbi->id, ovl->id);
+		DBG("apply_changes, fb %d, ovl %d var->xres %d ,var->yres %d \n", ofbi->id, ovl->id,var->xres,var->yres);
 
 		if (ofbi->region->size == 0) {
 			/* the fb is not available. disable the overlay */
@@ -758,76 +733,87 @@ int owlfb_apply_changes(struct fb_info *fbi, int init)
 			continue;
 		}
 
-		if (init || (ovl->caps & OWL_DSS_OVL_CAP_SCALE) == 0) {
-			int rotation = (var->rotate + ofbi->rotation[i]) % 4;
-			if (rotation == FB_ROTATE_CW ||
-					rotation == FB_ROTATE_CCW) {
-				outw = var->yres;
-				outh = var->xres;
-			} else {
-				outw = var->xres;
-				outh = var->yres;
-			}
-		} else {
-			struct owl_overlay_info info;
-			ovl->get_overlay_info(ovl, &info);
-			outw = info.out_width;
-			outh = info.out_height;
+		posx = 0;
+		posy = 0;
+		
+		dssdev = ovl->manager->device;
+		if(dssdev && dssdev->driver != NULL){
+			dssdev->driver->get_resolution(dssdev, &outw, &outh);
+		}
+		
+		if(outw == 0 || outh == 0)
+		{
+			outw = var->xres;
+			outh = var->yres;
 		}
 
-		if (init) {
-			posx = 0;
-			posy = 0;
-		} else {
-			struct owl_overlay_info info;
-			ovl->get_overlay_info(ovl, &info);
-			posx = info.pos_x;
-			posy = info.pos_y;
+		if(dssdev->driver->get_over_scan){			
+			dssdev->driver->get_over_scan(dssdev, &overscan_width, &overscan_height);
+			outw = outw - overscan_height * 2;
+			outh = outh - overscan_height * 2;
+			posx = overscan_width;
+			posy = overscan_height;
 		}
 
+		DBG("apply_changes, init %d ,posx %d ,posy %d ,outw %d ,outh %d \n",init,posx,posy,outw,outh );
 		r = owlfb_setup_overlay(fbi, ovl, posx, posy, outw, outh);
+		
 		if (r)
 			goto err;
 
 		if (!init && ovl->manager)
 			ovl->manager->apply(ovl->manager);
 		
-		if(ofbi->mirror_to_hdmi){
-			struct owl_overlay * tv_ovl;
-			struct owl_overlay_info lcd_info;
-			struct owl_overlay_info tv_info;
-			struct owl_dss_device *dssdev = NULL;
-			tv_ovl = owl_dss_get_overlay(3 - i);
+		if(fbdev->mirror_fb_id == 1 && i == 0){			
+			struct owl_overlay * dest_ovl;
+			struct owl_overlay_info src_info;
+			struct owl_overlay_info dest_info;			
+			struct owl_cursor_info src_cursor;
+			struct owl_cursor_info dest_cursor;
+			dest_ovl = owl_dss_get_overlay(3);
 			
-			tv_ovl->get_overlay_info(tv_ovl, &tv_info);
+			dest_ovl->get_overlay_info(dest_ovl, &dest_info);
 			
-			ovl->get_overlay_info(ovl,&lcd_info);
+			ovl->get_overlay_info(ovl,&src_info);
 
-			tv_info.paddr = lcd_info.paddr;		
-			tv_info.width = lcd_info.width;
-			tv_info.height = lcd_info.height;
-			tv_info.color_mode = lcd_info.color_mode;
-			tv_info.rotation = lcd_info.rotation;
-			tv_info.pos_x = 0;
-			tv_info.pos_y = 0;
+			dest_info.paddr = src_info.paddr;		
+			dest_info.width = src_info.width;
+			dest_info.height = src_info.height;
+			dest_info.color_mode = src_info.color_mode;
+			dest_info.rotation = src_info.rotation;
+			dest_info.img_width = src_info.img_width;
+			dest_info.img_height = src_info.img_height;
+			dest_info.pos_x = 0;
+			dest_info.pos_y = 0;
 				
-			dssdev = tv_ovl->manager->device;
-			if(dssdev != NULL && dssdev->driver != NULL){
-				dssdev->driver->get_resolution(dssdev, &outw, &outh);
+			dssdev = dest_ovl->manager->device;
+			if(dssdev != NULL && dssdev->driver){
+				if(dssdev->driver->get_resolution){
+					dssdev->driver->get_resolution(dssdev, &outw, &outh);
+				}
+				
+				if(dssdev->driver->get_over_scan){
+					dssdev->driver->get_over_scan(dssdev, &overscan_width, &overscan_height);
+					outw -= overscan_width * 2;
+					outh -= overscan_height * 2;
+					dest_info.pos_x = overscan_width;
+					dest_info.pos_y = overscan_height;
+				}
+					
 			}
-			tv_info.screen_width = outw;
-			tv_info.out_width = outw;
-			tv_info.out_height = outh;
+
+			dest_info.out_width = outw;
+			dest_info.out_height = outh;
 			
-			r = tv_ovl->set_overlay_info(tv_ovl, &tv_info);
+			r = dest_ovl->set_overlay_info(dest_ovl, &dest_info);
 			if (r)
-				goto err;
+				goto err;			
 				
-			if(!tv_ovl->is_enabled(tv_ovl)){	
-				tv_ovl->enable(tv_ovl);
+			if(!dest_ovl->is_enabled(dest_ovl)){	
+				dest_ovl->enable(dest_ovl);
 			}
 			//printk(KERN_ERR "  ovl->manager->apply hdmi , outw %d outh %d\n",outw,outh);
-			tv_ovl->manager->apply(tv_ovl->manager);
+			dest_ovl->manager->apply(dest_ovl->manager);
 		}
 	}
 	return 0;
@@ -853,6 +839,48 @@ static int owlfb_check_var(struct fb_var_screeninfo *var, struct fb_info *fbi)
 
 	return r;
 }
+static void fb_videomode_to_owl_timings(struct fb_videomode *m,
+		struct owl_video_timings *t)
+{
+	t->x_res = m->xres;
+	t->y_res = m->yres;
+	t->pixel_clock = PICOS2KHZ(m->pixclock);
+	t->hsw = m->hsync_len;
+	t->hfp = m->right_margin;
+	t->hbp = m->left_margin;
+	t->vsw = m->vsync_len;
+	t->vfp = m->lower_margin;
+	t->vbp = m->upper_margin;
+}
+
+static int owlfb_set_display_mode(struct fb_info *fbi)
+{
+	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct fb_videomode mode;
+	struct owl_video_timings t;
+	struct owl_dss_device *display = fb2display(fbi);
+	int r;
+	
+#ifdef CONFIG_FB_MAP_TO_DE	
+	fb_var_to_videomode(&mode,&fbi->var);
+	
+	fb_videomode_to_owl_timings(&mode,&t);
+	
+	if(display->driver 
+		&& display->driver->check_timings
+		&& display->driver->set_timings
+		&& display->driver->get_timings){
+		if(!display->driver->check_timings(display,&t)){
+			display->driver->disable(display);			
+			display->driver->set_timings(display,&t);			
+			msleep(500);			
+			display->driver->enable(display);
+		}
+	}
+#endif 	
+
+	return r;
+}
 
 /* set the video mode according to info->var */
 static int owlfb_set_par(struct fb_info *fbi)
@@ -860,7 +888,9 @@ static int owlfb_set_par(struct fb_info *fbi)
 	struct owlfb_info *ofbi = FB2OFB(fbi);
 	int r;
 
-	DBG("set_par(%d)\n", FB2OFB(fbi)->id);
+	printk("set_par(%d)\n", FB2OFB(fbi)->id);
+	
+	owlfb_set_display_mode(fbi);
 
 	owlfb_get_mem_region(ofbi->region);
 
@@ -880,11 +910,11 @@ static int owlfb_pan_display(struct fb_var_screeninfo *var,
 	struct fb_var_screeninfo new_var;
 	int r;
 
-	DBG("pan_display(%d)\n", FB2OFB(fbi)->id);
+	DBG("pan_display(%d) var->xoffset %x ,var->yoffset %x fbi->var.xoffset %x ,fbi->var.yoffset%x \n", FB2OFB(fbi)->id,var->xoffset,var->yoffset,fbi->var.xoffset,fbi->var.yoffset);
 
 	if (var->xoffset == fbi->var.xoffset &&
 	    var->yoffset == fbi->var.yoffset)
-		return 0;
+		//return 0;
 
 	new_var = fbi->var;
 	new_var.xoffset = var->xoffset;
@@ -1073,7 +1103,7 @@ static int owlfb_blank(int blank, struct fb_info *fbi)
 	if (!display)
 		return -EINVAL;
 	
-	printk("owlfb_blank~~~~~~~~~~~~~~~blank %d",blank);
+	DBG("owlfb_blank~~~~~~~~~~~~~~~blank %d \n",blank);
 	owlfb_lock(fbdev);
 
 	d = get_display_data(fbdev, display);
@@ -1086,11 +1116,6 @@ static int owlfb_blank(int blank, struct fb_info *fbi)
 		if (display->driver->resume)
 			r = display->driver->resume(display);
 
-		if ((display->caps & OWL_DSS_DISPLAY_CAP_MANUAL_UPDATE) &&
-				d->update_mode == OWLFB_AUTO_UPDATE &&
-				!d->auto_update_work_enabled)
-			owlfb_start_auto_update(fbdev, display);
-
 		break;
 
 	case FB_BLANK_NORMAL:
@@ -1101,9 +1126,6 @@ static int owlfb_blank(int blank, struct fb_info *fbi)
 	case FB_BLANK_POWERDOWN:
 		if (display->state != OWL_DSS_DISPLAY_ACTIVE)
 			goto exit;
-
-		if (d->auto_update_work_enabled)
-			owlfb_stop_auto_update(fbdev, display);
 
 		if (display->driver->suspend)
 			r = display->driver->suspend(display);
@@ -1119,17 +1141,6 @@ exit:
 
 	return r;
 }
-
-#if 0
-/* XXX fb_read and fb_write are needed for VRFB */
-ssize_t owlfb_write(struct fb_info *info, const char __user *buf,
-		size_t count, loff_t *ppos)
-{
-	DBG("owlfb_write %d, %lu\n", count, (unsigned long)*ppos);
-	/* XXX needed for VRFB */
-	return count;
-}
-#endif
 
 static struct fb_ops owlfb_ops = {
 	.owner          = THIS_MODULE,
@@ -1211,12 +1222,12 @@ static int owlfb_free_all_fbmem(struct owlfb_device *fbdev)
 	return 0;
 }
 
-static int owlfb_alloc_fbmem(struct fb_info *fbi, unsigned long size,
-                             unsigned long paddr)
+static int owlfb_alloc_fbmem(struct fb_info *fbi, unsigned long size)
 {
 	struct owlfb_info *ofbi = FB2OFB(fbi);
 	struct owlfb_mem_region *rg;
 	void __iomem *vaddr = NULL;
+	unsigned long paddr;
 
 	rg = ofbi->region;
 
@@ -1229,24 +1240,18 @@ static int owlfb_alloc_fbmem(struct fb_info *fbi, unsigned long size,
 
 	size = PAGE_ALIGN(size);
 
-	if (!paddr) {
-		DBG("allocating %lu bytes for fb %d\n", size, ofbi->id);
+	DBG("allocating %lu bytes for fb %d\n", size, ofbi->id);
 		
-        /* really cast me? TODO */
-		vaddr = dma_alloc_coherent(NULL, size,
+     /* really cast me? TODO */
+	vaddr = dma_alloc_coherent(NULL, size,
                                    (dma_addr_t *)&paddr, GFP_KERNEL);
-		
-	    if (!vaddr) {
-	        printk(KERN_ERR "fail to allocate fb mem (size: %ldK))\n", size / 1024);
-	        return -ENOMEM;
-	    }
+	
+    if (!vaddr) {
+        printk(KERN_ERR "fail to allocate fb mem (size: %ldK))\n", size / 1024);
+        return -ENOMEM;
+    }
 
-	    //SetPageReserved(pfn_to_page(((unsigned long) paddr) >> PAGE_SHIFT));
-	    
-	} else {
-		DBG("reserving %lu bytes at %lx for fb %d\n", size, paddr, ofbi->id);
-		
-	}
+	//SetPageReserved(pfn_to_page(((unsigned long) paddr) >> PAGE_SHIFT));
 
 	DBG("allocated VRAM paddr %lx, vaddr %p\n", paddr, vaddr);
 
@@ -1259,8 +1264,7 @@ static int owlfb_alloc_fbmem(struct fb_info *fbi, unsigned long size,
 }
 
 /* allocate fbmem using display resolution as reference */
-static int owlfb_alloc_fbmem_display(struct fb_info *fbi, unsigned long size,
-		unsigned long paddr)
+static int owlfb_alloc_fbmem_display(struct fb_info *fbi, unsigned long size)
 {
 	struct owlfb_info *ofbi = FB2OFB(fbi);
 	struct owlfb_device *fbdev = ofbi->fbdev;
@@ -1296,131 +1300,42 @@ static int owlfb_alloc_fbmem_display(struct fb_info *fbi, unsigned long size,
 	if (!size)
 		return 0;
 
-	return owlfb_alloc_fbmem(fbi, size, paddr);
+	return owlfb_alloc_fbmem(fbi, size);
 }
-
-#if 0
-static enum owl_color_mode fb_format_to_dss_mode(enum owlfb_color_format fmt)
-{
-	enum owl_color_mode mode;
-
-	switch (fmt) {
-	case OWLFB_COLOR_RGB565:
-		mode = OWL_DSS_COLOR_RGB16;
-		break;
-	case OWLFB_COLOR_YVU420:
-		mode = OWL_DSS_COLOR_NV12;
-		break;
-	case OWLFB_COLOR_YUV420:
-		mode = OWL_DSS_COLOR_YU12;
-		break;
-	case OWLFB_COLOR_ARGB16:
-		mode = OWL_DSS_COLOR_ARGB16;
-		break;
-	case OWLFB_COLOR_RGB24U:
-		mode = OWL_DSS_COLOR_RGB24U;
-		break;
-	case OWLFB_COLOR_RGB24P:
-		mode = OWL_DSS_COLOR_RGB24P;
-		break;
-	case OWLFB_COLOR_ARGB32:
-		mode = OWL_DSS_COLOR_ARGB32;
-		break;
-	case OWLFB_COLOR_RGBA32:
-		mode = OWL_DSS_COLOR_RGBA32;
-		break;
-	case OWLFB_COLOR_RGBX32:
-		mode = OWL_DSS_COLOR_RGBX32;
-		break;
-	default:
-		mode = -EINVAL;
-	}
-
-	return mode;
-}
-
-static int owlfb_parse_vram_param(const char *param, int max_entries,
-		unsigned long *sizes, unsigned long *paddrs)
-{
-	int fbnum;
-	unsigned long size;
-	unsigned long paddr = 0;
-	char *p, *start;
-
-	start = (char *)param;
-
-	while (1) {
-		p = start;
-
-		fbnum = simple_strtoul(p, &p, 10);
-
-		if (p == param)
-			return -EINVAL;
-
-		if (*p != ':')
-			return -EINVAL;
-
-		if (fbnum >= max_entries)
-			return -EINVAL;
-
-		size = memparse(p + 1, &p);
-
-		if (!size)
-			return -EINVAL;
-
-		paddr = 0;
-
-		if (*p == '@') {
-			paddr = simple_strtoul(p + 1, &p, 16);
-
-			if (!paddr)
-				return -EINVAL;
-
-		}
-
-		paddrs[fbnum] = paddr;
-		sizes[fbnum] = size;
-
-		if (*p == 0)
-			break;
-
-		if (*p != ',')
-			return -EINVAL;
-
-		++p;
-
-		start = p;
-	}
-
-	return 0;
-}
-#endif
-
 static int owlfb_allocate_all_fbs(struct owlfb_device *fbdev)
 {
 	int i, r;
-	unsigned long vram_sizes[10];
-	unsigned long vram_paddrs[10];
-
-	memset(&vram_sizes, 0, sizeof(vram_sizes));
-	memset(&vram_paddrs, 0, sizeof(vram_paddrs));
+	unsigned long size = 0;
 
 	for (i = 0; i < fbdev->num_fbs; i++) {
 		/* allocate memory automatically only for fb0, or if
 		 * excplicitly defined with vram or plat data option */
-		if (i == 0 || vram_sizes[i] != 0) {
-			r = owlfb_alloc_fbmem_display(fbdev->fbs[i],
-					vram_sizes[i], vram_paddrs[i]);
-
-			if (r)
-				return r;
+		size = 0;
+		if(i == 0){
+			size = OWLFB_BUFFERS_MAX_XRES * OWLFB_BUFFERS_MAX_YRES * fbdev->bpp * OWLFB_NUM_BUFFERS_PER_FB;
+#if CONFIG_FB_MAP_TO_DE	
+			size += OWLFB_MAX_OVL_MEM_RESERVE_PER_OVL * OWLFB_MAX_OVL_MEM_RESERVE_NUM + OWLFB_MAX_CURSOR_MEM_RESERVE;		
+#endif 
 		}
+		DBG("owlfb_allocate_all_fbs allocating %lu bytes for fb %d\n", size,i);
+		r = owlfb_alloc_fbmem_display(fbdev->fbs[i],size);
+		if (r)
+			return r;		
 	}
 
 	for (i = 0; i < fbdev->num_fbs; i++) {
 		struct owlfb_info *ofbi = FB2OFB(fbdev->fbs[i]);
 		struct owlfb_mem_region *rg;
 		rg = ofbi->region;
+		
+		if(i == 0){
+			ofbi->overlay_free_mem_size = OWLFB_MAX_OVL_MEM_RESERVE_PER_OVL * OWLFB_MAX_OVL_MEM_RESERVE_NUM;
+			ofbi->overlay_free_mem_off = 0;
+			ofbi->overlay_mem_base = fbdev->xres * fbdev->yres * fbdev->bpp * OWLFB_NUM_BUFFERS_PER_FB;
+			
+			DBG("ofbi->overlay_free_mem_size 0x%x ofbi->overlay_mem_base 0x%x \n",ofbi->overlay_free_mem_size,ofbi->overlay_mem_base);
+		}
+		ofbi->used_overlay_mask |= 0x01;
 
 		DBG("region%d phys %08x virt %p size=%lu\n",
 				i,
@@ -1457,11 +1372,11 @@ int owlfb_realloc_fbmem(struct fb_info *fbi, unsigned long size, int type)
 		return 0;
 	}
 
-	r = owlfb_alloc_fbmem(fbi, size, 0);
+	r = owlfb_alloc_fbmem(fbi, size);
 
 	if (r) {
 		if (old_size)
-			owlfb_alloc_fbmem(fbi, old_size, old_paddr);
+			owlfb_alloc_fbmem(fbi, old_size);
 
 		if (rg->size == 0)
 			clear_fb_info(fbi);
@@ -1502,67 +1417,86 @@ err:
 	return r;
 }
 
-static void owlfb_auto_update_work(struct work_struct *work)
+struct fb_videomode cvbs_mode_list[2] ={
+	/* 720x576i @ 50 Hz, 15.625 kHz hsync (PAL RGB) */
+	[0] = {
+		NULL, 50, 720, 576, 74074, 64, 16, 39, 5, 64, 5, 0,
+		FB_VMODE_INTERLACED
+	},
+	/* #3: 720x480i@59.94/60Hz */
+	[1] = {
+		NULL, 60, 720, 480, 37037, 60, 16, 30, 9, 62, 6, 0,
+		FB_VMODE_INTERLACED, 0,
+	},
+};
+static int owlfb_build_modelist(struct fb_info *fbi,struct owl_dss_device *display)
 {
-	struct owl_dss_device *dssdev;
-	struct owl_dss_driver *dssdrv;
-	struct owlfb_display_data *d;
-	unsigned int freq;
-	struct owlfb_device *fbdev;
-
-	d = container_of(work, struct owlfb_display_data,
-			auto_update_work.work);
-
-	dssdev = d->dssdev;
-	dssdrv = dssdev->driver;
-	fbdev = d->fbdev;
-
-	freq = auto_update_freq;
-	if (freq == 0)
-		freq = 20;
-
-	queue_delayed_work(fbdev->auto_update_wq,
-			&d->auto_update_work, HZ / freq);
-}
-
-void owlfb_start_auto_update(struct owlfb_device *fbdev,
-		struct owl_dss_device *display)
-{
-	struct owlfb_display_data *d;
-
-	if (fbdev->auto_update_wq == NULL) {
-		struct workqueue_struct *wq;
-
-		wq = create_singlethread_workqueue("owlfb_auto_update");
-
-		if (wq == NULL) {
-			dev_err(fbdev->dev, "Failed to create workqueue for "
-					"auto-update\n");
-			return;
-		}
-
-		fbdev->auto_update_wq = wq;
+	struct fb_monspecs *specs;
+	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct owlfb_device *fbdev = ofbi->fbdev;
+	u8 *edid;
+	int r, i, len;	
+	if (!display->driver->read_edid){
+		if(display->type == OWL_DISPLAY_TYPE_CVBS){
+			for(i = 0 ; i < 2 ; i++){
+				fb_add_videomode(&cvbs_mode_list[i],&fbi->modelist);
+			}
+			return 0;			
+		}else{
+			return -ENODEV;
+		}		
 	}
+	
+	len = 0x80 * 2;
+	edid = kmalloc(len, GFP_KERNEL);
 
-	d = get_display_data(fbdev, display);
+	r = display->driver->read_edid(display, edid, len);
+	if (r < 0){
+		printk("read_edid r %d \n",r);
+		goto err1;
+	}
+	
+	fb_destroy_modelist(&fbi->modelist);
+	
+	memset(&fbi->monspecs, 0, sizeof(fbi->monspecs));
 
-	INIT_DELAYED_WORK(&d->auto_update_work, owlfb_auto_update_work);
+	specs = kzalloc(sizeof(*specs), GFP_KERNEL);
 
-	d->auto_update_work_enabled = true;
+	fb_edid_to_monspecs(edid, specs);
 
-	owlfb_auto_update_work(&d->auto_update_work.work);
-}
+	if (edid[126] > 0)
+		fb_edid_add_monspecs(edid + 0x80, specs);
 
-void owlfb_stop_auto_update(struct owlfb_device *fbdev,
-		struct owl_dss_device *display)
-{
-	struct owlfb_display_data *d;
+	DBG("specs->modedb_len %d \n",specs->modedb_len);
+	for (i = 0; i < specs->modedb_len; ++i) {
+		struct fb_videomode *m;
+		struct owl_video_timings t;
 
-	d = get_display_data(fbdev, display);
+		m = &specs->modedb[i];
 
-	cancel_delayed_work_sync(&d->auto_update_work);
+		if (m->pixclock == 0)
+			continue;
+			
+		if (m->vmode & FB_VMODE_INTERLACED ||
+				m->vmode & FB_VMODE_DOUBLE)
+			continue;
 
-	d->auto_update_work_enabled = false;
+		fb_videomode_to_owl_timings(m, &t);		
+					
+		r = display->driver->check_timings(display, &t);
+		if (r == 0 ) {
+			fb_add_videomode(m,	&fbi->modelist);
+		}
+	}
+	r = 0;
+
+err2:
+	fb_destroy_modedb(specs->modedb);
+	kfree(specs);
+err1:
+	kfree(edid);
+
+	return r;
 }
 
 /* initialize fb_info, var, fix to something sane based on the display */
@@ -1571,6 +1505,7 @@ static int owlfb_fb_init(struct owlfb_device *fbdev, struct fb_info *fbi)
 	struct fb_var_screeninfo *var = &fbi->var;
 	struct owl_dss_device *display = fb2display(fbi);
 	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct fb_videomode * best_mode = NULL;
 	int r = 0;
 
 	fbi->fbops = &owlfb_ops;
@@ -1584,52 +1519,63 @@ static int owlfb_fb_init(struct owlfb_device *fbdev, struct fb_info *fbi)
 
 	var->nonstd = 0;
 	var->bits_per_pixel = 0;
-
-	var->rotate = def_rotate;
-
-	if (display) {
-		u16 w, h;
-		int rotation = (var->rotate + ofbi->rotation[0]) % 4;
-
-		display->driver->get_resolution(display, &w, &h);
-
-		if (rotation == FB_ROTATE_CW ||
-				rotation == FB_ROTATE_CCW) {
-			var->xres = h;
-			var->yres = w;
-		} else {
-			var->xres = w;
-			var->yres = h;
-		}
-
-		var->xres_virtual = var->xres;
-		var->yres_virtual = var->yres;
-
-		if (!var->bits_per_pixel) {
-			switch (owlfb_get_recommended_bpp(fbdev, display)) {
-			case 16:
-				var->bits_per_pixel = 16;
-				break;
-			case 24:
-				var->bits_per_pixel = 32;
-				break;
-			default:
-				dev_err(fbdev->dev, "illegal display "
-						"bpp\n");
-				return -EINVAL;
-			}
-		}
-	} else {
-		/* if there's no display, let's just guess some basic values */
-		var->xres = 320;
-		var->yres = 240;
-		var->xres_virtual = var->xres;
-		var->yres_virtual = var->yres;
-		if (!var->bits_per_pixel)
-			var->bits_per_pixel = 16;
+	
+	
+	switch (owlfb_get_recommended_bpp(fbdev, display)) {
+	case 16:
+		var->bits_per_pixel = 16;
+		break;
+	case 24:
+		var->bits_per_pixel = 32;
+		break;
+	default:
+		var->bits_per_pixel = 32;
+		break;
 	}
+	
+	fbdev->bpp = var->bits_per_pixel / 8;
+	
 
+	if(owlfb_build_modelist(fbi,display) == 0)
+	{
+		best_mode =  fb_find_best_display(&fbi->monspecs, &fbi->modelist);
+		best_mode = NULL;
+				
+	}	
+	if(best_mode != NULL){		
+		
+		fb_videomode_to_var(var, best_mode);
+				
+	}else{
+		/*is primary fb or display is null ,we used fbdev res as ofbi res */
+		if(display != NULL && display->driver != NULL && display->driver->get_timings)
+		{
+			struct owl_video_timings timings;
+			display->driver->get_timings(display,&timings);			
+			var->xres = timings.x_res;
+			var->yres = timings.y_res;
+			var->xres_virtual = timings.x_res;
+			var->yres_virtual = timings.y_res;
+			var->xoffset = 0;
+			var->yoffset = 0;
+			var->pixclock = KHZ2PICOS(timings.pixel_clock);
+			var->left_margin = timings.hfp;
+			var->right_margin = timings.hbp;
+			var->upper_margin = timings.vfp;
+			var->lower_margin = timings.vbp;
+			var->hsync_len = timings.hsw;
+			var->vsync_len = timings.vsw;			
+		}else{
+			var->xres = fbdev->xres;
+			var->yres = fbdev->yres;
+			var->xres_virtual = var->xres;
+			var->yres_virtual = var->yres;
+			var->bits_per_pixel = fbdev->bpp * 8;	
+		}	
+	}	
+	
 	r = check_fb_var(fbi, var);
+	
 	if (r)
 		goto err;
 
@@ -1639,6 +1585,7 @@ static int owlfb_fb_init(struct owlfb_device *fbdev, struct fb_info *fbi)
 	if (r)
 		dev_err(fbdev->dev, "unable to allocate color map memory\n");
 
+	DBG("obfi %d  var:xres %d ,yres %d ,bit_per_pixel %d pixclock %d \n",ofbi->id,var->xres,var->yres,var->bits_per_pixel,var->pixclock);	
 err:
 	return r;
 }
@@ -1672,19 +1619,10 @@ static void owlfb_free_resources(struct owlfb_device *fbdev)
 	for (i = 0; i < fbdev->num_displays; i++) {
 		struct owl_dss_device *dssdev = fbdev->displays[i].dssdev;
 
-		if (fbdev->displays[i].auto_update_work_enabled)
-			owlfb_stop_auto_update(fbdev, dssdev);
-
 		if (dssdev->state != OWL_DSS_DISPLAY_DISABLED)
 			dssdev->driver->disable(dssdev);
 
 		owl_dss_put_device(dssdev);
-	}
-
-	if (fbdev->auto_update_wq != NULL) {
-		flush_workqueue(fbdev->auto_update_wq);
-		destroy_workqueue(fbdev->auto_update_wq);
-		fbdev->auto_update_wq = NULL;
 	}
 
 	dev_set_drvdata(fbdev->dev, NULL);
@@ -1693,7 +1631,7 @@ static void owlfb_free_resources(struct owlfb_device *fbdev)
 
 static int owlfb_create_framebuffers(struct owlfb_device *fbdev)
 {
-	int r, i;
+	int r, i ,k = 0 , j = 0;
 
 	fbdev->num_fbs = 0;
 
@@ -1720,25 +1658,85 @@ static int owlfb_create_framebuffers(struct owlfb_device *fbdev)
 		ofbi = FB2OFB(fbi);
 		ofbi->fbdev = fbdev;
 		ofbi->id = i;
-		ofbi->mirror_to_hdmi = 0;
 
 		ofbi->region = &fbdev->regions[i];
 		ofbi->region->id = i;
 		init_rwsem(&ofbi->region->lock);
-		
+		INIT_LIST_HEAD(&fbi->modelist);
 		fbdev->num_fbs++;
 	}
 
-	DBG("fb_infos allocated\n");
-
-	/* assign overlays for the fbs */
+	printk("fb_infos allocated\n");
+	
+	/* assign managers for the fbs */
+	DBG("assign managers for the fbs fbdev->def_display %p \n",fbdev->def_display);
 	for (i = 0; i < min(fbdev->num_fbs, fbdev->num_overlays); i++) {
 		struct owlfb_info *ofbi = FB2OFB(fbdev->fbs[i]);
+		ofbi->manager =  owl_dss_get_overlay_manager(i);
+		
+		if(ofbi->manager->device){
+			ofbi->manager->unset_device(ofbi->manager);
+		}		
+		/* connected display to managers */
+		if(fbdev->def_display != NULL && i == 0){
+			ofbi->manager->set_device(ofbi->manager,fbdev->def_display);
+		}else{
+			for( j = 0 ; j < fbdev->num_displays ; j++){
+				if(!fbdev->displays[j].connected){
+					fbdev->displays[j].connected = true;
+					ofbi->manager->set_device(ofbi->manager,fbdev->displays[j].dssdev);
+					
+					if(i != 0){
+						DBG("owlfb_register_hotplug_notify allocated %s \n",fbdev->displays[j].dssdev->name);
+						owlfb_register_hotplug_notify(fbdev->displays[j].dssdev);
+					}
+					
+					break;
+				}
+			}			
+		}
+	}	
 
-		ofbi->overlays[0] = fbdev->overlays[i];
-		ofbi->num_overlays = 1;
+	/* assign overlays for the fbs */
+	DBG(" assign overlays for the fbs  \n");
+	for (i = 0; i < min(fbdev->num_fbs, fbdev->num_overlays); i++) {
+		struct owlfb_info *ofbi = FB2OFB(fbdev->fbs[i]);
+		/*this primary fb , we used ovl 1,2*/
+		if(i == 0)
+		{			
+			ofbi->num_overlays = 2;
+			for(j = 0 ; j < ofbi->num_overlays; j++)
+			{
+				ofbi->overlays[j] = fbdev->overlays[k++];
+				DBG("assign ovl %d  for fbs  %d \n", k,i);
+			}
+		}else{
+			/*this external fb , we used ovl 4*/
+			ofbi->num_overlays = 2;
+			for(j = 0 ; j < ofbi->num_overlays; j++)
+			{
+				ofbi->overlays[j] = fbdev->overlays[k++];
+				DBG("assign ovl %d  for fbs  %d \n", k,i);
+			}
+		}
 	}
-
+	
+	/* check overlay and manager for ofbi*/
+	DBG(" check overlay and manager for ofbi \n");
+	for (i = 0; i < fbdev->num_fbs; i++) {		
+		struct owlfb_info *ofbi = FB2OFB(fbdev->fbs[i]);
+		DBG(" ofbi %d , ofbi->num_overlays %d  \n",i,ofbi->num_overlays);
+		for( j = 0 ; j < ofbi->num_overlays;j++){
+			struct owl_overlay *ovl = ofbi->overlays[j];	
+			if (ovl != NULL && ovl->manager != NULL
+				&& ovl->manager->id != ofbi->manager->id) {
+					ovl->disable(ovl);
+			    	ovl->unset_manager(ovl);		    	
+			}
+			ovl->set_manager(ovl,ofbi->manager); 
+			DBG("ovl %s set to manager %s ",ovl->name,ofbi->manager->name);
+		}		
+	}		
 	/* allocate fb memories */
 	r = owlfb_allocate_all_fbs(fbdev);
 	if (r) {
@@ -1749,6 +1747,7 @@ static int owlfb_create_framebuffers(struct owlfb_device *fbdev)
 	DBG("fbmems allocated\n");
 
 	/* setup fb_infos */
+    DBG(" setup fb_infos %d \n",fbdev->num_fbs);
 	for (i = 0; i < fbdev->num_fbs; i++) {
 		struct fb_info *fbi = fbdev->fbs[i];
 		struct owlfb_info *ofbi = FB2OFB(fbi);
@@ -1796,9 +1795,6 @@ static int owlfb_create_framebuffers(struct owlfb_device *fbdev)
 
 		if (ofbi->num_overlays > 0) {
 			struct owl_overlay *ovl = ofbi->overlays[0];
-
-            /* should not apply during probe? lipeng, TODO */
-			//ovl->manager->apply(ovl->manager);
 
 			r = owlfb_overlay_enable(ovl, 1);
 
@@ -1938,137 +1934,6 @@ static int owlfb_get_recommended_bpp(struct owlfb_device *fbdev,
 
 	return dssdev->driver->get_recommended_bpp(dssdev);
 }
-
-static int owlfb_parse_def_modes(struct owlfb_device *fbdev)
-{
-	char *str, *options, *this_opt;
-	int r = 0;
-
-	str = kstrdup(def_mode, GFP_KERNEL);
-	if (!str)
-		return -ENOMEM;
-	options = str;
-
-	while (!r && (this_opt = strsep(&options, ",")) != NULL) {
-		char *p, *display_str, *mode_str;
-		struct owl_dss_device *display;
-		int i;
-
-		p = strchr(this_opt, ':');
-		if (!p) {
-			r = -EINVAL;
-			break;
-		}
-
-		*p = 0;
-		display_str = this_opt;
-		mode_str = p + 1;
-
-		display = NULL;
-		for (i = 0; i < fbdev->num_displays; ++i) {
-			if (strcmp(fbdev->displays[i].dssdev->name,
-						display_str) == 0) {
-				display = fbdev->displays[i].dssdev;
-				break;
-			}
-		}
-
-		if (!display) {
-			r = -EINVAL;
-			break;
-		}
-
-		r = owlfb_set_def_mode(fbdev, display, mode_str);
-		if (r)
-			break;
-	}
-
-	kfree(str);
-
-	return r;
-}
-
-static void fb_videomode_to_owl_timings(struct fb_videomode *m,
-		struct owl_video_timings *t)
-{
-	t->x_res = m->xres;
-	t->y_res = m->yres;
-	t->pixel_clock = PICOS2KHZ(m->pixclock);
-	t->hsw = m->hsync_len;
-	t->hfp = m->right_margin;
-	t->hbp = m->left_margin;
-	t->vsw = m->vsync_len;
-	t->vfp = m->lower_margin;
-	t->vbp = m->upper_margin;
-}
-
-static int owlfb_find_best_mode(struct owl_dss_device *display,
-		struct owl_video_timings *timings)
-{
-	struct fb_monspecs *specs;
-	u8 *edid;
-	int r, i, best_xres, best_idx, len;
-
-	if (!display->driver->read_edid)
-		return -ENODEV;
-
-	len = 0x80 * 2;
-	edid = kmalloc(len, GFP_KERNEL);
-
-	r = display->driver->read_edid(display, edid, len);
-	if (r < 0)
-		goto err1;
-
-	specs = kzalloc(sizeof(*specs), GFP_KERNEL);
-
-	fb_edid_to_monspecs(edid, specs);
-
-	if (edid[126] > 0)
-		fb_edid_add_monspecs(edid + 0x80, specs);
-
-	best_xres = 0;
-	best_idx = -1;
-
-	for (i = 0; i < specs->modedb_len; ++i) {
-		struct fb_videomode *m;
-		struct owl_video_timings t;
-
-		m = &specs->modedb[i];
-
-		if (m->pixclock == 0)
-			continue;
-
-		/* skip repeated pixel modes */
-		if (m->xres == 2880 || m->xres == 1440)
-			continue;
-
-		fb_videomode_to_owl_timings(m, &t);
-
-		r = display->driver->check_timings(display, &t);
-		if (r == 0 && best_xres < m->xres) {
-			best_xres = m->xres;
-			best_idx = i;
-		}
-	}
-
-	if (best_xres == 0) {
-		r = -ENOENT;
-		goto err2;
-	}
-
-	fb_videomode_to_owl_timings(&specs->modedb[best_idx], timings);
-
-	r = 0;
-
-err2:
-	fb_destroy_modedb(specs->modedb);
-	kfree(specs);
-err1:
-	kfree(edid);
-
-	return r;
-}
-
 static int owlfb_init_display(struct owlfb_device *fbdev,
 		struct owl_dss_device *dssdev)
 {
@@ -2086,35 +1951,85 @@ static int owlfb_init_display(struct owlfb_device *fbdev,
 	d = get_display_data(fbdev, dssdev);
 
 	d->fbdev = fbdev;
-
-	if (dssdev->caps & OWL_DSS_DISPLAY_CAP_MANUAL_UPDATE) {
-		if (auto_update) {
-			owlfb_start_auto_update(fbdev, dssdev);
-			d->update_mode = OWLFB_AUTO_UPDATE;
-		} else {
-			d->update_mode = OWLFB_MANUAL_UPDATE;
-		}
-	} else {
-		d->update_mode = OWLFB_AUTO_UPDATE;
-	}
-
+		
 	return 0;
 }
 
+
+static int owlfb_parse_params(struct platform_device *pdev,struct owlfb_device * fbdev)
+{
+	struct device_node      *of_node;
+    char                    propname[20];
+    char * def_display_name = &propname[0];
+    u16 xres , yres , bpp;
+    int i ;
+    
+    of_node = pdev->dev.of_node;
+    
+    of_property_read_string(of_node, "def_display", &def_display_name);
+    DBG("def_display is %s \n",def_display_name);
+    for (i = 0; i < fbdev->num_displays; ++i) {
+			if (strcmp(fbdev->displays[i].dssdev->name,
+						def_display_name) == 0) {
+				fbdev->def_display = fbdev->displays[i].dssdev;
+				fbdev->displays[i].connected = true;
+				DBG("fbdev->def_display is %p \n",fbdev->def_display);
+				break;
+			}
+    }
+    
+    if(fbdev->def_display == NULL){
+    	fbdev->def_display = fbdev->displays[0].dssdev;
+    	fbdev->displays[0].connected = true;
+    }
+    
+    if( fbdev->def_display != NULL 
+    	&& fbdev->def_display->driver != NULL 
+    	&& fbdev->def_display->driver->get_timings != NULL){
+    	struct owl_video_timings timings;
+    	if(fbdev->def_display->driver->get_timings){
+    		fbdev->def_display->driver->get_timings(fbdev->def_display,&timings);
+    		fbdev->xres = timings.x_res;
+			fbdev->yres = timings.y_res;
+			fbdev->refresh = timings.pixel_clock * 1000 
+					/ ((timings.x_res + timings.hsw + timings.hfp + timings.hbp) 
+					* (timings.y_res + timings.vsw + timings.vfp + timings.vbp));
+    	}
+    }
+        
+    if(!of_property_read_u32(of_node, "xres", &xres) 
+    	&& !of_property_read_u32(of_node, "yres", &yres)) {    	
+    	fbdev->xres = xres;
+    	fbdev->yres = yres;
+    	if(fbdev->refresh == 0)
+    	{
+    		fbdev->refresh = 60;
+    	}    	
+    } 
+    fbdev->bpp = 4;       
+	printk("fbdev info : xres %d yres %d refresh %d name %s \n",fbdev->xres,fbdev->yres,fbdev->refresh,fbdev->def_display->name);
+}
+static struct of_device_id owl_fb_of_match[] = {
+	{
+		.compatible	= "actions,framebuffer",
+	},
+	{},
+};
 static int owlfb_probe(struct platform_device *pdev)
 {
 	struct owlfb_device *fbdev = NULL;
+	const struct of_device_id *match;
 	int r = 0;
 	int i;
 	struct owl_overlay *ovl;
-	struct owl_dss_device *def_display;
 	struct owl_dss_device *dssdev;
+	struct device *dev = &pdev->dev;
 	DBG("owlfb_probe\n");
-
-	if (pdev->num_resources != 0) {
-		dev_err(&pdev->dev, "probed for an unknown device\n");
-		r = -ENODEV;
-		goto err0;
+	
+	match = of_match_device(of_match_ptr(owl_fb_of_match), dev);
+	if (!match) {
+		dev_err(dev, "Error: No device match found\n");
+		return -ENODEV;
 	}	
 
 	fbdev = kzalloc(sizeof(struct owlfb_device), GFP_KERNEL);
@@ -2137,18 +2052,12 @@ static int owlfb_probe(struct platform_device *pdev)
 		owl_dss_get_device(dssdev);
 
 		if (!dssdev->driver) {
-			dev_warn(&pdev->dev, "no driver for display: %s\n",
-				dssdev->name);
 			owl_dss_put_device(dssdev);
 			continue;
 		}
 
 		d = &fbdev->displays[fbdev->num_displays++];
 		d->dssdev = dssdev;
-		if (dssdev->caps & OWL_DSS_DISPLAY_CAP_MANUAL_UPDATE)
-			d->update_mode = OWLFB_MANUAL_UPDATE;
-		else
-			d->update_mode = OWLFB_AUTO_UPDATE;
 	}
 
 	if (r)
@@ -2165,61 +2074,30 @@ static int owlfb_probe(struct platform_device *pdev)
 		fbdev->overlays[i] = owl_dss_get_overlay(i);
 
 	fbdev->num_managers = owl_dss_get_num_overlay_managers();
+	
 	for (i = 0; i < fbdev->num_managers; i++)
 		fbdev->managers[i] = owl_dss_get_overlay_manager(i);
-
-	/* gfx overlay should be the default one. find a display
-	 * connected to that, and use it as default display */
-	ovl = owl_dss_get_overlay(0);
-	if (ovl->manager && ovl->manager->device) {
-		def_display = ovl->manager->device;
-	} else {
-		dev_warn(&pdev->dev, "cannot find default display\n");
-		def_display = NULL;
-	}
-
-	if (def_mode && strlen(def_mode) > 0) {
-		if (owlfb_parse_def_modes(fbdev))
-			dev_warn(&pdev->dev, "cannot parse default modes\n");
-	} else if (def_display && def_display->driver->set_timings &&
-			def_display->driver->check_timings) {
-		struct owl_video_timings t;
-
-		r = owlfb_find_best_mode(def_display, &t);
-
-		if (r == 0)
-			def_display->driver->set_timings(def_display, &t);
-	}
-
+		
+	fbdev->mirror_fb_id	 = 0;
+		
+	owlfb_parse_params(pdev,fbdev);  
+	
 	r = owlfb_create_framebuffers(fbdev);
 	if (r)
 		goto cleanup;
 
-    /* should not apply during probe? lipeng, TODO */
-    #if 0
-	for (i = 0; i < fbdev->num_managers; i++) {
-		struct owl_overlay_manager *mgr;
-		mgr = fbdev->managers[i];
-		r = mgr->apply(mgr);
-		if (r)
-			dev_warn(fbdev->dev, "failed to apply dispc config\n");
-	}
-    #endif
-
-	DBG("mgr->apply'ed\n");
-
-	if (def_display) {
+	if (fbdev->def_display) {
 	    if(owl_get_boot_mode() != OWL_BOOT_MODE_UPGRADE){
-			r = owlfb_init_display(fbdev, def_display);
-			if (r) {
-				dev_err(fbdev->dev,
-						"failed to initialize default "
-						"display\n");
-				goto cleanup;
+				r = owlfb_init_display(fbdev, fbdev->def_display);
+				if (r) {
+					dev_err(fbdev->dev,
+							"failed to initialize default "
+							"display\n");
+					goto cleanup;
+				}
+			}else{
+			    printk(" upgrade mode not open display \n");
 			}
-		}else{
-		    printk(" upgrade mode not open display \n");
-		}
 	}
 
 #ifdef CONFIG_FB_MAP_TO_DE
@@ -2263,30 +2141,19 @@ static int owlfb_remove(struct platform_device *pdev)
 	return 0;
 }
 
-static struct platform_device owlfb_device = {
-	.name		= "owlfb",
-	.id		= -1,
-	.num_resources = 0,
-};
-
 static struct platform_driver owlfb_driver = {
 	.probe          = owlfb_probe,
 	.remove         = owlfb_remove,
 	.driver         = {
-		.name   = "owlfb",
+		.name   = "framebuffer",
 		.owner  = THIS_MODULE,
+		.of_match_table	= owl_fb_of_match,
 	},
 };
 
 static int __init owlfb_init(void)
 {
 	DBG("owlfb_init\n");
-	
-	if (platform_device_register(&owlfb_device)) {
-		printk(KERN_ERR "failed to register owlfb device\n");
-		return -ENODEV;
-	}
-
 
 	if (platform_driver_register(&owlfb_driver)) {
 		printk(KERN_ERR "failed to register owlfb driver\n");
@@ -2299,14 +2166,9 @@ static int __init owlfb_init(void)
 static void __exit owlfb_exit(void)
 {
 	DBG("owlfb_exit\n");
-	
-	platform_device_unregister(&owlfb_device);
-	
+
 	platform_driver_unregister(&owlfb_driver);
 }
-
-module_param_named(mode, def_mode, charp, 0);
-module_param_named(rotate, def_rotate, int, 0);
 
 /* late_initcall to let panel/ctrl drivers loaded first.
  * I guess better option would be a more dynamic approach,

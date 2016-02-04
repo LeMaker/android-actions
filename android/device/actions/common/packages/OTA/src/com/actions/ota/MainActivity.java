@@ -197,7 +197,12 @@ public class MainActivity extends Activity implements DownloadStateCallBack, Che
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 mDownMachine.stop();
+                                new Thread()
+                                {
+                                public void run() {
                                 mDownMachine.CancleDownload();
+                                	}
+                                }.start();
                                 //btnOperation.setVisibility(View.VISIBLE);
                                 btnOperation.setEnabled(false);
                                 Message message = new Message();   
@@ -576,6 +581,7 @@ public class MainActivity extends Activity implements DownloadStateCallBack, Che
         Toast.makeText(getApplicationContext(),
                 getString(R.string.connect_server_wrong),
                 Toast.LENGTH_LONG).show();
+        ReSet();
     }
 
     public void onCVServerNotFound(CheckResult cr) {
@@ -585,6 +591,7 @@ public class MainActivity extends Activity implements DownloadStateCallBack, Che
         Toast.makeText(getApplicationContext(),
                 getString(R.string.connect_server_wrong),
                 Toast.LENGTH_LONG).show();
+        ReSet();
     }
 
 
@@ -594,6 +601,7 @@ public class MainActivity extends Activity implements DownloadStateCallBack, Che
         Toast.makeText(getApplicationContext(),
                 getString(R.string.xml_not_exist),
                 Toast.LENGTH_LONG).show();
+        ReSet();
     }
 
 
@@ -671,7 +679,11 @@ public class MainActivity extends Activity implements DownloadStateCallBack, Che
         mNotification.flags = Notification.FLAG_AUTO_CANCEL;
         mNotificationManager.notify(128 ,mNotification);
     }
-    
+    private void ReSet() //fix BUG00405989
+    {
+    	updateUpdatedTime();
+    	btnOperation.setText(getString(R.string.Check_updates)) ;
+    }
     private void dumpUpdateInfo() {
         String mTemp = "" ;
         List<String> mUpdateMessageList = null;

@@ -395,6 +395,22 @@ enum usb_port_connect_type {
 };
 
 /*
+ * USB 2.0 Link Power Management (LPM) parameters.
+ */
+struct usb2_lpm_parameters {
+	/* Best effort service latency indicate how long the host will drive
+	 * resume on an exit from L1.
+	 */
+	unsigned int besl;
+
+	/* Timeout value in microseconds for the L1 inactivity (LPM) timer.
+	 * When the timer counts to zero, the parent hub will initiate a LPM
+	 * transition to L1.
+	 */
+	int timeout;
+};
+
+/*
  * USB 3.0 Link Power Management (LPM) parameters.
  *
  * PEL and SEL are USB 3.0 Link PM latencies for device-initiated LPM exit.
@@ -539,7 +555,9 @@ struct usb_device {
 	unsigned wusb:1;
 	unsigned lpm_capable:1;
 	unsigned usb2_hw_lpm_capable:1;
+	unsigned usb2_hw_lpm_besl_capable:1;
 	unsigned usb2_hw_lpm_enabled:1;
+	unsigned usb2_hw_lpm_allowed:1;
 	unsigned usb3_lpm_enabled:1;
 	int string_langid;
 
@@ -567,6 +585,7 @@ struct usb_device {
 	struct wusb_dev *wusb_dev;
 	int slot_id;
 	enum usb_device_removable removable;
+	struct usb2_lpm_parameters l1_params;
 	struct usb3_lpm_parameters u1_params;
 	struct usb3_lpm_parameters u2_params;
 	unsigned lpm_disable_count;
@@ -1201,6 +1220,7 @@ struct usb_anchor {
 
 static inline void init_usb_anchor(struct usb_anchor *anchor)
 {
+	memset(anchor, 0, sizeof(*anchor));
 	INIT_LIST_HEAD(&anchor->urb_list);
 	init_waitqueue_head(&anchor->wait);
 	spin_lock_init(&anchor->lock);
@@ -1531,10 +1551,16 @@ static inline void usb_fill_int_urb(struct urb *urb,
 	urb->transfer_buffer_length = buffer_length;
 	urb->complete = complete_fn;
 	urb->context = context;
-	if (dev->speed == USB_SPEED_HIGH || dev->speed == USB_SPEED_SUPER)
+
+	if (dev->speed == USB_SPEED_HIGH || dev->speed == USB_SPEED_SUPER) {
+		/* make sure interval is within allowed range */
+		interval = clamp(interval, 1, 16);
+
 		urb->interval = 1 << (interval - 1);
-	else
+	} else {
 		urb->interval = interval;
+	}
+
 	urb->start_frame = -1;
 }
 

@@ -38,6 +38,8 @@
 #define DRV_NAME		"bt_rfkill"
 #define MODULE_TAG		DRV_NAME
 
+#define HAVE_LPM
+
 static struct rfkill *bt_rfk;
 static const char bt_name[] = "ap6210";
 
@@ -91,8 +93,9 @@ int bt_power_on(void)
     pr_info(MODULE_TAG "mt_bt_power_on ++ %d\n", bt_powered_on);
     
 	acts_wlan_bt_power_control(1);
+	gpio_direction_output(bt_wake_pin, 1);
 	msleep(50);
-
+	
 	gpio_direction_output(bt_en_pin, 1);
 	/*
 	 * 50msec, delay after bt rst
@@ -107,7 +110,7 @@ void bt_power_off(void)
 {
     pr_info(MODULE_TAG "mt_bt_power_off ++ %d\n", bt_powered_on);
 	gpio_direction_output(bt_en_pin, 0);
-
+	gpio_direction_output(bt_wake_pin, 0);
 	acts_wlan_bt_power_control(0);
 	msleep(50);
 

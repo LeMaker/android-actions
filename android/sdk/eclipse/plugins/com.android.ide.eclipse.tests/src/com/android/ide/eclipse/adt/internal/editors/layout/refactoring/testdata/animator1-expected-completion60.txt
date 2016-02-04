@@ -1,3 +1,0 @@
-Code completion in animator1.xml for android:propertyName="scal^eX"/>:
-scaleX : scale of the view in the x direction.
-scaleY : scale of the view in the y direction.

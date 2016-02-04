@@ -95,6 +95,46 @@ static int boot_fdt_setprop(void *blob)
 	return 0;
 }
 
+int boot_append_bootargs_add(void *fdt)
+{
+	int node = 0, ret = 0;
+	const char *bootargs;
+	char *bootargs_add;
+	char new_prop[CONFIG_SYS_BARGSIZE];
+
+	bootargs_add = getenv("bootargs.add");
+	if (bootargs_add == NULL)
+		return 0;
+
+	/* find "/chosen" node. */
+	node = fdt_path_offset(fdt, "/chosen");
+	if (node < 0) {
+		printf("fdt_path_offset failed %d\n", node);
+		return -1;
+	}
+
+	bootargs = fdt_getprop(fdt, node, "bootargs", NULL);
+	if (!bootargs) {
+		printf("%s: Warning: No bootargs in fdt %s\n", __func__,
+		       bootargs);
+		return -1;
+	}
+
+	snprintf(new_prop, CONFIG_SYS_BARGSIZE, "%s %s",
+		 bootargs, bootargs_add);
+
+	ret = fdt_setprop(fdt, node, "bootargs",
+			  new_prop, strlen(new_prop) + 1);
+	if (ret < 0) {
+		printf("could not set bootargs %s\n", new_prop);
+		return ret;
+	}
+
+	debug("%s, bootargs %s\n", __func__, new_prop);
+
+	return 0;
+}
+
 
 void owl_boot_fdt_setup(void *blob)
 {
@@ -109,7 +149,7 @@ void owl_boot_fdt_setup(void *blob)
 		is_android_os = false;
 	} 
 
-	printf("owl_boot_fdt_setup %s\n", s);
+	debug("owl_boot_fdt_setup %s\n", s);
 	if((gd->flags & GD_FLG_RECOVERY) ||
 		owl_get_boot_mode() == (int)BOOT_MODE_PRODUCE){
 		is_android_os = true;
@@ -132,7 +172,7 @@ void owl_boot_fdt_setup(void *blob)
 			boot_append_remove_args("androidboot.dvfslevel=0x705x", ENUM_TAIL);
 			if(gd->flags & GD_FLG_CHARGER) {
 				strcpy(buf, "androidboot.mode=charger");
-				printf("=======androidboot.mode:charger=========\n");
+				debug("=======androidboot.mode:charger=========\n");
 				boot_append_remove_args(buf, ENUM_TAIL);
 			}
 		}		
@@ -186,14 +226,15 @@ void owl_boot_fdt_setup(void *blob)
 		memset(sn, 0, sizeof(sn));
 		strcpy(buf, "androidboot.serialno=");
 		if(read_mi_item("SN", sn, sizeof(sn) - 1) < 0){
-			printf("read SN failed\n");
+			debug("read SN failed\n");
 		}else{
-			printf("read SN %s\n", sn);
+			debug("read SN %s\n", sn);
 			strcat(buf,sn);
 			boot_append_remove_args(buf, ENUM_TAIL);
 		}
 	}
 
-	printf("cmdline: %s\n", getenv("bootargs"));
-    boot_fdt_setprop(blob);
+	debug("cmdline: %s\n", getenv("bootargs"));
+	boot_fdt_setprop(blob);
+	boot_append_bootargs_add(blob);
 }

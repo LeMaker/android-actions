@@ -262,7 +262,7 @@ public class CameraActivity extends QuickActivity
     * BUGFIX: fix for error hint when uvc plug out. NOTE: Keep sync with system/camera.h
     *ActionsCode(author:liyuan, change_code)
     */
-    private static final int CAMERA_ERROR_RELEASED = 2;
+    public static final int CAMERA_ERROR_RELEASED = 2;
 
     /**
     * BUGFIX: fix the recording extends the storage limit, which is the 5.0/5.1 record fluent's loophole. 
@@ -1359,8 +1359,10 @@ public class CameraActivity extends QuickActivity
 		    * BUGFIX: fix for error hint when uvc plug out.
 		    *ActionsCode(author:liyuan, change_code)
 		    */
-		    if(errorCode == CAMERA_ERROR_RELEASED)
+		    if(errorCode == CAMERA_ERROR_RELEASED){
+			mCurrentModule.onError(errorCode);
       			CameraUtil.showErrorAndFinish(CameraActivity.this, R.string.cannot_connect_camera);
+		    }
                 }
                 @Override
                 public void onCameraException(

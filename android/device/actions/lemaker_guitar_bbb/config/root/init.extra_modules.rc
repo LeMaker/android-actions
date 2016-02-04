@@ -25,8 +25,8 @@ on post-fs
 
 #	insmod /misc/modules/gsensor_mc3232.ko
 
-    start insmod_gsensor
-    wait /dev/input/event2
+   start insmod_gsensor
+   wait /dev/input/event2
 
     #tp
     start insmod_ctp
@@ -54,7 +54,6 @@ on post-fs
 #	insmod /misc/modules/rfkill-actions_bcmdhd.ko
 	insmod /misc/modules/rfkill-actions_8723bs.ko
 	insmod /misc/modules/bt_rtl.ko
-#	chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     # permissions for bluetooth.
     setprop ro.bt.bdaddr_path "/factory/bluetooth/bt_addr"
     
@@ -85,6 +84,30 @@ service cp_vendor /cp_vendor_app.sh  &
     oneshot
     
 service insmod_ctp /insmod_ctp.sh
+    class modules
+    oneshot
+
+service eth0_up /LMKNetwork.sh eth0 start
+    class modules
+    oneshot
+
+service eth0_down /LMKNetwork.sh eth0 down
+    class modules
+    oneshot
+
+service eth1_up /LMKNetwork.sh eth1 start
+    class modules
+    oneshot
+
+service eth1_down /LMKNetwork.sh eth1 down
+    class modules
+    oneshot
+
+service hdmiup /LMKNetwork.sh hdmi
+    class modules
+    oneshot
+
+service speakup /LMKNetwork.sh speak
     class modules
     oneshot
 

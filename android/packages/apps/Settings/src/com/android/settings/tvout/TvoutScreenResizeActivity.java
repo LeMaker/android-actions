@@ -28,6 +28,7 @@ public class TvoutScreenResizeActivity extends Activity  {
     private SeekBar mHeightSeekBar;
     private int orgScales[];
     private int curScales[];
+    TvoutUtils mTvoutUtils;
     static final String LOG_TAG = "TvoutScreenResizeActivity";
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,9 @@ public class TvoutScreenResizeActivity extends Activity  {
         mConfirmButton = (Button) findViewById(R.id.confirm_button);
         mCancelButton = (Button) findViewById(R.id.cancel_button);
 
-        curScales = TvoutUtils.getInstanceByName(TvoutUtils.TVOUT_HDMI).getTvDisplayScale();
+        mTvoutUtils = TvoutUtils.getInstance();
+
+        curScales = mTvoutUtils.getScreenScaleSize();
         orgScales = curScales.clone();
         if (curScales != null) {
             mWidthSeekBar.setProgress(curScales[0]);
@@ -58,7 +61,7 @@ public class TvoutScreenResizeActivity extends Activity  {
 
         OnClickListener confirmListener = new OnClickListener() {
             public void onClick(View v) {
-                TvoutUtils.getInstanceByName(TvoutUtils.TVOUT_HDMI).setTvDisplayScale(curScales[0], curScales[1]);
+                mTvoutUtils.setScreenScaleSize(curScales[0], curScales[1]);
                 finish();
             }
         };
@@ -68,7 +71,7 @@ public class TvoutScreenResizeActivity extends Activity  {
             public void onClick(View v) {
                 if (orgScales != null) {
                     Log.d(LOG_TAG, "curScales[0]=" + curScales[0] + ",curScales[1]=" + curScales[1]);
-                    TvoutUtils.getInstanceByName(TvoutUtils.TVOUT_HDMI).setTvDisplayScale(orgScales[0], orgScales[1]);
+                    mTvoutUtils.setScreenScaleSize(orgScales[0], orgScales[1]);
                 }
                 finish();
             }
@@ -89,7 +92,7 @@ public class TvoutScreenResizeActivity extends Activity  {
     	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (curScales != null) {
                 curScales[0] = progress;
-                TvoutUtils.getInstanceByName(TvoutUtils.TVOUT_HDMI).setTvDisplayScale(curScales[0], curScales[1]);
+                mTvoutUtils.setScreenScaleSize(curScales[0], curScales[1]);
                 Log.d(LOG_TAG, "curScales[0]=" + curScales[0] + ",curScales[1]=" + curScales[1]);
             }
         }
@@ -107,7 +110,7 @@ public class TvoutScreenResizeActivity extends Activity  {
     	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (curScales != null) {
                 curScales[1] = progress;
-                TvoutUtils.getInstanceByName(TvoutUtils.TVOUT_HDMI).setTvDisplayScale(curScales[0], curScales[1]);
+                mTvoutUtils.setScreenScaleSize(curScales[0], curScales[1]);
                 Log.d(LOG_TAG, "curScales[0]=" + curScales[0] + ",curScales[1]=" + curScales[1]);
             }
         }

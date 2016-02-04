@@ -24,12 +24,9 @@ Required properties:
 Example:
 
 gpio: gpio@b01b0000 {
-	compatible = "actions,gl5203-gpio";
-	reg = < 0xb01b0000 0x10000 >;
+	compatible = "actions,atm7059a-gpio";
+	reg = < 0xb01b0000 0x40 >;
 	interrupts = <
-		0 13 0x04 /* SIRQ0 */
-		0 14 0x04 /* SIRQ1 */
-		0 15 0x04 /* SIRQ2 */
 		0 36 0x04 /* GPIOA */
 		0 37 0x04 /* GPIOB */
 		0 38 0x04 /* GPIOC */

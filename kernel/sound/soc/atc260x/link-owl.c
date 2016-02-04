@@ -412,6 +412,13 @@ static ssize_t dbgflag_store_file(struct device *dev, struct device_attribute *a
 
 static DEVICE_ATTR(dbgflag, 0777, dbgflag_show_file, dbgflag_store_file);
 
+//david add for i2s switch.
+static int i2s_switch_gpio_num = -1;
+enum of_gpio_flags i2s_switch_gpio_level;
+const char *i2s_switch_gpio_name = "i2s_switch_gpio";
+static int i2s_switch_gpio_active;
+
+
 
 static int __init atm7059_link_init(void)
 {
@@ -421,6 +428,7 @@ static int __init atm7059_link_init(void)
 	int pmu_type;
 
 	snd_err("atm7059_link_init\n");
+
 
 	//20141013 yuchen: check pmu type to select correct codec param
 	pmu_type = atc2603a_audio_get_pmu_status();
@@ -448,6 +456,16 @@ static int __init atm7059_link_init(void)
 		goto no_device_node;
 	}
 
+    /*****************20151012 david add***************/ 
+    printk(KERN_ERR"%s,%d\n", __func__, __LINE__);
+    i2s_switch_gpio_num =
+        atm7059_audio_gpio_init(dn, i2s_switch_gpio_name, &i2s_switch_gpio_level);
+    if(i2s_switch_gpio_num > 0){
+        printk(KERN_ERR"%s,%d,num:%d\n", __func__, __LINE__, i2s_switch_gpio_num);
+        i2s_switch_gpio_active = (i2s_switch_gpio_level & OF_GPIO_ACTIVE_LOW); 
+	    gpio_direction_output(i2s_switch_gpio_num, i2s_switch_gpio_active);
+    }
+    /*************************************************/
 
 
 	earphone_gpio_num =
@@ -618,6 +636,14 @@ static void __exit atm7059_link_exit(void)
 		gpio_free(speaker_gpio_num);
 	}	
 	speaker_gpio_num = -1;
+
+    /*---------------david add-----------------------*/
+    if(i2s_switch_gpio_num > 0)
+    {
+		gpio_free(i2s_switch_gpio_num);
+		i2s_switch_gpio_num = -1;
+    }
+    /*----------------------------------------------*/
 
 	platform_device_unregister(atm7059_link_snd_device);
 }

@@ -1,1 +1,1 @@
-obj-y += lcdc/ dsi/ hdmi/ #edp/
+obj-y += lcdc/ dsi/ hdmi/ cvbs/#edp/

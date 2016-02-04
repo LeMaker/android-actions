@@ -101,7 +101,6 @@ EXPORT_SYMBOL(pm_vt_switch_unregister);
  * resume look a little prettier (and suspend too, but that's usually hidden,
  * e.g. when closing the lid on a laptop).
  */
-
 static bool pm_vt_switch(void)
 {
 	struct pm_vt_switch *entry;
@@ -124,7 +123,6 @@ out:
 	mutex_unlock(&vt_switch_mutex);
 	return ret;
 }
-
 
 int pm_prepare_console(void)
 {

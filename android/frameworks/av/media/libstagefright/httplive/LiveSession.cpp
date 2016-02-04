@@ -170,10 +170,11 @@ status_t LiveSession::dequeueAccessUnit(
         targetDurationUs = PlaylistFetcher::kMinBufferedDurationUs;
     }
 
+    /*ActionsCode(author:sunchengzhi,Loading speed optimization)*/
     if (mBuffering[idx]) {
         if (mSwitchInProgress
                 || packetSource->isFinished(0)
-                || packetSource->getEstimatedDurationUs() > targetDurationUs) {
+                || packetSource->getEstimatedDurationUs() > 0/*targetDurationUs*/) {
             mBuffering[idx] = false;
         }
     }

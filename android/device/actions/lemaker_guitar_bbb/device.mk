@@ -38,6 +38,7 @@ PRODUCT_COPY_FILES := \
 	device/actions/lemaker_guitar_bbb/packages-compat-default.xml:system/etc/packages-compat-default.xml \
 	device/actions/lemaker_guitar_bbb/excluded_recovery:system/etc/excluded_recovery \
 	device/actions/lemaker_guitar_bbb/excluded_dataclone:system/etc/excluded_dataclone \
+	device/actions/lemaker_guitar_bbb/NOTICE.html:system/etc/NOTICE.html \
 	device/actions/common/prebuilt/utils/angk/an_001:system/etc/angk/an_001 \
 	device/actions/common/prebuilt/utils/angk/an_002:system/etc/angk/an_002 \
 	build/target/product/security/platform.pk8:/system/etc/security/platform.pk8 \
@@ -216,6 +217,7 @@ PRODUCT_PACKAGES += \
 	libbacklight \
 	libimg_en \
 	libACT_EncAPI \
+	libACT_VceResize \
 	libhdri
 	
 
@@ -366,7 +368,7 @@ PRODUCT_COPY_FILES += \
 	device/actions/lemaker_guitar_bbb/config/root/cp_vendor_app.sh:root/cp_vendor_app.sh \
 	device/actions/lemaker_guitar_bbb/config/root/insmod_camera.sh:root/insmod_camera.sh \
 	device/actions/lemaker_guitar_bbb/config/root/insmod_ctp.sh:root/insmod_ctp.sh \
-	device/actions/lemaker_guitar_bbb/config/root/lemakerled.sh:root/lemakerled.sh \
+	device/actions/lemaker_guitar_bbb/config/root/LMKNetwork.sh:root/LMKNetwork.sh \
 	device/actions/lemaker_guitar_bbb/config/root/insmod_gsensor.sh:root/insmod_gsensor.sh \
 	device/actions/lemaker_guitar_bbb/config/root/usbmond.sh:root/usbmond.sh
 
@@ -443,6 +445,8 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.settings.mobilenetworks=true \
 	ro.settings.phonestatus=true \
 	ro.g3.display=true \
+	ro.support.eth0=false \
+        ro.support.eth1=false \
 	ro.airplanemode.display=true \
 	ro.settings.support.ethernet=true \
 	ro.settings.compatibility=false \
@@ -489,7 +493,7 @@ ADDITIONAL_DEFAULT_PROPERTIES+= \
 	ro.sf.default_rotation=1 \
 	ro.setupwizard.mode=DISABLE \
 	persist.sys.timezone=Asia/Shanghai \
-	persist.sys.strictmode.disable=true
+	persist.sys.strictmode.disable=true \
 
 
 ifeq ($(R_GMS_TYPE),)

@@ -46,12 +46,12 @@ enum SUPPORT_ADAPTER_TYPE
 	DCIN,
 	USB,
 	DCIN_USB,
-	
 };
 
 int is_battery_exist(void);
 void get_bat_capacity(int *cap, int bat_mv);
 int get_bat_voltage(int *vol);
+void get_cfg_items(void);
 int get_adaptor_type(int *type);
 int get_charge_plugin_status(int* wall_mv, int* vbus_mv);
 void atc260x_shutoff(void);

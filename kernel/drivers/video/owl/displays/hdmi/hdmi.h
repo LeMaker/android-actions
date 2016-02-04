@@ -108,6 +108,10 @@ enum hdmi_core_hdmi_dvi {
 	HDMI_HDMI = 1
 };
 
+enum hdmi_core_irq_state {
+	HDMI_HPD_IRQ = 0x1,
+	HDMI_CEC_IRQ = 0x2,
+};
 enum hdmi_clk_refsel {
 	HDMI_REFSEL_PCLK = 0,
 	HDMI_REFSEL_REF1 = 1,
@@ -213,6 +217,7 @@ struct hdmi_video_format {
 struct hdmi_cm {
 	int	code;
 	int	mode;
+	int vid;
 };
 
 struct hdmi_settings {
@@ -339,6 +344,8 @@ struct owl_hdmi_ip_ops {
 	void (*dump_hdmi)(struct hdmi_ip_data *ip_data);	
 	
 	void (*video_configure)(struct hdmi_ip_data *ip_data);
+	
+	u32 (*get_irq_state)(struct hdmi_ip_data *ip_data);
 };
 
 /**************************
@@ -356,12 +363,15 @@ void hdmi_send_uevent(bool data);
 int owldss_hdmi_display_enable(struct owl_dss_device *dssdev);
 void owldss_hdmi_display_disable(struct owl_dss_device *dssdev);
 void owldss_hdmi_display_set_timing(struct owl_dss_device *dssdev,	struct owl_video_timings *timings);
-void owldss_hdmi_display_set_vid(struct owl_dss_device *dssdev,	struct owl_video_timings *timings, int vid);
+void owldss_hdmi_display_set_vid(struct owl_dss_device *dssdev,	int vid);
 void owldss_hdmi_display_get_vid(struct owl_dss_device *dssdev, int *vid);
+void owldss_hdmi_display_set_overscan(struct owl_dss_device *dssdev,u16 over_scan_width,u16 over_scan_height);
+void owldss_hdmi_display_get_overscan(struct owl_dss_device *dssdev, u16 * over_scan_width,u16 * over_scan_height);
 void owldss_hdmi_display_enable_hotplug(struct owl_dss_device *dssdev, bool enable);
 void owldss_hdmi_display_enable_hdcp(struct owl_dss_device *dssdev, bool enable);
 int owldss_hdmi_display_get_vid_cap(struct owl_dss_device *dssdev, int *vid_cap);
 int owldss_hdmi_display_get_cable_status(struct owl_dss_device *dssdev);
+int owldss_hdmi_read_edid(struct owl_dss_device *dssdev, u8 * buffer , int len);
 int owldss_hdmi_display_check_timing(struct owl_dss_device *dssdev, struct owl_video_timings *timings);
 int owldss_hdmi_panel_init(struct owl_dss_device *dssdev);
 int owl_hdmi_init_platform(void);
@@ -392,6 +402,7 @@ hdmi_edid.c
 **************************/
 int ddc_init(void);
 int parse_edid(struct hdmi_edid *edid);
+int read_edid(u8 * edid , int len);
 int i2c_hdcp_write(const char *buf, unsigned short offset, int count) ;
 int i2c_hdcp_read(char *buf, unsigned short offset, int count) ;
 /**************************

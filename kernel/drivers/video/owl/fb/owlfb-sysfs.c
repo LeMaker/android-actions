@@ -41,8 +41,9 @@ static ssize_t show_mirror_to_hdmi(struct device *dev,
 {
 	struct fb_info *fbi = dev_get_drvdata(dev);
 	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct owlfb_device *fbdev = ofbi->fbdev;
 
-	return snprintf(buf, PAGE_SIZE, "%d\n", ofbi->mirror_to_hdmi);
+	return snprintf(buf, PAGE_SIZE, "%d\n", fbdev->mirror_fb_id);
 }
 
 static ssize_t store_mirror_to_hdmi(struct device *dev,
@@ -51,16 +52,17 @@ static ssize_t store_mirror_to_hdmi(struct device *dev,
 {
 	struct fb_info *fbi = dev_get_drvdata(dev);
 	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct owlfb_device *fbdev = ofbi->fbdev;
 	struct owl_overlay *ovl= NULL;
 	bool mirror_to_hdmi;
 	int r;
 	int i = 0;
 	int vid = 1;
 	
-	struct owl_overlay_manager *tv_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_TV);
-	struct owl_dss_device *dssdev = tv_mgr->device;
+	struct owl_overlay_manager *external_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_EXTERNAL);
+	struct owl_dss_device *dssdev = external_mgr->device;
 	
-	if (owl_get_boot_mode() == OWL_BOOT_MODE_UPGRADE) {
+	if (owl_get_boot_mode() == OWL_BOOT_MODE_UPGRADE || dssdev == NULL) {
 		printk("upgrade process hdmi disabled!!\n");
 		return -ENODEV;
 	}
@@ -72,35 +74,30 @@ static ssize_t store_mirror_to_hdmi(struct device *dev,
 	if (!lock_fb_info(fbi))
 		return -ENODEV;
 
-	ofbi->mirror_to_hdmi = mirror_to_hdmi;
-
+	fbdev->mirror_fb_id = mirror_to_hdmi;
+	
 	owlfb_get_mem_region(ofbi->region);
-	printk(KERN_ERR "store_mirror_to_hdmi %d\n",mirror_to_hdmi);
+	DBG("store_mirror_to_hdmi %d\n",mirror_to_hdmi);
 	if(mirror_to_hdmi){
-		dss_mgr_enable(tv_mgr);
-		
-		for(i = 0 ; i < ofbi->num_overlays ; i++){
-			ovl = owl_dss_get_overlay(3 - i);
-			if(ovl->manager->id != OWL_DSS_CHANNEL_DIGIT){
-				ovl->disable(ovl);
-				ovl->unset_manager(ovl);
-				ovl->set_manager(ovl,tv_mgr); 
+		external_mgr->mirror_context = true;
+		if(dssdev->driver->get_cable_status){
+			if(dssdev->driver->get_cable_status(dssdev)){
+				dssdev->driver->get_vid(dssdev,&vid);
+				dssdev->driver->set_vid(dssdev,vid);		
+				dssdev->driver->enable(dssdev);	
 			}
-		}
-		
-		//dssdev->driver->enable_hpd(dssdev, 0);		
-		dssdev->driver->get_vid(dssdev,&vid);
-		dssdev->driver->set_vid(dssdev,vid);
-		
-		dssdev->driver->enable(dssdev);		
+		}else{
+			dssdev->driver->get_vid(dssdev,&vid);
+			dssdev->driver->set_vid(dssdev,vid);		
+			dssdev->driver->enable(dssdev);	
+		}		
+		external_mgr->link_fbi	= fbi;
 		
     }else{
     	
     	dssdev->driver->disable(dssdev);
-    	
-    	dss_mgr_disable(tv_mgr);
-    	
-    	//dssdev->driver->enable_hpd(dssdev, 1);	
+    	external_mgr->mirror_context = false;
+    	external_mgr->link_fbi	= NULL;
     }   
     
 	r = owlfb_apply_changes(fbi, 0);
@@ -308,98 +305,57 @@ out:
 	return r;
 }
 
-static ssize_t show_overlays_rotate(struct device *dev,
+static ssize_t show_overscan(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
 	struct fb_info *fbi = dev_get_drvdata(dev);
-	struct owlfb_info *ofbi = FB2OFB(fbi);
+	struct owl_dss_device *display = fb2display(fbi);
+	u16 overscan_w ,overscan_h;
 	ssize_t l = 0;
 	int t;
 
 	if (!lock_fb_info(fbi))
 		return -ENODEV;
-
-	for (t = 0; t < ofbi->num_overlays; t++) {
-		l += snprintf(buf + l, PAGE_SIZE - l, "%s%d",
-				t == 0 ? "" : ",", ofbi->rotation[t]);
+	
+	if(display != NULL && display->driver != NULL && display->driver->get_over_scan){
+		display->driver->get_over_scan(display,&overscan_w ,&overscan_h);
+		l += snprintf(buf + l, PAGE_SIZE - l, "%d,%d\n",overscan_w,overscan_h);
+	}else{
+		l += snprintf(buf + l, PAGE_SIZE - l, "%d,%d\n",0,0);
 	}
-
-	l += snprintf(buf + l, PAGE_SIZE - l, "\n");
-
+	
 	unlock_fb_info(fbi);
 
 	return l;
 }
 
-static ssize_t store_overlays_rotate(struct device *dev,
+static ssize_t store_overscan(struct device *dev,
 		struct device_attribute *attr, const char *buf, size_t count)
 {
 	struct fb_info *fbi = dev_get_drvdata(dev);
+	struct owl_dss_device *display = fb2display(fbi);
 	struct owlfb_info *ofbi = FB2OFB(fbi);
-	int num_ovls = 0, r, i;
-	int len;
-	bool changed = false;
-	u8 rotation[OWLFB_MAX_OVL_PER_FB];
-
-	len = strlen(buf);
-	if (buf[len - 1] == '\n')
-		len = len - 1;
+	int r = 0;
+	u16 overscan_w ,overscan_h;
 
 	if (!lock_fb_info(fbi))
 		return -ENODEV;
-
-	if (len > 0) {
-		char *p = (char *)buf;
-
-		while (p < buf + len) {
-			int rot;
-
-			if (num_ovls == ofbi->num_overlays) {
-				r = -EINVAL;
-				goto out;
-			}
-
-			rot = simple_strtoul(p, &p, 0);
-			if (rot < 0 || rot > 3) {
-				r = -EINVAL;
-				goto out;
-			}
-
-			if (ofbi->rotation[num_ovls] != rot)
-				changed = true;
-
-			rotation[num_ovls++] = rot;
-
-			p++;
-		}
+	
+	sscanf(buf,"%d,%d",&overscan_w,&overscan_h);
+	
+	if(display != NULL && display->driver != NULL && display->driver->set_over_scan){
+		display->driver->set_over_scan(display,overscan_w ,overscan_h);
 	}
-
-	if (num_ovls != ofbi->num_overlays) {
-		r = -EINVAL;
-		goto out;
-	}
-
-	if (changed) {
-		for (i = 0; i < num_ovls; ++i)
-			ofbi->rotation[i] = rotation[i];
-
-		owlfb_get_mem_region(ofbi->region);
-
-		r = owlfb_apply_changes(fbi, 0);
-
-		owlfb_put_mem_region(ofbi->region);
-
-		if (r)
-			goto out;
-
-		/* FIXME error handling? */
-	}
-
-	r = count;
+	
+	owlfb_get_mem_region(ofbi->region);
+	
+	owlfb_apply_changes(fbi, 0);
+	
+	owlfb_put_mem_region(ofbi->region);
 out:
 	unlock_fb_info(fbi);
 
-	return r;
+	return count;
 }
 
 static ssize_t show_size(struct device *dev,
@@ -496,48 +452,13 @@ static ssize_t show_virt(struct device *dev,
 	return snprintf(buf, PAGE_SIZE, "%p\n", ofbi->region->vaddr);
 }
 
-static ssize_t show_upd_mode(struct device *dev,
-		struct device_attribute *attr, char *buf)
-{
-	struct fb_info *fbi = dev_get_drvdata(dev);
-	enum owlfb_update_mode mode;
-	int r;
-
-	r = owlfb_get_update_mode(fbi, &mode);
-
-	if (r)
-		return r;
-
-	return snprintf(buf, PAGE_SIZE, "%u\n", (unsigned)mode);
-}
-
-static ssize_t store_upd_mode(struct device *dev, struct device_attribute *attr,
-		const char *buf, size_t count)
-{
-	struct fb_info *fbi = dev_get_drvdata(dev);
-	unsigned mode;
-	int r;
-
-	r = kstrtouint(buf, 0, &mode);
-	if (r)
-		return r;
-
-	r = owlfb_set_update_mode(fbi, mode);
-	if (r)
-		return r;
-
-	return count;
-}
-
 static struct device_attribute owlfb_attrs[] = {
 	__ATTR(mirror_to_hdmi, S_IRUGO | S_IWUSR, show_mirror_to_hdmi, store_mirror_to_hdmi),
 	__ATTR(size, S_IRUGO | S_IWUSR, show_size, store_size),
 	__ATTR(overlays, S_IRUGO | S_IWUSR, show_overlays, store_overlays),
-	__ATTR(overlays_rotate, S_IRUGO | S_IWUSR, show_overlays_rotate,
-			store_overlays_rotate),
+	__ATTR(overscan, S_IRUGO | S_IWUSR, show_overscan, store_overscan),
 	__ATTR(phys_addr, S_IRUGO, show_phys, NULL),
 	__ATTR(virt_addr, S_IRUGO, show_virt, NULL),
-	__ATTR(update_mode, S_IRUGO | S_IWUSR, show_upd_mode, store_upd_mode),
 };
 
 int owlfb_create_sysfs(struct owlfb_device *fbdev)

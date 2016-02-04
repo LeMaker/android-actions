@@ -96,11 +96,11 @@ static void gpio_cfg_init(void)
 				tmp[k] = fdt32_to_cpu(cell[j*3+k]);
 			}
 			if ( tmp[0] >=32 ) {
-				printf("%s, gpio num=%d >= 32 fail\n", sname, tmp[0]);
+				debug("%s, gpio num=%d >= 32 fail\n", sname, tmp[0]);
 				continue;
 			}
 			gpio = tmp[0]+ i*32;
-			printf("gpio=%d,mode=%d,val=%d\n",gpio, tmp[1], tmp[2]);
+			debug("gpio=%d,mode=%d,val=%d\n",gpio, tmp[1], tmp[2]);
 			if ( tmp[1] == 0 )
 				owl_gpio_clr(gpio);
 			else if ( tmp[1] == 1 )

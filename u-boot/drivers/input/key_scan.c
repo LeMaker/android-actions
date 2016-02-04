@@ -91,7 +91,7 @@ static int adckey_index(void)
     unsigned short adc_val;
     
     adc_val = pmu_adckey_read();
-    printf("adc_val=%d\n", adc_val);
+    debug("adc_val=%d\n", adc_val);
     for(i = 0; i < sizeof(adckey)/sizeof(struct adckey); i++) {
         if (adc_val >= adckey[i].adc_min && adc_val <= adckey[i].adc_max) {
             return i;
@@ -110,26 +110,28 @@ static int adckey_init(void)
 	int	node, ret;
 	int keymapsize, i;
 	u32 keyval[10], left_adc_val[10], right_adc_val[10];
-	const char *str_channel;
+	const char *str_channel, *status;
 	const char *name_channel[4]= {"AUX0", "AUX1", "AUX2", "REMCON"};
 	const char *adc_compat [3] = {"actions,atc2603c-adckeypad", "actions,atc2603a-adckeypad", "actions,atc2609a-adckeypad"};
 
 	for ( i = 0 ; i < 3; i++ ) {
 		node = fdt_node_offset_by_compatible(gd->fdt_blob, 0, adc_compat[i]);
-		if ( node >= 0 )
-			break;
+		if ( node >= 0 ) {
+			status = fdt_getprop(gd->fdt_blob, node, "status", NULL);
+			if ( (status == NULL) || (0 != strcmp("disabled", status)) )
+				break;
+		}
 	}
 	if (i == 3) {
-		printf("cannot locate keyboard node\n");
-		return node;
+		debug("cannot locate keyboard node\n");
+		return -1;
 	}
 
 	keymapsize = fdtdec_get_int(gd->fdt_blob,
 		       node, "keymapsize", 0);
 	if (keymapsize <= 0 ) {
 		printf("adckey: keymapsize err\n");
-		return keymapsize;
-
+		return -1;
 	}
 
 	str_channel = fdt_getprop(gd->fdt_blob, node, "adc_channel_name", NULL);
@@ -140,7 +142,7 @@ static int adckey_init(void)
 				break;
 			}
 		}		
-		printf("adckey: %s, channel=%d\n", str_channel, adc_channel);
+		debug("adckey: %s, channel=%d\n", str_channel, adc_channel);
 	}
 		
 	keymapsize = (keymapsize < 10)?keymapsize:10 ;
@@ -156,7 +158,7 @@ static int adckey_init(void)
 		return -1;
 	}
 	
-	printf("adckey: keynum=%d\n", keymapsize);
+	debug("adckey: keynum=%d\n", keymapsize);
     for(i = 0; i < keymapsize; i++) {
 		adckey[i].adc_min =  left_adc_val[i];
 		adckey[i].adc_max =  right_adc_val[i];
@@ -169,7 +171,9 @@ static int adckey_init(void)
 
 static int adckey_scan(void)
 {
-	adckey_init();
+	if(adckey_init() < 0)
+		return -1;
+		
     return adckey[adckey_index()].key_val;
 }
 
@@ -191,7 +195,7 @@ int count_onoff_short_press(void)
 		mdelay(1);
 	}
         
-    printf("start count onoff times\n");
+    debug("start count onoff times\n");
         
     /* clear On/Off press pending */
     atc260x_set_bits(ATC2603C_PMU_SYS_CTL2, 
@@ -217,7 +221,7 @@ int count_onoff_short_press(void)
             ONOFF_SHORT_PRESS | ONOFF_LONG_PRESS);
     }
     
-    printf("Onoff press %d times\n", poll_times);
+    debug("Onoff press %d times\n", poll_times);
     return poll_times;
 }
 

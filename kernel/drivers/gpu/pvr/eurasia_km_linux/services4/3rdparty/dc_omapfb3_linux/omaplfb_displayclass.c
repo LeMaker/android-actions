@@ -88,6 +88,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #define OMAPLFB_COMMAND_COUNT		1
 
+#define REINIT_FBINFO_WHEN_OPENDC 1
+
 #define	OMAPLFB_VSYNC_SETTLE_COUNT	5
 
 #define	OMAPLFB_MAX_NUM_DEVICES		FB_MAX
@@ -209,6 +211,10 @@ static IMG_VOID SetDCState(IMG_HANDLE hDevice, IMG_UINT32 ui32State)
 	}
 }
 
+#if REINIT_FBINFO_WHEN_OPENDC
+OMAPLFB_ERROR ReInitDCinfo(OMAPLFB_DEVINFO *psDevInfo);
+#endif
+
 /*
  * OpenDCDevice
  * Called from services.
@@ -244,6 +250,17 @@ static PVRSRV_ERROR OpenDCDevice(IMG_UINT32 uiPVRDevID,
 		eError = PVRSRV_ERROR_INVALID_DEVICE;
 		goto ErrorModulePut;
 	}
+	
+	#if REINIT_FBINFO_WHEN_OPENDC
+	if(ReInitDCinfo(psDevInfo) != OMAPLFB_OK)
+	{
+				DEBUG_PRINTK((KERN_WARNING DRIVER_PREFIX
+			": %s: PVR Device %u not found\n", __FUNCTION__, uiPVRDevID));
+		eError = PVRSRV_ERROR_INVALID_DEVICE;
+		goto ErrorModulePut;
+	}
+	#endif
+	
 
 	/* store the system surface sync data */
 	psDevInfo->sSystemBuffer.psSyncData = psSystemBufferSyncData;
@@ -1368,6 +1385,63 @@ ErrorRelSem:
 	return eError;
 }
 
+#if REINIT_FBINFO_WHEN_OPENDC
+/*!
+******************************************************************************
+
+ @Function	OMAPLFBInitFBDev
+ 
+ @Description WorkAround: reinit DCInfo when Open DCDevice because FBInfo maybe changed by FB device for resolution switch
+ 
+ @Input    OMAPLFB_DEVINFO - psDevInfo
+
+ @Return   OMAPLFB_ERROR  :
+
+******************************************************************************/
+OMAPLFB_ERROR ReInitDCinfo(OMAPLFB_DEVINFO *psDevInfo)
+{
+	OMAPLFB_ERROR eError = OMAPLFB_OK;
+	if(OMAPLFBAtomicBoolRead(&psDevInfo->sInitFBInfoFlag))
+	{
+		return OMAPLFB_OK;
+	}
+	if(OMAPLFBInitFBDev(psDevInfo) != OMAPLFB_OK)
+	{
+		OMAPLFB_ERROR eError = PVRSRV_ERROR_INVALID_DEVICE;
+		return eError;
+	}
+		psDevInfo->sDisplayInfo.ui32MaxSwapChainBuffers = (IMG_UINT32)(psDevInfo->sFBInfo.ulFBSize / psDevInfo->sFBInfo.ulRoundedBufferSize);
+	if (psDevInfo->sDisplayInfo.ui32MaxSwapChainBuffers != 0)
+	{
+		psDevInfo->sDisplayInfo.ui32MaxSwapChains = 1;
+		psDevInfo->sDisplayInfo.ui32MaxSwapInterval = 1;
+	}
+
+	psDevInfo->sDisplayInfo.ui32PhysicalWidthmm = psDevInfo->sFBInfo.ulPhysicalWidthmm;
+	psDevInfo->sDisplayInfo.ui32PhysicalHeightmm = psDevInfo->sFBInfo.ulPhysicalHeightmm;
+
+	strncpy(psDevInfo->sDisplayInfo.szDisplayName, DISPLAY_DEVICE_NAME, MAX_DISPLAY_NAME_SIZE);
+
+	psDevInfo->sDisplayFormat.pixelformat = psDevInfo->sFBInfo.ePixelFormat;
+	psDevInfo->sDisplayDim.ui32Width      = (IMG_UINT32)psDevInfo->sFBInfo.ulWidth;
+	psDevInfo->sDisplayDim.ui32Height     = (IMG_UINT32)psDevInfo->sFBInfo.ulHeight;
+	psDevInfo->sDisplayDim.ui32ByteStride = (IMG_UINT32)psDevInfo->sFBInfo.ulByteStride;
+
+	DEBUG_PRINTK((KERN_INFO DRIVER_PREFIX
+		": Device %u: Maximum number of swap chain buffers: %u\n",
+		psDevInfo->uiFBDevID, psDevInfo->sDisplayInfo.ui32MaxSwapChainBuffers));
+
+	/* Setup system buffer */
+	psDevInfo->sSystemBuffer.sSysAddr = psDevInfo->sFBInfo.sSysAddr;
+	psDevInfo->sSystemBuffer.sCPUVAddr = psDevInfo->sFBInfo.sCPUVAddr;
+	psDevInfo->sSystemBuffer.psDevInfo = psDevInfo;
+
+  OMAPLFBAtomicBoolInit(&psDevInfo->sInitFBInfoFlag, OMAPLFB_TRUE);
+  printk("InitFBinfo uiFBDevID: %d.\n",psDevInfo->uiFBDevID);
+	return eError;
+}
+#endif
+
 static void OMAPLFBDeInitFBDev(OMAPLFB_DEVINFO *psDevInfo)
 {
 	struct fb_info *psLINFBInfo = psDevInfo->psLINFBInfo;
@@ -1525,6 +1599,11 @@ static OMAPLFB_DEVINFO *OMAPLFBInitDev(unsigned uiFBDevID)
 	OMAPLFBAtomicBoolInit(&psDevInfo->sEarlySuspendFlag, OMAPLFB_FALSE);
 #endif
 
+#if REINIT_FBINFO_WHEN_OPENDC
+	OMAPLFBAtomicBoolInit(&psDevInfo->sInitFBInfoFlag, OMAPLFB_FALSE);
+	OMAPLFBDeInitFBDev(psDevInfo);
+#endif
+
 	return psDevInfo;
 
 ErrorUnregisterDevice:
@@ -1606,9 +1685,13 @@ static OMAPLFB_BOOL OMAPLFBDeInitDev(OMAPLFB_DEVINFO *psDevInfo)
 	OMAPLFBAtomicBoolDeInit(&psDevInfo->sBlanked);
 	OMAPLFBAtomicIntDeInit(&psDevInfo->sBlankEvents);
 	OMAPLFBAtomicBoolDeInit(&psDevInfo->sFlushCommands);
-
-	OMAPLFBDeInitFBDev(psDevInfo);
-
+#if REINIT_FBINFO_WHEN_OPENDC	
+	if(OMAPLFBAtomicBoolRead(&psDevInfo->sInitFBInfoFlag))
+#endif
+	{
+		OMAPLFBDeInitFBDev(psDevInfo);
+	}
+	
 	OMAPLFBSetDevInfoPtr(psDevInfo->uiFBDevID, NULL);
 
 	/* De-allocate data structure */

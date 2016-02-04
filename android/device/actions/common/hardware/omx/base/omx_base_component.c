@@ -277,7 +277,7 @@ OSCL_EXPORT_REF OMX_ERRORTYPE omx_base_component_Destructor(OMX_COMPONENTTYPE *o
   int err;
   DEBUG(DEB_LEV_FUNCTION_NAME, "In %s for component %p\n", __func__, openmaxStandComp);
   omx_base_component_Private->state = OMX_StateInvalid;
-  omx_base_component_Private->callbacks=NULL;
+  //omx_base_component_Private->callbacks=NULL; //fix bug, avoid to the crash of "messageHandlerThread" thread when callbacks==NULL
 
   /*Send Dummy signal to Component Message handler to exit*/
   tsem_up(omx_base_component_Private->messageSem);

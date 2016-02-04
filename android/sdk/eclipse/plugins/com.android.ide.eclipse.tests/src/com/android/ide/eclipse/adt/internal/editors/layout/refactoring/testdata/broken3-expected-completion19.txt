@@ -1,2 +1,0 @@
-Code completion in broken3.xml for <EditT^:
-EditText />

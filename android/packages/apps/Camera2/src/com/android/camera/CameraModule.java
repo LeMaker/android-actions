@@ -54,6 +54,12 @@ public abstract class CameraModule implements ModuleController {
     public abstract void onSingleTapUp(View view, int x, int y);
 
     /**
+    * BUGFIX: fix for error hint when uvc plug out.
+    *ActionsCode(author:liyuan, change_code)
+    */
+    public void onError(int errorCode){}
+    
+    /**
      * @return An instance containing common services to be used by the module.
      */
     protected CameraServices getServices() {

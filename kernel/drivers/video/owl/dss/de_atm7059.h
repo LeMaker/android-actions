@@ -148,6 +148,7 @@
 #define DE_PATH_CTL_GAMMA_ENABLE_BIT		9
 
 #define DE_PANEL_ENABLE_BIT			20
+#define DE_PANEL_CURSOR_ENABLE_BIT	24
 #define DE_PATH_FCR_BIT				29
 
 #endif

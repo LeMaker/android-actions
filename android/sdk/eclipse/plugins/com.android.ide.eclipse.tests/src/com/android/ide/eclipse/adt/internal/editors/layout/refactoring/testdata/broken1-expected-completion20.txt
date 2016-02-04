@@ -1,2 +1,0 @@
-Code completion in broken1.xml for android:textColorHigh^:
-android:textColorHighlight : Color of the text selection highlight.  [color, reference]

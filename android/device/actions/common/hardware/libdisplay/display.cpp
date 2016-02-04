@@ -274,6 +274,108 @@ static int owldisp_get_hdmi_vid(struct owldisp_device_t *dev)
 	return vid;
 }
 
+/********************cvbs setting******************************/
+
+static int owldisp_set_cvbs_enable (struct owldisp_device_t *dev,bool enable)
+{
+	char buf[256]={0};
+	ALOGD("owldisp_set_cvbs_enable ~~~ enable %d",enable);
+	int fd = open("/data/setting/setting_cvbs_enable", O_WRONLY);	
+	if (fd < 0){
+		ALOGE("open file(%s) error", "/data/setting/setting_cvbs_enable");
+		return -1;
+	}
+	
+	sprintf(buf, "%d ",enable?1:0);
+	
+	write(fd, buf, strlen(buf));
+	
+	close(fd);
+
+	return 0;
+}
+
+static int owldisp_get_cvbs_enable (struct owldisp_device_t *dev)
+{
+	char buf[256]={0};
+	int enable = 0;
+	ALOGD("owldisp_get_cvbs_enable ~~~");
+	int fd = open("/data/setting/setting_cvbs_enable", O_RDONLY);	
+	if (fd < 0){
+		ALOGE("open file(%s) error", "/data/setting/setting_cvbs_enable");
+		return 0;
+	}
+	
+	read(fd, buf, sizeof(int));
+	
+	close(fd);
+	
+	sscanf(buf, "%d",&enable);
+	
+	ALOGD("owldisp_get_cvbs_enable ~~~%d", enable);
+	
+	return enable;
+}
+
+
+static int owldisp_set_cvbs_vid(struct owldisp_device_t *dev, int vid)
+{
+	char buf[256]={0};
+	ALOGD("owldisp_set_cvbs_vid ~~~ vid %d",vid);
+	if(vid == -1){
+		ALOGD("err : owldisp_set_cvbs_vid ~~~ vid %d",vid);
+		return -1;
+	}
+	int fd = open("/data/setting/setting_cvbs_mode", O_WRONLY);	
+	if (fd < 0){
+		ALOGE("open file(%s) error", "/data/setting/setting_cvbs_mode");
+		return -1;
+	}
+	
+	sprintf(buf, "%d ",vid);
+	
+	write(fd, buf, strlen(buf));
+	
+	close(fd);
+
+	return 0;
+}
+static int owldisp_get_cvbs_vid(struct owldisp_device_t *dev)
+{
+	struct disp_manager_context_t* ctx = (struct disp_manager_context_t*) dev;
+	char buf[256]={0};	
+	int vid = -1;	
+	int i;
+	int rc;
+	int fd = open("/data/setting/setting_cvbs_mode", O_RDONLY);	
+	if (fd < 0)
+	{
+		ALOGE("open file(%s) error", "/data/setting/setting_cvbs_mode");
+		return -1;
+	}
+	
+	read(fd, buf, sizeof(int));
+	
+	close(fd);	
+		
+	sscanf(buf, "%d",&vid);
+	
+	rc = ioctl(ctx->mDispFd, OWLFB_CVBS_GET_VID, &i);
+	if(rc < 0){
+		ALOGE("owldisp_get_cvbs_vid error rc %d",rc);
+		return vid;
+	}
+
+	if(vid != i){
+		ALOGE("owldisp_get_cvbs_vid vid is not current vid %d current vid %d", vid, i);
+		vid = i;
+	}
+	ALOGD("owldisp_get_cvbs_vid ~~~ vid %d",vid);
+	return vid;	
+}
+
+
+
 static int owldisp_get_hdmi_supported_vid_list (struct owldisp_device_t *dev,int * vidlist)
 {
 	struct disp_manager_context_t* ctx = (struct disp_manager_context_t*) dev;
@@ -395,6 +497,12 @@ static int open_display_manager(const struct hw_module_t* module,
 	ctx->device.get_hdmi_cable_state =owldisp_get_hdmi_cable_state;
     ctx->device.set_hdmi_fitscreen = owldisp_set_hdmi_fitscreen;
     ctx->device.get_hdmi_fitscreen = owldisp_get_hdmi_fitscreen;
+    
+    /****************cvbs***************************/
+    ctx->device.set_cvbs_vid = owldisp_set_cvbs_vid;  
+    ctx->device.get_cvbs_vid =  owldisp_get_cvbs_vid; 
+    ctx->device.set_cvbs_enable = owldisp_set_cvbs_enable;    
+	ctx->device.get_cvbs_enable = owldisp_get_cvbs_enable; 
     
 	ctx->mDispFd = open(DM_HARDWARE_DEVICE, O_RDWR, 0);
 

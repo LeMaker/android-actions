@@ -696,6 +696,13 @@ status_t MPEG2PSExtractor::WrappedTrack::read(
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/**
+  *
+  * 2015-07-30 bugfix:BUG00321454
+  ************************************
+  *      
+  *ActionsCode(author:rongxing, change_code)
+  */
 bool SniffMPEG2PS(
         const sp<DataSource> &source, String8 *mimeType, float *confidence,
         sp<AMessage> *) {
@@ -703,8 +710,8 @@ bool SniffMPEG2PS(
     if (source->readAt(0, header, sizeof(header)) < (ssize_t)sizeof(header)) {
         return false;
     }
-
-    if (memcmp("\x00\x00\x01\xba", header, 4) || (header[4] >> 6) != 1) {
+	/*ActionsCode(author:rongxing, bugfix:BUG00321454)*/
+    if (memcmp("\x00\x00\x01\xba", header, 4) && memcmp("\x00\x00\x01\xb3", header, 4)) {
         return false;
     }
 

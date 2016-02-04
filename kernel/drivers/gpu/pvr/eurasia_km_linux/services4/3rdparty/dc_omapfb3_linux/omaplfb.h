@@ -225,6 +225,8 @@ typedef struct OMAPLFB_DEVINFO_TAG
 #if defined(SUPPORT_DRI_DRM)
 	OMAPLFB_ATOMIC_BOOL     sLeaveVT;
 #endif
+	/*  */
+	OMAPLFB_ATOMIC_BOOL	sInitFBInfoFlag;
 
 }  OMAPLFB_DEVINFO;
 

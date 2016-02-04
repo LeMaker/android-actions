@@ -37,10 +37,6 @@ import com.android.settings.SettingsActivity;
 
 import java.util.List;
 
-import android.hardware.usb.UsbManager;
-import android.os.SystemProperties;
-
-
 public class DashboardSummary extends Fragment {
     private static final String LOG_TAG = "DashboardSummary";
 
@@ -68,25 +64,6 @@ public class DashboardSummary extends Fragment {
     }
     private HomePackageReceiver mHomePackageReceiver = new HomePackageReceiver();
 
-	private BroadcastReceiver UsbReceiver				
-		= new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-
-			String action = intent.getAction();
-			if(UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)){
-				Log.d(LOG_TAG,"usb device attached!");
-				sendRebuildUI();
-			}
-			else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)){
-				Log.d(LOG_TAG,"usb device detached!");
-				sendRebuildUI();
-			}
-		}
-	};
-
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -99,16 +76,6 @@ public class DashboardSummary extends Fragment {
         filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
         filter.addDataScheme("package");
         getActivity().registerReceiver(mHomePackageReceiver, filter);
-
-		String use_usb_wifi_bt_dongle = SystemProperties.get("ro.use.usb.wifi_bt.dongle");
-        if( (use_usb_wifi_bt_dongle != null)&&(!use_usb_wifi_bt_dongle.isEmpty())&&(use_usb_wifi_bt_dongle.equals("true")) )
-        {
-			IntentFilter usbfilter = new IntentFilter();
-			usbfilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-			usbfilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-			getActivity().registerReceiver(UsbReceiver, usbfilter);
-        }
-		
     }
 
     @Override
@@ -116,12 +83,6 @@ public class DashboardSummary extends Fragment {
         super.onPause();
 
         getActivity().unregisterReceiver(mHomePackageReceiver);
-
-		String use_usb_wifi_bt_dongle = SystemProperties.get("ro.use.usb.wifi_bt.dongle");
-        if( (use_usb_wifi_bt_dongle != null)&&(!use_usb_wifi_bt_dongle.isEmpty())&&(use_usb_wifi_bt_dongle.equals("true")) )
-        {
-			getActivity().unregisterReceiver(UsbReceiver);
-        }
     }
 
     @Override

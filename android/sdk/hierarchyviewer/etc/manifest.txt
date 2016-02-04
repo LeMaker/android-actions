@@ -1,2 +1,0 @@
-Main-Class: com.android.hierarchyviewer.HierarchyViewer
-Class-Path: ddmlib.jar org-openide-util.jar org-netbeans-api-visual.jar

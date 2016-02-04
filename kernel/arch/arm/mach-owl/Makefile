@@ -3,7 +3,7 @@
 #
 # Common support
 obj-y := common-owl.o cpu-owl.o timer-owl.o serial-owl.o i2c-owl.o sirq-owl.o powergate-owl.o debug-owl.o secure_storage-owl.o \
-		bootdev-owl.o  dump_stack-owl.o s500-clocktree.o clocktree-owl.o \
+		bootdev-owl.o  dump_stack-owl.o clocktree-atm7059.o clocktree-owl.o \
 	    user_dump_stack.o
 #obj-y += version-owl.o
 obj-$(CONFIG_MACH_OWL) += board-owl.o

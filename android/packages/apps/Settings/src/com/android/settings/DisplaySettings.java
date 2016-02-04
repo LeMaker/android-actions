@@ -93,67 +93,54 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_AUTO_BRIGHTNESS = "auto_brightness";
     private static final String KEY_AUTO_ROTATE = "auto_rotate";
     private static final String KEY_CALIBRATION = "accelerometer_calibration";
-    private Preference mGsensorCalib;
     private static final String KEY_ENHANCED_COLOR_SYSTEM = "toggle_enhanced_color_system";
 	private static final String KEY_DISABLE_APPS = "disable_apps";
-	
-    private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
-    public static final String TVOUT_STATUS_PROPERTY = "hw.config.hdmi_status"; 
     private static final String ENHANCED_COLOR_PROPERTY = "sys.image_enhanced_system";
-    private WarnedListPreference mFontSizePref;
+    private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
 
     private final Configuration mCurConfig = new Configuration();
 
-    private ListPreference mScreenTimeoutPreference;
-    private Preference mScreenSaverPreference;
+    private WarnedListPreference mFontSizePref;
+    private ListPreference mScreenTimeoutPref;
+    private Preference mGsensorCalib;
+    private Preference mScreenSaverPref;
+    private CheckBoxPreference disableApps;
     private CheckBoxPreference mEnhancedColor;
-    private CheckBoxPreference disableapps;
-    private PreferenceCategory mTvoutSettingsCategory;
-    private ListPreference mCvbsModePref;
-    private TvoutSettingsListPreference mHdmiModePref;
-    private Preference mTvoutScreenResize;
+    private SwitchPreference mDozePreference;
+    private SwitchPreference mLiftToWakePref;
+    private SwitchPreference mAutoBrightnessPref;
+
     private boolean mSupportCvbs;
     private boolean mSupportHdmi;
-    private TvoutUtils.CvbsUtils mCvbsUtils;
-    private TvoutUtils.HdmiUtils mHdmiUtils;
-    static DisplaySettings mDisplay;
-    private SwitchPreference mLiftToWakePreference;
-    private SwitchPreference mDozePreference;
-    private SwitchPreference mAutoBrightnessPreference;
+    private TvoutUtils mTvoutUtils;
+    private TvoutPreference mCvbsPref;
+    private SwitchPreference mHdmiPref;
+    private Preference mScreenScalePref;
+    private PreferenceCategory mTvoutPrefCategory;
 
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(author:phchen, change_code)
-    */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Activity activity = getActivity();
-        //ActionsCode(phchen, new feature), 
-        mSupportCvbs = false;
+        mSupportCvbs = true;
         mSupportHdmi = true;
         final ContentResolver resolver = activity.getContentResolver();
 
         addPreferencesFromResource(R.xml.display_settings);
 
-        mScreenSaverPreference = findPreference(KEY_SCREEN_SAVER);
-        if (mScreenSaverPreference != null
+        mScreenSaverPref = findPreference(KEY_SCREEN_SAVER);
+        if (mScreenSaverPref != null
                 && getResources().getBoolean(
                         com.android.internal.R.bool.config_dreamsSupported) == false) {
-            getPreferenceScreen().removePreference(mScreenSaverPreference);
+            getPreferenceScreen().removePreference(mScreenSaverPref);
         }
 
-        mScreenTimeoutPreference = (ListPreference) findPreference(KEY_SCREEN_TIMEOUT);
+        mScreenTimeoutPref = (ListPreference) findPreference(KEY_SCREEN_TIMEOUT);
         final long currentTimeout = Settings.System.getLong(resolver, SCREEN_OFF_TIMEOUT,
                 FALLBACK_SCREEN_TIMEOUT_VALUE);
-        mScreenTimeoutPreference.setValue(String.valueOf(currentTimeout));
-        mScreenTimeoutPreference.setOnPreferenceChangeListener(this);
-        disableUnusableTimeouts(mScreenTimeoutPreference);
+        mScreenTimeoutPref.setValue(String.valueOf(currentTimeout));
+        mScreenTimeoutPref.setOnPreferenceChangeListener(this);
+        disableUnusableTimeouts(mScreenTimeoutPref);
         updateTimeoutPreferenceDescription(currentTimeout);
 
         mFontSizePref = (WarnedListPreference) findPreference(KEY_FONT_SIZE);
@@ -161,15 +148,15 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mFontSizePref.setOnPreferenceClickListener(this);
 
         if (isAutomaticBrightnessAvailable(getResources())) {
-            mAutoBrightnessPreference = (SwitchPreference) findPreference(KEY_AUTO_BRIGHTNESS);
-            mAutoBrightnessPreference.setOnPreferenceChangeListener(this);
+            mAutoBrightnessPref = (SwitchPreference) findPreference(KEY_AUTO_BRIGHTNESS);
+            mAutoBrightnessPref.setOnPreferenceChangeListener(this);
         } else {
             removePreference(KEY_AUTO_BRIGHTNESS);
         }
 
         if (isLiftToWakeAvailable(activity)) {
-            mLiftToWakePreference = (SwitchPreference) findPreference(KEY_LIFT_TO_WAKE);
-            mLiftToWakePreference.setOnPreferenceChangeListener(this);
+            mLiftToWakePref = (SwitchPreference) findPreference(KEY_LIFT_TO_WAKE);
+            mLiftToWakePref.setOnPreferenceChangeListener(this);
         } else {
             removePreference(KEY_LIFT_TO_WAKE);
         }
@@ -181,21 +168,18 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             removePreference(KEY_DOZE);
         }
 
-        //ActionsCode(phchen, new feature,add sensor menu),
         mGsensorCalib = (Preference) findPreference(KEY_CALIBRATION);
         //hide Gsensor Calib for restricted users
         if(UserHandle.myUserId() != 0) {
             getPreferenceScreen().removePreference(mGsensorCalib);
         }
         
-        //ActionsCode(phchen, NEW FEATURE: BUG00236195),
         mEnhancedColor = (CheckBoxPreference)findPreference(KEY_ENHANCED_COLOR_SYSTEM);
-        //ActionsCode(phchen, NEW FEATURE: hidden google application),
-        disableapps = (CheckBoxPreference)findPreference(KEY_DISABLE_APPS);
+        disableApps = (CheckBoxPreference)findPreference(KEY_DISABLE_APPS);
         if (SystemProperties.get("ro.hidden.google", "disable").equals("disable")){
-        	getPreferenceScreen().removePreference(disableapps);
+        	getPreferenceScreen().removePreference(disableApps);
         } else {
-        	disableapps.setChecked(getDisableApp(resolver));
+        	disableApps.setChecked(getDisableApp(resolver));
         	if(getDisableApp(resolver)){
         		disableApps();        		
     		}else{
@@ -203,9 +187,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         	}
         }
         
-        long memsize = getMemoryTotalSizeFromProp();
+        long memsize = android.os.SystemProperties.getLong("system.ram.total", 512);
         if(memsize <= 512) {
-            Log.d(TAG, "removePreference...because memoryTotalSize le 512;getMemoryTotalSizeFromProp="+memsize);
+            Log.d(TAG, "removePreference...because memoryTotalSize = " +memsize);
             getPreferenceScreen().removePreference(mEnhancedColor);
         }
         mEnhancedColor.setChecked(getEnhancedColorSystem(resolver));
@@ -245,48 +229,37 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             removePreference(KEY_AUTO_ROTATE);
         }
 
-
-        //ActionsCode(phchen, new feature,add hdmi menu),
-        mTvoutSettingsCategory = (PreferenceCategory)findPreference(KEY_TVOUT_SETTINGS);
-        if(mSupportCvbs) {
-        	mCvbsModePref = new TvoutSettingsListPreference(getActivity());
-        	mCvbsModePref.setKey(KEY_CVBS_MODE_SELECTOR);    
-        	mCvbsModePref.setTitle(getResources().getString(R.string.cvbs_mode));
-        	mCvbsModePref.setPersistent(false);
-        	mTvoutSettingsCategory.addPreference(mCvbsModePref);
-        	mCvbsModePref.setDialogTitle(getResources().getString(R.string.cvbs_mode));
-        	mCvbsModePref.setEntries(getResources().getStringArray(R.array.tvout_cvbs_entries));
-        	mCvbsModePref.setEntryValues(getResources().getStringArray(R.array.tvout_cvbs_values));
-        	mCvbsModePref.setOnPreferenceChangeListener(this);
+        mTvoutPrefCategory = (PreferenceCategory)findPreference(KEY_TVOUT_SETTINGS);
+        if (mSupportHdmi) {
+        	mHdmiPref = new SwitchPreference(getActivity());
+        	mHdmiPref.setKey(KEY_HDMI_MODE_SELECTOR);    
+        	mHdmiPref.setTitle(getResources().getString(R.string.hdmi_mode));
+        	mHdmiPref.setPersistent(true);
+        	mTvoutPrefCategory.addPreference(mHdmiPref);
+        	mHdmiPref.setOnPreferenceChangeListener(this);
         }
-        if(mSupportHdmi) {
-        	mHdmiModePref = new TvoutSettingsListPreference(getActivity());
-        	mHdmiModePref.setLayoutResource(R.layout.preference_tvout);
-        	mHdmiModePref.setKey(KEY_HDMI_MODE_SELECTOR);    
-        	mHdmiModePref.setTitle(getResources().getString(R.string.hdmi_mode));
-        	mHdmiModePref.setPersistent(true);
-        	mTvoutSettingsCategory.addPreference(mHdmiModePref);
-        	mHdmiModePref.setDialogTitle(getResources().getString(R.string.hdmi_mode));
-        	mHdmiModePref.setOnPreferenceChangeListener(this);
+        if (mSupportCvbs) {
+        	mCvbsPref = new TvoutPreference(getActivity());
+        	mCvbsPref.setKey(KEY_CVBS_MODE_SELECTOR);    
+        	mCvbsPref.setTitle(getResources().getString(R.string.cvbs_mode));
+        	mCvbsPref.setLayoutResource(R.layout.preference_tvout);
+        	mCvbsPref.setPersistent(false);
+        	mTvoutPrefCategory.addPreference(mCvbsPref);
+        	mCvbsPref.setDialogTitle(getResources().getString(R.string.cvbs_mode));
+        	mCvbsPref.setEntries(getResources().getStringArray(R.array.tvout_cvbs_entries));
+        	mCvbsPref.setEntryValues(getResources().getStringArray(R.array.tvout_cvbs_values));
+        	mCvbsPref.setOnPreferenceChangeListener(this);
         }
-        if(mSupportHdmi || mSupportCvbs) {
-        	mTvoutScreenResize = new Preference(getActivity());
-        	mTvoutScreenResize.setTitle(getResources().getString(R.string.tvout_screen_resize));
-        	mTvoutSettingsCategory.addPreference(mTvoutScreenResize);
+        if (mSupportHdmi || mSupportCvbs) {
+        	mScreenScalePref = new Preference(getActivity());
+        	mScreenScalePref.setTitle(getResources().getString(R.string.tvout_screen_resize));
+        	mTvoutPrefCategory.addPreference(mScreenScalePref);
         } else {
-        	getPreferenceScreen().removePreference(mTvoutSettingsCategory);
+        	getPreferenceScreen().removePreference(mTvoutPrefCategory);
         }
-        mCvbsUtils = (TvoutUtils.CvbsUtils)TvoutUtils.getInstanceByName(TvoutUtils.TVOUT_CVBS);
-        mHdmiUtils = (TvoutUtils.HdmiUtils)TvoutUtils.getInstanceByName(TvoutUtils.TVOUT_HDMI); 
+        mTvoutUtils = TvoutUtils.getInstance(); 
     }
     
-    /**
-    *
-    *
-    ************************************
-    *      
-    *ActionsCode(phchen, new_method)
-    */
 	private boolean getDisableApp(ContentResolver resolver){
 		int hide = SystemProperties.getInt("ro.hidden.google.enable", 0);
     	int disable = Settings.System.getInt(resolver, "actions_diable_app", hide) ;
@@ -514,28 +487,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     	}
     }
 
-    /**
-    *
-    * get Memory Total Size for prop, because the EnhancedColor function 
-    * do not fully test in >=1G environment.
-    *
-    ************************************
-    *      
-    *ActionsCode(phchen, new_method)
-    */
-    private long getMemoryTotalSizeFromProp() {
-        return android.os.SystemProperties.getLong("system.ram.total", 512);
-    }
-    
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(phchen, new_method)
-    */
     public static boolean getEnhancedColorSystem(ContentResolver resolver) {
         int enhanced = Settings.System.getInt(resolver, "actions_enhanced_color_system", 0) ;
         String value = SystemProperties.get(ENHANCED_COLOR_PROPERTY, "-1");
@@ -546,15 +497,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         return enhanced > 0;
     }
 
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(phchen, new_method)
-    */
     public static void setEnhancedColorSystem(ContentResolver resolver, boolean bEnhanced) {
     	int enhanced = bEnhanced ? 1:0;
     	Settings.System.putInt(resolver, "actions_enhanced_color_system", enhanced) ;
@@ -584,83 +526,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         return res.getBoolean(com.android.internal.R.bool.config_automatic_brightness_available);
     }
 
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(phchen, new_method)
-    */
-    private void updateTvoutMenuStatus(boolean isPlugIn) {
-        boolean resetValueFlag = isPlugIn;
-		
-		Log.d(TAG, "run in updateTvoutMenuStatus");
-		if(mSupportCvbs) {
-			Log.d(TAG, "the cvbs select mode="+ mCvbsUtils.getLastSelectModeValue());
-			mCvbsModePref.setValue(String.valueOf(mCvbsUtils.getLastSelectModeValue()));
-		}
-		
-		if(!mSupportHdmi) {
-			return;
-		}
-		/** if ListPreference' dialog is showing, may be need to update the 
-		 * hdmi mode list,when hdmi line plug,here just dismiss*/
-		if(mHdmiModePref.getDialog() != null && mHdmiModePref.getDialog().isShowing()) {
-			mHdmiModePref.getDialog().dismiss();
-			resetValueFlag = true;
-        }
-		
-		String[] hdmiEntries = null;
-		String[] hdmiValues = null;
-		
-        if(mHdmiUtils.isCablePlugIn()) {
-            Log.d(TAG,"mHdmiUtils.isCablePlugIn true");
-            hdmiEntries = hdmiValues = mHdmiUtils.getSupportedModesList();
-            Log.d(TAG,"hdmiEntries " + Arrays.toString(hdmiValues) + " length: " + hdmiValues.length);
-			if(hdmiEntries != null){
-	            mHdmiModePref.setEntries(hdmiEntries);
-	            mHdmiModePref.setEntryValues(hdmiValues);
-	            String str = mHdmiUtils.getMode();
-	            str.trim();
-	            Log.d(TAG,"getMode: " + str);
-	            mHdmiModePref.setValue(str);
-	        }
-        }
-
-        if(hdmiEntries == null || hdmiValues == null){
-	    	Log.d(TAG, "hdmiEntries == null || hdmiValues == null");
-            hdmiEntries = getResources().getStringArray(R.array.tvout_hdmi_entries);
-            hdmiValues = getResources().getStringArray(R.array.tvout_hdmi_entries);
-            mHdmiModePref.setEntries(hdmiEntries);
-            mHdmiModePref.setEntryValues(hdmiValues);
-        }
-    }
-    
-	
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(phchen, new_method)
-    */
-	public static void tryToUpdateTvoutMenuStatus(boolean isPlugIn) {
-		if(mDisplay == null) {
-			return;
-		}
-		try {
-			mDisplay.updateTvoutMenuStatus(isPlugIn);
-		} catch (Exception e) {
-			Log.e(TAG, "can't update the tvout menu status!");
-		}
-    }
-
     private void updateTimeoutPreferenceDescription(long currentTimeout) {
-        ListPreference preference = mScreenTimeoutPreference;
+        ListPreference preference = mScreenTimeoutPref;
         String summary;
         if (currentTimeout < 0) {
             // Unsupported value
@@ -687,16 +554,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         preference.setSummary(summary);
     }
 
-	
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(author:phchen, change_code)
-    */
     private void disableUnusableTimeouts(ListPreference screenTimeoutPreference) {
         final DevicePolicyManager dpm =
                 (DevicePolicyManager) getActivity().getSystemService(
@@ -706,7 +563,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             return; // policy not enforced
         }
         
-        //ActionsCode(phchen, new feature: use my max time out), 
         if (maxTimeout < MAX_TIME_OUT) {
         	maxTimeout = MAX_TIME_OUT;
         }
@@ -795,32 +651,25 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         return null;
     }
 
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(author:phchen, change_code)
-    */
     private void updateState() {
         readFontSizePreference(mFontSizePref);
         updateScreenSaverSummary();
-        //ActionsCode(phchen, new feature), 
-        updateTvoutMenuStatus(false);
+
+        if (mSupportHdmi && mHdmiPref != null) {
+            mHdmiPref.setChecked(mTvoutUtils.getHdmiState());
+        }
 
         // Update auto brightness if it is available.
-        if (mAutoBrightnessPreference != null) {
+        if (mAutoBrightnessPref != null) {
             int brightnessMode = Settings.System.getInt(getContentResolver(),
                     SCREEN_BRIGHTNESS_MODE, SCREEN_BRIGHTNESS_MODE_MANUAL);
-            mAutoBrightnessPreference.setChecked(brightnessMode != SCREEN_BRIGHTNESS_MODE_MANUAL);
+            mAutoBrightnessPref.setChecked(brightnessMode != SCREEN_BRIGHTNESS_MODE_MANUAL);
         }
 
         // Update lift-to-wake if it is available.
-        if (mLiftToWakePreference != null) {
+        if (mLiftToWakePref != null) {
             int value = Settings.Secure.getInt(getContentResolver(), WAKE_GESTURE_ENABLED, 0);
-            mLiftToWakePreference.setChecked(value != 0);
+            mLiftToWakePref.setChecked(value != 0);
         }
 
         // Update doze if it is available.
@@ -831,8 +680,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     }
 
     private void updateScreenSaverSummary() {
-        if (mScreenSaverPreference != null) {
-            mScreenSaverPreference.setSummary(
+        if (mScreenSaverPref != null) {
+            mScreenSaverPref.setSummary(
                     DreamSettings.getSummaryTextWithDreamName(getActivity()));
         }
     }
@@ -846,52 +695,29 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         }
     }
 
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(author:phchen, change_code)
-    */
-    @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        //ActionsCode(phchen, new feature,add sensor menu),
-        if(preference == mGsensorCalib) {            
+        if (preference == mGsensorCalib) {            
             final Intent intent = new Intent(Intent.ACTION_MAIN);            
-            intent.setClassName("com.actions.sensor.calib", "com.actions.sensor.calib.SensorActivity");            
+            intent.setClassName("com.actions.sensor.calib", "com.actions.sensor.calib.SensorActivity");
             startActivity(intent);        
-        }
-        else if(preference == mTvoutScreenResize) {
+        } else if(preference == mScreenScalePref) {
         	final Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.setClass(getActivity(), TvoutScreenResizeActivity.class);
             startActivity(intent);
-        //ActionsCode(phchen, NEW FEATURE: BUG00236195), 
         } else if(preference == mEnhancedColor) {
         	setEnhancedColorSystem(getContentResolver(), mEnhancedColor.isChecked());
-		//ActionsCode(phchen, NEW FEATURE: hidden google application),
-		} else if(preference == disableapps){
-        	Log.d(TAG, "preference == disableapps");
-        	if(disableapps.isChecked()){
+		} else if(preference == disableApps){
+        	Log.d(TAG, "preference == disableApps");
+        	if(disableApps.isChecked()){
         		disableApps();      		
         	}else{
         		enableApps();
         	}
-        	setDisableApp(getContentResolver(), disableapps.isChecked()); 
+        	setDisableApp(getContentResolver(), disableApps.isChecked()); 
 		}
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(author:phchen, change_code)
-    */
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         final String key = preference.getKey();
@@ -907,12 +733,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (KEY_FONT_SIZE.equals(key)) {
             writeFontSizePreference(objValue);
         }
-        if (preference == mAutoBrightnessPreference) {
+        if (preference == mAutoBrightnessPref) {
             boolean auto = (Boolean) objValue;
             Settings.System.putInt(getContentResolver(), SCREEN_BRIGHTNESS_MODE,
                     auto ? SCREEN_BRIGHTNESS_MODE_AUTOMATIC : SCREEN_BRIGHTNESS_MODE_MANUAL);
         }
-        if (preference == mLiftToWakePreference) {
+        if (preference == mLiftToWakePref) {
             boolean value = (Boolean) objValue;
             Settings.Secure.putInt(getContentResolver(), WAKE_GESTURE_ENABLED, value ? 1 : 0);
         }
@@ -920,26 +746,16 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             boolean value = (Boolean) objValue;
             Settings.Secure.putInt(getContentResolver(), DOZE_ENABLED, value ? 1 : 0);
         }
-        //ActionsCode(phchen, new feature), 
-        if(KEY_CVBS_MODE_SELECTOR.equals(key)) {
-        	String value = (String) objValue;        	     	
-        	if(!value.equals(mHdmiUtils.getMode())){
-                mCvbsUtils.switchToSelectModeByModeValue(value);
-                mCvbsModePref.setValue(value);   
-            }
+
+        if (preference == mHdmiPref) {
+            mTvoutUtils.setHdmiEnabled((Boolean)objValue);
         }
 
-		//ActionsCode(phchen, BUGFIX: BUG00258039 )
-        if(mHdmiUtils.isCablePlugIn()){
-	        if(KEY_HDMI_MODE_SELECTOR.equals(key)) {
-	        	String value = (String) objValue;        	     	
-	        	if(!value.equals(mHdmiUtils.getMode())){
-	                mHdmiUtils.switchToSelectModeByModeValue(value);
-	                mHdmiModePref.setValue(value);   
-	            }
-	        }
-    	}
-    	
+        if (preference == mCvbsPref) {
+            //notice: here objValue is "0" or "1", not "PAL" or "NTSC"
+            mTvoutUtils.setCvbsMode(Integer.parseInt((String)objValue));
+        }
+
         return true;
     }
 
@@ -956,72 +772,53 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         return false;
     }
 
-    /**
-    *
-    *xxxxx
-    *xxxxx
-    *
-    ************************************
-    *      
-    *ActionsCode(phchen, new_method)
-    */
-    public class TvoutSettingsListPreference extends ListPreference implements CompoundButton.OnCheckedChangeListener {
+    public class TvoutPreference extends ListPreference implements
+        CompoundButton.OnCheckedChangeListener {
     	private Switch mSwitchView = null;
     	
     	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-    	 	Log.d(TAG, "isChecked="+isChecked);
-    	 	if(getLastSwitchStatus() != isChecked) {
-    	 		//setLastSwitchStatus(isChecked);
-    	 		mHdmiUtils.setHdmiEnable(isChecked);
-    	 		//if(!isChecked) {
-    	 		//    mHdmiUtils.closeTvoutDisplay(); 
-    	 		//}
-    	 	}
+            mTvoutUtils.setCvbsEnabled(isChecked);
     	}
-        
-        public TvoutSettingsListPreference(Context context, AttributeSet attrs) {
+
+        public TvoutPreference(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
 
-        public TvoutSettingsListPreference(Context context) {
+        public TvoutPreference(Context context) {
             super(context, null);
         }
 
-        private boolean getLastSwitchStatus() {
-			return mHdmiUtils.getHdmiEnable();
-        }
-        
         protected void onClick() {
             if (mSwitchView != null && !mSwitchView.isChecked()) {
                 return;
             }
-
-            if (getDialog() != null && getDialog().isShowing())
+            if (getDialog() != null && getDialog().isShowing()) {
                 return;
-
+            }
+            //auto call below onPrepareDialogBuilder before showDialog
             showDialog(null);
         }
+
         @Override
         protected void onBindView(View view) {
             super.onBindView(view);
-
             View checkableView = view.findViewById(R.id.tvoutSwitch);
-            Log.d(TAG, "checkableView=" + checkableView + ",isEnabled=" + this.isEnabled());
-            if (checkableView != null && checkableView instanceof Checkable) {
-                ((Checkable) checkableView).setChecked(getLastSwitchStatus());
-
-                if (checkableView instanceof Switch) {
-                    mSwitchView = (Switch) checkableView;
-                    mSwitchView.setOnCheckedChangeListener(this);
-                }
+            if (checkableView != null) {
+                mSwitchView = (Switch)checkableView;
+                mSwitchView.setChecked(mTvoutUtils.getCvbsState());
+                mSwitchView.setOnCheckedChangeListener(this);
             }
-            // syncSummaryView(view);
         }
         
         @Override
         protected void onPrepareDialogBuilder(Builder builder) {
-            Log.d(TAG, "onPrepareDialogBuilder");
-            updateTvoutMenuStatus(false);
+            //important! This will tell u which one is chosen when dialog showed
+            if (mTvoutUtils.getCvbsState()) {
+                int value = mTvoutUtils.getCvbsMode();
+                if (0 <= value && value <= 1) {
+                    setValue(String.valueOf(value));
+                }
+            }
             super.onPrepareDialogBuilder(builder);
         }
     }

@@ -2123,7 +2123,7 @@ static int camera_dqbuf(void *handle, int *index, unsigned long *userptr, unsign
                 {
                     *timestamp += camera_module_type->nOffset_Time;
 
-                    if(*timestamp < camera_module_type->nCurrent_Time)
+                    if(*timestamp <= camera_module_type->nCurrent_Time)
                     {
                         V4L2DBUG(V4L2DBUG_ERR, "Adjust Time err %lld,%lld\n", *timestamp, camera_module_type->nCurrent_Time);
                         *timestamp = camera_module_type->nCurrent_Time + 1000000 / camera_module_type->preview_fps;

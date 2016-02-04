@@ -54,7 +54,7 @@ static int owl_mac_set_macaddr(struct eth_device *dev)
 		eth_random_addr(dev->enetaddr);
 		mac = dev->enetaddr;
 	}
-	printf("Update MAC: %pM\n", dev->enetaddr);
+	debug("Update MAC: %pM\n", dev->enetaddr);
 	writel((mac[0] << 0) | (mac[1] << 8) | (mac[2] << 16) | (mac[3] << 24), MAC_CSR16);
 	writel((mac[4] << 0) | (mac[5] << 8), MAC_CSR17);
 	return 0;
@@ -488,12 +488,12 @@ static int owl_mac_parse_fdtdec(struct owl_mac_info *info)
 	}
 
 	info->phy_addr = fdtdec_get_int(gd->fdt_blob, node, "phy_addr", -1);
-	printf("owl_mac_parse_fdtdec,phy_addr %d\n",info->phy_addr);
+	debug("owl_mac_parse_fdtdec,phy_addr %d\n",info->phy_addr);
 
 	owl_fdtdec_decode_gpio(gd->fdt_blob, node, "phy-power-gpios",&info->phy_power_gpio);
 	owl_fdtdec_decode_gpio(gd->fdt_blob, node, "phy-reset-gpios",&info->phy_reset_gpio);
-	printf("owl_mac_parse_fdtdec,power-gpio %d\n",info->phy_power_gpio.gpio,info->phy_power_gpio.flags);
-	printf("owl_mac_parse_fdtdec,reset-gpio %d\n",info->phy_reset_gpio.gpio,info->phy_reset_gpio.flags);
+	debug("owl_mac_parse_fdtdec,power-gpio %d\n",info->phy_power_gpio.gpio,info->phy_power_gpio.flags);
+	debug("owl_mac_parse_fdtdec,reset-gpio %d\n",info->phy_reset_gpio.gpio,info->phy_reset_gpio.flags);
 
 	return 0;
 }

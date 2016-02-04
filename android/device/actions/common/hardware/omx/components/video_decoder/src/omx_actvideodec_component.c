@@ -770,7 +770,8 @@ OMX_ERRORTYPE omx_videodec_component_actvideoInit(VIDDEC_COMPONENT_PRIVATE *pCom
 
 	if((pPortFormat->xFramerate>>16)>30 && (ish264==OMX_TRUE || IsMpeg4Codec==OMX_TRUE) && pComponentPrivate->is_Thumbnail==OMX_FALSE && pPortDef->format.video.nStride* ((pPortDef->format.video.nFrameHeight+15)&(~15))>=1280*720 ){
 		DEBUG(DEB_LEV_ERR,"xFramerate is %d \n",(pPortFormat->xFramerate>>16));
-		pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,DISCARD_FRAMES,1);
+		//pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,DISCARD_FRAMES,1);
+		pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,EX_RESERVED2,1);
 	}
 	
 	if(pComponentPrivate->bHdeExsit && pComponentPrivate->is_Thumbnail==OMX_FALSE){
@@ -1704,7 +1705,7 @@ DEC_PROBE:
     }
   	if(p->bResizeEnabled==OMX_FALSE || p->bResizeRealloced==OMX_TRUE){
   		
-  		if((video_codec_info.ref_num+4-costdown)>pPortDef->nBufferCountActual && p->is_Thumbnail==OMX_FALSE){
+  		if((video_codec_info.ref_num+5-costdown)>pPortDef->nBufferCountActual && p->is_Thumbnail==OMX_FALSE){
   			 isbuffernotengouh =OMX_TRUE;
   			 p->bBufferNotEngouh = OMX_TRUE;
   		}
@@ -1713,9 +1714,9 @@ DEC_PROBE:
   		if(isbuffernotengouh==OMX_TRUE || isneedrealloc==OMX_TRUE){
   			p->IsPortBeingDisabled  =OMX_TRUE;
   			if(p->bthirdparty==OMX_TRUE && isneedrealloc==OMX_TRUE){ 
-  				p->nNewBufferCountActual=(video_codec_info.ref_num + 4);
+  				p->nNewBufferCountActual=(video_codec_info.ref_num + 5);
   			}else{
-  				p->nNewBufferCountActual=(video_codec_info.ref_num + 4-costdown);
+  				p->nNewBufferCountActual=(video_codec_info.ref_num + 5-costdown);
   			}
   			
       DEBUG(DEB_LEV_ERR,"buffers:%d is not enough,need %d \n",pPortDef->nBufferCountActual,p->nNewBufferCountActual);

@@ -513,8 +513,8 @@ static int s_dwc3_set_plugstate(int s)
 	if(s == PLUGSTATE_A_OUT){
 		lock_system_sleep();
 		wake_lock_timeout(&my_mon->monitor_wake_lock, 10*HZ);
-		ret = dwc3_set_plugstate(s);
 		unlock_system_sleep();
+		ret = dwc3_set_plugstate(s);
 		return ret;
 	}
 	else {
@@ -1105,7 +1105,8 @@ static int usb_detect_plugout_event(void)
 	usb_hal_monitor_t * p_hal;
 	unsigned int val;
 	unsigned int message;
-
+	int ret;
+    
 	p_hal = &umonitor_status->umonitor_hal;
 	message = umonitor_status->message_status;
 
@@ -1121,7 +1122,8 @@ static int usb_detect_plugout_event(void)
 					wake_unlock(&my_mon->monitor_wake_lock);
 				}
 				umonitor_status->vbus_status = (unsigned char) p_hal->get_vbus_state(p_hal);
-				if(umonitor_status->vbus_status == USB_VBUS_LOW) {
+				ret = p_hal->get_idpin_state(p_hal);
+				if((umonitor_status->vbus_status == USB_VBUS_LOW)||(ret==USB_ID_STATE_HOST)) {
 					my_mon->port_status.charger_connected = 0;
 					umonitor_detection(1);
 					printk("\n========usb_detect_plugout_event===start det!!========\n");

@@ -174,7 +174,7 @@ static int owl_powergate_set(enum owl_powergate_id id, bool on)
 		pr_debug("[PowerGate] name: '%s', on: %d, before SPS_PG_CTL: 0x%x\n",
 			pgi->name, on, act_readl(SPS_PG_CTL));
 	else
-		printk("[PowerGate] name: '%s', on: %d, before SPS_PG_CTL: 0x%x\n",
+		pr_debug("[PowerGate] name: '%s', on: %d, before SPS_PG_CTL: 0x%x\n",
 			pgi->name, on, act_readl(SPS_PG_CTL));
 
 	spin_lock_irqsave(&owl_powergate_lock, flags);
@@ -264,7 +264,7 @@ static int owl_powergate_set(enum owl_powergate_id id, bool on)
 		pr_debug("[PowerGate] name: '%s', on: %d, after SPS_PG_CTL: 0x%x\n",
 			pgi->name, on, act_readl(SPS_PG_CTL));
 	else
-		printk("[PowerGate] name: '%s', on: %d, after SPS_PG_CTL: 0x%x\n",
+		pr_debug("[PowerGate] name: '%s', on: %d, after SPS_PG_CTL: 0x%x\n",
 			pgi->name, on, act_readl(SPS_PG_CTL));
 
 	return 0;

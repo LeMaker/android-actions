@@ -57,57 +57,14 @@ struct owl_dss_features {
 /* This struct is assigned to one of the below during initialization */
 static const struct owl_dss_features *owl_current_dss_features;
 
-static const struct dss_reg_field owl2_dss_reg_fields[] = {
-	[FEAT_REG_FIRHINC]			= { 11, 0 },
-	[FEAT_REG_FIRVINC]			= { 27, 16 },
-	[FEAT_REG_FIFOLOWTHRESHOLD]		= { 8, 0 },
-	[FEAT_REG_FIFOHIGHTHRESHOLD]		= { 24, 16 },
-	[FEAT_REG_FIFOSIZE]			= { 8, 0 },
-	[FEAT_REG_HORIZONTALACCU]		= { 9, 0 },
-	[FEAT_REG_VERTICALACCU]			= { 25, 16 },
-	[FEAT_REG_DISPC_CLK_SWITCH]		= { 0, 0 },
-	[FEAT_REG_DSIPLL_REGN]			= { 0, 0 },
-	[FEAT_REG_DSIPLL_REGM]			= { 0, 0 },
-	[FEAT_REG_DSIPLL_REGM_DISPC]		= { 0, 0 },
-	[FEAT_REG_DSIPLL_REGM_DSI]		= { 0, 0 },
-};
-
-static const struct dss_reg_field owl3_dss_reg_fields[] = {
-	[FEAT_REG_FIRHINC]			= { 12, 0 },
-	[FEAT_REG_FIRVINC]			= { 28, 16 },
-	[FEAT_REG_FIFOLOWTHRESHOLD]		= { 11, 0 },
-	[FEAT_REG_FIFOHIGHTHRESHOLD]		= { 27, 16 },
-	[FEAT_REG_FIFOSIZE]			= { 10, 0 },
-	[FEAT_REG_HORIZONTALACCU]		= { 9, 0 },
-	[FEAT_REG_VERTICALACCU]			= { 25, 16 },
-	[FEAT_REG_DISPC_CLK_SWITCH]		= { 0, 0 },
-	[FEAT_REG_DSIPLL_REGN]			= { 7, 1 },
-	[FEAT_REG_DSIPLL_REGM]			= { 18, 8 },
-	[FEAT_REG_DSIPLL_REGM_DISPC]		= { 22, 19 },
-	[FEAT_REG_DSIPLL_REGM_DSI]		= { 26, 23 },
-};
-
-static const struct dss_reg_field owl_dss_reg_fields[] = {
-	[FEAT_REG_FIRHINC]			= { 12, 0 },
-	[FEAT_REG_FIRVINC]			= { 28, 16 },
-	[FEAT_REG_FIFOLOWTHRESHOLD]		= { 15, 0 },
-	[FEAT_REG_FIFOHIGHTHRESHOLD]		= { 31, 16 },
-	[FEAT_REG_FIFOSIZE]			= { 15, 0 },
-	[FEAT_REG_HORIZONTALACCU]		= { 10, 0 },
-	[FEAT_REG_VERTICALACCU]			= { 26, 16 },
-	[FEAT_REG_DISPC_CLK_SWITCH]		= { 9, 8 },
-	[FEAT_REG_DSIPLL_REGN]			= { 8, 1 },
-	[FEAT_REG_DSIPLL_REGM]			= { 20, 9 },
-	[FEAT_REG_DSIPLL_REGM_DISPC]		= { 25, 21 },
-	[FEAT_REG_DSIPLL_REGM_DSI]		= { 30, 26 },
-};
 
 static const enum owl_display_type owl_dss_supported_displays[] = {	
 	/* OWL_DSS_CHANNEL_LCD */
-	OWL_DISPLAY_TYPE_LCD | OWL_DISPLAY_TYPE_DSI | OWL_DISPLAY_TYPE_EDP,	
+	OWL_DISPLAY_TYPE_LCD | OWL_DISPLAY_TYPE_DSI | OWL_DISPLAY_TYPE_EDP | OWL_DISPLAY_TYPE_CVBS |
+	OWL_DISPLAY_TYPE_HDMI ,	
 	
 	/* OWL_DSS_CHANNEL_DIGIT */
-	OWL_DISPLAY_TYPE_HDMI | OWL_DISPLAY_TYPE_LCD | OWL_DISPLAY_TYPE_DSI ,	
+	OWL_DISPLAY_TYPE_HDMI | OWL_DISPLAY_TYPE_LCD | OWL_DISPLAY_TYPE_DSI | OWL_DISPLAY_TYPE_CVBS ,	
 
 };
 
@@ -167,31 +124,9 @@ static const enum owl_overlay_caps owl_dss_overlay_caps[] = {
 		OWL_DSS_OVL_CAP_PRE_MULT_ALPHA | OWL_DSS_OVL_CAP_ZORDER,
 };
 
-static const char * const owl_dss_clk_source_names[] = {
-	[OWL_DSS_CLK_SRC_DISPLAY_PLL]	= "PLL1_CLK1",
-	[OWL_DSS_CLK_SRC_NAND_PLL]	= "PLL1_CLK2",
-	[OWL_DSS_CLK_SRC_DEV_PLL]			= "DSS_FCLK",
-};
-
-
-static const struct dss_param_range owl_dss_param_range[] = {
-	[FEAT_PARAM_DSS_FCK]			= { 0, 186000000 },
-	[FEAT_PARAM_DSS_PCD]			= { 1, 255 },
-	[FEAT_PARAM_DSIPLL_REGN]		= { 0, (1 << 8) - 1 },
-	[FEAT_PARAM_DSIPLL_REGM]		= { 0, (1 << 12) - 1 },
-	[FEAT_PARAM_DSIPLL_REGM_DISPC]		= { 0, (1 << 5) - 1 },
-	[FEAT_PARAM_DSIPLL_REGM_DSI]		= { 0, (1 << 5) - 1 },
-	[FEAT_PARAM_DSIPLL_FINT]		= { 500000, 2500000 },
-	[FEAT_PARAM_DSIPLL_LPDIV]		= { 0, (1 << 13) - 1 },
-	[FEAT_PARAM_DOWNSCALE]			= { 1, 4 },
-	[FEAT_PARAM_LINEWIDTH]			= { 1, 2048 },
-};
-
 /* OWL4 DSS Features */
 /* For all the other OWL4 versions */
 static const struct owl_dss_features owl_dss_features = {
-	.reg_fields = owl_dss_reg_fields,
-	.num_reg_fields = ARRAY_SIZE(owl_dss_reg_fields),
 
 	.has_feature	=
 		FEAT_MGR_LCD2 |
@@ -206,8 +141,6 @@ static const struct owl_dss_features owl_dss_features = {
 	.supported_displays = owl_dss_supported_displays,
 	.supported_color_modes = owl_dss_supported_color_modes,
 	.overlay_caps = owl_dss_overlay_caps,
-	.clksrc_names = owl_dss_clk_source_names,
-	.dss_params = owl_dss_param_range,
 	.buffer_size_unit = 16,
 	.burst_size_unit = 16,
 };
@@ -233,7 +166,7 @@ unsigned long dss_feat_get_param_max(enum dss_range_param param)
 	return owl_current_dss_features->dss_params[param].max;
 }
 
-enum owl_display_type dss_feat_get_supported_displays(enum owl_channel channel)
+enum owl_display_type dss_feat_get_supported_displays(enum owl_de_path_id channel)
 {
 	return owl_current_dss_features->supported_displays[channel];
 }

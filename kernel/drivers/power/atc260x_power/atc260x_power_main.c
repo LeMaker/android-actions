@@ -1394,7 +1394,7 @@ static void change_charge_current_if_needed(struct atc260x_charger *charger)
 	bool  bl_changed = (charger->cur_bl_status == charger->pre_bl_status) ? false : true;
 	bool mode_changed = (charger->charger_cur_status == charger->charger_pre_status) ? false : true;
 		
-	if(charger->charger_cur_status == NO_PLUGED)
+	if(charger->charger_cur_status == NO_PLUGED || !charger->bat_is_exist)
 	{
 		return ;
 	}
@@ -1414,7 +1414,7 @@ static void  report_power_supply_change(struct atc260x_charger *charger)
 	int supply_changed = charger->charger_pre_status != charger->charger_cur_status;
 	power = container_of(charger, struct atc260x_power, charger);
 
-	if(battery_level_changed || charger->cur_bat_cap == 0)
+	if(battery_level_changed || (charger->cur_bat_cap == 0 && charger->bat_is_exist))
 	{
 		log_event_int(LOG_HEADER_BATTERY, charger->cur_bat_cap);
 		power_supply_changed(&charger->psy);
@@ -1584,7 +1584,6 @@ static int atc260x_bat_check_status(struct atc260x_charger *charger, int *status
 
 	return 0;
 }
-
 
 int atc260x_bat_check_type(struct atc260x_charger *charger, int *type)
 {
@@ -1920,6 +1919,21 @@ int pmu_reg_read(unsigned short reg)
     return ret;
 }
 EXPORT_SYMBOL_GPL(pmu_reg_read);
+
+int pmu_reg_write(unsigned short reg, unsigned short val)
+{
+    struct atc260x_dev *atc260x = get_atc260x_dev();
+    int ret;
+    
+    ret = atc260x_reg_write(atc260x, reg, val);
+    if (ret < 0)
+    	return -1;
+    	
+    return ret;
+}
+EXPORT_SYMBOL_GPL(pmu_reg_write);
+
+
 
 void atc260x_set_usb_plugin_type(int type)
 {

@@ -134,9 +134,7 @@ static void hdmi_set_timings(struct owl_dss_device *dssdev,
 
 	mutex_lock(&hdmi_panel.lock);
 
-//	owldss_hdmi_display_set_timing(dssdev, timings);
-	
-	dssdev->timings = *timings;
+	owldss_hdmi_display_set_timing(dssdev, timings);
 
 	mutex_unlock(&hdmi_panel.lock);
 }
@@ -163,7 +161,7 @@ static void hdmi_set_vid(struct owl_dss_device *dssdev,
 
 	mutex_lock(&hdmi_panel.lock);
 
-	owldss_hdmi_display_set_vid(dssdev, &dssdev->timings, vid);
+	owldss_hdmi_display_set_vid(dssdev, vid);
 	
 	mutex_unlock(&hdmi_panel.lock);
 }
@@ -204,6 +202,28 @@ static void hdmi_enable_hdcp(struct owl_dss_device *dssdev,
 	mutex_unlock(&hdmi_panel.lock);
 }
 
+static void hdmi_get_over_scan(struct owl_dss_device *dssdev, u16 * over_scan_width,u16 * over_scan_height)
+{
+	HDMI_DEBUG("hdmi_get_over_scan\n");
+
+	mutex_lock(&hdmi_panel.lock);
+	
+	owldss_hdmi_display_get_overscan(dssdev, over_scan_width,over_scan_height);
+	
+	mutex_unlock(&hdmi_panel.lock);
+}
+
+static void hdmi_set_over_scan(struct owl_dss_device *dssdev,u16 over_scan_width,u16 over_scan_height)
+{
+	HDMI_DEBUG("hdmi_set_over_scan\n");
+
+	mutex_lock(&hdmi_panel.lock);
+	
+	owldss_hdmi_display_set_overscan(dssdev, over_scan_width,over_scan_height);
+	
+	mutex_unlock(&hdmi_panel.lock);
+}
+
 static int hdmi_get_vid_cap(struct owl_dss_device *dssdev,
 			int *vid_cap)
 {
@@ -214,6 +234,21 @@ static int hdmi_get_vid_cap(struct owl_dss_device *dssdev,
 	mutex_lock(&hdmi_panel.lock);
 	
 	r = owldss_hdmi_display_get_vid_cap(dssdev, vid_cap);
+	
+	mutex_unlock(&hdmi_panel.lock);
+	
+	return r;
+}
+
+static int hdmi_read_edid(struct owl_dss_device *dssdev,u8 *buf, int len)
+{
+	int r;
+	
+	HDMI_DEBUG("hdmi_read_edid\n");
+
+	mutex_lock(&hdmi_panel.lock);
+	
+	r = owldss_hdmi_read_edid(dssdev, buf, len);
 	
 	mutex_unlock(&hdmi_panel.lock);
 	
@@ -264,6 +299,9 @@ static struct owl_dss_driver hdmi_driver = {
 	.get_cable_status = hdmi_get_cable_status,
 	.get_effect_parameter   = generic_hdmi_panel_get_effect_parameter,
 	.set_effect_parameter   = generic_hdmi_panel_set_effect_parameter,
+	.get_over_scan = hdmi_get_over_scan,
+	.set_over_scan = hdmi_set_over_scan,
+	.read_edid        = hdmi_read_edid,
 	.driver			= {
 		.name   = "hdmi_panel",
 		.owner  = THIS_MODULE,
@@ -274,14 +312,19 @@ int __init hdmi_panel_init(void)
 {
    
    
+   int r = -1; 
    if (owl_get_boot_mode() == OWL_BOOT_MODE_UPGRADE) {
 		printk("upgrade process hdmi disabled!!\n");
 		return -ENODEV;
 	}
 	mutex_init(&hdmi_panel.lock);
 	
-	owl_hdmi_init_platform();
-
+	r = owl_hdmi_init_platform();
+	
+	if(r)
+	{
+		return r;
+	}
 	return owl_dss_register_driver(&hdmi_driver);
 
 }

@@ -117,6 +117,11 @@ public class VideoModule extends CameraModule
     // module fields
     private CameraActivity mActivity;
     private boolean mPaused;
+    /**
+    * BUGFIX: fix for error hint when uvc plug out. 
+    *ActionsCode(author:liyuan, change_code)
+    */
+    private boolean mErrflag;
 
     // if, during and intent capture, the activity is paused (e.g. when app switching or reviewing a
     // shot video), we don't want the bottom bar intent ui to reset to the capture button
@@ -350,6 +355,7 @@ public class VideoModule extends CameraModule
         mAppController = mActivity;
 
         mActivity.updateStorageSpaceAndHint(null);
+	mErrflag = false;
 
         mUI = new VideoUI(mActivity, this,  mActivity.getModuleLayoutRoot());
         mActivity.setPreviewStatusListener(mUI);
@@ -686,7 +692,16 @@ public class VideoModule extends CameraModule
             }
         }
     }
-
+    /**
+    * BUGFIX: fix for error hint when uvc plug out. 
+    *ActionsCode(author:liyuan, change_code)
+    */
+    public void onError(int errorCode) {
+	mErrflag = true;
+	if ((errorCode == mActivity.CAMERA_ERROR_RELEASED) && mMediaRecorderRecording) {
+	    onStopVideoRecording();
+        }
+    }
     public void onVideoSaved() {
         if (mIsVideoCaptureIntent) {
             showCaptureResult();
@@ -1522,7 +1537,7 @@ public class VideoModule extends CameraModule
             // If the activity is paused, this means activity is interrupted
             // during recording. Release the camera as soon as possible because
             // face unlock or other applications may need to use the camera.
-            if (mPaused) {
+            if (mPaused||mErrflag) {
                 // b/16300704: Monkey is fast so it could pause the module while recording.
                 // stopPreview should definitely be called before switching off.
                 stopPreview();
@@ -1549,7 +1564,7 @@ public class VideoModule extends CameraModule
 
         mAppController.getCameraAppUI().showModeOptions(true);///
         mAppController.getCameraAppUI().animateBottomBarToFullSize(mShutterIconId);
-        if (!mPaused && mCameraDevice != null) {
+        if (!mPaused && mCameraDevice != null && !mErrflag) {
             setFocusParameters();
             mCameraDevice.lock();
             if (!ApiHelper.HAS_SURFACE_TEXTURE_RECORDING) {

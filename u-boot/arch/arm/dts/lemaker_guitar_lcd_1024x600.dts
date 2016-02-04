@@ -202,28 +202,21 @@
 
 			atc260x-power{
 				compatible = "actions,atc2603c-power";
-				support_adaptor_type = <3>;      /*1: DCIN  2: USB  3:DCIN+USB*/
+				support_adaptor_type = <2>;      /*1: DCIN  2: USB  3:DCIN+USB*/
+				gauge_bus_id = <2>;      /*gauge bus id: 0~n*/
+				gauge_id = <1>;      /*0:default gauge, 1:hwgauge*/
+				boot_cap_threshold = <7>;     /*7%,the lowest capacity permitted to boot*/ 
 				support_minicharger = < 1 >;	/* 1:support minicharer  0:do not support minicharger */  
 			};
 		};
 	};
 
 	i2c@b017c000 {
-		i2c_num = <3>;
+		i2c_num = <1>;
 		clock-frequency = <400000>;
 		status = "okay";
 		pinctrl-names = "default";
-		pinctrl-0 = <&i2c3_state_over_spi0>;
-		eg2801_eeprom@14 {
-			compatible ="actions,eg2801_eeprom";
-			reg = <0x14>;
-		};
-
-		eg2801_ram@55 {
-			compatible ="actions,eg2801_ram";
-			reg = <0x55>;
-		};
-		
+		pinctrl-0 = <&i2c1_state_default>;	
 		hdmi_read_edid@30 {
 			compatible = "actions,hdmi_read_edid";
 			reg = <0x30>;
@@ -270,25 +263,15 @@
 
 	framebuffer {
 		compatible = "actions,framebuffer";
-
-		/*never creat platform device*/
-		status = "disabled";
+		def_display  = "lcd";
 	};
 
-	ovl_boot {
-		usage = "boot";
-		disp_dev = <&lcd0>;
-	};
-
-	ovl_extra {
-		usage = "extra";
-	};
 		
 	lcd0: lcd0@b02a0000 {
                 pinctrl-names = "default";
                 pinctrl-0 = <&lvds_state_default>;
                 lcd_power_gpios = <&gpio 36 0>;    /*GPIOB4*/
-                lcd_reset_gpios = <&gpio 49 0>; /*GPIOB17*/
+               // lcd_reset_gpios = <&gpio 49 0>; /*GPIOB17*/
                 port_type = "lvds";
                 data_width = <0>;               /* 0:24bit ,1:18bit */
                 videomode-0 = <&lcd_mode0>;
@@ -302,12 +285,13 @@
                 saturation = <7>;
                 contrast = <5>;
 
+
 	
                 lcd_mode0:mode@1280x800p60 {
                 refresh = <60>;
                         xres = <1280>; 
                         yres = <800>;    
-                        pixclock = <20000>;
+                        pixclock = <14090>;
                         left_margin = <80>;
                         right_margin = <60>;
                         upper_margin = <8>;
@@ -344,7 +328,7 @@
 		bit_invert = <0>;
 		bootable = <1>; 
 		bootrotate = <0>;   
-		default_resolution = "1080P60HZ";
+		default_resolution = "auto";
 	};
 
 	pwm: pwm@b01b0050 {
@@ -381,7 +365,7 @@
 	backlight {
 		/*1.pwm num; 2. period in ns; */
 		/*3.plarity, 0: high active, 1: low active*/
-//		backlight_en_gpios = <&gpio 124 0>; /*GPIOD28*/ 
+		backlight_en_gpios = <&gpio 49 0>; /*GPIOD28*/ 
 		pwms = <&pwm 0 50000 1>;
 		total_steps = <1024>;
 		min_brightness = <120>;

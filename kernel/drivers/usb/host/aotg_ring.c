@@ -6,6 +6,7 @@
 
 #include "aotg_hcd.h"
 #include "aotg_debug.h"
+#include "aotg_mon.h"
 
 void aotg_set_ring_linkaddr(struct aotg_ring *ring, u32 addr);
 int aotg_set_trb_as_ring_linkaddr(struct aotg_ring *ring, struct aotg_trb *trb);
@@ -487,7 +488,7 @@ int aotg_sg_map_trb(struct aotg_trb *trb,
 
 	return this_trb_len;
 }
-
+#if (0)
 /*
  * ring->enqueue_trb should be overflow
  */
@@ -510,21 +511,35 @@ void inc_enqueue_safe(struct aotg_ring *ring)
 		ring->enqueue_trb += 1;
 	}
 }
-
+#endif
 void enqueue_trb(struct aotg_ring *ring, u32 buf_ptr, u32 buf_len,
 				u32 token)
 {
 	struct aotg_trb *trb;
 	trb = ring->enqueue_trb;
 
+	atomic_dec(&ring->num_trbs_free);
+	if (trb == ring->last_trb) {
+		if (ring->type == PIPE_BULK) {
+			token &= ~TRB_CHN;
+			if (ring->is_out)
+				token |= TRB_ITE | TRB_LT;
+			else
+				token |= TRB_ICE | TRB_LT;
+			ring->enqueue_trb = ring->first_trb;
+		} else {
+			token |= TRB_COF;
+			ring->enqueue_trb = ring->first_trb;
+		}
+	} else {
+		ring->enqueue_trb += 1;
+	}
+
 	trb->hw_buf_ptr = buf_ptr;
 	trb->hw_buf_len = buf_len;
-	trb->hw_token = token;
 	trb->hw_buf_remain = 0;
-
-	//aotg_hcd_dump_trb(ring, trb);
-
-	inc_enqueue_safe(ring);	
+	wmb();
+	trb->hw_token = token;
 }
 
 /*
@@ -647,7 +662,8 @@ int aotg_ring_enqueue_td(struct aotg_hcd *acthcd,
 	}
 	
 	token &= ~TRB_CHN;
-	token |= TRB_LT;
+	if (!port_host_plug_detect[acthcd->id])
+		token |= TRB_LT; /*8723bu,release cpu for interrupt transfer*/
 	if (is_out)	
 		token |= TRB_ITE;
 	else 
@@ -1206,7 +1222,8 @@ int finish_td(struct aotg_hcd *acthcd, struct aotg_ring *ring, struct aotg_td *t
 	num_trbs = td->num_trbs;
 
 	if (td->cross_ring) {
-//		printk("%s over cross!\n", __FUNCTION__);
+		if ((ring->last_trb->hw_token & TRB_OF) != 0)
+			return -1;
 		td->cross_ring = 0;
 		aotg_set_trb_as_ring_linkaddr(ring, ring->first_trb);
 		usb_setbitsl(DMACTRL_DMACS, ring->reg_dmactrl);
@@ -1467,18 +1484,24 @@ void handle_ring_dma_tx(struct aotg_hcd *acthcd, unsigned int irq_mask)
 void aotg_ring_irq_handler(struct aotg_hcd *acthcd)
 {
 	unsigned int irq_mask;
+	unsigned long flags;
+
+	spin_lock_irqsave(&acthcd->lock, flags);
+	acthcd->check_trb_mutex = 1;
 
 	do {
 		irq_mask = get_ring_irq(acthcd);
-		if (irq_mask == 0)
+		if (irq_mask == 0) {
+			acthcd->check_trb_mutex = 0;
+			spin_unlock_irqrestore(&acthcd->lock, flags);
 			return;
+		}
 		clear_ring_irq(acthcd, irq_mask);
 
-		spin_lock(&acthcd->lock);
 		handle_ring_dma_tx(acthcd, irq_mask);
-		spin_unlock(&acthcd->lock);
-	} while(irq_mask);
-
+	} while (irq_mask);
+	acthcd->check_trb_mutex = 0;
+	spin_unlock_irqrestore(&acthcd->lock, flags);
 	return;
 }
 

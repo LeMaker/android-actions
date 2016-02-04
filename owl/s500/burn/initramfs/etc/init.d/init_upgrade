@@ -101,6 +101,7 @@ format_disk() {
 	disk_label=`cat /sys/devices/b0400000.usb/dwc3.0/gadget/gadget-lun0/format_disk_label`
 	echo $fs_name
 	echo $disk_name
+	echo $disk_label
 	if [ "$fs_name" = "ext4" ]
 	then
 		echo "---use mke2fs ----"
@@ -108,6 +109,11 @@ format_disk() {
 	elif  [ "$fs_name" = "raw" ]
 	then
 		echo "---raw ,not format ---"
+		if [ ${disk_name} == '/dev/actj' ]
+		then
+			echo "mkfs.vfat /dev/actk"
+			mkfs.vfat /dev/actk -n NONAME && sync
+		fi
 	else
 		echo "---use mkfs.vfat ---"
 		mkfs.vfat $disk_name -n NONAME && sync

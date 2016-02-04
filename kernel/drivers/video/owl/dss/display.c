@@ -130,16 +130,6 @@ void owl_default_get_resolution(struct owl_dss_device *dssdev,
 }
 EXPORT_SYMBOL(owl_default_get_resolution);
 
-void default_get_overlay_fifo_thresholds(enum owl_plane plane,
-		u32 fifo_size, u32 burst_size,
-		u32 *fifo_low, u32 *fifo_high)
-{
-	unsigned buf_unit = dss_feat_get_buffer_size_unit();
-
-	*fifo_high = fifo_size - buf_unit;
-	*fifo_low = fifo_size - burst_size;
-}
-
 int owl_default_get_recommended_bpp(struct owl_dss_device *dssdev)
 {
 	switch (dssdev->type) {
@@ -156,7 +146,7 @@ int owl_default_get_recommended_bpp(struct owl_dss_device *dssdev)
 		if (dssdev->data_lines == 24)
 			return 24;
 		else
-			return 16;
+			return 24;
 	default:
 		BUG();
 	}
@@ -192,45 +182,10 @@ void dss_init_device(struct platform_device *pdev,
 		struct owl_dss_device *dssdev)
 {
 	struct device_attribute *attr;
-	int i;
+	int i = 0;
 	int r = 0;
-#if 0
-	switch (dssdev->type) {
-
-	case OWL_DISPLAY_TYPE_LCD:
-		r = lcdc_init_display(dssdev);
-		break;
-
-	case OWL_DISPLAY_TYPE_DSI:
-		r = dsi_init_display(dssdev);
-		break;
-	case OWL_DISPLAY_TYPE_EDP:
-		r = edp_init_display(dssdev);
-		break;
-	case OWL_DISPLAY_TYPE_CVBS:
-		r = cvbs_init_display(dssdev);
-		break;
-	case OWL_DISPLAY_TYPE_YPBPR:
-		r = ypbpr_init_display(dssdev);
-		break;
-
-	case OWL_DISPLAY_TYPE_HDMI:
-		r = hdmi_init_display(dssdev);
-		break;
-
-	default:
-		DSSERR("Support for display '%s' not compiled in.\n",
-				dssdev->name);
-		return;
-	}
-#endif 
-	if (r) {
-		DSSERR("failed to init display %s\n", dssdev->name);
-		return;
-	}
 
 	/* create device sysfs files */
-	i = 0;
 	while ((attr = display_sysfs_attrs[i++]) != NULL) {
 		r = device_create_file(&dssdev->dev, attr);
 		if (r)
@@ -341,12 +296,12 @@ enum owl_display_type get_current_display_type(void)
 	struct device_node *np=NULL;
 	enum owl_display_type display_type;
 	
-	display_type = OWL_DISPLAY_TYPE_LCD;
+	display_type = OWL_DISPLAY_TYPE_NONE;
 	
 	for(i=0; i<max_display_cnt; i++) {
 		np = of_find_compatible_node(NULL, NULL, lcd_node_compatible[i]);
 		if (!np) {
-			DSSERR("failed to find %s node\n", lcd_node_compatible[i]);
+			//DSSERR("failed to find %s node\n", lcd_node_compatible[i]);
 			continue ;
 		} else {
 			if (!of_property_read_string(np, "port_type", &portname)) {
@@ -419,6 +374,19 @@ struct owl_dss_device *owl_dss_find_device(void *data,
 	return NULL;
 }
 EXPORT_SYMBOL(owl_dss_find_device);
+
+
+struct owl_dss_device *owl_dss_find_device_by_type(enum owl_display_type type)
+{
+	struct owl_dss_device *dssdev = NULL;
+
+	while ((dssdev = owl_dss_get_next_device(dssdev)) != NULL) {
+		if (dssdev->type == type)
+			return dssdev;
+	}
+	return NULL;
+}
+EXPORT_SYMBOL(owl_dss_find_device_by_type);
 
 int owl_dss_start_device(struct owl_dss_device *dssdev)
 {

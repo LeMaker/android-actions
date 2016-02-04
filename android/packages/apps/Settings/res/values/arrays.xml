@@ -278,13 +278,11 @@
 
     <!-- CVBS -->
     <string-array name="tvout_cvbs_entries" translatable="false">
-        <item>Disconnect</item>
         <item>PAL(720x576)</item>
         <item>NTSC(720x480)</item>
     </string-array>
 
     <string-array name="tvout_cvbs_values" translatable="false">
-        <item>-1</item>
         <item>0</item>
         <item>1</item>
     </string-array>

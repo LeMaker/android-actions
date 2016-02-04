@@ -8,7 +8,7 @@
 
 	/*default*/
 	chosen {
-		bootargs = "earlyprintk clk_ignore_unused selinux=0 scandelay root=/dev/mmcblk0p2 rw console=tty0 rootfstype=ext4 console=ttyS3 loglevel=4 rootwait";
+		bootargs = "earlyprintk clk_ignore_unused selinux=0";
 	};
 
 	cpus {
@@ -18,22 +18,7 @@
 			cpuvdd-supply = <&dcdc1>;
 		};
 	};
-	
-	clock:0b0160000 {
-		compatible = "actions,owl-clk";
-		core_pll = <0x332>;
-		dev_pll = <0x1164>;
-		bus_pll = <0x1c710000>;
-		display_pll = <0x164>;
-		bus1_pll = <0x2e004>;
-		clk_spead = <0x0>;
-	};
-	
-        gpio_int {
-		initgpio_A=<23 0 0>,<25 0 0>;/*<x1,x2,x3>,x1=PIN,x2=(0=OUT,1=IN),x3=IOVAL*/
-		initgpio_B=<23 0 0>;
-        };
-    
+
 	reserved {
 		tiny {
 			fb_heap_size = <4>;
@@ -186,12 +171,6 @@
 			sd0_d0_d3_cmd_clk_paddrv  {
 				actions,groups  = "paddrv1_19_18","paddrv1_17_16";
 				actions,paddrv  = <1>; /*level 1，范围0~3*/ 			
-			};
-			
-			// 如果以后使用uart2请修改这个地方到uart2配置，现在默认是uart5
-			serial_5 {
-				actions,groups = "mfp2_19_17","mfp2_16_14";
-				actions,function = "uart5";   
 			};
 		};
 		
@@ -381,15 +360,15 @@
 			};
 		};
  		lvds_state_default: lvds_default {
-       lvds_mux {
-               actions,groups = "mfp1_6_5", "mfp2_28_27";
-                actions,function = "lvds";
-       };
-       lcd_mux {
-            actions,groups = "mfp1_22_21";
-            actions,function = "lcd0";
-       };
-  	};
+			lvds_mux {
+				actions,groups = "mfp1_6_5", "mfp2_28_27";
+				actions,function = "lvds";
+			};
+			lcd_mux {
+				actions,groups = "mfp1_22_21";
+				actions,function = "lcd0";
+			};
+	  	};
 		i2s0_state_default: i2s0_default {
 			i2s0_default_mfp {
 				actions,groups = "mfp0_2_1_i2s0", "mfp0_4_3", "mfp0_5";
@@ -503,6 +482,10 @@
 			onoff {
 				compatible = "actions,atc2603c-onoff";
 			};
+			
+			atc260x-pwm {
+				compatible = "actions,atc2603c-pwm";
+			};	
 
 			rtc{
 				compatible = "actions,atc2603c-rtc";
@@ -539,6 +522,7 @@
 				compatible = "actions,atc2603c-adckeypad";
 				status = "disabled";                /* enable/disable ADC key function (okay or disabled) */
 			};
+
 			atc260x-irkeypad{
 				size = <28>;
 				user_code = <16448>;
@@ -564,7 +548,7 @@
 				//speaker_en_gpios = <&gpio 126 1>; /*hr280ac GPIOD(30) 0: high, 1: low*/
 				earphone_output_mode = <0>; /*0: direct mode, 1: undirect mode*/
 				mic_num = <1>; /*just suport 1, 2*/
-				mic0_gain = < 0x3 0x3 >; /*<Lchannel,Rchannel> [0x0~0xF]*/
+				mic0_gain = < 0xf 0xf >; /*<Lchannel,Rchannel> [0x0~0xF]*/
 				speaker_gain = < 0xaa 0xaa >; /*<Lchannel,Rchannel>[0x00~0xbebe]*/
 				earphone_gain = < 0xbe 0xbe >; /*<Lchannel,Rchannel>[0x00~0xbebe]*/
 				mic_mode = <1>; /* 1: differential,  2: single end*/
@@ -604,7 +588,7 @@
 				taper_voltage = < 4200 >;                         /*mV,the one close to the full capacity*/
 				taper_current = <300>; 
 				min_over_chg_protect_voltage = < 4275 >;				/*mA,the one close to the full capacity*/
-				terminal_voltage = <3450>;                        /*mV,the lowest voltage of battery permitted*/
+				terminal_voltage = <3300>;                        /*mV,the lowest voltage of battery permitted*/
 				suspend_current = < 7730 >;                       /* uA,the current of suspend*/
 				shutdown_current = < 50 >;                        /* uA,the current of shutdown*/
 				print_switch = <0>;                               /*0:open the switch of printing information 1:the opposite*/
@@ -687,8 +671,8 @@
 			ldo1: ldo1{
 				compatible = "actions,atc2603c-ldo1","actions,atc2603c-ldo";
 				regulator-name = "ldo1";
-				regulator-min-microvolt  = <2800000>;
-				regulator-max-microvolt = <2800000>;
+				regulator-min-microvolt  = <2600000>;
+				regulator-max-microvolt = <3300000>;
 				regulator-always-on;
 			};
 
@@ -785,8 +769,8 @@
 			tp_vcc = "ldo5";
 			reset_gpios = <&gpio 35 1>; /*GPIOB(3) 0: high, 1: low*/
 			max_points = <5>;
-			x_pixel = <1280>;
-			y_pixel = <800>;
+			x_pixel = <1024>;
+			y_pixel = <600>;
 			x_revert_en = <0>;
 			y_revert_en = <0>;
 			xy_swap_en = <0>;
@@ -818,8 +802,8 @@
                         tp_vcc = "ldo5";
                         reset_gpios = <&gpio 35 1>; /*GPIOB(3) 0: high, 1: low*/
                         max_points = <5>;
-                        x_pixel = <1024>;
-                        y_pixel = <600>;
+                        x_pixel = <1280>;
+                        y_pixel = <800>;
                         x_revert_en = <0>;
                         y_revert_en = <0>;
                         xy_swap_en = <0>;
@@ -957,24 +941,18 @@
 
 		phy_addr = <1>;
 		address-bits = <48>;
-		local-mac-address = [ 00 18 fe 66 66 66 ];
+		//random-mac-address = "okay";		/*okay:     disable:*/
+		//local-mac-address = [ 00 18 fe 66 66 66 ];   /* if random address is enable,the local address will be unuseful*/
 		max-frame-size = <1518>;
 
 		status = "okay";
 		compatible = "actions,owl-ethernet";
 		
 		phy0: ethernet-phy@0 {
-			compatible = "micrel,ksz8041tl";
+			compatible = "realtek-corechip,xxx8201";
 			reg = <0>;
 		};
 	};
-		phy1 {
-		compatible = "SR8201G,sr8201g";
-		reg = <0>;
-					/* SIRQ0 */
-		interrupt-parent = <&sirq>;
-		interrupts = < 0 0x4 >;
-		};
 
 	mmc@b0230000 {
 		pinctrl-names = "default","share_uart2_5";
@@ -1026,16 +1004,17 @@
 		usb_hs_output_strength = <2>; /*defaut:2,range:0~7; 0:min,7:max;usb high speed(2.0)transmitter output strength*/
 		status = "okay";
 	};
-  usb@b0600000 { 
-     //vbus_otg_en_gpio = <&gpio 116 1>; /*GPIO D20*/ 
-     port0_host_plug_detect = <2>;
+	usb@b0600000 { 
+		//vbus_otg_en_gpio = <&gpio 116 0>; /*GPIO D20*/ 
+		port0_host_plug_detect = <1>;
 		 status = "okay";
-   }; 
-   usb@b0700000 { 
-                      //        vbus_otg_en_gpio = <&gpio 36 0>; /*GPIO B4*/
-                      port1_host_plug_detect = <1>;
+	}; 
+
+	usb@b0700000 { 
+		//vbus_otg_en_gpio = <&gpio 36 0>; /*GPIO B4*/
+		port1_host_plug_detect = <1>;
                       status = "okay";
-   };
+	};
 
 	monitor {
 		compatible = "actions,atm7059tc-usbmonitor";
@@ -1079,6 +1058,7 @@
 
 		status = "disabled";
 	};
+
 	sensor-detect {
 		compatible = "sensor_detect";
 		status = "okay";
@@ -1110,29 +1090,12 @@
     	};
     };
 
-	
-	framebuffer {
-		compatible = "actions,framebuffer";
-
-		/*never creat platform device*/
-		status = "disabled";
-		};
-
-		ovl_boot {
-			usage = "boot";
-			disp_dev = <&lcd0>;
-		};
-
-		ovl_extra {
-			usage = "extra";
-		};
-		
-	lcd0: lcd0@b02a0000 {
+lcd0: lcd0@b02a0000 {
 
 		pinctrl-names = "default";
 		pinctrl-0 = <&lvds_state_default>;
 		lcd_power_gpios = <&gpio 36 0>;    /*GPIOB4*/
-		lcd_reset_gpios = <&gpio 49 0>; /*GPIOB17*/
+	//	lcd_reset_gpios = <&gpio 49 0>; /*GPIOB17*/
 		port_type = "lvds";
 		data_width = <0>;		/* 0:24bit ,1:18bit */
 		videomode-0 = <&lcd_mode0>;
@@ -1152,7 +1115,7 @@
 		refresh = <60>;
                         xres = <1280>; 
                         yres = <800>;    
-                        pixclock = <20000>;
+                        pixclock = <14090>;
                         left_margin = <80>;
                         right_margin = <60>;
                         upper_margin = <8>;
@@ -1186,9 +1149,24 @@
 		hdcp_onoff = <0>;
 		channel_invert = <0>;
 		bit_invert = <0>;
+		hotplugable = <1>;
 		bootable = <1>; 
-		bootrotate = <0>;   
-		default_resolution = "1080P60HZ";
+		bootrotate = <3>;   
+		default_resolution = "auto";
+	};
+
+	cvbs:cvbs@b02b0000{  
+		default_mode = "PAL";
+		bootable = <1>; 
+		bootrotate = <3>; 
+		hotplugable = <1>;
+		status="disabled";
+	};
+	
+	framebuffer {
+		compatible = "actions,framebuffer";  
+		def_display  = "lcd";
+
 	};
 
 	pwm: pwm@b01b0050 {
@@ -1217,12 +1195,12 @@
 	backlight {
 		/*1.pwm num; 2. period in ns; */
 		/*3.plarity, 0: high active, 1: low active*/
-//		backlight_en_gpios = <&gpio 124 0>; /*S500 GPIOD28*/ 
+		backlight_en_gpios = <&gpio 49 0>; /*S500 GPIOD28*/ 
 		pwms = <&pwm 0 50000 1>;
 		total_steps = <1024>;
-		min_brightness = <120>;
-		max_brightness = <450>;
-		dft_brightness = <300>;
+		min_brightness = <250>;
+		max_brightness = <1000>;
+		dft_brightness = <600>;
 		delay_bf_pwm  = <200>;
 		delay_af_pwm  = <10>;	
 	};

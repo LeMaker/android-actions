@@ -2,13 +2,14 @@
 
 .PHONY: all clean
 .PHONY: kernel_clean u-boot_clean bootloader_clean rootfs_clean distclean mrproper
-.PHONY: kernel kernel-config modules u-boot bootloader rootfs initramfs misc firmware md5sum recovery sd_boot
+.PHONY: kernel kernel-config modules u-boot bootloader rootfs initramfs misc firmware md5sum recovery burn_card sd_boot
 .PHONY: burn burn_clean
 
 include .config
 
 TOP_DIR=$(shell pwd)
 CPUS=$$(($(shell cat /sys/devices/system/cpu/present | awk -F- '{ print $$2 }')+1))
+BURN_UDISK_OFFSET=$$(($(BURN_UDISK_SIZE) + 131072 - 100))
 #CPUS=1
 Q=
 
@@ -23,10 +24,15 @@ TOOLS_DIR=$(TOP_DIR)/tools
 
 OUT_DIR=$(TOP_DIR)/out/$(IC_NAME)_$(OS_NAME)_$(BOARD_NAME)
 BURN_DIR=$(OUT_DIR)/burn
+CARD_BURN_DIR=$(OUT_DIR)/card_burn
 IMAGE_DIR=$(OUT_DIR)/images
 BOOTLOAD_DIR=$(OUT_DIR)/bootloader
 MISC_DIR=$(OUT_DIR)/misc
+CARD_BURN_MISC_DIR=$(CARD_BURN_DIR)/card_burn_misc
+CARD_BURN_UDISK_DIR=$(CARD_BURN_DIR)/card_burn_udsik
+CARD_BURN_IMAGE=$(CARD_BURN_DIR)/card_burn_image
 KERNEL_OUT_DIR=$(OUT_DIR)/kernel
+CARD_BURN_KERNEL_OUT_DIR=$(CARD_BURN_DIR)/kernel
 UBOOT_OUT_DIR=$(OUT_DIR)/u-boot
 K_BLD_CONFIG=$(KERNEL_OUT_DIR)/.config
 
@@ -38,7 +44,7 @@ export PATH:=$(TOOLS_DIR)/utils:$(PATH)
 DATE_STR=$(shell date +%y%m%d)
 FW_NAME=$(IC_NAME)_$(OS_NAME)_$(BOARD_NAME)_$(DATE_STR)
 
-all: burn kernel modules u-boot rootfs firmware md5sum sd_boot
+all: burn kernel modules u-boot rootfs firmware md5sum burn_card
 
 burn:
 	$(Q)$(MAKE) -C $(BURN_SRC) CROSS_COMPILE=$(CROSS_COMPILE) all
@@ -80,7 +86,48 @@ misc: initramfs
 	$(Q)dd if=/dev/zero of=$(IMAGE_DIR)/misc.img bs=1M count=$(MISC_IMAGE_SIZE)
 	$(Q)$(TOOLS_DIR)/utils/makebootfat -o $(IMAGE_DIR)/misc.img -L misc -b $(SCRIPT_DIR)/bootsect.bin $(MISC_DIR)
 
-firmware: bootloader misc recovery
+$(BURN_UDISK_SIZE): burn misc firmware
+	#misc
+	$(Q)rm -rf $(IMAGE_DIR)/burn_image.bin
+	$(Q)mkdir -p $(CARD_BURN_MISC_DIR)
+	$(Q)mkdir -p $(CARD_BURN_UDISK_DIR)
+	$(Q)mkdir -p $(CARD_BURN_IMAGE)
+	$(Q)cp -rf $(MISC_DIR)/* $(CARD_BURN_MISC_DIR)/
+	$(Q)cp $(CARD_BURN_KERNEL_OUT_DIR)/arch/$(ARCH)/boot/uImage $(CARD_BURN_MISC_DIR)
+	$(Q)cp $(BOARD_CONFIG_DIR)/bootloader.ini $(CARD_BURN_UDISK_DIR)
+	$(Q)cp -f ${CARD_BURN_DIR}/card_burn_upramfs.img $(CARD_BURN_MISC_DIR)/ramdisk.img
+	$(Q)dd if=/dev/zero of=${CARD_BURN_IMAGE}/card_burn_misc.img bs=1M count=$(MISC_IMAGE_SIZE)
+	$(Q)$(TOOLS_DIR)/utils/makebootfat -o ${CARD_BURN_IMAGE}/card_burn_misc.img -L misc -b $(SCRIPT_DIR)/bootsect.bin $(CARD_BURN_MISC_DIR)
+	#bootloader
+	$(Q)sed 's/.*bootdev.*=.*/bootdev=0x20/' $(BOARD_CONFIG_DIR)/bootloader.ini > $(SCRIPT_DIR)/bootloader.ini
+	$(Q)cd $(TOOLS_DIR)/utils && ./bootloader_pack $(TOP_DIR)/$(IC_NAME)/bootloader/bootloader.bin $(SCRIPT_DIR)/bootloader.ini $(CARD_BURN_IMAGE)/bootloader_burn.bin
+	$(Q)rm -rf $(SCRIPT_DIR)/bootloader.ini
+
+	#copy data to udisk
+	$(Q)cp $(BOOTLOAD_DIR)/bootloader.bin $(CARD_BURN_UDISK_DIR)/
+	$(Q)cp $(UBOOT_OUT_DIR)/u-boot-dtb.img $(CARD_BURN_UDISK_DIR)/
+	$(Q)cp $(BOOTLOAD_DIR)/bootloader.bin $(CARD_BURN_UDISK_DIR)/
+	$(Q)cp $(BOARD_CONFIG_DIR)/partition.cfg $(CARD_BURN_UDISK_DIR)/
+	$(Q)cp $(IMAGE_DIR)/*.img $(CARD_BURN_UDISK_DIR)/
+	$(Q)dd if=/dev/zero of=${CARD_BURN_IMAGE}/card_burn_udisk.img bs=512 count=$(BURN_UDISK_SIZE)
+	$(Q)$(TOOLS_DIR)/utils/makebootfat -o ${CARD_BURN_IMAGE}/card_burn_udisk.img -L udisk -b $(SCRIPT_DIR)/bootsect.bin $(CARD_BURN_UDISK_DIR)
+
+	#make burn card image
+	$(Q)dd if=$(CARD_BURN_IMAGE)/bootloader_burn.bin of=$(CARD_BURN_IMAGE)/burn_image.bin bs=512 seek=4097
+	$(Q)dd if=$(UBOOT_OUT_DIR)/u-boot-dtb.img of=$(CARD_BURN_IMAGE)/burn_image.bin bs=1024 seek=3072   #3M  offset
+	$(Q)dd if=${CARD_BURN_IMAGE}/card_burn_misc.img of=$(CARD_BURN_IMAGE)/burn_image.bin bs=1048576 seek=16   #16M offset
+	$(Q)dd if=${CARD_BURN_IMAGE}/card_burn_udisk.img of=$(CARD_BURN_IMAGE)/burn_image.bin bs=1048576 seek=64  #64M offset
+
+	#create partitions
+	$(Q)$(TOOLS_DIR)/utils/parted -s $(CARD_BURN_IMAGE)/burn_image.bin mklabel gpt
+	$(Q)$(TOOLS_DIR)/utils/parted -s $(CARD_BURN_IMAGE)/burn_image.bin unit s mkpart MISC 32768 131071     #start:16M end:64M
+	$(Q)$(TOOLS_DIR)/utils/parted -s $(CARD_BURN_IMAGE)/burn_image.bin unit s mkpart UDISK 131072 $$(($(BURN_UDISK_OFFSET))) #start:64M end:64M+udisk_size
+	$(Q)cp $(CARD_BURN_IMAGE)/burn_image.bin $(IMAGE_DIR)
+
+burn_card: $(BURN_UDISK_SIZE) 
+	@echo ""
+
+firmware: bootloader misc recovery 
 	$(Q)mkdir -p $(BURN_DIR)
 	$(Q)cp $(BURN_SRC)/burn.bin $(BURN_DIR)/
 	$(Q)cp $(UBOOT_OUT_DIR)/u-boot-dtb.img $(IMAGE_DIR)/
@@ -158,7 +205,7 @@ sd_boot:
 	@echo "Make SD && EMMC boot success!"
 
 clean: burn_clean kernel_clean u-boot_clean bootloader_clean
-	#$(Q)rm -rf $(TOP_DIR)/out
+	$(Q)rm -rf $(TOP_DIR)/out
 
 burn_clean:
 	$(Q)$(MAKE) -C $(BURN_SRC) CROSS_COMPILE=$(CROSS_COMPILE) clean

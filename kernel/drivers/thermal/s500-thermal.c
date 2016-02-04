@@ -423,18 +423,18 @@ static void owl_unregister_thermal(void)
 /*
  * Calculate a temperature value from a temperature code.
  * The unit of the temperature is degree Celsius.
- * T = 838.45*7.894/(1024*12/count+7.894)-275+offset
+ * T = (838.45*5.068/(1024*12/count+7.894)-162+offset
  */
 static int offset=0;
 static int code_to_temp(struct owl_tmu_data *data, u32 temp_code)
 {
 	int tmp1,tmp2;
-	tmp1 = 83845*7894;
+	tmp1 = 83845*5068;
 	tmp2 = (1024*12*100000/temp_code)+789400;
 	tmp1 = tmp1/tmp2;
-	tmp1 = tmp1 - 275 + offset;
+	tmp1 = tmp1 - 162 + offset;
 	//printk(KERN_DEBUG "temp:%d\n", tmp1);
-	printk(KERN_INFO "temp:%d\n", tmp1);
+//	printk(KERN_INFO "temp:%d\n", tmp1);
 	return tmp1;
 }
 
@@ -532,11 +532,11 @@ static struct thermal_sensor_conf owl_sensor_conf = {
 };
 
 static struct owl_tmu_platform_data atm7095a_default_tmu_data = {
-	.threshold_falling = 10,
-	.threshold = 105,
+	.threshold_falling = 6,
+	.threshold = 80,
 	.trigger_levels[0] = 0,
-	.trigger_levels[1] = 10,
-	.trigger_levels[2] = 20,
+	.trigger_levels[1] = 6,
+	.trigger_levels[2] = 12,
 	.trigger_level0_en = 1,
 	.trigger_level1_en = 1,
 	.trigger_level2_en = 1,

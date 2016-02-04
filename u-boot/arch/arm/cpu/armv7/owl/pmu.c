@@ -200,7 +200,7 @@ static int _atc2603a_init(struct owl_pmu_config *atc260x_pmu_config)
 		cpu_resume_fn = (typeof(cpu_resume_fn))cpu_resume_fn_addr;
 
 		wakeup_flag = _atc2603a_reg_read(ATC2603A_PMU_SYS_CTL1);
-		printf("%02d:%02d:%02d cpu_resume = %x wakeup flag = %x\n",
+		debug("%02d:%02d:%02d cpu_resume = %x wakeup flag = %x\n",
 			rtc_h,
 			(rtc_ms & (0x3f << 6)) >> 6,
 			(rtc_ms & 0x3f),
@@ -323,7 +323,7 @@ static void init_sgpio_init_status(void)
 	/*_atc2603c_reg_write(ATC2603C_PMU_SGPIO_CTL4, pmu_config.sgpio_out);*/
 }
 
-#define CHK_VERIFY_REG(x, v)    {printf("0x%x:0x%x:0x%x\n", x, v, _atc2603c_reg_read(x));}
+#define CHK_VERIFY_REG(x, v)    {debug("0x%x:0x%x:0x%x\n", x, v, _atc2603c_reg_read(x));}
 
 static int _atc2603c_init(struct owl_pmu_config *atc260x_pmu_config)
 {
@@ -350,7 +350,7 @@ static int _atc2603c_init(struct owl_pmu_config *atc260x_pmu_config)
 	/* dcdc1 VDD=1.0V , pwm mode*/
 	if(ic_ver == 0) {
 		val = 0xe04f;
-		printf("dcdc_cfgs[1] = %d\n", atc260x_pmu_config->dcdc_cfgs[1]);
+		debug("dcdc_cfgs[1] = %d\n", atc260x_pmu_config->dcdc_cfgs[1]);
 		val |= atc260x_pmu_config->dcdc_cfgs[1] << 7;
 		_atc2603c_reg_write(ATC2603C_PMU_DC1_CTL0, val);
 		CHK_VERIFY_REG(ATC2603C_PMU_DC1_CTL0,val);
@@ -484,7 +484,7 @@ static int _atc2603c_init(struct owl_pmu_config *atc260x_pmu_config)
 	}
 	#ifdef CONFIG_SPL_OWL_UPGRADE  
 	if(OWL_PMU_LDO_EN_BM & (1 << 15)) {
-		printf("------lcd vcc my disable-----\n");
+		debug("------lcd vcc my disable-----\n");
 		dat = _atc2603c_reg_read(ATC2603C_PMU_SWITCH_CTL);
 		dat |= 1<<15;  /* disable  */		
 		_atc2603c_reg_write(ATC2603C_PMU_SWITCH_CTL, dat);	
@@ -513,7 +513,7 @@ static int _atc2603c_init(struct owl_pmu_config *atc260x_pmu_config)
 		cpu_resume_fn = (typeof(cpu_resume_fn))cpu_resume_fn_addr;
 
 		wakeup_flag = _atc2603c_reg_read(ATC2603C_PMU_SYS_CTL1);
-		printf("%02d:%02d:%02d cpu_resume = %x wakeup flag = %x\n",
+		debug("%02d:%02d:%02d cpu_resume = %x wakeup flag = %x\n",
 			rtc_h,
 			(rtc_ms & (0x3f << 6)) >> 6,
 			(rtc_ms & 0x3f),
@@ -574,7 +574,7 @@ static int _atc2603c_init(struct owl_pmu_config *atc260x_pmu_config)
 static int _atc2603c_probe(void)
 {
 	int ret = _atc2603c_reg_read(ATC2603C_PMU_OC_INT_EN);
-	printf("ret = %d\n",ret);
+	debug("ret = %d\n",ret);
 	if (ret < 0) {
 		return -1;
 	}
@@ -736,7 +736,7 @@ static int _atc2609a_init(struct owl_pmu_config *atc260x_pmu_config)
 		cpu_resume_fn = (typeof(cpu_resume_fn))cpu_resume_fn_addr;
 
 		wakeup_flag = _atc2609a_reg_read(ATC2609A_PMU_SYS_CTL1);
-		printf("%02d:%02d:%02d cpu_resume = %x wakeup flag = %x\n",
+		debug("%02d:%02d:%02d cpu_resume = %x wakeup flag = %x\n",
 			rtc_h,
 			(rtc_ms & (0x3f << 6)) >> 6,
 			(rtc_ms & 0x3f),
@@ -949,7 +949,7 @@ static int _pmu_init_hosc_clk(void)
     switch_24m_output(1);
 retry:
 	dat = atc260x_reg_read(magicnum_reg_tbl[OWL_PMU_ID].reg) & magicnum_reg_tbl[OWL_PMU_ID].mask;
-	printf("not find HOSC dat = 0x%x\n",dat);
+	debug("not find HOSC dat = 0x%x\n",dat);
     if (dat != magicnum_reg_tbl[OWL_PMU_ID].val) {
         if (debug_port_24m == 1) {
             /* switch 24m to debug port and try again */
@@ -1039,7 +1039,7 @@ void vdd_core_init(struct owl_pmu_config *atc260x_pmu_config)
 		if(atc260x_pmu_config->pwm_config[i].pwm_val == 0)
 			continue;
 		
-		printf("pwm%d val=0x%x\n", i, atc260x_pmu_config->pwm_config[i].pwm_val);
+		debug("pwm%d val=0x%x\n", i, atc260x_pmu_config->pwm_config[i].pwm_val);
 		
 		val = readl(CMU_DEVCLKEN1);
 		val |= 1 << (i + CMU_DEVCLKEN1_PWM0_EN);
@@ -1159,21 +1159,21 @@ int pmu_init(const void *blob)
 	int ret = -1;
 	int node;
 	pmu_early_init();
-	printf("owl: begin analysis pmu in device tree\n");
+	debug("owl: begin analysis pmu in device tree\n");
 	node = fdtdec_next_compatible(blob, 0, COMPAT_ACTIONS_OWL_PMU);
-	printf("node = %d\n", node);
+	debug("node = %d\n", node);
 	if (node < 0) {
 		printf("owl: No node for pmu in device tree\n");
 		return -1;
 	}
 	else
 	{
-		printf("owl: have for pmu in device tree , node =%d\n", node);
+		debug("owl: have for pmu in device tree , node =%d\n", node);
 	}
 	pmu_config.bus_id = fdtdec_get_int(blob, node, "bus_id", -1);
-	printf("pmu_config.bus_id = %d\n",pmu_config.bus_id);
+	debug("pmu_config.bus_id = %d\n",pmu_config.bus_id);
 	pmu_config.dcdc_en_bm = fdtdec_get_int(blob, node, "dcdc_en_bm", -1);
-	printf("pmu_config.dcdc_en_bm  = %d\n",pmu_config.dcdc_en_bm );
+	debug("pmu_config.dcdc_en_bm  = %d\n",pmu_config.dcdc_en_bm );
 	pmu_config.dcdc_cfgs[0] = fdtdec_get_int(blob, node, "dcdc_cfgs_0", -1);
 	pmu_config.dcdc_cfgs[1] = fdtdec_get_int(blob, node, "dcdc_cfgs_1", -1);
 	board_config = fdtdec_get_int(blob, node, "board_ddr_config", -1);
@@ -1181,10 +1181,10 @@ int pmu_init(const void *blob)
 	pmu_config.dcdc_cfgs[3] = fdtdec_get_int(blob, node, "dcdc_cfgs_3", -1);
 	for(ret = 0;ret < 4; ret++)
 	{
-		printf("pmu_config.dcdc_cfgs[%d] = %d\n",ret,pmu_config.dcdc_cfgs[ret]);
+		debug("pmu_config.dcdc_cfgs[%d] = %d\n",ret,pmu_config.dcdc_cfgs[ret]);
 	}
 	pmu_config.ldo_en_bm = fdtdec_get_int(blob, node, "ldo_en_bm", -1);
-	printf("pmu_config.ldo_en_bm  = %d\n",pmu_config.ldo_en_bm );
+	debug("pmu_config.ldo_en_bm  = %d\n",pmu_config.ldo_en_bm );
 	pmu_config.ldo_cfgs[0] = fdtdec_get_int(blob, node, "ldo_cfgs_0", -1);
 	pmu_config.ldo_cfgs[1] = fdtdec_get_int(blob, node, "ldo_cfgs_1", -1);
 	pmu_config.ldo_cfgs[2] = fdtdec_get_int(blob, node, "ldo_cfgs_2", -1);
@@ -1199,13 +1199,13 @@ int pmu_init(const void *blob)
 	pmu_config.ldo_cfgs[11] = fdtdec_get_int(blob, node, "ldo_cfgs_11", -1);
 	for(ret = 0;ret < 12; ret++)
 	{
-		printf("pmu_config.ldo_cfgs[%d] = %d\n",ret,pmu_config.ldo_cfgs[ret]);
+		debug("pmu_config.ldo_cfgs[%d] = %d\n",ret,pmu_config.ldo_cfgs[ret]);
 	}
 	pmu_config.sgpio_out_en = fdtdec_get_int(blob, node, "samsung,min-temp", 0);
 	pmu_config.sgpio_in_en = fdtdec_get_int(blob, node, "samsung,min-temp", 0);
 	pmu_config.sgpio_out = fdtdec_get_int(blob, node, "samsung,min-temp", 0);
 	pmu_type = fdtdec_get_int(blob, node, "type", -1);
-	printf("pmu_type = %d\n",pmu_type);
+	debug("pmu_type = %d\n",pmu_type);
 
 	pmu_config.pwm_config[0].pwm_val = fdtdec_get_int(blob, node, "pwm_config_0_pwm_val", 0);
 	pmu_config.pwm_config[0].mfp.shift = fdtdec_get_int(blob, node, "pwm_config_0_shift", 0);
@@ -1226,11 +1226,11 @@ int pmu_init(const void *blob)
 	pmu_config.pwm_config[2].mfp.no = fdtdec_get_int(blob, node, "pwm_config_2_no", 0);
 	for(ret = 0;ret < 3; ret++)
 	{
-		printf("pmu_config.pwm_config[%d].pwm_val = 0x%x\n", ret,pmu_config.pwm_config[ret].pwm_val);
-		printf("pmu_config.pwm_config[%d].mfp.shift = %d\n",ret,pmu_config.pwm_config[ret].mfp.shift);
-		printf("pmu_config.pwm_config[%d].mfp.mask = %d\n,",ret,pmu_config.pwm_config[ret].mfp.mask);
-		printf("pmu_config.pwm_config[%d].mfp.val = %d\n",ret,pmu_config.pwm_config[ret].mfp.val);
-		printf("pmu_config.pwm_config[%d].mfp.no = %d\n",ret,pmu_config.pwm_config[ret].mfp.no);
+		debug("pmu_config.pwm_config[%d].pwm_val = 0x%x\n", ret,pmu_config.pwm_config[ret].pwm_val);
+		debug("pmu_config.pwm_config[%d].mfp.shift = %d\n",ret,pmu_config.pwm_config[ret].mfp.shift);
+		debug("pmu_config.pwm_config[%d].mfp.mask = %d\n,",ret,pmu_config.pwm_config[ret].mfp.mask);
+		debug("pmu_config.pwm_config[%d].mfp.val = %d\n",ret,pmu_config.pwm_config[ret].mfp.val);
+		debug("pmu_config.pwm_config[%d].mfp.no = %d\n",ret,pmu_config.pwm_config[ret].mfp.no);
 	}
 	vdd_core_init(&pmu_config);
 	
@@ -1254,7 +1254,7 @@ int pmu_init(const void *blob)
 	}
 	else
 	{
-		printf("pmu init finish!\n");
+		debug("pmu init finish!\n");
 	}
 #endif
 

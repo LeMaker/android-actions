@@ -447,7 +447,9 @@ void atc2603c_set_apds_vbus_pd(struct atc260x_charger *charger, bool enable)
 void atc2603c_set_syspwr(struct atc260x_charger *charger)
 {
 	atc260x_reg_write(charger->atc260x, ATC2603C_PMU_CHARGER_CTL0, 
-		atc260x_reg_read(charger->atc260x, ATC2603C_PMU_CHARGER_CTL0) |
+		atc260x_reg_read(charger->atc260x, ATC2603C_PMU_CHARGER_CTL0) & 
+		(~PMU_CHARGER_CTL0_CHG_SYSPWR_SET) &
+		(~PMU_CHARGER_CTL0_CHGPWR_SET_MASK) |
 		PMU_CHARGER_CTL0_CHGPWR_SET_100MV | 
 		PMU_CHARGER_CTL0_CHG_SYSPWR_SET_4250MV);
 

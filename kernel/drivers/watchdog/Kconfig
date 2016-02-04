@@ -107,6 +107,14 @@ config WM8350_WATCHDOG
 
 # ARM Architecture
 
+config OWL_WATCHDOG
+	bool "owl watchdog"
+	depends on ARCH_OWL
+	select WATCHDOG_CORE
+	help
+	  Watchdog timer embedded into OWL chips. This will reboot your
+	  system when the timeout is reached.
+
 config ARM_SP805_WATCHDOG
 	tristate "ARM SP805 Watchdog"
 	depends on ARM && ARM_AMBA

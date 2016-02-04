@@ -138,24 +138,19 @@ Log.d(TAG, "CheckVersion mUpdateInfoContentHandler=" + mUpdateInfoContentHandler
      */
     private UpdateInfo getTargetFullUpdateInfo(List<UpdateInfo> mUpdateInfoList) {
         UpdateInfo targetUpdateInfo = null;
-        long tmpversion = 0l;
+        
         Iterator<UpdateInfo> mList;
 
         mList = mUpdateInfoList.iterator();
         long mCurVersion = StringtoIntVersion(Utilities.mCurrentSystemVersion);
 
-        while (mList.hasNext()) {
-            String mversion = mList.next().getNewVersion();
-            long mIntVersion = StringtoIntVersion(mversion);
-            if (mIntVersion > tmpversion) {
-                tmpversion = mIntVersion;
-            }
-        }
-        mList = mUpdateInfoList.iterator();
-        while (mList.hasNext() && (tmpversion != 0l)) {
+     
+        while (mList.hasNext() && (mCurVersion != 0l)) {
             UpdateInfo tmp = mList.next();
-            long mIntVersion = StringtoIntVersion(tmp.getNewVersion());
-            if (mIntVersion == tmpversion) {
+            long mNewVersion = StringtoIntVersion(tmp.getNewVersion());
+			Log.d(TAG, "getTargetDiffUpdateInfo : mCurVersion = " + mCurVersion);
+			Log.d(TAG, "getTargetDiffUpdateInfo : = mNewVersion " + mNewVersion );
+            if (mNewVersion >= mCurVersion) {
                 targetUpdateInfo = tmp;
                 break;
             }
@@ -185,7 +180,7 @@ Log.d(TAG, "CheckVersion mUpdateInfoContentHandler=" + mUpdateInfoContentHandler
     private UpdateInfo getTargetDiffUpdateInfo(List<UpdateInfo> mUpdateInfoList) {
         UpdateInfo targetUpdateInfo = null;
         Iterator<UpdateInfo> mList;
-        long tmpversion = 0l;
+       
 
         mList = mUpdateInfoList.iterator();
         long mCurVersion = StringtoIntVersion(Utilities.mCurrentSystemVersion);
@@ -195,27 +190,28 @@ Log.d(TAG, "CheckVersion mUpdateInfoContentHandler=" + mUpdateInfoContentHandler
 
 
         
-        mList = mUpdateInfoList.iterator();
-        while (mList.hasNext()) {								
-            UpdateInfo tmp = mList.next();
-            long mIntVersion = StringtoIntVersion(tmp.getOldVersion());	
-            long NewVersion = StringtoIntVersion(tmp.getNewVersion());
-            if (mIntVersion == tmpversion || NewVersion == tmpversion) {
-                targetUpdateInfo = tmp;
-                break;
-            }
-        }
+	while (mList.hasNext() && (mCurVersion != 0l)) {
+		UpdateInfo tmp = mList.next();
+		long mOldVersion = StringtoIntVersion(tmp.getOldVersion());
+		long mNewVersion = StringtoIntVersion(tmp.getNewVersion());
+			Log.d(TAG, "getTargetDiffUpdateInfo : mCurVersion = " + mCurVersion);
+			Log.d(TAG, "getTargetDiffUpdateInfo : mOldVersion = " + mOldVersion );
+			Log.d(TAG, "getTargetDiffUpdateInfo : mNewVersion =" + mNewVersion );
+		if (mCurVersion == mOldVersion || mCurVersion == mNewVersion) {
+			targetUpdateInfo = tmp;
+			break;
+		}
+	}
         
-        if (ACTDEBUG) {
-            Log.d(TAG, "getTargetDiffUpdateInfo : mCurVersion = " + mCurVersion);
+	if (ACTDEBUG) {
 
-            if (targetUpdateInfo == null) {
-                Log.d(TAG, " couldn't parser tag null ");
-            } else {
-                printUpdateInfo(targetUpdateInfo);
-            }
-        }
-        return targetUpdateInfo;
+		if (targetUpdateInfo == null) {
+			Log.d(TAG, " targetUpdateInfo is null ");
+		} else {
+			printUpdateInfo(targetUpdateInfo);
+		}
+	}
+	return targetUpdateInfo;
     }
 
     /**
@@ -267,6 +263,11 @@ Log.d(TAG, "CheckVersion mUpdateInfoContentHandler=" + mUpdateInfoContentHandler
             mIndex = str.length() - mIndex - 1;
             // get the String after mIndex
             mString = mString.substring(mIndex + 1);
+		    if (mString.length() == 6) {
+			    mString = "20" + mString + "000000";
+		    } else if (mString.length() == 8) {
+			    mString = mString + "000000";
+		    }
 
         } else if (Pattern.compile(".*[0-9]{8,}\\.[0-9]{6,}\\s.*").matcher(mString).matches()) {
             /**
@@ -344,6 +345,11 @@ Log.d(TAG, "CheckVersion mUpdateInfoContentHandler=" + mUpdateInfoContentHandler
             Log.w(TAG, " the version is too long :" + mString);
             mString = "0";
         }
+	    if (mString.length() == 6) {
+		    mString = "20" + mString + "000000";
+	    }else if (mString.length() == 8) {
+		    mString = mString + "000000";
+	    }
         // String to Long
         ret = Long.parseLong(mString);
         if (ACTDEBUG)

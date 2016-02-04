@@ -40,6 +40,9 @@
 
 //#undef debug
 //#define debug printf
+
+#define HDMI_DDC_ADDR		(0x60 >> 1)
+#define DDC_EDID_ADDR		(0xa0 >> 1)
  
 enum VIDEO_ID_TABLE {
 	VID640x480P_60_4VS3 = 1,
@@ -117,31 +120,36 @@ struct hdmi_edid edid;
 
 static int ddc_read(char segment_index, char segment_offset, char * pbuf)
 {
- 	unsigned char buf[2] = { 0xa0, 0 };
-	u32 ret_val = 0;
-	int i;
-	
+	int ret;
+	int retry_num = 0;
+
 	I2C_SET_BUS(3);
-
-	if (i2c_read(0x30, 0 , 1 , buf , 1)){
-		printf("3err : iic i2c_write error\n");
-		//return -1;
-	}
 	
-	if (i2c_read(segment_index, 0 , 1 , buf , 1)){
-		printf("3err : iic i2c_write error\n");
-		//return -1;
-	}	
-
-	if (i2c_read(0x50, segment_offset, 1, pbuf, 128)){
-		printf("err : iic i2c_read error\n");
+retry:
+	if (retry_num++ >= 3) {
+		debug("%s, read error after %dth retry\n",
+		      __func__, retry_num - 1);
 		return -1;
 	}
-	
-	printf("read edid ok\n");
 
- 	ret_val = ((u32)(buf[0])<<8) | buf[1]; //msb
-	return ret_val;
+	debug("%s, retry = %d\n", __func__, retry_num);
+
+	/* set segment index */
+	ret = i2c_write(HDMI_DDC_ADDR, segment_index, 1, NULL, 0);
+	/*
+	 * skip return value checking, because this command has no ACK,
+	 * but u-boot i2c framework will return ERROR
+	 */
+
+	/* read data */
+	ret = i2c_read(DDC_EDID_ADDR, segment_offset, 1, pbuf, 128);
+	if (ret < 0) {
+		debug("%s, fail to read EDID data(%d)\n", __func__, ret);
+		goto retry;
+	}
+	debug("%s, finished\n", __func__);
+
+	return ret;
 }
 
 static int get_edid_data(unsigned char block,unsigned char *buf)
@@ -574,7 +582,7 @@ int parse_edid(struct hdmi_edid *edid)
     return 0 ;
 
 err0:
-	edid->video_formats[0] = 0x800b0014;
+	edid->video_formats[0] = 0;
 	edid->video_formats[1] = 0;
 	edid->video_formats[2] = 0;
 	edid->video_formats[3] = 0;
@@ -586,25 +594,22 @@ int check_hdmi_mode(int mode)
 {
 	int i=0;
 	i = MODE_COUNT;
-	parse_edid(&edid);
 	
-	for(i=0;i<MODE_COUNT;i++){
-		if(mode == hdmi_mode[i].mode){
-			if(edid.video_formats[0]&(1<<hdmi_mode[i].vid)){
-				printf("support current mode %d \n", mode);
+	parse_edid(&edid);		
+	
+	if(mode > 0){
+		for(i=0;i<MODE_COUNT;i++){
+			if(edid.video_formats[0] & (1 << mode)){
 				return mode;
-			}	
-			break;
+			}
 		}
 	}
-	
 	for(i=0;i<MODE_COUNT;i++){
 		if(edid.video_formats[0]&(1<<hdmi_mode[i].vid)){
-			printf("find support mode %d \n", hdmi_mode[i].mode);
+			debug("find support mode %d \n", hdmi_mode[i].mode);
 			return hdmi_mode[i].mode;
 		}
 	}
 	
-	printf("find edid err return mode : OWL_TV_MOD_1080P_60HZ\n");
 	return OWL_TV_MOD_1080P_60HZ;
 }

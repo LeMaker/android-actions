@@ -8,13 +8,8 @@ config POLL_PHY_STATE
 	default n
 	---help---
 		poll the phy's sate
-config PHY_REALTEK_RTL8201
+config PHY_RTL8201_SR8201G
 	tristate "phy type"
 	default n
 	---help---
-		use the phy as realtek rtl8201
-config PHY_CORECHIP_SR8201G
-	tristate "phy type"
-	default n
-	---help---
-		use the phy as corechip sg8201g
+		compatible with realtek rtl8201 and corechip sr8201g

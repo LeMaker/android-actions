@@ -129,8 +129,9 @@ LOCAL_C_INCLUDES += \
     external/jpeg \
     external/jhead  \
     system/media/camera/include \
-    device/actions/common/hardware/omx/components/omx_vce/include \
-    device/actions/common/hardware/omx/components/omx_vce/vce_resize \
+    frameworks/av/include/alsp/inc
+    #device/actions/common/hardware/omx/components/omx_vce/include \
+    #device/actions/common/hardware/omx/components/omx_vce/vce_resize \
 
 ifeq ($(CAMERA_SET_FREQ_RANGE),true)
 LOCAL_C_INCLUDES+= 	device/actions/common/frameworks/include
@@ -150,9 +151,10 @@ LOCAL_SHARED_LIBRARIES:= \
     libalc \
     libgralloc \
     libhardware \
+    libACT_VceResize
 
-LOCAL_STATIC_LIBRARIES := \
-	libACT_VceResize \
+#LOCAL_STATIC_LIBRARIES := \
+#	libACT_VceResize \
 		
 	
 ifeq ($(CAMERA_SET_FREQ_RANGE),true)

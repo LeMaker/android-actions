@@ -1,8 +1,0 @@
-
-// BEGIN_EXCLUDE
-apply from: "../../../../../build/build.gradle"
-samplegen {
-  pathToBuild "../../../../../build"
-  pathToSamplesCommon "../../../common"
-}
-// END_EXCLUDE

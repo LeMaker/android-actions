@@ -19,12 +19,8 @@ obj-$(CONFIG_BT_ATH3K)		+= ath3k.o
 obj-$(CONFIG_BT_MRVL)		+= btmrvl.o
 obj-$(CONFIG_BT_MRVL_SDIO)	+= btmrvl_sdio.o
 obj-$(CONFIG_BT_WILINK)		+= btwilink.o
-ifndef CONFIG_PLATFORM_UBUNTU
 obj-$(CONFIG_RTL8723BU)	+= bt_rtl.o
 bt_rtl-objs	:= rtk_btusb_8723bu.o
-else
-obj-y	+= rtk_btusb_8723bu.o
-endif
 
 btmrvl-y			:= btmrvl_main.o
 btmrvl-$(CONFIG_DEBUG_FS)	+= btmrvl_debugfs.o

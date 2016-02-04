@@ -1,2 +1,0 @@
-Code completion in completion1.xml for layout_width="fi^ll_parent":
-fill_parent

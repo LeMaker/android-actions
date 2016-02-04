@@ -826,14 +826,13 @@ unsigned int i2c_get_bus_speed(void);
 static inline unsigned int I2C_GET_BUS(void) __attribute__((always_inline));
 static inline unsigned int I2C_GET_BUS(void)
 {
-	return I2C_MULTI_BUS ? i2c_get_bus_num() : 0;
+	return i2c_get_bus_num();
 }
 
 static inline void I2C_SET_BUS(unsigned int bus) __attribute__((always_inline));
 static inline void I2C_SET_BUS(unsigned int bus)
 {
-	if (I2C_MULTI_BUS)
-		i2c_set_bus_num(bus);
+	i2c_set_bus_num(bus);
 }
 
 /* Multi I2C definitions */

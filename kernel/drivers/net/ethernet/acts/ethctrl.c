@@ -280,16 +280,20 @@ ssize_t test_mode_store(struct device *dev, struct device_attribute *attr,
 
 	ecp->test_mode = mode;
 	ecp->speed = mode;
-#if defined(CONFIG_PHY_REALTEK_RTL8201)
-	write_phy_reg(ecp,PHY_RTL8201F_REG_PAGE_SELECT,PHY_RTL8201F_REG_PAGE_SELECT_FOUR);
-	write_phy_reg(ecp,PHY_RTL8201F_REG_EEE_CAP_EN,0x4077);
-	write_phy_reg(ecp,PHY_RTL8201F_REG_EEE_CAP_SET,0xC5A0);
-	write_phy_reg(ecp,PHY_RTL8201F_REG_PAGE_SELECT,PHY_RTL8201F_REG_PAGE_SELECT_ZERO);
+#if defined(CONFIG_PHY_RTL8201_SR8201G)
+	if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_RTL8201){
+		write_phy_reg(ecp,PHY_RTL8201F_REG_PAGE_SELECT,PHY_RTL8201F_REG_PAGE_SELECT_FOUR);
+		write_phy_reg(ecp,PHY_RTL8201F_REG_EEE_CAP_EN,0x4077);
+		write_phy_reg(ecp,PHY_RTL8201F_REG_EEE_CAP_SET,0xC5A0);
+		write_phy_reg(ecp,PHY_RTL8201F_REG_PAGE_SELECT,PHY_RTL8201F_REG_PAGE_SELECT_ZERO);
+	}
 #endif
 	if (ETH_SPEED_10M == ecp->speed) {
 		ecp->duplex = ETH_DUP_FULL;
-#if defined(CONFIG_PHY_REALTEK_RTL8201)
-		printk(KERN_INFO"RTL8201 can link by 10Mps Dumb Hub through Test fixture\n");
+#if defined(CONFIG_PHY_RTL8201_SR8201G)
+		if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_RTL8201){
+			printk(KERN_INFO"RTL8201 can link by 10Mps Dumb Hub through Test fixture\n");
+		}
 #else
 		temp = read_phy_reg(ecp, PHY_REG_FTC1);
 		temp  &= ~0x40;  //clear bit 6
@@ -298,11 +302,13 @@ ssize_t test_mode_store(struct device *dev, struct device_attribute *attr,
 #endif
 	} else {
 		ecp->duplex = ETH_DUP_FULL;
-#if defined(CONFIG_PHY_REALTEK_RTL8201)
-		write_phy_reg(ecp,MII_BMCR,BMCR_RESET);//Reset the phy,following is only to test the tx
-		mdelay(20);
-		write_phy_reg(ecp,0x18,0x0310);//Disable ALDPS
-		write_phy_reg(ecp,0x1C,0x40C0);//For MDIX
+#if defined(CONFIG_PHY_RTL8201_SR8201G)
+		if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_RTL8201){
+			write_phy_reg(ecp,MII_BMCR,BMCR_RESET);//Reset the phy,following is only to test the tx
+			mdelay(20);
+			write_phy_reg(ecp,0x18,0x0310);//Disable ALDPS
+			write_phy_reg(ecp,0x1C,0x40C0);//For MDIX
+		}
 #endif
 	}
 
@@ -624,7 +630,7 @@ static const char *get_def_mac_addr(struct platform_device *pdev)
     if (ret) {
         printk(KERN_ERR"no random-mac-address in dts\n");
     } else {
-        printk(KERN_INFO"random-mac-address: %s\n", str);
+        printk(KERN_DEBUG"random-mac-address: %s\n", str);
         if (!strcmp("okay", str))
             goto random_mac;
     }
@@ -633,7 +639,7 @@ static const char *get_def_mac_addr(struct platform_device *pdev)
     if (str == NULL) {
         printk(KERN_ERR"no local-mac-address in dts\n");
     } else {
-        printk(KERN_INFO"local-mac-address: ");
+        printk(KERN_DEBUG"local-mac-address: ");
         print_mac_address(str);
         memcpy(g_default_mac_addr, str, ETH_MAC_LEN);
         return g_default_mac_addr;
@@ -1321,7 +1327,8 @@ static void mac_init(ec_priv_t *ecp)
 	/* select clk input from external phy */
 
 	//printk("before MAC_CTRL: 0x%x\n", (unsigned)getl(MAC_CTRL));
-	putl(getl(MAC_CTRL) &(~(0x1<<1)), MAC_CTRL);
+	//putl(getl(MAC_CTRL) &(~(0x1<<1)), MAC_CTRL);
+	putl(getl(MAC_CTRL) | (0x1<<1), MAC_CTRL);
 	//printk("after MAC_CTRL: 0x%x\n", (unsigned)getl(MAC_CTRL));
 
 	hw_regs->er_miism &= 0x0;
@@ -1840,7 +1847,7 @@ static void subisr_enet_rx(ec_priv_t *ecp)
 		ecp->rx_skb[index] = new_skb;
 
 		skb_put(skb_to_upper, pkt_len - ETH_CRC_LEN); /* modify its data length, remove CRC */
-#define RX_DEBUG
+/*#define RX_DEBUG
 #ifndef RX_DEBUG
 		if (unlikely(netif_msg_rx_err(ecp))) {
 			check_icmp_sequence(skb_to_upper->data, __func__);
@@ -1852,7 +1859,7 @@ static void subisr_enet_rx(ec_priv_t *ecp)
 			printk(KERN_INFO"receive data:\n");
 			print_frame_data(skb_to_upper->data, skb_to_upper->len);
 		}
-#endif
+#endif*/
 		skb_to_upper->protocol = eth_type_trans(skb_to_upper, dev);
 		netif_rx(skb_to_upper);
 
@@ -1893,11 +1900,13 @@ static void phy_detect_func(struct work_struct *work)
 	unsigned short mmi_status = 0;
 	unsigned long flags;
 
-	if(ecp->phy_model == ETH_PHY_MODEL_RTL8201){
-		mmi_status =read_phy_reg(ecp, MII_BMSR);
-		mmi_status =read_phy_reg(ecp, MII_BMSR);//For the current link status,read this register twice as spec request
-	}else if(ecp->phy_model == ETH_PHY_MODEL_SR8201G){
-		mmi_status =read_phy_reg(ecp, MII_BMSR);
+	if(ecp->phy_model == ETH_PHY_MODEL_RTL8201_SR8201G){
+		if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_RTL8201){
+			mmi_status =read_phy_reg(ecp, MII_BMSR);
+			mmi_status =read_phy_reg(ecp, MII_BMSR);//For the current link status,read this register twice as spec request
+		}else if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_SR8201G){
+			mmi_status =read_phy_reg(ecp, MII_BMSR);
+		}
 	}
 	//printk(KERN_DEBUG"%s:mmi_status: 0x%x\n", __func__,(unsigned)mmi_status);
 
@@ -1981,24 +1990,29 @@ static void netphy_irq_handle_do_work(struct work_struct *work)
 
 	printk(KERN_DEBUG"%s >> %d \n",__func__,__LINE__);
 
-	if(ecp->phy_model==ETH_PHY_MODEL_RTL8201){
-		phy_interrupt_status = read_phy_reg(ecp, PHY_RTL8201F_REG_INT_SNR);
-		printk(KERN_INFO"phy_interrupt_status: 0x%x\n", (unsigned)phy_interrupt_status);
-		mmi_status =read_phy_reg(ecp, MII_BMSR);
-		mmi_status =read_phy_reg(ecp, MII_BMSR);//For the current link status,read this register twice as spec request
-		printk(KERN_INFO"mmi_status: 0x%x\n", (unsigned)mmi_status);
-	}else if(ecp->phy_model==ETH_PHY_MODEL_SR8201G){
-		phy_interrupt_status = read_phy_reg(ecp, PHY_SR8201G_REG_EXPAND);
-		mmi_status =read_phy_reg(ecp, MII_BMSR);
+	if(ecp->phy_model==ETH_PHY_MODEL_RTL8201_SR8201G){
+		if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_RTL8201){
+			phy_interrupt_status = read_phy_reg(ecp, PHY_RTL8201F_REG_INT_SNR);
+			printk(KERN_INFO"phy_interrupt_status: 0x%x\n", (unsigned)phy_interrupt_status);
+			mmi_status =read_phy_reg(ecp, MII_BMSR);
+			mmi_status =read_phy_reg(ecp, MII_BMSR);//For the current link status,read this register twice as spec request
+			printk(KERN_INFO"mmi_status: 0x%x\n", (unsigned)mmi_status);
+		}else if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_SR8201G){
+			phy_interrupt_status = read_phy_reg(ecp, PHY_SR8201G_REG_EXPAND);
+			mmi_status =read_phy_reg(ecp, MII_BMSR);	
+		}
 	}
-
+	
 	if (ecp->phy_model != ETH_PHY_MODEL_ATC2605)
 		putl(getl(INTC_EXTCTL) | (0x1 << 16), INTC_EXTCTL);
 
 	/* As RTL8201 we only care the interrrupt about the linkstate change */
-	if (ecp->phy_model==ETH_PHY_MODEL_RTL8201){
-		if((phy_interrupt_status & PHY_RTL8201F_LINK_STATUS_CHANGE) == 0)
-			return;
+	if(ecp->phy_model==ETH_PHY_MODEL_RTL8201_SR8201G){
+		if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_RTL8201){
+			if((phy_interrupt_status & PHY_RTL8201F_LINK_STATUS_CHANGE) == 0)
+				return;
+			}
+		}
 	}
 
 	spin_lock_irqsave(&ecp->lock, flags);
@@ -2269,7 +2283,7 @@ static int ec_netdev_open(struct net_device *dev)
 
     printk(KERN_INFO "%s link %s.\n", dev->name, ecp->linked ? "on" : "off");
 
-#if 1
+#if 0
     /* FIXME!used by KSZ8041, other phy may not need this */
     if (ecp->phy_model != ETH_PHY_MODEL_ATC2605)
         phy_cable_plug_irq_enable(0);/* enable high level active */
@@ -2292,7 +2306,7 @@ static int ec_netdev_open(struct net_device *dev)
         printk(KERN_ERR"Unable to request IRQ: %d, ec_netmac_isr\n", ret);
         goto err_irq;
     }
-    printk(KERN_INFO"IRQ %d requested\n", OWL_IRQ_ETHERNET);
+    printk(KERN_DEBUG "IRQ %d requested\n", OWL_IRQ_ETHERNET);
     //print_mac_register(ecp);
 
 #ifdef DETECT_POWER_SAVE
@@ -2334,7 +2348,7 @@ static int ec_netdev_close(struct net_device *dev)
     stop_power_save_timer(ecp);
 #endif
 
-#if 1
+#if 0
     /* FIXME!used by KSZ8041, other phy may not need this */
     if (ecp->phy_model != ETH_PHY_MODEL_ATC2605)
         phy_cable_plug_irq_disable();
@@ -2840,21 +2854,20 @@ static void hardware_reset_do_work(struct work_struct *work)
 
 	ethernet_clock_disable();
 
+	if (ecp->tx_bd_base)
+		dma_free_coherent(NULL, sizeof(ec_bd_t) * TX_RING_SIZE,
+				ecp->tx_bd_base, ecp->tx_bd_paddr);
+	if (ecp->rx_bd_base)
+		dma_free_coherent(NULL, sizeof(ec_bd_t) * RX_RING_SIZE,
+				ecp->rx_bd_base, ecp->rx_bd_paddr);
+	ecp->tx_bd_base = (ec_bd_t *)dma_alloc_coherent(NULL, sizeof(ec_bd_t) * TX_RING_SIZE, &ecp->tx_bd_paddr, GFP_KERNEL);
+	ecp->rx_bd_base = (ec_bd_t *)dma_alloc_coherent(NULL, sizeof(ec_bd_t) * RX_RING_SIZE, &ecp->rx_bd_paddr, GFP_KERNEL);
     /* set default value of status */
 //    ecp->linked = false;
 //    ecp->opened = false;
 //    ecp->speed = ETH_SPEED_100M;
 //    ecp->duplex = ETH_DUP_FULL;
     //spin_unlock_irqrestore(&ecp->lock, flags);
-
-       if (ecp->tx_bd_base)
-               dma_free_coherent(NULL, sizeof(ec_bd_t) * TX_RING_SIZE,
-                               ecp->tx_bd_base, ecp->tx_bd_paddr);
-       if (ecp->rx_bd_base)
-               dma_free_coherent(NULL, sizeof(ec_bd_t) * RX_RING_SIZE,
-	                               ecp->rx_bd_base, ecp->rx_bd_paddr);
-       ecp->tx_bd_base = (ec_bd_t *)dma_alloc_coherent(NULL, sizeof(ec_bd_t) * TX_RING_SIZE, &ecp->tx_bd_paddr, GFP_KERNEL);
-       ecp->rx_bd_base = (ec_bd_t *)dma_alloc_coherent(NULL, sizeof(ec_bd_t) * RX_RING_SIZE, &ecp->rx_bd_paddr, GFP_KERNEL);
 	
     if (prepare_rx_bd(ecp) || prepare_tx_bd(ecp)) {
         INFO_RED("error : prepare bds failed\n");
@@ -3167,7 +3180,7 @@ static void ethernet_resume_handler(struct work_struct *work)
 #endif
 #ifdef CONFIG_POLL_PHY_STATE
 	queue_delayed_work(ecp->phy_detect_queue, &ecp->phy_detect_work,msecs_to_jiffies(PHY_DETECT_RESUME));		//必须等待resume后才能做detect
-	printk(KERN_INFO "phy detect by work queue\n");
+	printk(KERN_DEBUG "phy detect by work queue\n");
 #endif
     //netif_wake_queue(dev);
     return;
@@ -3367,12 +3380,8 @@ static int ethernet_phy_probe(struct platform_device *pdev)
 	printk(KERN_DEBUG"ethernet phy's compatible: %s\n", str);
 
 	/* The standard phy that register accessed via MDIO only support ksz8841tl now */
-	if (of_device_is_compatible(phy_node, "realk,rtl8201")) {
-		ecp->phy_model = ETH_PHY_MODEL_RTL8201;
-		printk(KERN_INFO"phy model is rtl8201\n");
-	} else if (of_device_is_compatible(phy_node, "SR8201G,sr8201g")){
-		ecp->phy_model = ETH_PHY_MODEL_SR8201G;
-		printk(KERN_INFO "phy model is sr8201g\n");
+	if (of_device_is_compatible(phy_node, "realtek-corechip,xxx8201")) {
+		ecp->phy_model = ETH_PHY_MODEL_RTL8201_SR8201G;
 	}else { /* ATC2605 or error */
 		printk(KERN_INFO"compatible of %s: %s\n", phy_node->full_name, str);
 	}
@@ -3397,19 +3406,13 @@ static int __exit ethernet_phy_remove(struct platform_device *pdev)
 	return 0;
 }
 
-#if defined(CONFIG_PHY_REALTEK_RTL8201)
+#if defined(CONFIG_PHY_RTL8201_SR8201G)
 /* ethernet phy match table */
 static const struct of_device_id ethernet_phy_of_match[] __initconst = {
-	{ .compatible = "realtk,rtl8201", },
+	{ .compatible = "realtek-corechip,xxx8201", },
 	{},
 };
-#define ETHERNET_PHY_DRV_NAME "rtl8201"
-#elif defined(CONFIG_PHY_CORECHIP_SR8201G)
-static const struct of_device_id ethernet_phy_of_match[] __initconst = {
-	{ .compatible = "SR8201G,sr8201g", },
-	{},
-};
-#define ETHERNET_PHY_DRV_NAME "sr8201g"
+#define ETHERNET_PHY_DRV_NAME "xxx8201"
 #else
 static const struct of_device_id ethernet_phy_of_match[] __initconst = {
 	{ .compatible = " ", },
@@ -3503,10 +3506,8 @@ static int __init asoc_ethernet_probe(struct platform_device *pdev)
 	if(of_property_read_u32(pdev->dev.of_node, "phy_addr", &ecp->phy_addr)) {
 		printk(KERN_INFO "can't get phy addr form DTS \n");
 	}
-#if defined(CONFIG_PHY_REALTEK_RTL8201)
-	ecp->phy_model = ETH_PHY_MODEL_RTL8201;
-#elif defined(CONFIG_PHY_CORECHIP_SR8201G)
-	ecp->phy_model = ETH_PHY_MODEL_SR8201G;
+#if defined(CONFIG_PHY_RTL8201_SR8201G)
+	ecp->phy_model = ETH_PHY_MODEL_RTL8201_SR8201G;
 #else
 	ecp->phy_model = ETH_PHY_MODEL_NONE;
 #endif
@@ -3582,7 +3583,7 @@ static int __init asoc_ethernet_probe(struct platform_device *pdev)
 	dev->netdev_ops = &ec_netdev_ops;
 	ec_set_ethtool_ops(dev);
 	ep_set_phy_ops(ecp);
-
+	
 	ret = register_netdev(dev);
 	if (ret < 0) {
 		printk(KERN_ERR"register netdev ret:%d, [irq:%d, dev name:%s]\n",
@@ -3631,7 +3632,7 @@ static int __init asoc_ethernet_probe(struct platform_device *pdev)
 #else
 	INIT_WORK(&ecp->netphy_irq_handle_work,netphy_irq_handle_do_work);
 #endif
-	printk(KERN_INFO"ethernet %s probe finish\n",dev->name);
+	printk(KERN_DEBUG"ethernet %s probe finish\n",dev->name);
 	return 0;
 err_remove_work_queue:
 	destroy_workqueue(ecp->ethernet_work_queue);
@@ -3726,7 +3727,7 @@ static struct platform_driver asoc_ethernet_driver = {
 
 static int __init asoc_ethernet_init(void)
 {
-	printk("%s %d\n",__FUNCTION__,__LINE__);
+	printk(KERN_DEBUG "%s %d\n",__FUNCTION__,__LINE__);
     return platform_driver_register(&asoc_ethernet_driver);
 }
 module_init(asoc_ethernet_init);

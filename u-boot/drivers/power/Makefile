@@ -22,3 +22,4 @@ obj-$(CONFIG_POWER_FSL) += power_fsl.o
 obj-$(CONFIG_POWER_I2C) += power_i2c.o
 obj-$(CONFIG_POWER_SPI) += power_spi.o
 obj-$(CONFIG_BOOT_POWER) 	+= boot_power.o
+obj-$(CONFIG_GAUGE_BQ27441) 	+= gauge_bq27441.o

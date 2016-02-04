@@ -1,6 +1,0 @@
-Code completion in anim1.xml for ^<translate android:id=:
-<alpha />
-<rotate />
-<scale />
-<set ></set>
-<translate />

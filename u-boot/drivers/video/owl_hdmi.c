@@ -519,7 +519,8 @@ void *hdmi_get_mode(struct hdmi_video_settings *settings)
     index = sizeof(hdmi_display_modes) / sizeof(struct asoc_videomode) - 1;
 
     while (index >= 0) {
-        if (settings->vid == hdmi_display_modes[index].mode.vid)
+		debug("settings->vid %d hdmi_display_modes[index].mode.vid %d \n",settings->vid,hdmi_display_modes[index].vid);
+        if (settings->vid == hdmi_display_modes[index].vid)
             return (void *)&hdmi_display_modes[index];
         --index;
     }
@@ -548,7 +549,7 @@ s32 hdmi_set_tvoutpll_by_pixclk(int vid, int deep_color, int _3d)
         if (_3d == _3D) { 
             writel(0x00030008, CMU_TVOUTPLL); 
             writel(0x81982986, HDMI_TX_1);
-            writel(0x18f80f87, HDMI_TX_2);
+            writel(0x18f80f89, HDMI_TX_2);
             
         } else {
             if (deep_color == DEEP_COLOR_24_BIT) {
@@ -559,7 +560,7 @@ s32 hdmi_set_tvoutpll_by_pixclk(int vid, int deep_color, int _3d)
                 writel(0x00210008, CMU_TVOUTPLL);
             }
             writel(0x819c2986, HDMI_TX_1);
-            writel(0x18f80f87, HDMI_TX_2);          
+            writel(0x18f80f89, HDMI_TX_2);          
         }
         break;
     case OWL_TV_MOD_720P_60HZ: 
@@ -568,21 +569,21 @@ s32 hdmi_set_tvoutpll_by_pixclk(int vid, int deep_color, int _3d)
         if (_3d == _3D) { 
             writel(0x00060008, CMU_TVOUTPLL);
             writel(0x81902986, HDMI_TX_1);
-            writel(0x18f80f87, HDMI_TX_2);
+            writel(0x18f80f89, HDMI_TX_2);
             
         } else {
             if (deep_color == DEEP_COLOR_24_BIT) {
                 writel(0x00040008, CMU_TVOUTPLL); 
                 writel(0x81942986, HDMI_TX_1);
-                writel(0x18f80f87, HDMI_TX_2);
+                writel(0x18f80f89, HDMI_TX_2);
             } else if (deep_color == DEEP_COLOR_30_BIT) {
                 writel(0x00140008, CMU_TVOUTPLL);
                 writel(0x81942986, HDMI_TX_1);
-                writel(0x18f80f87, HDMI_TX_2);
+                writel(0x18f80f89, HDMI_TX_2);
             }else if (deep_color == DEEP_COLOR_36_BIT) {
                 writel(0x00240008, CMU_TVOUTPLL);
                 writel(0x81942986, HDMI_TX_1);
-                writel(0x18f80f87, HDMI_TX_2);
+                writel(0x18f80f89, HDMI_TX_2);
             }
             
         }
@@ -599,7 +600,7 @@ s32 hdmi_set_tvoutpll_by_pixclk(int vid, int deep_color, int _3d)
             if (deep_color == DEEP_COLOR_24_BIT) {
                 writel(0x00060008, CMU_TVOUTPLL);
                 writel(0x81902986, HDMI_TX_1);
-                writel(0x18f80f87, HDMI_TX_2);
+                writel(0x18f80f89, HDMI_TX_2);
             } else if (deep_color == DEEP_COLOR_30_BIT) {
                 writel(0x00160008, CMU_TVOUTPLL);
                 writel(0xa2b0285a, HDMI_TX_1);
@@ -620,18 +621,18 @@ s32 hdmi_set_tvoutpll_by_pixclk(int vid, int deep_color, int _3d)
         } else if (deep_color == DEEP_COLOR_30_BIT) {
             writel(0x00160008, CMU_TVOUTPLL);
             writel(0x81900986, HDMI_TX_1);
-            writel(0x18f80087, HDMI_TX_2);
+            writel(0x18f80089, HDMI_TX_2);
         } else if (deep_color == DEEP_COLOR_36_BIT) {
             writel(0x00260008, CMU_TVOUTPLL);
             writel(0x81900986, HDMI_TX_1);
-            writel(0x18f80087, HDMI_TX_2);
+            writel(0x18f80089, HDMI_TX_2);
         }
         break;        
     default:
             
         writel(0x00040008, CMU_TVOUTPLL); 
         writel(0x81982986, HDMI_TX_1);
-        writel(0x18f80087, HDMI_TX_2);
+        writel(0x18f80089, HDMI_TX_2);
             
             
         break;
@@ -1119,7 +1120,7 @@ s32 hdmi_video_general_cfg(struct hdmi_video_settings *settings)
                        HDMI_SCHCR, readl(HDMI_SCHCR));
         }
 
-        printf("[%s]sink_info.sink_cap.pixel_encoding is 0x%x\n",
+        debug("[%s]sink_info.sink_cap.pixel_encoding is 0x%x\n",
                __func__, sink_info.sink_cap.pixel_encoding);
         /*pixel_coding(RGB default) */
         if ((settings->pixel_encoding == VIDEO_PEXEL_ENCODING_YCbCr444)
@@ -1279,12 +1280,12 @@ static int valide_vid(int vid)
 }
 
 static struct data_fmt_param date_fmts[] = {
-	{"720P50HZ", OWL_TV_MOD_720P_50HZ},
-	{"720P60HZ", OWL_TV_MOD_720P_60HZ},
-	{"1080P50HZ", OWL_TV_MOD_1080P_50HZ},
-	{"1080P60HZ", OWL_TV_MOD_1080P_60HZ},
-	{"576P", OWL_TV_MOD_576P},
-	{"580P", OWL_TV_MOD_480P},
+	{"1280x720p-50", OWL_TV_MOD_720P_50HZ},
+	{"1280x720p-60", OWL_TV_MOD_720P_60HZ},
+	{"1920x1080p-50", OWL_TV_MOD_1080P_50HZ},
+	{"1920x1080p-60", OWL_TV_MOD_1080P_60HZ},
+	{"720x576p-60", OWL_TV_MOD_576P},
+	{"720x480p-60", OWL_TV_MOD_480P},
 	{"DVI", OWL_TV_MOD_DVI},
 	{"PAL", OWL_TV_MOD_PAL},
 	{"NTSC", OWL_TV_MOD_NTSC},
@@ -1337,7 +1338,7 @@ static int fdtdec_get_hdmi_par(int *  bootable, int *  bootrotate, int * bootvid
 	    if (valide_vid(vid)){
 	        * bootvid = vid;
 	    } else {    	
-	    	* bootvid = OWL_TV_MOD_1080P_60HZ; 
+	    	* bootvid = -1; 
 	        printf("%s: not support %s ,we used default vid  = %d\n",__func__, resolution, bootvid);
 	    }
     }
@@ -1363,12 +1364,12 @@ int read_usr_cfg_file(const char* file_name, char* buf)
     loff_t actread;
     const char* ifname;
     
-    printf("read_usr_cfg_file\n");
+    debug("read_usr_cfg_file\n");
 
     ifname = getenv("devif");
     if ( ifname == NULL ) {
         ifname = "nand";
-        printf("get devif fail\n");
+        debug("get devif fail\n");
     }
     dev = get_boot_dev_num();
     
@@ -1379,12 +1380,11 @@ int read_usr_cfg_file(const char* file_name, char* buf)
     }
 
     if (get_partition_info(dev_desc, part, &info)) {
-        printf("** get_partition_info %s%d:%d\n",
+        debug("** get_partition_info %s%d:%d\n",
                 ifname, dev, part);
 
         if (part != 0) {
-            printf("** Partition %d not valid on device %d **\n",
-                    part, dev_desc->dev);
+            //printf("** Partition %d not valid on device %d **\n", part, dev_desc->dev);
             return -1;
         }
 
@@ -1426,7 +1426,7 @@ int read_usr_cfg_file(const char* file_name, char* buf)
     }
     ext4fs_close();
     
-    printf("buf=%s", buf);
+    debug("buf=%s", buf);
     
   
     return 0;
@@ -1448,7 +1448,8 @@ int hdmi_init(void)
     struct asoc_videomode *v_mode = NULL;
     struct hdmi_video_settings settings;
     int i=0; 
-    char buf[64]={0};
+    char buf[256]={0};
+    char * bootargs ;
     int bootable,bootrotate,bootvid,channel_invert,bit_invert;
 
     struct hdmi_sink_info* psink_info = &sink_info;
@@ -1458,23 +1459,20 @@ int hdmi_init(void)
     }
     
     if(bootable != 0 && hdmi_get_plug_state() == 1 && (bootrotate == 0 || bootrotate == 3)){   
-    	 
-	    if (!read_usr_cfg_file(HDMI_SETTING_MODE_PATH, buf)){
-	        bootvid = skip_atoi(&buf[0]);        
-	    } 
-	    
+    	     
 		bootvid = check_hdmi_mode(bootvid);
+		
 	    if (valide_vid(bootvid)){
 	        psink_info->v_settings.vid = bootvid;
-	        printf("%s: read vid  success = %d\n",__func__, bootvid);
+	        debug("%s: read vid  success = %d\n",__func__, bootvid);
 	    } else {
-	        printf("%s: first time used config vid  = %d\n",__func__, psink_info->v_settings.vid );
+	        debug("%s: first time used config vid  = %d\n",__func__, psink_info->v_settings.vid );
 	    }
 	
-			if(bootvid==7)
-				{
-					sink_info.v_settings.hdmi_mode = HDMI_MODE_DVI;
-				}
+		if(bootvid == 7)
+		{
+			sink_info.v_settings.hdmi_mode = HDMI_MODE_DVI;
+		}
 				
 	    settings = sink_info.v_settings;
 	    act_setl(1<<28 , USB3_P0_CTL);
@@ -1500,12 +1498,23 @@ int hdmi_init(void)
 	    hdmi_general_cfg(&sink_info);
 	
 	    /* transmit hdmi vid through bootargs. */
-	    sprintf(buf, "h=%d", settings.vid);
-	    
-	    setenv("bootargs.add", buf);
-	
-	    owl_display_register(HDMI_DISPLAYER, &hdmi_ops, &(v_mode->mode),24,bootrotate);
+		
+	    bootargs = getenv("bootargs.add");
+	    	    
+		if (bootargs == NULL)
+			sprintf(buf, "hdmi_vid=%d",settings.vid);
+		else
+			sprintf(buf, "%s hdmi_vid=%d",bootargs,settings.vid);
+		
+		debug("hdmi_init bootargs %s \n",buf);
+		
+		setenv("bootargs.add", buf);
+	    	
+		
+		HDMI_DRV_PRINT("[%s owl_display_register v_mode->mode %p settings.vid %d \n", __func__,v_mode->mode,settings.vid);
+	    owl_display_register(HDMI_DISPLAYER,"hdmi",&hdmi_ops, &(v_mode->mode),24,bootrotate);
 	}
+	
     return 0;
 }
 

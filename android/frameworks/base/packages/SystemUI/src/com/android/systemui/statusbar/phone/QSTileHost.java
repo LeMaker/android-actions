@@ -26,8 +26,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.provider.Settings.Secure;
-import android.provider.Settings.System;
-
 import android.util.Log;
 
 import com.android.systemui.R;
@@ -74,14 +72,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.Reader;
-import java.io.FileReader;
-import java.io.IOException;
-
-
 
 /** Platform implementation of the quick settings tile host **/
 public class QSTileHost implements QSTile.Host {
@@ -282,26 +272,7 @@ public class QSTileHost implements QSTile.Host {
             }
         }
         final LinkedHashMap<String, QSTile<?>> newTiles = new LinkedHashMap<>();
-		String use_usb_wifi_bt_dongle = SystemProperties.get("ro.use.usb.wifi_bt.dongle");
-		
         for (String tileSpec : tileSpecs) {
-
-			//change the tile according to whether insert usb wifi&bt dongle. Add by ian.jiang
-			if( (use_usb_wifi_bt_dongle != null)&&(!use_usb_wifi_bt_dongle.isEmpty())&&(use_usb_wifi_bt_dongle.equals("true")) )
-			{
-				if( (tileSpec.equals("wifi"))&&(!IsInsertUsbWifiDongle()) )
-				{
-					Log.d(TAG,"<===not add wifi tile");
-					continue;
-				}
-
-				if( (tileSpec.equals("bt"))&&(!IsInsertUsbBTDongle()) )
-				{
-					Log.d(TAG,"<===not add bt tile");
-					continue;
-				}
-			}
-			
             if (mTiles.containsKey(tileSpec)) {
                 newTiles.put(tileSpec, mTiles.get(tileSpec));
             } else {
@@ -413,95 +384,4 @@ public class QSTileHost implements QSTile.Host {
             recreateTiles();
         }
     }
-
-    /**
-		 *NEW_FEATURE: 
-		 *damially change wifi&bt in Panel Bar
-		 ************************************
-		 *      
-		 *ActionsCode(author:ian.jiang, change_code)
-		 */
-	public void UpdateTiles(){
-		recreateTiles();
-	}
-	
-	public boolean IsInsertUsbWifiDongle() {
-		File file = new File("/sys/kernel/debug/usb/devices");
-		BufferedReader reader = null;
-		boolean ret = false;
-		try {
-
-			reader = new BufferedReader(new FileReader(file));
-			String tempString = null;
-			int line = 1;
-
-			while ((tempString = reader.readLine()) != null) {
-				
-				//Log.e("ian.jiang","line " + line + ": " + tempString);	
-				if(tempString.contains("Product=802.11")) {
-					ret = true;
-					break;
-				}
-
-				line++;
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e1) {
-				}
-			}
-		}
-
-		if(ret)
-			return true;
-		else
-			return false;
-
-	}
-
-	public boolean IsInsertUsbBTDongle() {
-		File file = new File("/sys/kernel/debug/usb/devices");
-		BufferedReader reader = null;
-		boolean ret = false;
-		try {
-
-			reader = new BufferedReader(new FileReader(file));
-			String tempString = null;
-			int line = 1;
-
-			while ((tempString = reader.readLine()) != null) {
-				
-				if(tempString.contains("Product=802.11n WLAN Adapte")) {
-					ret = true;
-					break;
-				}
-
-				line++;
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e1) {
-				}
-			}
-		}
-
-		if(ret)
-			return true;
-		else
-			return false;
-
-	}
-
-
-	
 }

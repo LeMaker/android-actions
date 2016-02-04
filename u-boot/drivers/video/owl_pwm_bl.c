@@ -103,7 +103,7 @@ static int gpio_bit_to_pwr(struct owl_fdt_gpio_state *gpio)
 			tmp |= (1<<(MAX_GPIO_TO_PWR-gpio->gpio));
 			tmp <<= 4;
 		}	
-		printf("get_pwr_ctl %s  %d\n", gpio->name, tmp);		
+		debug("get_pwr_ctl %s  %d\n", gpio->name, tmp);		
 	}
 	return tmp;
 }

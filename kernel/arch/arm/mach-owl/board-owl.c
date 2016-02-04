@@ -40,7 +40,6 @@
 
 void owl_switch_jtag(void)
 {
-    act_writel((act_readl(CMU_BUSCLK) & (~0x3)) | 0x1, CMU_BUSCLK);
     act_writel(act_readl(MFP_CTL1) & (~((0x7<<29) | (0x7<<26))), MFP_CTL1);
     act_writel((act_readl(MFP_CTL2) & (~((0x3<<5) | (0x3<<7) | (0x7<<11) | (0x7<<17))))
         | ((0x2<<5) | (0x3<<7) | (0x3<<11) | (0x3<<17)), MFP_CTL2);

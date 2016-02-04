@@ -1,3 +1,0 @@
--keepclassmembers class com.example.android.backuprestore.BackupRestoreActivity {
-    public void onRestoreButtonClick(android.view.View);
-}

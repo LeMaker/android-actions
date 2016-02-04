@@ -322,15 +322,9 @@ static int __init rfkill_bluetooth_init(void)
 {
 	printk(KERN_INFO "-->%s\n", __func__);
 
-#ifdef CONFIG_PLATFORM_UBUNTU
-	/* ubuntu system always keep power on */
-	rfkill_gpio_init();
-	rt_bt_power_on();
-#else
 	printk("===> %s,%d\n", __FUNCTION__, __LINE__);
 	platform_driver_register(&rfkill_bluetooth_driver);
 	wmt_device = platform_device_register_simple("rfkill", -1, NULL, 0);	
-#endif
 
 	printk("<=== %s,%d\n", __FUNCTION__, __LINE__);
 
@@ -340,11 +334,7 @@ static int __init rfkill_bluetooth_init(void)
 static void __exit rfkill_bluetooth_exit(void)
 {
 	printk(KERN_INFO "-->%s\n", __func__);
-#ifdef CONFIG_PLATFORM_UBUNTU
-	rt_bt_power_off();
-#else
 	platform_driver_unregister(&rfkill_bluetooth_driver);
-#endif
 }
 
 late_initcall(rfkill_bluetooth_init);

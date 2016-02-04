@@ -30,22 +30,27 @@ if [ $boot_dev == nand ]; then
    insmod /lib/modules/nanddisk.ko
 elif [ $boot_dev == sd0 ]; then 
 	echo "bootdevice is sd0 (external sd)"
+	checkcnt=0
+	while [ ! -d /dev/mmcblk0p1 ] && [ $checkcnt -lt 10 ];do
+		sleep 1
+		let checkcnt=$checkcnt+1
+	done
+	ln -s /dev/mmcblk0p1 /dev/acta
 else
 	echo "bootdevice is sd2 (mmc)"
+	checkcnt=0
+	while [ ! -d /dev/mmcblk0p1 ] && [ $checkcnt -lt 10 ];do
+		sleep 1
+		let checkcnt=$checkcnt+1
+	done
+	ln -s /dev/mmcblk0p1 /dev/acta
 fi
 
 mkdir -p /mnt/remotedisk
 mkdir -p /system
 mkdir -p /misc
 
-checkcnt=0
-while [ ! -d /dev/mmcblk0p1 ] && [ $checkcnt -lt 10 ];do
-	sleep 1
-	let checkcnt=$checkcnt+1
-done    
-
-
-mount -t vfat /dev/mmcblk0p1 /misc
+mount -t vfat /dev/acta /misc  
 
 
 insmod /misc/modules/atc260x_cap_gauge.ko

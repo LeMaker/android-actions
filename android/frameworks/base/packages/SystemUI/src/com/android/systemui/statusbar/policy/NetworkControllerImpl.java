@@ -557,20 +557,19 @@ public class NetworkControllerImpl extends BroadcastReceiver
 		//ActionsCode(fanguoyong,use ethernet intent to flash icon)
 		if(intent != null) {
 			int state = intent.getIntExtra(EthernetManager.EXTRA_ETHERNET_STATE,0);
-        	Log.v(TAG,"ethernet_state:"+state);
-        	if(state == EthernetManager.ETHERNET_STATE_ENABLED){
-            	mEthernetIconId = R.drawable.stat_sys_ethernet;
-        	}else{
-            	mEthernetIconId = 0;
-        	}
+        		Log.v(TAG,"ethernet_state:"+state);
+        		if(state == EthernetManager.ETHERNET_STATE_ENABLED){
+            			mEthernetIconId = R.drawable.stat_sys_ethernet;
+        		} else{
+            			mEthernetIconId = 0;
+        		}
 		} else if(mEthernetIconId == -1){	
 			// fix the bug:when reboot pad can't view the ethernet_connect icon               
-        	if(mEthernetConnected){
-        		mEthernetIconId = R.drawable.stat_sys_ethernet;
-        	}
-        	else{
-            	mEthernetIconId = 0;
-        	} 
+        		if(mEthernetConnected){
+        			mEthernetIconId = R.drawable.stat_sys_ethernet;
+        		} else{
+            			mEthernetIconId = 0;
+        		} 
 		}
 		notifyListeners();
     }

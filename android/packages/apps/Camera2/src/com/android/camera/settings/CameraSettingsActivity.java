@@ -150,11 +150,11 @@ public class CameraSettingsActivity extends FragmentActivity {
             final PreferenceScreen advancedScreen =
                 (PreferenceScreen) findPreference(PREF_CATEGORY_ADVANCED);
             setPreferenceScreenIntent(advancedScreen);
-	/**
-	* BUGFIX: delete google help-and-feedback option,which is no use actually. BUG00261093
-	* ActionsCode(author:liyuan, change_code)
-	*/
-	/*
+			/**
+		    * BUGFIX: delete google help-and-feedback option,which is no use actually. BUG00261093
+		    * ActionsCode(author:liyuan, change_code)
+		    */
+			/*
             Preference helpPref = findPreference(PREF_LAUNCH_HELP);
             helpPref.setOnPreferenceClickListener(
                 new OnPreferenceClickListener() {
@@ -164,7 +164,7 @@ public class CameraSettingsActivity extends FragmentActivity {
                         return true;
                     }
                 });
-	*/
+			*/
             getPreferenceScreen().getSharedPreferences()
                     .registerOnSharedPreferenceChangeListener(this);
         }

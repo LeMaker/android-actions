@@ -47,7 +47,7 @@ static OMX_U32 noVideoDecInstance = 0;
 static OMX_U32 VIDDEC_DEFAULT_FRAME_BUFFER_NUM = 6;
 static OMX_U32 VIDDEC_DEFAULT_INPUT_BUFFER_SIZE = 2*1024*1024;
 static OMX_U32 VIDDEC_DEFAULT_INPUT_BUFFER_NUM = 4;
-static OMX_U32 VIDDEC_DEFAULT_OUTPUT_BUFFER_NUM = 4;
+static OMX_U32 VIDDEC_DEFAULT_OUTPUT_BUFFER_NUM = 6;
 
 /** The output decoded color format */
 #define OUTPUT_DECODED_COLOR_FMT OMX_COLOR_FormatYUV420SemiPlanar 
@@ -455,11 +455,12 @@ OMX_ERRORTYPE omx_videodec_component_actvideoInit(VIDDEC_COMPONENT_PRIVATE *pCom
 	int i;
 	omx_base_video_PortType *inPort,*outPort;
 	OMX_PARAM_PORTDEFINITIONTYPE *pPortDef;
+	OMX_VIDEO_PARAM_PORTFORMATTYPE* pPortFormat;
 	OMX_ERRORTYPE err = OMX_ErrorNone;
 	inPort = (omx_base_video_PortType *)pComponentPrivate->ports[OMX_BASE_FILTER_INPUTPORT_INDEX];
 	outPort= (omx_base_video_PortType *)pComponentPrivate->ports[OMX_BASE_FILTER_OUTPUTPORT_INDEX];
 	pPortDef = &(outPort->sPortParam);
-	
+	pPortFormat = &(outPort->sVideoParam);
   pComponentPrivate->is_videodec_fifo_init=OMX_FALSE;
 	pComponentPrivate->is_fifo_disposing=OMX_FALSE;
 	if(pComponentPrivate->is_Thumbnail==OMX_TRUE){
@@ -582,7 +583,13 @@ OMX_ERRORTYPE omx_videodec_component_actvideoInit(VIDDEC_COMPONENT_PRIVATE *pCom
 		}else{
 			pComponentPrivate->p_handle = pComponentPrivate->p_interface->open(NULL, pComponentPrivate->CodecConfigPktLen>0 ? pComponentPrivate->CodecConfigPkt:NULL , pComponentPrivate->fb_port);
 		}
-   
+		
+   	if((pPortFormat->xFramerate>>16)>30 && pComponentPrivate->is_Thumbnail==OMX_FALSE && pPortDef->format.video.nStride* ((pPortDef->format.video.nFrameHeight+15)&(~15))>=640*360 ){
+		DEBUG(DEB_LEV_ERR,"xFramerate is %d \n",(pPortFormat->xFramerate>>16));
+		//pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,DISCARD_FRAMES,1);
+		pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,EX_RESERVED2,1);
+	}
+	
 		if(pComponentPrivate->p_handle == NULL) {
 			dlclose(pComponentPrivate->p_so_handle);
 	    pComponentPrivate->p_so_handle = NULL;

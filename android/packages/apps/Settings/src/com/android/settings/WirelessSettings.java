@@ -60,6 +60,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+
 public class WirelessSettings extends SettingsPreferenceFragment
         implements OnPreferenceChangeListener, Indexable {
     private static final String TAG = "WirelessSettings";
@@ -78,10 +79,14 @@ public class WirelessSettings extends SettingsPreferenceFragment
     private static final String KEY_CELL_BROADCAST_SETTINGS = "cell_broadcast_settings";
     private static final String KEY_WIRELESS_DEVICE_SUPPORT_INFO = "wireless_device_support_info";
     public static final String EXIT_ECM_RESULT = "exit_ecm_result";
+    public static final String KEY_LEMAKER_NETWORK_ETH0 = "eth0_device_restart_button";
+    public static final String KEY_LEMAKER_NETWORK_ETH1 = "eth1_device_restart_button";//hdmi_audio_switch_button
+    public static final String KEY_LEMAKER_HDMI_SWITCH = "hdmi_audio_switch_button";
     public static final int REQUEST_CODE_EXIT_ECM = 1;
 
     private AirplaneModeEnabler mAirplaneModeEnabler;
     private SwitchPreference mAirplaneModePreference;
+    private SwitchPreference mHdmiModePreference;
     private NfcEnabler mNfcEnabler;
     private NfcAdapter mNfcAdapter;
     private NsdEnabler mNsdEnabler;
@@ -113,6 +118,18 @@ public class WirelessSettings extends SettingsPreferenceFragment
             return true;
         } else if (preference == findPreference(KEY_MANAGE_MOBILE_PLAN)) {
             onManageMobilePlanClick();
+        } else if (preference == findPreference(KEY_LEMAKER_NETWORK_ETH0)){
+		SystemProperties.set("ctl.start", "eth0_up");
+	} else if (preference == findPreference(KEY_LEMAKER_NETWORK_ETH1)){
+		SystemProperties.set("ctl.start", "eth1_up");
+	} else if (preference == findPreference(KEY_LEMAKER_HDMI_SWITCH)){
+		if(mHdmiModePreference.isChecked()){
+			SystemProperties.set("lemaker.audio", "hdmi");
+			SystemProperties.set("ctl.start", "hdmiup");
+		} else {
+			SystemProperties.set("lemaker.audio", "speak");
+			SystemProperties.set("ctl.start", "speakup");
+		}
         }
         // Let the intents be launched by the Preference manager
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -275,6 +292,7 @@ public class WirelessSettings extends SettingsPreferenceFragment
 
         final Activity activity = getActivity();
         mAirplaneModePreference = (SwitchPreference) findPreference(KEY_TOGGLE_AIRPLANE);
+	mHdmiModePreference = (SwitchPreference) findPreference(KEY_LEMAKER_HDMI_SWITCH);
         SwitchPreference nfc = (SwitchPreference) findPreference(KEY_TOGGLE_NFC);
         PreferenceScreen androidBeam = (PreferenceScreen) findPreference(KEY_ANDROID_BEAM_SETTINGS);
         SwitchPreference nsd = (SwitchPreference) findPreference(KEY_TOGGLE_NSD);
@@ -322,7 +340,26 @@ public class WirelessSettings extends SettingsPreferenceFragment
         if (isSecondaryUser || mUm.hasUserRestriction(UserManager.DISALLOW_CONFIG_VPN)) {
             removePreference(KEY_VPN_SETTINGS);
         }
-        
+
+	String eth0 = SystemProperties.get("ro.support.eth0","yes");
+        if (!"yes".equals(eth0.toLowerCase()) && !"true".equals(eth0.toLowerCase())) {
+            getPreferenceScreen().removePreference(findPreference(KEY_LEMAKER_NETWORK_ETH0));
+        }
+
+	String eth1 = SystemProperties.get("ro.support.eth1","yes");
+        if (!"yes".equals(eth1.toLowerCase()) && !"true".equals(eth1.toLowerCase())) {
+            getPreferenceScreen().removePreference(findPreference(KEY_LEMAKER_NETWORK_ETH1));
+        }
+
+	//KEY_LEMAKER_HDMI_SWITCH
+	String hdmi = SystemProperties.get("lemaker.audio","speak");
+        if (!"hdmi".equals(hdmi.toLowerCase())) {
+//            getPreferenceScreen().removePreference(findPreference(KEY_LEMAKER_HDMI_SWITCH));
+		mHdmiModePreference.setChecked(false);
+        } else{
+		mHdmiModePreference.setChecked(true);
+	}
+ 
         //ActionsCode(phchen, new feature), 
 		String g3_display = SystemProperties.get("ro.g3.display","yes");
         if (!"yes".equals(g3_display.toLowerCase()) && !"true".equals(g3_display.toLowerCase())) {

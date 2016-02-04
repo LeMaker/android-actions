@@ -393,23 +393,23 @@ static void ip_hdmi_pllpu(struct hdmi_ip_data *ip_data)
 			{
 				case VID640x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
 					break;	
 				case VID720x576P_50_4VS3:
 				case VID720x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
 					break;		
 				case VID1280x720P_60_16VS9:
 				case VID1280x720P_50_16VS9:
 				case VID1280x720P_60_DVI:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81942983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
 					break;
 				case VID1920x1080P_60_16VS9:
 				case VID1920x1080P_50_16VS9:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81902983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
 					break;
 				default:
 					DEBUG_ERR("!!!no surpport this vid %d\n", ip_data->cfg.cm.code);
@@ -419,23 +419,23 @@ static void ip_hdmi_pllpu(struct hdmi_ip_data *ip_data)
 			{
 				case VID640x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c0986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
 					break;	
 				case VID720x576P_50_4VS3:
 				case VID720x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c0986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
 					break;		
 				case VID1280x720P_60_16VS9:
 				case VID1280x720P_50_16VS9:
 				case VID1280x720P_60_DVI:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81982986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);
 					break;
 				case VID1920x1080P_60_16VS9:
 				case VID1920x1080P_50_16VS9:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81940986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87&0xfffff0ff);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
 					break;
 				default:
 					DEBUG_ERR("!!!no surpport this vid %d\n", ip_data->cfg.cm.code);
@@ -541,6 +541,35 @@ static bool ip_hdmi_detect(struct hdmi_ip_data *ip_data)
 	return (REG_GET_VAL(val,30,30) == 1);
 }
 
+static u32 ip_hdmi_get_irq_state(struct hdmi_ip_data *ip_data)
+{
+	u32 val;
+	u32 irq_state = 0;
+
+	val = hdmi_read_reg(ip_data, HDMI_CR);
+
+	if(REG_GET_VAL(val,30,30) == 1)
+	{
+		irq_state |= HDMI_HPD_IRQ;
+	}
+	
+	val = hdmi_read_reg(ip_data, HDMI_CECTXCR);
+
+	if(REG_GET_VAL(val,6,6) == 1)
+	{
+		irq_state |= HDMI_CEC_IRQ;
+	}
+
+	val = hdmi_read_reg(ip_data, HDMI_CECRXCR);
+
+	if(REG_GET_VAL(val,6,6) == 1)
+	{
+		irq_state |= HDMI_CEC_IRQ;
+	}
+	
+	return irq_state;
+}
+
 static void ip_hdmi_hpd_enable(struct hdmi_ip_data *ip_data,bool enable)
 {
 
@@ -631,23 +660,23 @@ static void ip_hdmi_phy_enable(struct hdmi_ip_data *ip_data)
 			{
 				case VID640x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);	
 					break;	
 				case VID720x576P_50_4VS3:
 				case VID720x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);	
 					break;		
 				case VID1280x720P_60_16VS9:
 				case VID1280x720P_50_16VS9:
 				case VID1280x720P_60_DVI:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81942983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);	
 					break;
 				case VID1920x1080P_60_16VS9:
 				case VID1920x1080P_50_16VS9:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81902983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);	
 					break;
 				default:
 					DEBUG_ERR("!!!no surpport this vid %d\n", ip_data->cfg.cm.code);
@@ -657,23 +686,23 @@ static void ip_hdmi_phy_enable(struct hdmi_ip_data *ip_data)
 			{
 				case VID640x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c0986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);	
 					break;	
 				case VID720x576P_50_4VS3:
 				case VID720x480P_60_4VS3:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c0986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);	
 					break;		
 				case VID1280x720P_60_16VS9:
 				case VID1280x720P_50_16VS9:
 				case VID1280x720P_60_DVI:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81982986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);
 					break;
 				case VID1920x1080P_60_16VS9:
 				case VID1920x1080P_50_16VS9:
 					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81940986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f87);	
+					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89);	
 					break;
 				default:
 					DEBUG_ERR("!!!no surpport this vid %d\n", ip_data->cfg.cm.code);
@@ -865,6 +894,7 @@ static const struct owl_hdmi_ip_ops owl_hdmi_functions = {
 	.video_disable		=	ip_hdmi_video_stop,	
 	.dump_hdmi		    =	ip_hdmi_dump,
 	.video_configure	=	ip_hdmi_basic_configure,
+	.get_irq_state      =   ip_hdmi_get_irq_state,
 
 };
 

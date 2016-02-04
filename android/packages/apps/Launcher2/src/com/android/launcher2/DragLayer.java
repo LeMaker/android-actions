@@ -898,8 +898,9 @@ public class DragLayer extends FrameLayout implements ViewGroup.OnHierarchyChang
                         } else {
                             bmpStartY = (int)((dheight - LauncherApplication.mLogicalWidth)*  0.5f + 0.5f);
                         }
-
+			 if ((bmpStartY + mLauncher.mStatusBarHeight + vheight) <= dheight) {
                         bmpStartY = bmpStartY + mLauncher.mStatusBarHeight;
+		}
                         mLauncher.mScreenBitmap = Bitmap.createBitmap(mTmpBitmap,bmpStartX, bmpStartY, vwidth, vheight);
                         if (mLauncher.mFirstCreate == false) {
                             mHandler.removeMessages(WALLPAPER_MSG);

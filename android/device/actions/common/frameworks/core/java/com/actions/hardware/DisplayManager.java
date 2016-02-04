@@ -90,6 +90,44 @@ public class DisplayManager {
             Log.e(TAG, "Display service getMode failed", e);
         }
         return null;
+    }    
+    //CVBS Setting
+    public void setCvbsEnable(boolean enable) {
+    	Log.d(TAG, "setCvbsEnable " + enable); 
+        try {
+            mDisplayService.setCvbsEnable(enable);
+        } catch (Exception e) {
+            Log.e(TAG, "Display service setCvbsEnable failed", e);
+        }
+    }
+     public boolean getCvbsEnable() {  	
+        try {
+        	Log.d(TAG, "getCvbsEnable " + mDisplayService.getCvbsEnable()); 
+            return mDisplayService.getCvbsEnable();
+        } catch (Exception e) {
+            Log.e(TAG, "Display service getCvbsEnable failed", e);
+        }
+        return false;
+    }
+     public String getCvbsMode() {    	
+        try {
+        	Log.d(TAG, "getCvbsMode " + mDisplayService.getCvbsMode()); 
+            return mDisplayService.getCvbsMode();
+        } catch (Exception e) {
+            Log.e(TAG, "Display service get cvbs Mode failed", e);
+        }
+        return null;
+    }
+    
+      public boolean setCvbsMode(String mode) {
+    	Log.d(TAG, "setCvbsMode " + mode); 
+        try {
+            mDisplayService.setCvbsMode(mode);
+        } catch (Exception e) {
+            Log.e(TAG, "Display service setMode failed", e);
+        }
+
+        return true;
     }
 
     public String[] getHdmiSupportedModesList(){

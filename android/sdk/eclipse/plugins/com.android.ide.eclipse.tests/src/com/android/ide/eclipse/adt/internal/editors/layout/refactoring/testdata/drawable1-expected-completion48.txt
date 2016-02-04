@@ -1,3 +1,0 @@
-Code completion in drawable1.xml for ^xmlns:android:
-android:opacity : Indicates the opacity of the layer.  [enum]
-xmlns:android

@@ -1,1 +1,0 @@
-<a class="$link_style; null="default"$" href="$url$">$name$</a>

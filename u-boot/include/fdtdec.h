@@ -179,6 +179,7 @@ enum fdt_compat_id {
 	COMPAT_ACTIONS_OWL_PWM_BACKLIGHT,	/*Actions PWM backlight driver*/
 	COMPAT_ACTIONS_OWL_DSI,	/* Actions DSI controller */
 	COMPAT_ACTIONS_OWL_HDMI,	/* Actions HDMI controller */	
+	COMPAT_ACTIONS_OWL_CVBS,	/* Actions CVBS controller */	
 	COMPAT_ACTIONS_OWL_USB3_MONITOR,	/*Actions USB3 monitor driver*/
 	COMPAT_ACTIONS_OWL_PMU,	/*Actions OWL PMU driver*/
 	COMPAT_COUNT,	

@@ -742,9 +742,9 @@ bool MediaProfiles::needrefresh(const char **xmlpath)
 {
 	bool ret = false;
 	FILE * fp = NULL;
-        int fd;
-        struct stat buf;
-        fp=fopen(*xmlpath,"r"); 
+    int fd;
+    struct stat buf;
+    fp=fopen(*xmlpath,"r"); 
 	if(fp != NULL){
 
 	    fd=fileno(fp);
@@ -752,11 +752,11 @@ bool MediaProfiles::needrefresh(const char **xmlpath)
 	    int size = buf.st_size; 
 	    long modify_time = buf.st_mtime; 	
 
-	    if(last_modify_time != modify_time){
-		ret = true;
-		last_modify_time = modify_time;
+		if(last_modify_time != modify_time){
+			ret = true;
+			last_modify_time = modify_time;
 		
-	    }	
+		}	
 	    fclose(fp);
 	}else{
 		ALOGE("could not find camcorder config xml file(%s)", *xmlpath);

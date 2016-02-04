@@ -2418,7 +2418,15 @@ status_t OMXCodec::allocateOutputBuffersFromNativeWindow() {
         cancelEnd = mPortBuffers[kPortIndexOutput].size();
     } else {
         // Return the last two buffers to the native window.
-        cancelStart = def.nBufferCountActual - minUndequeuedBufs;
+
+    	/*ActionsCode(author:rongxing Optimize for 60fps video*/
+    	// try to allocate two (2) additional buffers to reduce starvation from the consumer
+    	if(!strcmp(mComponentName, ACTIONS_VIDEO_DECODER) || !strcmp(mComponentName, ACTIONS_VIDEO_DECODER_DEINTERLACE)){
+        	cancelStart = def.nBufferCountActual - (minUndequeuedBufs+1);
+    	}else{
+    		cancelStart = def.nBufferCountActual - minUndequeuedBufs;
+    	}
+
         cancelEnd = def.nBufferCountActual;
     }
 

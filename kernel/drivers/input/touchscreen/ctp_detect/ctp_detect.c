@@ -166,7 +166,7 @@ static int ctp_of_data_get(struct platform_device *pdev)
 int ctp_init(void)
 {
 	int ret=0;
-	printk("in %s.\n",__FUNCTION__);
+//	printk("in %s.\n",__FUNCTION__);
 	tp_regulator = regulator_init(CTP_POWER_ID, CTP_POWER_MIN_VOL, CTP_POWER_MAX_VOL);
 	if ( !tp_regulator ) {
 		printk("ctp init power failed");
@@ -190,7 +190,7 @@ int ctp_init(void)
 int ctp_deinit(void)
 {
 	int ret=0;
-	printk("in %s.\n",__FUNCTION__);
+//	printk("in %s.\n",__FUNCTION__);
 	if ( tp_regulator )
 		regulator_deinit(tp_regulator);
 
@@ -204,7 +204,7 @@ bool test_i2c(struct ctp_device *dev)
 	uint8_t test_data[1] = { 0 };
 	
 	if(dev->need_detect==false){
-		printk("Skip the ctp:%s,no need detect.\n",dev->name);
+		//printk("Skip the ctp:%s,no need detect.\n",dev->name);
 		return false;
 	}
 //need_detect==true
@@ -221,7 +221,7 @@ bool test_i2c(struct ctp_device *dev)
 			return true;
 		}
 		else{
-			printk("Is not the ctp:%s,skip it.\n",dev->name);
+			//printk("Is not the ctp:%s,skip it.\n",dev->name);
 			return false;
 		}
 	}
@@ -238,7 +238,7 @@ bool test_i2c(struct ctp_device *dev)
 			return true;
 		}
 		else{
-			printk("Is not the ctp:%s,skip it.\n",dev->name);
+			//printk("Is not the ctp:%s,skip it.\n",dev->name);
 			return false;
 		}
 	}
@@ -249,7 +249,7 @@ bool test_i2c(struct ctp_device *dev)
 int ctp_detect(void)
 {
 	int idx=0;
-	printk("%s,line:%d.\n",__func__,__LINE__);
+//	printk("%s,line:%d.\n",__func__,__LINE__);
 	client = kzalloc(sizeof *client, GFP_KERNEL);
 	if (!client)
 		return -ENOMEM;
@@ -296,7 +296,7 @@ static void ctp_monitor(struct work_struct *work)
 
 	ret=ctp_detect();
 	if(ret<0){
-		printk("Sorry,no one suit!!!\n");
+	//	printk("Sorry,no one suit!!!\n");
 		goto deinit;
 	}
 	else{

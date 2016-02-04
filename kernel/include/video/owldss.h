@@ -55,9 +55,9 @@ enum owl_plane {
 	OWL_DSS_VIDEO4	= 3,
 };
 
-enum owl_channel {	
-	OWL_DSS_CHANNEL_LCD	= 0,
-	OWL_DSS_CHANNEL_DIGIT = 1,	
+enum owl_de_path_id {	
+	OWL_DSS_PATH1_ID	= 0,
+	OWL_DSS_PATH2_ID = 1,	
 };
 
 enum owl_boot_mode {	
@@ -116,9 +116,9 @@ enum owl_dss_display_state {
 };
 
 /* XXX perhaps this should be removed */
-enum owl_dss_overlay_managers {
-	OWL_DSS_OVL_MGR_LCD,
-	OWL_DSS_OVL_MGR_TV,
+enum owl_dss_managers_id {
+	OWL_DSS_OVL_MGR_PRIMARY,
+	OWL_DSS_OVL_MGR_EXTERNAL,
 };
 
 /* clockwise rotation angle */
@@ -249,7 +249,7 @@ struct ovl_priv_data {
 	bool shadow_extra_info_dirty;
 
 	bool enabled;
-	enum owl_channel channel;
+	enum owl_dss_managers_id channel;
 	u32 fifo_low, fifo_high;
 
 	/*
@@ -311,6 +311,15 @@ static inline struct ovl_priv_data *get_ovl_priv(struct owl_overlay *ovl)
 	return &ovl->priv_data;
 }
 
+struct owl_cursor_info {
+	bool enable;
+	unsigned short pos_x;
+	unsigned short pos_y;
+	void * paddr;
+	unsigned short stride;
+
+};
+
 struct owl_overlay_manager_info {
 	u16 out_width;
 	u16 out_height;		
@@ -334,6 +343,12 @@ struct mgr_priv_data {
 
 	bool info_dirty;
 	struct owl_overlay_manager_info info;
+	
+	bool user_cursor_dirty;
+	struct owl_cursor_info user_cursor;
+	
+	bool cursor_dirty;
+	struct owl_cursor_info cursor;
 
 	bool shadow_info_dirty;
 	
@@ -367,7 +382,13 @@ struct owl_overlay_manager {
 
 	/* static fields */
 	const char *name;
-	enum owl_channel id;
+	
+	enum owl_dss_managers_id id;
+	
+	/* this depath config */
+		
+	enum owl_de_path_id de_path_id;
+	
 	enum owl_overlay_manager_caps caps;
 	struct list_head overlays;
 	enum owl_display_type supported_displays;
@@ -377,7 +398,8 @@ struct owl_overlay_manager {
 	struct mutex apply_lock;
 	/* dynamic fields */
 	struct owl_dss_device * device;
-
+	bool mirror_context;
+	struct fb_info * link_fbi;
 	/* 
          * gamma setting is not controlled by FCR bit,
 	 * so we should wait for vsync to update gamma info
@@ -403,6 +425,9 @@ struct owl_overlay_manager {
 	int (*set_manager_info)(struct owl_overlay_manager *mgr, struct owl_overlay_manager_info *info);
 	void (*get_manager_info)(struct owl_overlay_manager *mgr, struct owl_overlay_manager_info *info);
 	int (*apply_manager_info)(struct owl_overlay_manager *mgr);
+	
+	int (*set_cursor_info)(struct owl_overlay_manager *mgr, struct owl_cursor_info *info);
+	void (*get_cursor_info)(struct owl_overlay_manager *mgr, struct owl_cursor_info *info);
 
 	int (*apply)(struct owl_overlay_manager *mgr);
 	
@@ -419,7 +444,7 @@ struct owl_dss_device {
 
 	enum owl_display_type type;
 
-	enum owl_channel channel;
+	enum owl_dss_managers_id channel;
 	
 	struct owl_video_timings timings;
 	
@@ -473,6 +498,8 @@ struct owl_dss_driver {
 	int (*check_timings)(struct owl_dss_device *dssdev, struct owl_video_timings *timings);
 	void (*set_timings)(struct owl_dss_device *dssdev,	struct owl_video_timings *timings);
 	void (*get_timings)(struct owl_dss_device *dssdev,	struct owl_video_timings *timings);
+	void (*get_over_scan)(struct owl_dss_device *dssdev, u16 * scan_width,  u16 * scan_height);
+	void (*set_over_scan)(struct owl_dss_device *dssdev, u16 scan_width,  u16 scan_height);
 	int (*get_effect_parameter)(struct owl_dss_device *dssdev,	enum owl_plane_effect_parameter parameter_id);
 	void (*set_effect_parameter)(struct owl_dss_device *dssdev,	enum owl_plane_effect_parameter parameter_id,int value);
 	void (*set_vid)(struct owl_dss_device *dssdev, int vid);
@@ -484,6 +511,9 @@ struct owl_dss_driver {
 	
 	int (*read_edid)(struct owl_dss_device *dssdev, u8 *buf, int len);	
 	int (*dump)(struct owl_dss_device *dssdev);
+	
+	int (*hot_plug_nodify)(struct owl_dss_device *dssdev, int state);
+	
 };
 
 int owl_dss_register_driver(struct owl_dss_driver *);
@@ -494,6 +524,7 @@ void owl_dss_put_device(struct owl_dss_device *dssdev);
 #define for_each_dss_dev(d) while ((d = owl_dss_get_next_device(d)) != NULL)
 struct owl_dss_device *owl_dss_get_next_device(struct owl_dss_device *from);
 struct owl_dss_device *owl_dss_find_device(void *data, int (*match)(struct owl_dss_device *dssdev, void *data));
+struct owl_dss_device *owl_dss_find_device_by_type(enum owl_display_type type);
 
 int owl_dss_start_device(struct owl_dss_device *dssdev);
 void owl_dss_stop_device(struct owl_dss_device *dssdev);
@@ -510,6 +541,7 @@ int owl_default_get_recommended_bpp(struct owl_dss_device *dssdev);
 #define to_dss_driver(x) container_of((x), struct owl_dss_driver, driver)
 #define to_dss_device(x) container_of((x), struct owl_dss_device, dev)
 
+enum owl_display_type get_current_display_type(void);
 
 int owl_lcdc_display_enable(struct owl_dss_device *dssdev);
 void owl_lcdc_display_disable(struct owl_dss_device *dssdev);
@@ -535,15 +567,20 @@ void owl_dsi_display_disable(struct owl_dss_device *dssdev);
 int owl_dsi_init_platform(void);
 int owl_dsi_uninit_platform(void);
 void owl_dsi_display_dump(void);
-bool dss_check_channel_boot_inited(enum owl_channel channel);
+bool dss_check_channel_boot_inited(enum owl_de_path_id channel);
+
+int owl_cvbs_init_platform(void);
+int owldss_cvbs_display_enable(struct owl_dss_device *dssdev);
+//void cvbs_panel_enable(struct owl_dss_device *dssdev);
+
 
 void owl_de_get_histogram_info(u32 * hist, u32 * totaly);
 int owl_de_get_boot_mode(void);
 bool owl_de_is_atm7059tc(void);
 
-void dss_mgr_set_gamma_table(enum owl_channel channel,
+void dss_mgr_set_gamma_table(enum owl_de_path_id channel,
 				struct owl_gamma_info *gamma_info);
-void dss_mgr_get_gamma_table(enum owl_channel channel,
+void dss_mgr_get_gamma_table(enum owl_de_path_id channel,
 				struct owl_gamma_info *gamma_info);
 void trace_buffer_release(void * args);
 

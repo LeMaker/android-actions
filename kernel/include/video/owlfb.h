@@ -40,12 +40,14 @@
 #define OWLFB_MIRROR		          OWL_IOW(31, int)
 #define OWLFB_SYNC_GFX		          OWL_IO(37)
 #define OWLFB_VSYNC		              OWL_IO(38)
-#define OWLFB_SET_UPDATE_MODE	      OWL_IOW(40, int)
-#define OWLFB_GET_CAPS		          OWL_IOR(42, struct owlfb_caps)
-#define OWLFB_GET_UPDATE_MODE	      OWL_IOW(43, int)
-#define OWLFB_LCD_TEST		          OWL_IOW(45, int)
-#define OWLFB_CTRL_TEST	              OWL_IOW(46, int)
-#define OWLFB_UPDATE_WINDOW_OLD       OWL_IOW(47, struct owlfb_update_window_old)
+
+#define OWLFB_OVERLAY_REQUEST	      OWL_IOR(41, struct owlfb_overlay_args)
+#define OWLFB_OVERLAY_RELEASE		  OWL_IOR(42, struct owlfb_overlay_args)
+#define OWLFB_OVERLAY_ENABLE	      OWL_IOR(43, struct owlfb_overlay_args)
+#define OWLFB_OVERLAY_DISABLE		  OWL_IOR(45, struct owlfb_overlay_args)
+#define OWLFB_OVERLAY_GETINFO	      OWL_IOW(46, struct owlfb_overlay_args)
+#define OWLFB_OVERLAY_SETINFO         OWL_IOW(47, struct owlfb_overlay_args)
+
 #define OWLFB_SET_COLOR_KEY	          OWL_IOW(50, struct owlfb_color_key)
 #define OWLFB_GET_COLOR_KEY	          OWL_IOW(51, struct owlfb_color_key)
 #define OWLFB_SETUP_PLANE	          OWL_IOW(52, struct owlfb_plane_info)
@@ -59,6 +61,7 @@
 #define OWLFB_WAITFORGO	              OWL_IO(60)
 #define OWLFB_SET_PAN_DISPLAY	      OWL_IOW(61, struct owlfb_disp_content_info)
 #define OWLFB_SET_TEARSYNC	          OWL_IOW(62, struct owlfb_tearsync_info)
+
 #define OWLFB_GET_MAIN_DISPLAY_RES	  OWL_IOR(63, struct owlfb_display_info)
 #define OWLFB_GET_HISTOGRAM_INFO	  OWL_IOR(64, struct owlfb_disp_histogram_info)
 #define OWLFB_SET_GAMMA_INFO	      OWL_IOW(65, struct owl_gamma_info)
@@ -75,6 +78,11 @@
 
 #define OWLFB_HDMI_GET_CABLE_STATUS	  OWL_IOR(76, int)
 #define OWLFB_HDMI_GET_VID			  OWL_IOR(77, int)
+#define OWLFB_CVBS_GET_VID			  OWL_IOR(78, int)
+#define OWLFB_CVBS_SET_VID			  OWL_IOR(79, int)
+#define OWLFB_CVBS_ENABLE			    OWL_IOR(80, int)
+#define OWLFB_CVBS_ON                 OWL_IO(81)
+#define OWLFB_CVBS_OFF                OWL_IO(82)
 
 #define OWLFB_CAPS_GENERIC_MASK	0x00000fff
 #define OWLFB_CAPS_LCDC_MASK		0x00fff000
@@ -120,6 +128,12 @@ enum owlfb_color_format {
 	OWLFB_COLOR_RGBX32,
 };
 
+
+enum owlfb_overlay_type {
+	OWLFB_OVERLAY_VIDEO = 1,
+	OWLFB_OVERLAY_CURSOR,	
+};
+
 struct owlfb_update_window {
 	__u32 x, y;
 	__u32 width, height;
@@ -157,6 +171,37 @@ struct owlfb_plane_info {
 	__u32 out_width;
 	__u32 out_height;
 	__u32 reserved2[12];
+};
+
+struct owlfb_overlay_info {
+    __u32 mem_off;
+    __u32 mem_size;
+	
+	__u32 screen_width;	
+	enum owl_color_mode color_mode;		
+	__u32 img_width;
+	__u32 img_height;
+		
+	__u32 xoff;	
+	__u32 yoff;
+	__u32 width;
+	__u32 height;
+	
+	__u8 rotation;
+	
+	__u32 pos_x;
+	__u32 pos_y;
+	__u32 out_width;	/* if 0, out_width == width */
+	__u32 out_height;	/* if 0, out_height == height */
+	
+	__u8 lightness;
+	__u8 saturation;
+	__u8 contrast;
+	bool global_alpha_en;
+	__u8 global_alpha;
+	
+	bool pre_mult_alpha_en;	
+	__u8 zorder;
 };
 
 struct owlfb_mem_info {
@@ -199,6 +244,15 @@ struct owlfb_memory_read {
 	void __user *buffer;
 };
 
+struct owlfb_overlay_args {
+	__u16 fb_id;
+	__u16 overlay_id;
+	__u16 overlay_type;
+	__u32 overlay_mem_base;
+	__u32 overlay_mem_size;
+	__u32 uintptr_overly_info;
+};
+
 struct owlfb_ovl_colormode {
 	__u8 overlay_idx;
 	__u8 mode_idx;
@@ -228,12 +282,13 @@ struct owlfb_sync_info {
 struct owlfb_display_info {
 	__u16 xres;
 	__u16 yres;
-	__u16 xres_ext;
-	__u16 yres_ext;
-	__u32 pixclock;
+	__u16 virtual_xres;
+	__u16 virtual_yres;
+	__u32 refresh_rate;
 	__u32 width;	/* phys width of the display in micrometers */
 	__u32 height;	/* phys height of the display in micrometers */
-	__u32 reserved[5];
+	__u16 disp_type;
+	__u32 reserved[2];
 };
 
 

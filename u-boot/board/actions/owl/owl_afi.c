@@ -2,6 +2,7 @@
 	actions firmware infomation ( para)
 
 */
+
 #include <common.h>
 #include <asm/arch/owl_afi.h>
 #include <mmc.h>
@@ -28,13 +29,13 @@ int owl_get_boot_dev(void)
 	if(!fs_flag){
 	mmc_dev = mmc_get_dev(0);
 	if(mmc_dev != NULL && (mmc_dev->type != DEV_TYPE_UNKNOWN && mmc_dev->part_type == PART_TYPE_EFI)){
-		print_part(mmc_dev);
+		//print_part(mmc_dev);
 		fs_flag = 1;
 		return OWL_BOOTDEV_SD0;
 	}	
 	mmc_dev = mmc_get_dev(1);
 	if(mmc_dev != NULL && mmc_dev->type != DEV_TYPE_UNKNOWN){
-                print_part(mmc_dev);
+                //print_part(mmc_dev);
 		fs_flag = 2;
                 return OWL_BOOTDEV_SD2;
         }

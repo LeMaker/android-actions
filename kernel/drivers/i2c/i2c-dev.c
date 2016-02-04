@@ -416,8 +416,7 @@ static long i2cdev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 
 	dev_dbg(&client->adapter->dev, "ioctl, cmd=0x%02x, arg=0x%02lx\n",
 		cmd, arg);
-	printk("ioctl, cmd=0x%02x, arg=0x%02lx\n",
-                cmd, arg);
+
 	switch (cmd) {
 	case I2C_SLAVE:
 	case I2C_SLAVE_FORCE:
@@ -627,7 +626,7 @@ static int __init i2c_dev_init(void)
 {
 	int res;
 
-	printk(KERN_INFO "i2c /dev entries driver\n");
+	printk(KERN_DEBUG "i2c /dev entries driver\n");
 
 	res = register_chrdev(I2C_MAJOR, "i2c", &i2cdev_fops);
 	if (res)

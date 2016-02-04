@@ -64,7 +64,8 @@ static int err_switch;
 
 #ifdef I2C_DEBUG_WARNING
 #define i2c_warn(fmt, args...)  \
-    printk(KERN_WARNING "owl_i2c: "fmt"\n", ##args)
+    do {} while(0)
+//    printk(KERN_WARNING "owl_i2c: "fmt"\n", ##args)
 #else
 #define i2c_warn(fmt, args...)   \
     do {} while(0)

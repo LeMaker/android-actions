@@ -1809,7 +1809,79 @@ static int do_ADFU_rdrootfs(struct fsg_dev *fsg)
 	return -EIO;		/* No default reply */
 }
 #endif
+static int get_udisk_size(struct lun *curlun, const char *filename)
+{
+	int ro;
+	struct file *filp = NULL;
+	int rc = -EINVAL;
+	struct inode *inode = NULL;
+	loff_t size;
+	loff_t num_sectors;
 
+	/* R/W if we can, R/O if we must */
+	ro = curlun->ro;
+	if (!ro) {
+		filp = filp_open(filename, O_RDWR | O_LARGEFILE, 0);
+		if (-EROFS == PTR_ERR(filp))
+			ro = 1;
+	}
+	if (ro)
+		filp = filp_open(filename, O_RDONLY | O_LARGEFILE, 0);
+	if (IS_ERR(filp)) {
+		LINFO(curlun, "unable to open backing file: %s\n", filename);
+		return PTR_ERR(filp);
+	}
+
+	if (!(filp->f_mode & FMODE_WRITE))
+		ro = 1;
+
+	if (filp->f_path.dentry)
+		inode = filp->f_path.dentry->d_inode;
+	if (inode && S_ISBLK(inode->i_mode)) {
+		if (bdev_read_only(inode->i_bdev))
+			ro = 1;
+	} else if (!inode || !S_ISREG(inode->i_mode)) {
+		LINFO(curlun, "invalid file type: %s\n", filename);
+		goto out;
+	}
+
+	/* If we can't read the file, it's no good.
+	 * If we can't write the file, use it read-only. */
+	if (!filp->f_op || !(filp->f_op->read || filp->f_op->aio_read)) {
+		LINFO(curlun, "file not readable: %s\n", filename);
+		goto out;
+	}
+	if (!(filp->f_op->write || filp->f_op->aio_write))
+		ro = 1;
+
+	size = i_size_read(inode->i_mapping->host);
+	if (size < 0) {
+		LINFO(curlun, "unable to find file size: %s\n", filename);
+		rc = (int)size;
+		goto out;
+	}
+	num_sectors = size >> 9;	/* File size in 512-byte sectors */
+	if (num_sectors == 0) {
+		LINFO(curlun, "file too small: %s\n", filename);
+		rc = -ETOOSMALL;
+		goto out;
+	}
+
+	get_file(filp);
+
+	curlun->devnum = filp->f_path.dentry->d_inode->i_rdev;
+
+	curlun->ro = ro;
+	curlun->filp = filp;
+	curlun->file_length = size;
+	curlun->num_sectors = num_sectors;
+	LDBG(curlun, "open backing file: %s\n", filename);
+	rc = 0;
+
+out:
+	filp_close(filp, current->files);
+	return rc;
+}
 static int do_ADFU_check_partition(struct fsg_dev *fsg)
 {
 	struct fsg_buffhd *bh;
@@ -1820,8 +1892,8 @@ static int do_ADFU_check_partition(struct fsg_dev *fsg)
 	ssize_t nread;
 	unsigned int tmp;
 	struct file *f_filp;
-    //struct lun *curlun = fsg->curlun;
-	//int rc2 = -EINVAL;
+    struct lun *curlun = fsg->curlun;
+	int rc2 = -EINVAL;
 	char buf[4];
 	int size = 1;
 
@@ -1847,21 +1919,14 @@ static int do_ADFU_check_partition(struct fsg_dev *fsg)
 		} else {
 			printk("open /usr/flash_check fail\n");
 		}
-// del by lty
-#if 0
-		//update mbr
-		check_partition_flag = AdfuUpdateMbrFromPhyToUsr(nand_part, mbr_info_buf);
-
-		
-		rc2=open_backing_file(curlun, "/dev/actk");
+	    rc2=get_udisk_size(curlun, "/dev/actk");
 		if(rc2 != 0)
 		{
 			VLDBG("open /dev/actk error:%d\n",__LINE__);
 			/*return rc2;*/
 		}
 		size = (int)curlun->num_sectors;
-		printk("udisk size:%d    0x%x\n",size,size);
-#endif 
+		printk("##udisk size:%d    0x%x\n",size,size);
 	}	
 		
 	amount_left = fsg->data_size_from_cmnd;
@@ -1889,6 +1954,7 @@ static int do_ADFU_check_partition(struct fsg_dev *fsg)
 			tmp = (unsigned int)bh->buf;
 			writel(-check_partition_flag, (volatile void *)tmp);			
 		}
+
 		//add partition cap info
 		memcpy((unsigned char *)((unsigned int)bh->buf + 0x10), (unsigned char *)&size, sizeof(unsigned int));
 		nread = amount;

@@ -338,7 +338,7 @@ static int atc260x_gpio_probe(struct platform_device *pdev)
 	uint ic_type;
 	int ret;
 
-	dev_info(&pdev->dev, "Probing...\n");
+	dev_dbg(&pdev->dev, "Probing...\n");
 
 	atc260x = atc260x_get_parent_dev(&pdev->dev);
 

@@ -87,6 +87,27 @@ public class DisplayService extends IDisplayService.Stub {
         Log.d(TAG, "getMode" + mode);
         return mode;
     }
+
+//CVBS    
+     public void setCvbsEnable(boolean enable) {
+     	 Log.d(TAG, "setCvbsEnable enable:" + enable);
+         _setCvbsEnable(enable);
+     }
+    
+	public boolean getCvbsEnable() {
+        return _getCvbsEnable();
+    }
+     public boolean setCvbsMode(String mode) {
+        Log.d(TAG, "setCvbsMode: " + mode);
+        return _setCvbsMode(mode);
+    }
+    
+    public String getCvbsMode() {        
+        String mode = _getCvbsMode();
+        Log.d(TAG, "getcvbsMode" + mode);
+        return mode;
+    }
+    
     
     public String[] getHdmiSupportedModesList(){
         Log.d(TAG,"getSupportedModesList");
@@ -144,6 +165,14 @@ public class DisplayService extends IDisplayService.Stub {
     private native final boolean _setHdmiMode(String mode);
 
     private native final String _getHdmiMode();
+    
+    private native final boolean _setCvbsMode(String mode);
+    
+    private native final String _getCvbsMode();
+    
+    private native final void _setCvbsEnable(boolean enable);
+	
+	private native final boolean _getCvbsEnable();
     
     private native final String[] _getHdmiSupportedModesList();
     

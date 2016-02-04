@@ -48,6 +48,10 @@
 #include <linux/ipv6.h>
 #include <linux/icmpv6.h>
 #include <net/ndisc.h>
+#ifdef CONFIG_PLATFORM_OWL
+#include <net/ip6_route.h>
+#include <net/ip6_checksum.h>
+#endif
 #include <net/checksum.h>
 #endif
 #endif

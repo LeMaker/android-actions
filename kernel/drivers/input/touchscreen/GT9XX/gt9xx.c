@@ -536,7 +536,6 @@ static void gtp_touch_down(struct goodix_ts_data* ts,s32 id,s32 x,s32 y,s32 w)
 
     x = ts->abs_x_max - 1 - x;   //xie add
 //xie add
-    printk("x=%d,y=%d\n",x,y);
 #if GTP_ICS_SLOT_REPORT
     input_mt_slot(ts->input_dev, id);
     input_report_abs(ts->input_dev, ABS_MT_TRACKING_ID, id);
@@ -553,8 +552,6 @@ static void gtp_touch_down(struct goodix_ts_data* ts,s32 id,s32 x,s32 y,s32 w)
     input_report_abs(ts->input_dev, ABS_MT_TRACKING_ID, id);
     input_mt_sync(ts->input_dev);
 #endif
-    printk("ID:%d, X:%d, Y:%d, W:%d\n", id, x, y, w);
-    GTP_DEBUG("ID:%d, X:%d, Y:%d, W:%d", id, x, y, w);
 }
 
 /*******************************************************
@@ -1047,7 +1044,6 @@ static void goodix_ts_work_func(struct work_struct *work)
                 input_x  = coor_data[pos + 1] | (coor_data[pos + 2] << 8);
                 input_y  = coor_data[pos + 3] | (coor_data[pos + 4] << 8);
                 input_w  = coor_data[pos + 5] | (coor_data[pos + 6] << 8);
-		printk("work in touch_index & (0x01<<i)\n");
                 gtp_touch_down(ts, id, input_x, input_y, input_w);
                 pre_touch |= 0x01 << i;
                 

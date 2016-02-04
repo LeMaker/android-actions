@@ -34,7 +34,7 @@ struct owldisp_module_t {
    struct hw_module_t common;
 };
 
-#define HDMI_SUPPORT_MODE_NUMER 10
+#define HDMI_SUPPORT_MODE_NUMER 12
 
 struct owlfb_hdmi_mode{
 	const char * mode;
@@ -50,11 +50,11 @@ typedef enum
 	OWL_TV_MOD_576P,
 	OWL_TV_MOD_480P,
 	OWL_TV_MOD_720P_60HZ_DVI,
+	OWL_TV_MOD_PAL,
+	OWL_TV_MOD_NTSC,
 	OWL_TV_MOD_3840_2160P_30HZ,
 	OWL_TV_MOD_4096_2160P_30HZ,
 	OWL_TV_MOD_3840_1080P_60HZ,
-	OWL_TV_MOD_PAL,
-	OWL_TV_MOD_NTSC,
 	OWL_TV_MODE_NUM = OWL_TV_MOD_NTSC, /* NOTE: NUM must equal to last one */
 }__owl_tv_mode_t;
 
@@ -87,6 +87,14 @@ const struct owlfb_hdmi_mode  owlfb_hdmi_mode_table[HDMI_SUPPORT_MODE_NUMER] = {
 	{
 		.mode = "1280x720p-60HZ-DVI",
 		.vid = OWL_TV_MOD_720P_60HZ_DVI,
+	},
+		{
+		.mode = "PAL",
+		.vid = OWL_TV_MOD_PAL,
+	},
+	{
+		.mode = "NTSC",
+		.vid = OWL_TV_MOD_NTSC,
 	},
 	{
 		.mode = "3840x2160p-30HZ",
@@ -143,6 +151,10 @@ struct owlfb_hdmi_vid_info {
 #define OWLFB_HDMI_GET_CABLE_STATUS	  OWL_IOR(76, int)
 #define OWLFB_HDMI_GET_VID			  OWL_IOR(77, int)
 
+#define OWLFB_CVBS_GET_VID			  OWL_IOR(78, int)
+#define OWLFB_CVBS_SET_VID			  OWL_IOR(79, int)
+#define OWLFB_CVBS_ENABLE			    OWL_IOR(80, int)
+
 struct owldisp_device_t {
 	
 	struct hw_device_t common;
@@ -174,6 +186,14 @@ struct owldisp_device_t {
     int (*set_hdmi_fitscreen)(struct owldisp_device_t *dev, int value);
     
     int (*get_hdmi_fitscreen)(struct owldisp_device_t *dev);
+    
+    int (*set_cvbs_vid)(struct owldisp_device_t *dev, int vid);
+    
+    int (*get_cvbs_vid)(struct owldisp_device_t *dev);   
+    
+    int (*set_cvbs_enable)(struct owldisp_device_t *dev,bool enable);
+	
+	int (*get_cvbs_enable)(struct owldisp_device_t *dev);
     
 };
 

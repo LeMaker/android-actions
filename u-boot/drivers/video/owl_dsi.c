@@ -147,7 +147,7 @@ static int gpio_bit_to_pwr(struct owl_fdt_gpio_state *gpio)
 			tmp |= (1<<(MAX_GPIO_TO_PWR-gpio->gpio));
 			tmp <<= 4;
 		}	
-		printf("get_pwr_ctl %s  %d\n", gpio->name, tmp);		
+		debug("get_pwr_ctl %s  %d\n", gpio->name, tmp);		
 	}
 	return tmp;
 }
@@ -190,7 +190,7 @@ void power_enable(void)
 		dsi_deactivate_gpio(&dsi_par.dsireset_gpio);
 		mdelay(30);
 		dsi_activate_gpio(&dsi_par.dsireset_gpio);
-		printf("reset ok %s\n", dsi_par.dsireset_gpio.name);
+		debug("reset ok %s\n", dsi_par.dsireset_gpio.name);
 	}
 	
 }
@@ -377,7 +377,7 @@ static int allocate_buf(struct dma_addr *buf, u32 size, u32 bytes_align)
 	}
 	buf->paddr = virt_to_phys(buf->vaddr);
 	
-	printf("buf->vaddr  0x%p buf->paddr  0x%x\n", buf->vaddr , buf->paddr );
+	debug("buf->vaddr  0x%p buf->paddr  0x%x\n", buf->vaddr , buf->paddr );
 	return 0;
 }
 
@@ -387,7 +387,7 @@ void dsihw_send_long_packet(int data_type, int word_cnt, int * send_data, int tr
 	unsigned long *src_addr;
 	int  i;
 	int cnt = 100;
-	printf("send long start\n");
+	debug("send long start\n");
 	tmp = readl(DSI_CTRL);
 	tmp &= 0xffffefff;
 	writel(tmp, DSI_CTRL);	
@@ -423,7 +423,7 @@ void dsihw_send_long_packet(int data_type, int word_cnt, int * send_data, int tr
 		udelay(1);
 
 	writel(0x80000, DSI_TR_STA);
-	printf("send long end\n");
+	debug("send long end\n");
 
 		
 }
@@ -670,7 +670,7 @@ int fdtdec_get_dsi_par(struct owl_dsi *par)
 			gd->fdt_blob, mode_node, "cmu_dsipll_clk", -1);
 	debug("fdtdec_get_dsi_par cmu_dsipll_clk %x\n", par->reg_val.cmu_dsipll_clk);
 	
-	printf("fdtdec_get_dsi_par ok\n");
+	debug("fdtdec_get_dsi_par ok\n");
 
 	return 0;
 }
@@ -684,12 +684,12 @@ int owl_dsi_init(void)
 
 #ifdef CONFIG_OF_CONTROL
 	if (fdtdec_get_dsi_par(&dsi_par)) {
-		printf("OWL dsi: fdt No dsi par\n");
+		debug("OWL dsi: fdt No dsi par\n");
 		return -1;
 	}
 #else
 	if (platform_get_lcd_par(&dsi_par)) {
-		printf("OWL dsi: No dsi par\n");
+		debug("OWL dsi: No dsi par\n");
 		return -1;
 	}
 #endif
@@ -699,7 +699,7 @@ int owl_dsi_init(void)
 		return -1;
 	}
 	data_width = get_dsi_data_width(&dsi_par);
-	owl_display_register(DSI_DISPLAYER, &dsi_ops, dsi_par.mode, data_width, 0);
+	owl_display_register(DSI_DISPLAYER,"dsi",&dsi_ops, dsi_par.mode, data_width, 0);
 
 	return 0;
 }

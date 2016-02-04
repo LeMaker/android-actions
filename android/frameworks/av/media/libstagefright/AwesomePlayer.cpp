@@ -2246,7 +2246,8 @@ void AwesomePlayer::onVideoEvent() {
         modifyFlags(SEEK_PREVIEW, CLEAR);
         return;
     }
-
+/*ActionsCode(author:rongxing, Optimize for 60fps video)*/
+#if 0
     /* get next frame time */
     if (wasSeeking == NO_SEEK) {
         MediaSource::ReadOptions options;
@@ -2291,6 +2292,7 @@ void AwesomePlayer::onVideoEvent() {
         postVideoEvent_l(delayUs > 60000 ? 30000 : (delayUs < 30000 ? 5000 : delayUs - 30000));
         return;
     }
+#endif
 
     postVideoEvent_l();
 }
@@ -2311,7 +2313,8 @@ void AwesomePlayer::postVideoEvent_l(int64_t delayUs) {
     }
 
     mVideoEventPending = true;
-    mQueue.postEventWithDelay(mVideoEvent, delayUs < 0 ? 10000 : delayUs);
+	/*ActionsCode(author:rongxing, Optimize for 60fps video)*/
+    mQueue.postEventWithDelay(mVideoEvent, delayUs < 0 ? 2000 : delayUs);
 }
 
 void AwesomePlayer::postStreamDoneEvent_l(status_t status) {

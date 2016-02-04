@@ -223,6 +223,7 @@ struct aotg_hcd {
 	int	id;
 	spinlock_t lock;
 	spinlock_t tasklet_lock;
+	int check_trb_mutex;
 	volatile int tasklet_retry;
 	void __iomem *base;
 	struct device *dev;
@@ -251,6 +252,7 @@ struct aotg_hcd {
 	struct tasklet_struct urb_tasklet;
 
 	struct timer_list hotplug_timer;
+	struct timer_list check_trb_timer;
 	struct timer_list trans_wait_timer;
 	ulong fifo_map[AOTG_MAX_FIFO_SIZE/ALLOC_FIFO_UNIT];
 
@@ -459,6 +461,7 @@ void aotg_reorder_intr_td( struct aotg_hcep *ep);
 int aotg_intr_chg_buf_len(struct aotg_hcd *acthcd, struct aotg_ring *ring, int len);
 int aotg_intr_get_finish_trb(struct aotg_ring *ring);
 void aotg_reorder_iso_td(struct aotg_hcd *acthcd, struct aotg_ring *ring);
+void handle_ring_dma_tx(struct aotg_hcd *acthcd, unsigned int irq_mask);
 
 #endif /* __LINUX_USB_HOST_AOTG_H */ 
  

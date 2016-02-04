@@ -50,7 +50,8 @@
 #define LONG_PERIOD_COUNT	5
 
 #define DEFAULT_CARD	0
-#define DEFAULT_PORT	0
+//#define DEFAULT_PORT	0
+#define DEFAULT_PORT  0
 #define HDMI_PORT	1
 
 #define IN_MODE_SINGLE_END	"Single ended"
@@ -163,7 +164,7 @@ struct ele_ctl {
 	int val;
 };
 
-struct ele_ctl atv5302_speaker_playback_arr[] = {
+struct ele_ctl atc260x_speaker_playback_arr[] = {
     {"AOUT FL FR Mixer FL FR Switch",NULL,ON},
     {"DAC PA Volume",NULL,0x28},
     {"DAC FL Gain",NULL,0xaa},
@@ -176,7 +177,7 @@ struct ele_ctl atv5302_speaker_playback_arr[] = {
     {"speaker on off switch",NULL,ON},
 };
 
-struct ele_ctl atv5302_headphone_playback_arr[] = {
+struct ele_ctl atc260x_headphone_playback_arr[] = {
     {"speaker on off switch",NULL,OFF},
     {"AOUT FL FR Mixer FL FR Switch",NULL,ON},
     {"DAC PA Volume",NULL,0x28},
@@ -188,7 +189,7 @@ struct ele_ctl atv5302_headphone_playback_arr[] = {
     {"PA Output Swing Mux","Vpp1.6",1},
 };
 
-struct ele_ctl atv5302_playback_off_arr[] = {
+struct ele_ctl atc260x_playback_off_arr[] = {
     {"speaker on off switch",NULL,OFF},
     {"DAC FL FR PLAYBACK Switch",NULL,OFF},
     {"DAC PA Volume",NULL,0x00},
@@ -196,15 +197,15 @@ struct ele_ctl atv5302_playback_off_arr[] = {
     {"DAC FR Gain",NULL,0x00},
 };
 
-struct ele_ctl atv5302_hdmi_playback_arr[] = {
+struct ele_ctl atc260x_hdmi_playback_arr[] = {
     {"audio output mode switch","hdmi",0},
 };
 
-struct ele_ctl atv5302_i2s_playback_arr[] = {
+struct ele_ctl atc260x_i2s_playback_arr[] = {
     {"audio output mode switch","i2s",0},
 };
 
-struct ele_ctl atv5302_capture_arr[] = {
+struct ele_ctl atc260x_capture_arr[] = {
 	{"AOUT FL FR Mixer MIC Switch",NULL,OFF},
 	{"AOUT FL FR Mixer FM Switch",NULL,OFF},
 	{"ADC0 Mux", "MIC0", 0},
@@ -218,14 +219,14 @@ struct ele_ctl atv5302_capture_arr[] = {
 };
 
 static int capture_can_operate_vmic = 0;
-struct ele_ctl atv5302_capture_off_arr_without_vmic[] = { 
+struct ele_ctl atc260x_capture_off_arr_without_vmic[] = { 
 	{"AOUT FL FR Mixer MIC Switch",NULL,OFF},
 	{"AOUT FL FR Mixer FM Switch",NULL,OFF},
 	{"Internal Mic Power Switch",NULL,OFF},
 //	{"External Mic Power Switch", NULL, OFF},
 };
 
-struct ele_ctl atv5302_capture_off_arr_with_vmic[] = { 
+struct ele_ctl atc260x_capture_off_arr_with_vmic[] = { 
 	{"AOUT FL FR Mixer MIC Switch",NULL,OFF},
 	{"AOUT FL FR Mixer FM Switch",NULL,OFF},
 	{"Internal Mic Power Switch",NULL,OFF},
@@ -233,11 +234,11 @@ struct ele_ctl atv5302_capture_off_arr_with_vmic[] = {
 };
 
 
-struct ele_ctl atv5302_volume_muted_arr[] = {
+struct ele_ctl atc260x_volume_muted_arr[] = {
     {"speaker on off switch",NULL,OFF},
 };
 
-struct ele_ctl atv5302_volume_no_mute_arr[] = {
+struct ele_ctl atc260x_volume_no_mute_arr[] = {
     {"speaker on off switch",NULL,ON},
 };
 
@@ -366,8 +367,8 @@ static int out_standby(struct audio_stream *stream)
 	adev->active_output = out;
 	
 	//if (out->standby == 0) {
-        tinymix_ctrl_set(adev->mixer, atv5302_playback_off_arr, 
-                sizeof(atv5302_playback_off_arr)/sizeof(atv5302_playback_off_arr[0]));
+        tinymix_ctrl_set(adev->mixer, atc260x_playback_off_arr, 
+                sizeof(atc260x_playback_off_arr)/sizeof(atc260x_playback_off_arr[0]));
 
         adev->speaker_on = 0;
         adev->headphone_on = 0;
@@ -390,6 +391,7 @@ static void select_output_device(struct actions_audio_device *adev)
 {
     int headphone_on = 0;
     int speaker_on = 0;
+    int software = 0;
     struct actions_stream_out* stream = adev->active_output;
 
     headphone_on = adev->devices & AUDIO_DEVICE_OUT_WIRED_HEADSET;
@@ -398,9 +400,15 @@ static void select_output_device(struct actions_audio_device *adev)
 
     // Switch output devices when sound is playing
     // standy first. to fix hdmi bug
+        char prop_value[PROPERTY_VALUE_MAX];        
+        property_get("lemaker.audio", prop_value, "speak");
+        if(strncmp(prop_value, "hdmi", 4) == 0) {
+                software = 1;
+        } else {
+                software = 0;
+        }
 
-
-    if ((adev->devices & AUDIO_DEVICE_OUT_AUX_DIGITAL) == AUDIO_DEVICE_OUT_AUX_DIGITAL) { // if hdmi device
+    if ((adev->devices & AUDIO_DEVICE_OUT_AUX_DIGITAL) == AUDIO_DEVICE_OUT_AUX_DIGITAL || software == 1) { // if hdmi device
 
             if (stream) {
                 if (stream->standby == 0) {
@@ -408,11 +416,11 @@ static void select_output_device(struct actions_audio_device *adev)
                 }
             }
     
-            tinymix_ctrl_set(adev->mixer, atv5302_playback_off_arr, 
-                    sizeof(atv5302_playback_off_arr)/sizeof(atv5302_playback_off_arr[0])); // turn off speaker and headphone
+            tinymix_ctrl_set(adev->mixer, atc260x_playback_off_arr, 
+                    sizeof(atc260x_playback_off_arr)/sizeof(atc260x_playback_off_arr[0])); // turn off speaker and headphone
             
-            tinymix_ctrl_set(adev->mixer, atv5302_hdmi_playback_arr, 
-                    sizeof(atv5302_hdmi_playback_arr)/sizeof(atv5302_hdmi_playback_arr[0]));
+            tinymix_ctrl_set(adev->mixer, atc260x_hdmi_playback_arr, 
+                    sizeof(atc260x_hdmi_playback_arr)/sizeof(atc260x_hdmi_playback_arr[0]));
             ALOGD("%s: hdmi on",__FUNCTION__);
 
             adev->speaker_on = 0;
@@ -433,19 +441,19 @@ static void select_output_device(struct actions_audio_device *adev)
                 }
             }
 
-            tinymix_ctrl_set(adev->mixer, atv5302_i2s_playback_arr, 
-                    sizeof(atv5302_i2s_playback_arr)/sizeof(atv5302_i2s_playback_arr[0]));
+            tinymix_ctrl_set(adev->mixer, atc260x_i2s_playback_arr, 
+                    sizeof(atc260x_i2s_playback_arr)/sizeof(atc260x_i2s_playback_arr[0]));
 
         	
             if (speaker_on && !headphone_on) {
                 ALOGE("%s: playback route is on speaker", __FUNCTION__);
 
-                tinymix_ctrl_set(adev->mixer, atv5302_speaker_playback_arr, 
-                        sizeof(atv5302_speaker_playback_arr)/sizeof(atv5302_speaker_playback_arr[0]));
+                tinymix_ctrl_set(adev->mixer, atc260x_speaker_playback_arr, 
+                        sizeof(atc260x_speaker_playback_arr)/sizeof(atc260x_speaker_playback_arr[0]));
                 usleep(150000); // sleep for the PA turning on stablely,to avoid pop nosie
             } else {
-                tinymix_ctrl_set(adev->mixer, atv5302_playback_off_arr, 
-                        sizeof(atv5302_playback_off_arr)/sizeof(atv5302_playback_off_arr[0]));
+                tinymix_ctrl_set(adev->mixer, atc260x_playback_off_arr, 
+                        sizeof(atc260x_playback_off_arr)/sizeof(atc260x_playback_off_arr[0]));
             }
             adev->speaker_on = speaker_on;
             ALOGW("%s %d", __FUNCTION__, __LINE__);
@@ -459,19 +467,19 @@ static void select_output_device(struct actions_audio_device *adev)
                 }
             }
 
-            tinymix_ctrl_set(adev->mixer, atv5302_i2s_playback_arr, 
-                    sizeof(atv5302_i2s_playback_arr)/sizeof(atv5302_i2s_playback_arr[0]));
+            tinymix_ctrl_set(adev->mixer, atc260x_i2s_playback_arr, 
+                    sizeof(atc260x_i2s_playback_arr)/sizeof(atc260x_i2s_playback_arr[0]));
 
         	
             if (headphone_on) {
                 ALOGE("%s: playback route is on earphone", __FUNCTION__);
 
-                tinymix_ctrl_set(adev->mixer, atv5302_headphone_playback_arr, 
-                        sizeof(atv5302_headphone_playback_arr)/sizeof(atv5302_headphone_playback_arr[0]));
+                tinymix_ctrl_set(adev->mixer, atc260x_headphone_playback_arr, 
+                        sizeof(atc260x_headphone_playback_arr)/sizeof(atc260x_headphone_playback_arr[0]));
                 usleep(150000); // sleep for the PA turning off stablely, to avoid pop noise
             } else {
-                tinymix_ctrl_set(adev->mixer, atv5302_playback_off_arr, 
-                        sizeof(atv5302_playback_off_arr)/sizeof(atv5302_playback_off_arr[0]));
+                tinymix_ctrl_set(adev->mixer, atc260x_playback_off_arr, 
+                        sizeof(atc260x_playback_off_arr)/sizeof(atc260x_playback_off_arr[0]));
             }
             adev->headphone_on = headphone_on;
         }
@@ -531,8 +539,8 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
 	    //volume index decrease to 0, and no headphone, turn off pa
 	    if((headphone_on == 0)&&(pa_onoff != 0))
 	    {
-                tinymix_ctrl_set(adev->mixer, atv5302_volume_muted_arr, 
-                   	sizeof(atv5302_volume_muted_arr)/sizeof(atv5302_volume_muted_arr[0])); // turn off speaker and headphone
+                tinymix_ctrl_set(adev->mixer, atc260x_volume_muted_arr, 
+                   	sizeof(atc260x_volume_muted_arr)/sizeof(atc260x_volume_muted_arr[0])); // turn off speaker and headphone
 			
 	    }
     	}
@@ -542,8 +550,8 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
     	    if((out->standby == 0)&&(headphone_on == 0)&&(pa_onoff == 0))
     	    {
     	    	ALOGE("%s %d\n", __FUNCTION__, __LINE__);
-                tinymix_ctrl_set(adev->mixer, atv5302_volume_no_mute_arr, 
-                       	sizeof(atv5302_volume_no_mute_arr)/sizeof(atv5302_volume_no_mute_arr[0])); // turn off speaker and headphone
+                tinymix_ctrl_set(adev->mixer, atc260x_volume_no_mute_arr, 
+                       	sizeof(atc260x_volume_no_mute_arr)/sizeof(atc260x_volume_no_mute_arr[0])); // turn off speaker and headphone
     			
     	    }
     	}
@@ -588,6 +596,15 @@ static int start_output_stream(struct actions_stream_out *out)
 	//unsigned int port = 2;
 	int buffer_size;
 
+	char prop_value[PROPERTY_VALUE_MAX];	
+	property_get("lemaker.audio", prop_value, "speak");
+    	if(strncmp(prop_value, "hdmi", 4) == 0) {
+        	port = 1;
+    	} else {
+        	port = 0;
+    	}
+
+
 	if ((adev->devices & AUDIO_DEVICE_OUT_AUX_DIGITAL) == AUDIO_DEVICE_OUT_AUX_DIGITAL) {
 		port = HDMI_PORT;
 	}
@@ -622,7 +639,8 @@ static ssize_t out_write(struct audio_stream_out *stream, const void* buffer,
 		size_t bytes)
 {
 	int ret;
-    unsigned int i;
+    	unsigned int i;
+	int mode = 0;
 	struct actions_stream_out *out = (struct actions_stream_out *)stream;
 	short *buffer_s = (short *)buffer;
 	struct actions_audio_device *adev = out->dev;
@@ -634,6 +652,14 @@ static ssize_t out_write(struct audio_stream_out *stream, const void* buffer,
 		}
 		out->standby = 0;
 	}
+
+	char prop_value[PROPERTY_VALUE_MAX];
+        property_get("lemaker.audio", prop_value, "speak");
+        if(strncmp(prop_value, "hdmi", 4) == 0) {
+                mode = 1;
+        } else {
+                mode = 0;
+        }
 //#ifdef DUMP_OUTWRITE_PCM	
 /*
 	if (strncmp(system("cat /sys/class/switch/h2w/dbgflag"), "0", 1)==0) {
@@ -668,7 +694,7 @@ static ssize_t out_write(struct audio_stream_out *stream, const void* buffer,
 	/* convert the 16-bit sample to 32-bit sample, because our hardware fifo is 32-bit width*/
 	//if(adev->speaker_on && (adev->headphone_on == 0))
 	if((adev->is_mono_output == 1)&&(adev->speaker_on && (adev->headphone_on == 0)))
-	{	
+	{		
         	for(i=0; i<bytes/2; i+=2) {
         		int temp;
         		int mix_pcm = 0;
@@ -676,7 +702,7 @@ static ssize_t out_write(struct audio_stream_out *stream, const void* buffer,
         		mix_pcm = (buffer_s[i] + buffer_s[i+1])>>1;
         		out->buffer[i] = (mix_pcm) << 16;
         		out->buffer[i+1] = (mix_pcm) << 16;
-            	}
+            		}
         }
         else if((adev->is_reverse_earphone_channels == 1)&& adev->headphone_on)
         {
@@ -685,7 +711,7 @@ static ssize_t out_write(struct audio_stream_out *stream, const void* buffer,
         	for(i=0; i<bytes/2; i+=2) {
         		out->buffer[i] = ((int)buffer_s[i+1]) << 16;
         		out->buffer[i+1] = ((int)buffer_s[i]) << 16;
-            	}
+            		}
         	
         }
         else
@@ -832,13 +858,13 @@ static int in_standby(struct audio_stream *stream)
 	adev->active_input = in;
 	if(capture_can_operate_vmic == 0)
 	{
-		tinymix_ctrl_set(adev->mixer, atv5302_capture_off_arr_without_vmic, 
-			sizeof(atv5302_capture_off_arr_without_vmic)/sizeof(atv5302_capture_off_arr_without_vmic[0]));
+		tinymix_ctrl_set(adev->mixer, atc260x_capture_off_arr_without_vmic, 
+			sizeof(atc260x_capture_off_arr_without_vmic)/sizeof(atc260x_capture_off_arr_without_vmic[0]));
 	}
 	else
 	{
-		tinymix_ctrl_set(adev->mixer, atv5302_capture_off_arr_with_vmic, 
-			sizeof(atv5302_capture_off_arr_with_vmic)/sizeof(atv5302_capture_off_arr_with_vmic[0]));		
+		tinymix_ctrl_set(adev->mixer, atc260x_capture_off_arr_with_vmic, 
+			sizeof(atc260x_capture_off_arr_with_vmic)/sizeof(atc260x_capture_off_arr_with_vmic[0]));		
 	}
 
 	if (in->standby == 0) {
@@ -881,8 +907,8 @@ static int start_input_stream(struct actions_stream_in *in)
 
 	in->pcm = pcm_open(card, port, PCM_IN, &in->config);
 
-	tinymix_ctrl_set(adev->mixer, atv5302_capture_arr, 
-			sizeof(atv5302_capture_arr)/sizeof(atv5302_capture_arr[0]));
+	tinymix_ctrl_set(adev->mixer, atc260x_capture_arr, 
+			sizeof(atc260x_capture_arr)/sizeof(atc260x_capture_arr[0]));
 	if (!in->pcm || !pcm_is_ready(in->pcm)) {
 		ALOGE("cannot open pcm_in driver: %s", pcm_get_error(in->pcm));
 		pcm_close(in->pcm);
@@ -1308,43 +1334,43 @@ static int adev_open(const hw_module_t* module, const char* name,
 		return -EAGAIN;
 	}
 
-    tinymix_ctrl_set(adev->mixer, atv5302_playback_off_arr, 
-        sizeof(atv5302_playback_off_arr)/sizeof(atv5302_playback_off_arr[0]));
+    tinymix_ctrl_set(adev->mixer, atc260x_playback_off_arr, 
+        sizeof(atc260x_playback_off_arr)/sizeof(atc260x_playback_off_arr[0]));
 
 
     // get volume and gain values from DTS, store them into the global variables.
     // speaker
     value_num = tinymix_ctrl_get(adev->mixer, "Dummy speaker volume", values);
     if (value_num > 0) {
-        atv5302_speaker_playback_arr[1].val = values[0];
+        atc260x_speaker_playback_arr[1].val = values[0];
     }
     value_num = tinymix_ctrl_get(adev->mixer, "Dummy speaker gain", values);
     if (value_num > 0) {
-        atv5302_speaker_playback_arr[2].val = values[0];
-        atv5302_speaker_playback_arr[3].val = values[1];
+        atc260x_speaker_playback_arr[2].val = values[0];
+        atc260x_speaker_playback_arr[3].val = values[1];
     }
 
     // headphone
     value_num = tinymix_ctrl_get(adev->mixer, "Dummy earphone volume", values);
     if (value_num > 0) {
-        atv5302_headphone_playback_arr[2].val = values[0];
+        atc260x_headphone_playback_arr[2].val = values[0];
     }
     value_num = tinymix_ctrl_get(adev->mixer, "Dummy earphone gain", values);
     if (value_num > 0) {
-        atv5302_headphone_playback_arr[3].val = values[0];
-        atv5302_headphone_playback_arr[4].val = values[1];
+        atc260x_headphone_playback_arr[3].val = values[0];
+        atc260x_headphone_playback_arr[4].val = values[1];
     }
 
     // MIC
     value_num = tinymix_ctrl_get(adev->mixer, "Dummy mic Gain", values);
     if (value_num > 0) {
-        atv5302_capture_arr[3].val = values[0];
+        atc260x_capture_arr[3].val = values[0];
     }
     
     value_num = tinymix_ctrl_get(adev->mixer, "Dummy mic mode", values);
     if (value_num > 0) {
     	ALOGE("%s %d", __FILE__, __LINE__);
-        atv5302_capture_arr[6].val = values[0];
+        atc260x_capture_arr[6].val = values[0];
     }
     
     value_num = tinymix_ctrl_get(adev->mixer, "Dummy earphone detect method", values);

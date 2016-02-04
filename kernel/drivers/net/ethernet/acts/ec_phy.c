@@ -159,13 +159,13 @@ static int atc2605_hw_init(ec_priv_t *ecp)
 
 #endif //PGA0
 
-/******************************* RTL8201 *******************************/
+/******************************* RTL8201 & SR8201G*******************************/
 /**
  * read_phy_reg - MII interface  to read  @reg_addr register of phy at @phy_addr
  * return positive and zero value if success, or negative value if fail
  * may be used by other standard ethernet phy
  */
-unsigned short read_phy_reg_rtl8201(ec_priv_t * ecp, unsigned short reg_addr)
+unsigned short read_phy_reg_xxx8201(ec_priv_t * ecp, unsigned short reg_addr)
 {
 	u32 op_reg;
 	u32 phy_addr;
@@ -195,7 +195,7 @@ unsigned short read_phy_reg_rtl8201(ec_priv_t * ecp, unsigned short reg_addr)
  * return zero if success, negative value if fail
  * may be used by other standard ethernet phy
  */
-int write_phy_reg_rtl8201(ec_priv_t * ecp, unsigned short reg_addr, unsigned short val)
+int write_phy_reg_xxx8201(ec_priv_t * ecp, unsigned short reg_addr, unsigned short val)
 {
 	u32 op_reg;
 	u32 phy_addr;
@@ -219,67 +219,6 @@ int write_phy_reg_rtl8201(ec_priv_t * ecp, unsigned short reg_addr, unsigned sho
 	return 0;
 }
 /******************************* RTL8201 *******************************/
-
-
-/******************************* SR8201G *******************************/
-/**
- * read_phy_reg - MII interface  to read  @reg_addr register of phy at @phy_addr
- * return positive and zero value if success, or negative value if fail
- * may be used by other standard ethernet phy
- */
-unsigned short read_phy_reg_sr8201g(ec_priv_t * ecp, unsigned short reg_addr)
-{
-	u32 op_reg;
-	u32 phy_addr;
-	if((ecp->phy_addr)!=0xFF)
-		phy_addr=ecp->phy_addr;
-	else
-		phy_addr=ASOC_ETHERNET_PHY_ADDR;
-
-	do {
-		op_reg = getl(MAC_CSR10);
-	} while (op_reg & MII_MNG_SB);
-
-	putl(MII_MNG_SB | MII_MNG_OPCODE(MII_OP_READ) | MII_MNG_REGADD(reg_addr) |
-		MII_MNG_PHYADD(phy_addr), MAC_CSR10);
-
-	do {
-		op_reg = getl(MAC_CSR10);
-	} while (op_reg & MII_MNG_SB);
-
-	return (u16)MII_MNG_DATA(op_reg);
-}
-
-/**
- * write_phy_reg - MII interface  to write  @val to @reg_addr register of phy at @phy_addr
- * return zero if success, negative value if fail
- * may be used by other standard ethernet phy
- */
-int write_phy_reg_sr8201g(ec_priv_t * ecp, unsigned short reg_addr, unsigned short val)
-{
-	u32 op_reg;
-	u32 phy_addr;
-
-	if((ecp->phy_addr)!=0xFF)
-		phy_addr=ecp->phy_addr;
-	else
-		phy_addr=ASOC_ETHERNET_PHY_ADDR;
-
-	do {
-		op_reg = getl(MAC_CSR10);
-	} while (op_reg & MII_MNG_SB);
-
-	putl(MII_MNG_SB | MII_MNG_OPCODE(MII_OP_WRITE) | MII_MNG_REGADD(reg_addr) |
-		MII_MNG_PHYADD(phy_addr) | val, MAC_CSR10);
-
-	do {
-		op_reg = getl(MAC_CSR10);
-	} while (op_reg & MII_MNG_SB);
-
-	return 0;
-}
-/******************************* SR8201G *******************************/
-
 
 /******************************* KSZ8041 *******************************/
 /**
@@ -380,7 +319,8 @@ static int phy_init(ec_priv_t * ecp)
 {
 	int     reg_val;
 	//u16 temp;
-	unsigned int cnt = 0;	
+	unsigned int cnt = 0;
+	
 	phy_reg_set_bits(ecp, MII_BMCR, BMCR_RESET);
 	do {
 		reg_val = read_phy_reg(ecp, MII_BMCR);
@@ -389,6 +329,12 @@ static int phy_init(ec_priv_t * ecp)
 			break;
 		}
 	} while (reg_val & BMCR_RESET);
+
+	/*Get the Phy ID*/
+	ecp->phy_id = read_phy_reg(ecp, MII_PHYSID1) ;
+	ecp->phy_id = ((ecp->phy_id)<< 16 ) | read_phy_reg(ecp, MII_PHYSID2);
+	
+	printk(KERN_DEBUG "PHY ID = 0x%08x", ecp->phy_id);
 
 	if (ecp->phy_model == ETH_PHY_MODEL_ATC2605) {
 		phy_reg_set_bits(ecp, PHY_REG_FTC1, PHY_FTC_PRL);
@@ -399,25 +345,25 @@ static int phy_init(ec_priv_t * ecp)
 		printk(KERN_DEBUG"MII_ICSR:0x%x\n", (unsigned)read_phy_reg(ecp, MII_ICSR));
 		phy_reg_set_bits(ecp, MII_PHY_CTL2, PHY_CTL2_INT_LEVEL);
 		printk(KERN_DEBUG"MII_PHY_CTL2:0x%x\n", (unsigned)read_phy_reg(ecp, MII_PHY_CTL2));
-	} else if (ecp->phy_model == ETH_PHY_MODEL_RTL8201) {
-		write_phy_reg(ecp, PHY_RTL8201F_REG_PAGE_SELECT, PHY_RTL8201F_REG_PAGE_SELECT_SEVEN);
+	} else if (ecp->phy_model == ETH_PHY_MODEL_RTL8201_SR8201G) {
+		if(((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_RTL8201) {
+			write_phy_reg(ecp, PHY_RTL8201F_REG_PAGE_SELECT, PHY_RTL8201F_REG_PAGE_SELECT_SEVEN);
+			/* only turn on link up/down phy interrupt */
+			write_phy_reg(ecp, PHY_RTL8201F_REG_INT_LED_FUNC, PHY_RTL8201F_PIN_LINK_STATE_CHANGE);
+			/*As datasheet says tx&rx offset's default value is 0xF but be zero in fact.Reset them*/
+			write_phy_reg(ecp, PHY_RTL8201F_REG_RMSR, 
+				PHY_RTL8201F_RMSR_CLK_DIR_INPUT | PHY_RTL8201F_RMSR_RMII_MODE|PHY_RTL8201F_RMSR_RMII_RX_OFFSET|PHY_RTL8201F_RMSR_RMII_TX_OFFSET);
+			write_phy_reg(ecp, PHY_RTL8201F_REG_PAGE_SELECT, PHY_RTL8201F_REG_PAGE_SELECT_ZERO);
+		}else if (((ecp->phy_id)  &  PHY_ID_MASK) == ETH_PHY_ID_SR8201G){
+			write_phy_reg(ecp, PHY_SR8201G_REG_PAGE_SELECT, PHY_SR8201G_REG_PAGE_SELECT_SEVEN);
 #ifndef CONFIG_POLL_PHY_STATE
-		/* only turn on link up/down phy interrupt */
-		write_phy_reg(ecp, PHY_RTL8201F_REG_INT_LED_FUNC, PHY_RTL8201F_PIN_LINK_STATE_CHANGE);
+			/* only turn on link up/down phy interrupt */
+			write_phy_reg(ecp, PHY_SR8201G_REG_INT_LED_FUNC, PHY_SR8201G_INT_PIN_SELECT | PHY_SR8201G_INT_PIN_LINK_STATE_CHANGE);
 #endif
-		/*As datasheet says tx&rx offset's default value is 0xF but be zero in fact.Reset them*/
-		write_phy_reg(ecp, PHY_RTL8201F_REG_RMSR, 
-			PHY_RTL8201F_RMSR_CLK_DIR_INPUT | PHY_RTL8201F_RMSR_RMII_MODE|PHY_RTL8201F_RMSR_RMII_RX_OFFSET|PHY_RTL8201F_RMSR_RMII_TX_OFFSET);
-		write_phy_reg(ecp, PHY_RTL8201F_REG_PAGE_SELECT, PHY_RTL8201F_REG_PAGE_SELECT_ZERO);
-	} else if (ecp->phy_model == ETH_PHY_MODEL_SR8201G) {
-		write_phy_reg(ecp, PHY_SR8201G_REG_PAGE_SELECT, PHY_SR8201G_REG_PAGE_SELECT_SEVEN);
-#ifndef CONFIG_POLL_PHY_STATE
-		/* only turn on link up/down phy interrupt */
-		write_phy_reg(ecp, PHY_SR8201G_REG_INT_LED_FUNC, PHY_SR8201G_INT_PIN_SELECT | PHY_SR8201G_INT_PIN_LINK_STATE_CHANGE);
-#endif
-		write_phy_reg(ecp, PHY_SR8201G_REG_RMSR, PHY_SR8201G_CLK_DIR_INPUT);
-		write_phy_reg(ecp, PHY_SR8201G_REG_PAGE_SELECT, PHY_SR8201G_REG_PAGE_SELECT_ZERO);
-	}else {
+			write_phy_reg(ecp, PHY_SR8201G_REG_RMSR, PHY_SR8201G_CLK_DIR_INPUT);
+			write_phy_reg(ecp, PHY_SR8201G_REG_PAGE_SELECT, PHY_SR8201G_REG_PAGE_SELECT_ZERO);
+		}
+	}else{
 		printk(KERN_ERR"NOT supported phy model: %u\n", ecp->phy_model);
 	}
 #if 0
@@ -807,23 +753,9 @@ static struct phy_info ksz8041_ops = {
 };
 
 
-static struct phy_info rtl8201_ops = {
+static struct phy_info xxx8201_ops = {
     .id = 0x0,
-    .name = "rtl8201",
-    .phy_hw_init = NULL, /* not need */
-    .phy_init = phy_init,
-    .phy_suspend = fdp110_suspend,
-    .phy_setup_advert = fdp110_setup_advert,
-    .phy_setup_forced = fdp110_setup_forced,
-    .phy_setup_aneg = fdp110_setup_aneg,
-    .phy_setup_loopback = fdp110_setup_loopback,
-    .phy_read_status = fdp110_read_status,
-    .phy_get_link = fdp110_get_link,
-};
-
-static struct phy_info sr8201g_ops = {
-    .id = 0x0,
-    .name = "sr8201g",
+    .name = "xxx8201",
     .phy_hw_init = NULL, /* not need */
     .phy_init = phy_init,
     .phy_suspend = fdp110_suspend,
@@ -847,16 +779,11 @@ void ep_set_phy_ops(ec_priv_t * ecp)
 		ecp->phy_ops = &ksz8041_ops;
 		read_phy_reg = read_phy_reg_ksz8041;
 		write_phy_reg = write_phy_reg_ksz8041;
-	} else if (ecp->phy_model == ETH_PHY_MODEL_RTL8201) {
-		printk(KERN_INFO"phy model: RTL8201\n");
-		ecp->phy_ops = &rtl8201_ops;
-		read_phy_reg = read_phy_reg_rtl8201;
-		write_phy_reg = write_phy_reg_rtl8201;
-	} else if (ecp->phy_model == ETH_PHY_MODEL_SR8201G){
-		printk(KERN_INFO "phy model: SR8201G\n");
-		ecp->phy_ops = &sr8201g_ops;
-		read_phy_reg = read_phy_reg_sr8201g;
-		write_phy_reg = write_phy_reg_sr8201g;
+	} else if (ecp->phy_model == ETH_PHY_MODEL_RTL8201_SR8201G) {
+		printk(KERN_INFO"phy model: xxx8201\n");
+		ecp->phy_ops = &xxx8201_ops;
+		read_phy_reg = read_phy_reg_xxx8201;
+		write_phy_reg = write_phy_reg_xxx8201;
 	}else {
 		printk(KERN_INFO"NOT supported phy model: %u\n", ecp->phy_model);
 	}

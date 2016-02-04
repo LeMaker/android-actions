@@ -75,7 +75,7 @@ static int lcd_gamma_load(void)
 	ret = file_fat_read(CONFIG_SYS_GAMMA_NAME, gamma_info->gamma_table,
 			CONFIG_SYS_GAMMA_SIZE);
 	if(ret < 0) {
-		printk("Fail to load gamma\n");
+		debug("Fail to load gamma\n");
 		gamma_info->is_valid = 0;
 		return -1;
 	}
@@ -105,7 +105,7 @@ int splash_image_init(void)
 		printf("Failed to find %s:%d\n", s, dev);
 		return 0;
 	}
-	printf("bootlogo: if=%s, dev=%d\n",s, dev);
+	debug("bootlogo: if=%s, dev=%d\n",s, dev);
 
 	ret = fat_register_device(dev_desc, part);
 	if (ret) {

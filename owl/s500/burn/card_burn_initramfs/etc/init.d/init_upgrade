@@ -1,0 +1,221 @@
+#!/bin/sh
+
+start_animation()
+{
+        echo 1 > /tmp/animation_on
+        echo -e "\\ \c" > /dev/tty0
+        while [ -f /tmp/animation_on ]; 
+        do 
+                echo -e "\b\b/ \c" > /dev/tty0
+                sleep 0.3
+                echo -e "\b\b- \c" > /dev/tty0
+                sleep 0.3
+                echo -e "\b\b\\ \c" > /dev/tty0
+                sleep 0.3
+        done 
+        echo "done" > /dev/tty0
+}
+
+stop_animation()
+{
+        rm /tmp/animation_on
+}
+
+handle_error()
+{
+        echo "error: $1" > /dev/tty0
+        echo "card burn exit." > /dev/tty0
+        exit 1
+}
+
+ln_blockdev(){
+        sdev=${DISKDEV}p$1
+        echo "ln -s $sdev $2"
+        ln -s $sdev $2
+}
+
+handle_mkgpt(){
+        PART_CFG_PATH=/udisk/mbr_info.bin
+        echo "disk size sector ${DISKSIZE}"
+        mkgpt ${PART_CFG_PATH} ${DISKDEV} ${DISKSIZE}
+        ret="$?"
+        echo "mkgpt return  ${ret}"
+        if [ ${ret} -ne 0 ] 
+        then
+                echo "mkgpt fail"
+        else
+                sleep 2
+                ln_blockdev   1   /dev/acta
+                ln_blockdev   2   /dev/actb
+                ln_blockdev   3   /dev/actc
+                ln_blockdev   4   /dev/actd
+                ln_blockdev   5   /dev/acte
+                ln_blockdev   6   /dev/actf
+                ln_blockdev   7   /dev/actg
+                ln_blockdev   8   /dev/acth
+                ln_blockdev   9   /dev/acti
+                ln_blockdev   10  /dev/actj
+                ln_blockdev   11  /dev/actk
+                ln_blockdev   12  /dev/actl
+        fi
+}
+
+format_diskall(){
+        echo "format disk, del boot"
+        dd if=/dev/zero of=${DISKDEV} bs=1024 seek=0 count=4
+        dd if=/dev/zero of=${DISKDEV} bs=1024 seek=2048 count=4
+}
+
+
+handle_install_flash(){
+        echo "handle_install_flash"
+
+        echo need_format $need_format
+
+        echo install flash drv
+
+        if [ $DISKDEV = /dev/nand0 ]
+        then
+                echo "======nand burn====="
+                insmod /lib/modules/nandcore.ko is_for_upgrade=1 force_update_config=1 test_mode=$need_format
+                insmod /lib/modules/virnand.ko is_for_upgrade=1 force_update_config=1 force_format=$need_format
+                insmod /lib/modules/nandunit.ko
+                insmod /lib/modules/nandreq.ko
+                insmod /lib/modules/nandelv.ko
+                insmod /lib/modules/nanddisk.ko is_for_upgrade=1  
+        fi
+
+        if [ $DISKDEV = /dev/nand0 ]
+        then
+                DISKSIZE=`cat /sys/block/nand0/size`
+        fi
+        format_diskall
+        if [ ${DISKSIZE} != '' ]
+        then
+                handle_mkgpt
+        else
+                handle_error "handle_mkgpt error"
+        fi
+        return 0
+}
+
+handle_write_phy() {
+        echo "handle_write_phy"
+        if [ $DISKDEV = /dev/md_d0 ]
+        then
+                BOOTDEV=sd2
+                DISKDEV=/dev/mmcblk0
+        fi
+        source /etc/init.d/wboot.sh ${BOOTDEV} ${DISKDEV}
+        sync
+        return 0
+}
+
+handle_write_img()
+{
+        make_mbr /udisk/partition.cfg /udisk/mbr_info_burn.bin || handle_error "make_mbr mbr_info_burn.bin failed!"
+        burn /udisk/mbr_info_burn.bin ${DISKDEV} || handle_error "burn mbr_info_burn failed !"
+}
+
+
+set_disk(){
+        echo "{$BOOTDEV}"
+        case ${BOOTDEV} in
+        sd0 )
+                DISKDEV=/dev/mmcblk0
+                DISKSIZE=`cat /sys/block/mmcblk0/size`
+                ;;
+        sd2 )
+                DISKDEV=/dev/mmcblk1
+                DISKSIZE=`cat /sys/block/mmcblk1/size`
+                ;;
+        nor )
+                DISKDEV=/dev/mtdblock0
+                ;;
+        * )
+                handle_error "ignore, not boot write" 
+                ;;
+        esac
+}
+
+
+handle_bootdev()
+{
+        tr -d '\r' <  /udisk/bootloader.ini > /udisk/bootloader_new.ini
+        data=`awk -F '=' '/bootdev.*=/{print $2}' /udisk/bootloader_new.ini | sed 's/ //g'`
+        case ${data} in
+        0x20)
+                BOOTDEV=sd0
+                ;;
+        0x21)
+                ;;
+        0x22 )
+                BOOTDEV=sd2
+                ;;
+        0x40 )
+                BOOTDEV=nor
+                ;;
+        * )
+                handle_error "error, not right boot dev"
+                ;;
+        esac
+}
+
+to_next_row()
+{
+        i=20
+        while [ $i -gt 0 ]
+        do
+                echo " " > /dev/tty0
+                i=$[ $i - 1 ]
+        done
+}
+
+
+to_next_row()
+{
+        clear > /dev/tty0
+        int=1
+        while [ $int -lt 20 ]
+        do
+                echo ""  > /dev/tty0
+                let "int++"
+        done
+        echo "                                       ****************************************************" > /dev/tty0
+        echo "                                                          $1" > /dev/tty0
+        echo "                                       ****************************************************" > /dev/tty0
+        sleep 2
+}
+
+
+DISKDEV=''
+DISKSIZE=''
+BOOTDEV=''
+
+echo 4 > /proc/sys/kernel/printk
+clear > /dev/tty0
+
+mkdir /udisk
+mkdir /misc
+
+umount /udisk
+umount /misc
+mount -t vfat -o rw /dev/mmcblk0p2 /udisk || handle_error "can not mount udisk!"
+mount -t vfat -o rw /dev/mmcblk0p1 /misc || handle_error "can not mount udisk!"
+
+handle_bootdev
+make_mbr -p /udisk/partition.cfg /udisk/mbr_info.bin || handle_error "make_mbr mbr_info.bin failed!"
+set_disk
+
+start_animation &
+
+handle_install_flash
+handle_write_img
+to_next_row "[percent:95]burn the boot"
+handle_write_phy
+to_next_row "[percent:100]burn over"
+sync
+
+stop_animation
+
+poweroff -f

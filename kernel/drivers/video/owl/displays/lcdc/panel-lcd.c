@@ -126,10 +126,6 @@ static void generic_lcdc_panel_power_off(struct owl_dss_device *dssdev)
 	owl_lcdc_display_disable(dssdev);
 }
 
-/* TODO */
-extern void de_mgr_set_dither(enum owl_channel channel, enum owl_dither_mode mode);
-extern void de_mgr_enable_dither(enum owl_channel channel, bool enable);
-
 static int generic_lcdc_panel_probe(struct owl_dss_device *dssdev)
 {
 
@@ -156,13 +152,7 @@ static int generic_lcdc_panel_probe(struct owl_dss_device *dssdev)
 	drv_data->panel_config = panel_config;
 
 	dev_set_drvdata(&dssdev->dev, drv_data);
-/*
-	if (dssdev->timings.data_width == 18) {
-		dev_dbg(&dssdev->dev, "enable 888->666 dither\n");
-		de_mgr_set_dither(OWL_DSS_CHANNEL_LCD, DITHER_24_TO_18);
-		de_mgr_enable_dither(OWL_DSS_CHANNEL_LCD, true);
-	}
-*/
+
 	return 0;
 }
 

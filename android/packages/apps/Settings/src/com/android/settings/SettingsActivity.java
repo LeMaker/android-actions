@@ -124,11 +124,6 @@ import java.util.Set;
 
 import static com.android.settings.dashboard.DashboardTile.TILE_ID_UNDEFINED;
 
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.Reader;
-import java.io.FileReader;
-
 public class SettingsActivity extends Activity
         implements PreferenceManager.OnPreferenceTreeClickListener,
         PreferenceFragment.OnPreferenceStartFragmentCallback,
@@ -1172,19 +1167,7 @@ public class SettingsActivity extends Activity
                 } else if (id == R.id.wifi_settings) {
                     // Remove WiFi Settings if WiFi service is not available.
                     if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
-						removeTile = true;
-						
-                    }else{
-                    	//change the tile according to whether insert usb wifi&bt dongle. Add by ian.jiang
-						String use_usb_wifi_bt_dongle = SystemProperties.get("ro.use.usb.wifi_bt.dongle");
-                        if( (use_usb_wifi_bt_dongle != null)&&(!use_usb_wifi_bt_dongle.isEmpty())&&(use_usb_wifi_bt_dongle.equals("true")) )
-                        {
-							if(!IsInsertUsbWifiDongle()){
-								Log.d(LOG_TAG,"<=== Isn't insert usb WIFI dongle!");
-								removeTile = true;
-							}
-                        }
-
+                        removeTile = true;
                     }
                 } else if (id == R.id.bluetooth_settings) {
                     // Remove Bluetooth Settings if Bluetooth service is not available.
@@ -1192,17 +1175,7 @@ public class SettingsActivity extends Activity
                     if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)
                     	|| SystemProperties.get("ro.settings.support.bluetooth", "false").equals("false")) {
                         removeTile = true;
-                    } else {
-                    	//change the tile according to whether insert usb wifi&bt dongle. Add by ian.jiang
-                    	String use_usb_wifi_bt_dongle = SystemProperties.get("ro.use.usb.wifi_bt.dongle");
-                        if( (use_usb_wifi_bt_dongle != null)&&(!use_usb_wifi_bt_dongle.isEmpty())&&(use_usb_wifi_bt_dongle.equals("true")) )
-                        {
-							if(!IsInsertUsbBTDongle()) {
-								Log.d(LOG_TAG,"<=== Isn't insert usb BT&WIFI dongle!");
-								removeTile = true;
-							}
-                        }
-					}
+                    }
                 } else if (id == R.id.data_usage_settings) {
                     // Remove data usage when kernel module not enabled
                     final INetworkManagementService netManager = INetworkManagementService.Stub
@@ -1255,10 +1228,10 @@ public class SettingsActivity extends Activity
                         removeTile = true;
                     }
                 } else if (id == R.id.development_settings) {
-                    if (!showDev || um.hasUserRestriction(
+                   /* if (!showDev || um.hasUserRestriction(
                             UserManager.DISALLOW_DEBUGGING_FEATURES)) {
                         removeTile = true;
-                    }
+                    }*/
                 }
 
                 if (UserHandle.MU_ENABLED && UserHandle.myUserId() != 0
@@ -1418,84 +1391,4 @@ public class SettingsActivity extends Activity
     public void setResultIntentData(Intent resultIntentData) {
         mResultIntentData = resultIntentData;
     }
-
-	//cat /sys/kernel/debug/usb/devices,if contain"Product=802.11n WLAN",then has wifi ,else hasn't wifi.
-	public boolean IsInsertUsbWifiDongle() {
-		File file = new File("/sys/kernel/debug/usb/devices");
-		BufferedReader reader = null;
-		boolean ret = false;
-		try {
-
-			reader = new BufferedReader(new FileReader(file));
-			String tempString = null;
-			int line = 1;
-
-			while ((tempString = reader.readLine()) != null) {
-				
-				//Log.d(LOG_TAG,"line " + line + ": " + tempString);	
-
-				if(tempString.contains("Product=802.11")) {
-					ret = true;
-					break;
-				}
-
-				line++;
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e1) {
-				}
-			}
-		}
-
-		if(ret)
-			return true;
-		else
-			return false;
-
-	}
-
-	//rtl8723BU
-	public boolean IsInsertUsbBTDongle() {
-		File file = new File("/sys/kernel/debug/usb/devices");
-		BufferedReader reader = null;
-		boolean ret = false;
-		try {
-
-			reader = new BufferedReader(new FileReader(file));
-			String tempString = null;
-			int line = 1;
-
-			while ((tempString = reader.readLine()) != null) {
-
-				if(tempString.contains("Product=802.11n WLAN Adapte")) {
-					ret = true;
-					break;
-				}
-
-				line++;
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e1) {
-				}
-			}
-		}
-
-		if(ret)
-			return true;
-		else
-			return false;
-
-	}
 }

@@ -187,6 +187,8 @@ struct owlfb_dc
     struct work_struct dc_work;
     struct workqueue_struct * dc_workqueue;
     struct owl_disp_info dc_queue[OWL_DCQ_DEPTH];
+    struct owl_overlay_manager * primary_manager;
+    struct owl_overlay_manager * external_manager;
     struct list_head q_list;
     bool working;  
       	

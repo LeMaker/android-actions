@@ -44,7 +44,7 @@ extern int dss_mgr_enable(struct owl_overlay_manager *mgr);
 
 extern int dss_mgr_disable(struct owl_overlay_manager *mgr);
 
-extern bool dss_check_channel_boot_inited(enum owl_channel channel);
+extern bool dss_check_channel_boot_inited(enum owl_de_path_id channel);
 
 enum disp_info_state {
 	STATUS_DISPINFO_NEEDS_INIT = 0,
@@ -151,51 +151,53 @@ static int owlfb_dc_mark_buffer_done(struct owlfb_dc * dispc, int index)
  * 	It is used to avoid that layers switch between two path frequently,
  *	which will lead to blurred screen on LCD or HDMI.
  */
-static bool tv_manager_is_enable = false;
+static bool external_manager_is_enable = false;
 static int boot_hdmi_enable = 0;
 static int boot_hdmi_status = 0;
 static int boot_hdmi_rotate = 0;
 #define HDMI_STATUS_NOT_INIT 0
 #define HDMI_STATUS_BOOT_INIT 1
 #define HDMI_STATUS_ANDROID_INIT 2
-atomic_t want_close_tv_devices = ATOMIC_INIT(false);
+static int boot_cvbs_rotate = 0;
+static int boot_cvbs_status = 0;
+static int boot_cvbs_enable = 0;
+#define CVBS_STATUS_BOOT_INIT 1
+#define CVBS_STATUS_NOT_INIT 0
+#define CVBS_STATUS_ANDROID_INIT 2
+atomic_t want_close_external_devices = ATOMIC_INIT(false);
 
 static int owlfb_dc_arrange_overlay(setup_dispc_data_t *psDispcData,
-					struct owl_overlay **used_ovl,struct owl_overlay **boot_hdmi_used_ovl) {
+					struct owl_overlay **used_ovl,struct owl_overlay **boot_external_used_ovl) {
 	const int num_ovls = owl_dss_get_num_overlays();
-	int lcd_used_overlay = 0;
-	int tv_used_overlay = 0;
+	int primary_used_overlay = 0;
+	int external_used_overlay = 0;
 	int no_used_overlay = 0;
 	int used_overlay_num = 0;
 	int i = 0;
 
-	struct owl_overlay_manager *tv_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_TV);
-	struct owl_overlay_manager *lcd_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_LCD);
-
-
 	for (i = 0; i < num_ovls; i++) {
 		if (i < psDispcData->primary_display_layer_num) {
-			struct owl_overlay *ovl = owl_dss_get_overlay(lcd_used_overlay);
+			struct owl_overlay *ovl = owl_dss_get_overlay(primary_used_overlay);
 			if (ovl->manager != NULL
-				&& ovl->manager->id != OWL_DSS_CHANNEL_LCD) {
-					ovl->disable(ovl);
+				&& ovl->manager->id != owl_dc.primary_manager->id) {
+					  ovl->disable(ovl);
 			    	ovl->unset_manager(ovl);
-			    	ovl->set_manager(ovl,lcd_mgr); 
+			    	ovl->set_manager(ovl,owl_dc.primary_manager); 
 			}
 			used_ovl[used_overlay_num++] = ovl;
-			lcd_used_overlay ++;	
+			primary_used_overlay ++;	
 		} else if (i < psDispcData->post2_layers) {
-			struct owl_overlay *ovl = owl_dss_get_overlay(num_ovls - tv_used_overlay - 1);			
+			struct owl_overlay *ovl = owl_dss_get_overlay(num_ovls - external_used_overlay - 1);			
 			if (ovl->manager != NULL
-				&& ovl->manager->id != OWL_DSS_CHANNEL_DIGIT) {
-					ovl->disable(ovl);
+				&& ovl->manager->id != owl_dc.external_manager->id) {
+					  ovl->disable(ovl);
 			    	ovl->unset_manager(ovl);
-			    	ovl->set_manager(ovl,tv_mgr); 
+			    	ovl->set_manager(ovl,owl_dc.external_manager); 
 			}
 			used_ovl[used_overlay_num++] = ovl;
-			tv_used_overlay ++;	
+			external_used_overlay ++;	
 		} else {
-			struct owl_overlay *ovl = owl_dss_get_overlay(lcd_used_overlay
+			struct owl_overlay *ovl = owl_dss_get_overlay(primary_used_overlay
 									+ no_used_overlay);
 			if (ovl->is_enabled(ovl)) {
 					ovl->disable(ovl);
@@ -204,59 +206,70 @@ static int owlfb_dc_arrange_overlay(setup_dispc_data_t *psDispcData,
 		}
 	}
 
-	if (lcd_used_overlay != 0) {
-		dss_mgr_enable(lcd_mgr);
+	if (primary_used_overlay != 0) {
+		 dss_mgr_enable(owl_dc.primary_manager);
 	}
 
-	if (tv_used_overlay != 0) {
-		tv_manager_is_enable = true;
-		dss_mgr_enable(tv_mgr);
+	if (external_used_overlay != 0) {
+		external_manager_is_enable = true;
+		dss_mgr_enable(owl_dc.external_manager);
 		boot_hdmi_status = HDMI_STATUS_ANDROID_INIT;
+		boot_cvbs_status=CVBS_STATUS_ANDROID_INIT;
+	
 	}else{
-			if(boot_hdmi_status == HDMI_STATUS_ANDROID_INIT){
-				if(tv_manager_is_enable && atomic_read(&want_close_tv_devices)){	
-					tv_mgr->apply(tv_mgr);
-					tv_mgr->wait_for_go(tv_mgr);	
-					tv_mgr->device->driver->disable(tv_mgr->device);
-					tv_manager_is_enable = false;
-					atomic_set(&want_close_tv_devices,false);
-				}
-			}else{
-				if(boot_hdmi_status == HDMI_STATUS_NOT_INIT 
-					&& dss_check_channel_boot_inited(OWL_DSS_CHANNEL_DIGIT)
-					&& boot_hdmi_enable == 1)
-				{
-					boot_hdmi_status = HDMI_STATUS_BOOT_INIT;
-				}
-				if(boot_hdmi_status == HDMI_STATUS_BOOT_INIT){
-					for(i = 0 ; i < lcd_used_overlay; i++)
-					{
-						struct owl_overlay *ovl = owl_dss_get_overlay(num_ovls - i - 1);
-						if (ovl->manager != NULL
-						&& ovl->manager->id != OWL_DSS_CHANNEL_DIGIT) {
-							ovl->disable(ovl);
-					    	ovl->unset_manager(ovl);
-					    	ovl->set_manager(ovl,tv_mgr); 
-						}
-						boot_hdmi_used_ovl[tv_used_overlay++] = ovl;			
-					}
-					dss_mgr_enable(tv_mgr);
-				}	
-			}						
-		
-	}
+		if(boot_hdmi_status == HDMI_STATUS_ANDROID_INIT||boot_cvbs_status==CVBS_STATUS_ANDROID_INIT){
+			if(external_manager_is_enable && atomic_read(&want_close_external_devices)){	
+				owl_dc.external_manager->apply(owl_dc.external_manager);
+				owl_dc.external_manager->wait_for_go(owl_dc.external_manager);	
+				owl_dc.external_manager->device->driver->disable(owl_dc.external_manager->device);
+				external_manager_is_enable = false;
+				atomic_set(&want_close_external_devices,false);
+			}
+		}else{
+			if(boot_hdmi_status == HDMI_STATUS_NOT_INIT 
+				&& dss_check_channel_boot_inited(OWL_DSS_OVL_MGR_EXTERNAL)
+				&& boot_hdmi_enable == 1)
+			{
+				boot_hdmi_status = HDMI_STATUS_BOOT_INIT;
+			}
+			if(boot_cvbs_status == CVBS_STATUS_NOT_INIT
+				&& dss_check_channel_boot_inited(OWL_DSS_OVL_MGR_EXTERNAL)
+				&& boot_cvbs_enable == 1)
+			{
+				boot_cvbs_status = CVBS_STATUS_BOOT_INIT;
+			}
 
+
+			
+			if(boot_hdmi_status == HDMI_STATUS_BOOT_INIT||boot_cvbs_status == CVBS_STATUS_BOOT_INIT){
+				for(i = 0 ; i < primary_used_overlay; i++)
+				{
+					struct owl_overlay *ovl = owl_dss_get_overlay(num_ovls - i - 1);
+					if (ovl->manager != NULL
+					&& ovl->manager->id != owl_dc.external_manager->id) {
+						  ovl->disable(ovl);
+				    	ovl->unset_manager(ovl);
+				    	ovl->set_manager(ovl,owl_dc.external_manager); 
+					}
+					boot_external_used_ovl[external_used_overlay++] = ovl;			
+				}
+				dss_mgr_enable(owl_dc.external_manager);
+			}	
+		}		
+	}
+	
 	return used_overlay_num;
 }
 
 static int hdmi_discard_frame = 0;
+
 static int owlfb_dc_update_overlay(struct owl_disp_info * disp_info)
 {
 	const int num_ovls = owl_dss_get_num_overlays();
 	int used_overlay = 0;
 	bool need_enable_mmu = false;
 	struct owl_overlay *used_ovl[num_ovls];
-	struct owl_overlay *boot_hdmi_used_ovl[num_ovls];
+	struct owl_overlay *boot_external_used_ovl[num_ovls];
 	int rc = 0;
 	int i = 0;
 	
@@ -266,7 +279,8 @@ static int owlfb_dc_update_overlay(struct owl_disp_info * disp_info)
 		printk("psDispcData  is NULL \n");
 		return -1;
 	}
-	used_overlay = owlfb_dc_arrange_overlay(psDispcData, used_ovl,boot_hdmi_used_ovl);
+
+	used_overlay = owlfb_dc_arrange_overlay(psDispcData, used_ovl,boot_external_used_ovl);
 
 	for(i = 0 ;i < used_overlay ;i++){			
 		struct owl_overlay * ovl = used_ovl[i];	
@@ -308,10 +322,10 @@ static int owlfb_dc_update_overlay(struct owl_disp_info * disp_info)
 		ovl->enable(ovl);
 	}
 
-	if(boot_hdmi_status == HDMI_STATUS_BOOT_INIT){
+	if(boot_hdmi_status == HDMI_STATUS_BOOT_INIT||boot_cvbs_status == CVBS_STATUS_BOOT_INIT){
 		hdmi_discard_frame ++;
 		for(i = 0 ;i < used_overlay ;i++){	
-			struct owl_overlay * ovl = boot_hdmi_used_ovl[i];	
+			struct owl_overlay * ovl = boot_external_used_ovl[i];	
 			__disp_layer_info_t * layer = &psDispcData->layer_info[i];	
 					
 			struct owl_overlay_info info;	
@@ -335,8 +349,14 @@ static int owlfb_dc_update_overlay(struct owl_disp_info * disp_info)
 			 &info.out_width, 
 			 &info.out_height);
 				
-			info.rotation =	boot_hdmi_rotate;
-			
+			if(boot_hdmi_status == HDMI_STATUS_BOOT_INIT)
+			{
+				info.rotation =	boot_hdmi_rotate;
+			}
+			if(boot_cvbs_status == CVBS_STATUS_BOOT_INIT)
+			{
+				info.rotation =	boot_cvbs_rotate;
+			}
 			if(layer->fb.buffer_id != -1){
 				info.buffer_id    =  layer->fb.buffer_id;
 				info.paddr = 0;
@@ -359,18 +379,20 @@ static int owlfb_dc_update_overlay(struct owl_disp_info * disp_info)
 		}
 		
 	}
+
 #ifdef DEBUG
 	trace_buffer_put_to_dehw(disp_info->mCallBackArg);
 #endif 
+
 	for(i = 0 ; i < 2 ; i++){
 		struct owl_overlay_manager *mgr;
 		mgr = owl_dss_get_overlay_manager(i);
-		if(need_enable_mmu && mgr->id == OWL_DSS_CHANNEL_LCD){
+		if(need_enable_mmu && mgr->id == OWL_DSS_OVL_MGR_PRIMARY){
 			mgr->set_mmu_state(mgr,MMU_STATE_PRE_ENABLE);
 		}	
 		mgr->apply(mgr);
 	}
-	
+
 	if(!owl_dss_is_devices_suspended())
 	{
 		for(i = 0 ; i < 2 ; i++){
@@ -379,6 +401,7 @@ static int owlfb_dc_update_overlay(struct owl_disp_info * disp_info)
 			mgr->wait_for_go(mgr);	
 		}
 	}
+
 	return rc ;
 }
 
@@ -436,11 +459,15 @@ static void owlfb_dc_perform_update(struct work_struct *work)
 	dispc->working = false;	
 	return;
 }
+
 void check_boot_hdmi_rotate_config(void)
 {
 	struct device_node *np = NULL;
+	struct device_node *cp = NULL;
 	
 	np = of_find_compatible_node(NULL, NULL, "actions,atm7059a-hdmi");
+	cp = of_find_compatible_node(NULL, NULL, "actions,atm7059a-cvbs");
+	
 	printk("np %p \n",np);
 	if(np != NULL){
 		if (of_property_read_u32(np, "bootrotate", &boot_hdmi_rotate)){
@@ -451,9 +478,26 @@ void check_boot_hdmi_rotate_config(void)
 		}	
 		printk("boot_hdmi_rotate %d \n",boot_hdmi_rotate);	
 	}
-	printk("boot_hdmi_rotate %d \n",boot_hdmi_rotate);
+	
+	if(cp != NULL){
+		
+		if (of_property_read_u32(cp, "bootable", &boot_cvbs_enable)){
+				printk("of_property_read_u32 is error\n");
+			boot_cvbs_enable = 0;
+		}	
+		if (of_property_read_u32(cp, "bootrotate", &boot_cvbs_rotate)){
+				printk("of_property_read bootrotate is error\n");
+			boot_cvbs_rotate = 0;
+		}	
+		printk("boot_cvbs_enable %d \n",boot_cvbs_enable);	
+	}
+	
+	boot_cvbs_rotate =0;
+	
+	printk("boot_hdmi_rotate %d boot_cvbs_rotate=%d \n",boot_hdmi_rotate,boot_cvbs_rotate);
 	return;
 }
+
 int owlfb_dc_init(struct owlfb_device * fbdev)
 {
 
@@ -462,8 +506,15 @@ int owlfb_dc_init(struct owlfb_device * fbdev)
 	
 	my_fbdev = fbdev;
 	
-	owl_dc.dev = fbdev->dev;	
+	owl_dc.dev = fbdev->dev;
 	
+	owl_dc.primary_manager = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_PRIMARY);
+	owl_dc.external_manager = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_EXTERNAL);
+	
+	/*we always used path1 connected to primary display */
+	owl_dc.primary_manager->de_path_id = OWL_DSS_PATH1_ID;	
+	owl_dc.external_manager->de_path_id = OWL_DSS_PATH2_ID;	
+	 
 	mutex_init(&owl_dc.dc_lock);
 	
 	INIT_LIST_HEAD(&owl_dc.q_list);	

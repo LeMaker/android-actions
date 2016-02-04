@@ -394,7 +394,7 @@ typedef struct buffer_descriptor {
 #define PHY_RTL8201F_RMSR_RMII_MODE	        (0x1<<3)
 #define PHY_RTL8201F_RMSR_RMII_RX_OFFSET    (0xF<<4)
 #define PHY_RTL8201F_RMSR_RMII_TX_OFFSET    (0xF<<8)
-#define PHY_RTL8201F_PIN_LINK_STATE_CHANGE  (0x1<<13)
+#define PHY_RTL8201F_PIN_LINK_STATE_CHANGE  (0x1 <<4)
 
 /*
  * phy SR8201G

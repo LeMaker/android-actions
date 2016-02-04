@@ -29,6 +29,13 @@
     <!-- Strings for Dialog deny button -->
     <string name="deny">Deny</string>
 
+    <string name="eth0_info">LeMaker Eth0 restart</string>
+
+    <string name="eth1_info">LeMaker Eth1 ON/OFF</string>
+
+    <string name="hdmi_audio">LeMaker Hdmi Audio ON</string>
+
+    <string name="mic_audio">LeMaker Mic Audio ON</string>
     <!-- Device Info --> <skip />
     <!-- Device Info screen. Used for a status item's value when the proper value is not known -->
     <string name="device_info_default">Unknown</string>

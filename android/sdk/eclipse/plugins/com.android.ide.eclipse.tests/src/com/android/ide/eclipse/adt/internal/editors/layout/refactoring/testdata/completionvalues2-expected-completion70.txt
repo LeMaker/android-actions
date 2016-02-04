@@ -1,3 +1,0 @@
-Code completion in completionvalues2.xml for <item name="main_layout4" type="layout">^</item>:
-@android:
-@layout/

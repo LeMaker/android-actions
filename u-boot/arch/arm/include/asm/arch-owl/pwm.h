@@ -13,7 +13,7 @@ struct pwm_device {
 	enum pwm_polarity polarity;
 };
 
-#define PWM_NUM_CHANNELS	4
+#define PWM_NUM_CHANNELS	6
 
 extern int pwm_enable(int pwm_id);
 extern void pwm_disable(int pwm_id);

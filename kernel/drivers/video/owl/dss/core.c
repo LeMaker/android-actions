@@ -49,17 +49,9 @@ struct {
 
 /* Board specific data */
 struct owl_dss_board_info {
-	int (*get_context_loss_count)(struct device *dev);
 	int num_devices;
 	struct owl_dss_device **devices;
-	struct owl_dss_device *default_device;
-	int (*lcd_enable_pads)(int dsi_id, unsigned lane_mask);
-	void (*lcd_disable_pads)(int dsi_id, unsigned lane_mask);
 };
-
-char *def_disp_name;
-module_param_named(def_disp, def_disp_name, charp, 0);
-MODULE_PARM_DESC(def_disp, "default display name");
 
 #ifdef DSS_DEBUG_ENABLE
 /* 0, error; 1, error+info; 2, error+info+debug */
@@ -256,15 +248,13 @@ static int dss_driver_probe(struct device *dev)
 				dev_name(dev), dssdev->driver_name,
 				dssdrv->driver.name);
 
-  if (owl_get_boot_mode() == OWL_BOOT_MODE_UPGRADE) {
+  	if (owl_get_boot_mode() == OWL_BOOT_MODE_UPGRADE) {
 		printk("product process  not need to dss modules!\n");
 		return -ENODEV;
 	}
+	
 	dss_init_device(core.pdev, dssdev);
-
-	force = pdata->default_device == dssdev;
-	dss_recheck_connections(dssdev, force);
-
+	
 	r = dssdrv->probe(dssdev);
 
 	if (r) {
@@ -435,9 +425,6 @@ static int __init owl_dss_probe(struct platform_device *pdev)
 
 			goto err_register;
 		}
-
-		if (def_disp_name && strcmp(def_disp_name, dssdev->name) == 0)
-			pdata->default_device = dssdev;
 	}
 
 	return 0;
@@ -474,6 +461,8 @@ static int __exit owl_dss_remove(struct platform_device *pdev)
 	return 0;
 }
 
+atomic_t devices_suspended_from_early_suspend = ATOMIC_INIT(false);
+
 #ifdef CONFIG_EARLYSUSPEND
 static void owl_dss_early_suspend(struct early_suspend *h)
 {
@@ -481,6 +470,7 @@ static void owl_dss_early_suspend(struct early_suspend *h)
 	{
 		DSSINFO("early suspending displays \n");
 		dss_suspend_all_devices();
+		atomic_set(&devices_suspended_from_early_suspend,true);
 		DSSINFO("early suspending displays end\n");
 	}
 
@@ -493,6 +483,7 @@ static void owl_dss_late_resume(struct early_suspend *h)
 	{
 		DSSINFO("late resuming displays \n");	
 		dss_resume_all_devices();
+		atomic_set(&devices_suspended_from_early_suspend,false);
 		DSSINFO("late resuming displays end \n");
 	}
 }
@@ -532,8 +523,8 @@ static int owl_dss_resume(struct platform_device *pdev)
 	 */
 
 	owl_de_resume();
-	
-	if(owl_dss_is_devices_suspended())
+
+	if(owl_dss_is_devices_suspended() && !atomic_read(&devices_suspended_from_early_suspend))
 	{
 		DSSINFO("resuming displays \n");
 		dss_resume_all_devices();
@@ -580,17 +571,24 @@ static struct owl_dss_device asoc_hdmi_device = {
 	.data_lines	= 16,
 };
 
+static struct owl_dss_device asoc_cvbs_device = {
+	.name			= "cvbs",
+	.driver_name		= "cvbs_panel",
+	.type			= OWL_DISPLAY_TYPE_CVBS,
+	.data_lines	= 16,
+};
+
 static struct owl_dss_device *owl_dss_devices[] = {
 	&asoc_lcd_device,
 	&asoc_dsi_device,
 	&asoc_edp_device,
 	&asoc_hdmi_device,
+	&asoc_cvbs_device,
 };
 
 static struct owl_dss_board_info owl_dss_data = {
 	.num_devices	= ARRAY_SIZE(owl_dss_devices),
 	.devices	= owl_dss_devices,
-	.default_device	= &asoc_lcd_device,
 };
 
 static struct platform_device owl_dss_device = {

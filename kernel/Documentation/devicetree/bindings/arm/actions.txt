@@ -1,14 +1,7 @@
 Actions Arm-platform device tree bindings
 -------------------------------------------
-
-Boards with the gl5202 SoC shall have the following properties:
-
-Required root node property:
-
-compatible = "actions,gl5202";
-
-Boards with the gl5203 SoC shall have the following properties:
+Boards with the s500 SoC shall have the following properties:
 
 Required root node property:
 
-compatible = "actions,gl5203";
+compatible = "actions,s500", "actions,owl", "actions,atm7059a";

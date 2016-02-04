@@ -185,7 +185,6 @@ import com.android.systemui.volume.VolumeComponent;
   *ActionsCode(author:fanguoyong, change_code)
   */
 import com.android.systemui.statusbar.policy.ScreenRecordController;
-import android.os.SystemProperties;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -194,8 +193,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import android.hardware.usb.UsbManager;
 
 public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         DragDownHelper.DragDownCallback, ActivityStarter, OnUnlockMethodChangedListener {
@@ -957,15 +954,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             filter.addAction("fake_artwork");
         }
         filter.addAction(ACTION_DEMO);
-		
-	    //update phone status bar according to whether insert usb wifi&bt dongle. Add by ian.jiang
-		String use_usb_wifi_bt_dongle = SystemProperties.get("ro.use.usb.wifi_bt.dongle");
-        if( (use_usb_wifi_bt_dongle != null)&&(!use_usb_wifi_bt_dongle.isEmpty())&&(use_usb_wifi_bt_dongle.equals("true")) )
-        {
-			filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-			filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        }
-		
         context.registerReceiverAsUser(mBroadcastReceiver, UserHandle.ALL, filter, null, null);
 
         // listen for USER_SETUP_COMPLETE setting (per-user)
@@ -3202,16 +3190,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     updateMediaMetaData(true);
                 }
             }
-			else if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-				Log.d(TAG,"usb device attached!");
-				QSTileHost TmpQSTileHost = mQSPanel.getHost();
-				TmpQSTileHost.UpdateTiles();
-			}
-			else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
-				Log.d(TAG,"usb device detached!");
-				QSTileHost TmpQSTileHost = mQSPanel.getHost();
-				TmpQSTileHost.UpdateTiles();
-			}
         }
     };
 

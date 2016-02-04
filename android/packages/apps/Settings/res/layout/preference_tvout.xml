@@ -34,31 +34,20 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dip"
+            android:layout_marginStart="23dip"
             android:layout_marginEnd="6dip"
             android:layout_marginTop="6dip"
-            android:layout_marginBottom="6dip">
+            android:layout_marginBottom="1dip">
             <TextView
                 android:id="@+android:id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:ellipsize="marquee"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:focusable="false"
                 android:fadingEdge="horizontal"/>
-            <TextView
-                android:id="@android:id/summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@android:id/title"
-                android:layout_alignStart="@android:id/title"
-                android:paddingBottom="3dip"
-                android:visibility="gone"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="13sp"
-                android:textColor="?android:attr/textColorSecondary"
-                android:focusable="true"
-                android:maxLines="4" />
              <Switch android:id="@+id/tvoutSwitch"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -69,3 +58,4 @@
                android:clickable="true" />
         </RelativeLayout>
 </LinearLayout>
+

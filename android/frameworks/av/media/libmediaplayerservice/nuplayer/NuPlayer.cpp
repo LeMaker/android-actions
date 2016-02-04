@@ -1293,8 +1293,9 @@ void NuPlayer::updateVideoSize(
         const sp<AMessage> &inputFormat,
         const sp<AMessage> &outputFormat) {
     if (inputFormat == NULL) {
-        ALOGW("Unknown video size, reporting 0x0!");
-        notifyListener(MEDIA_SET_VIDEO_SIZE, 0, 0);
+        ALOGW("Unknown video size, reporting 0x0,set to default value 100!");
+        /*ActionsCode(author:sunchengzhi,fix BUG00380210 for pptv)*/
+        notifyListener(MEDIA_SET_VIDEO_SIZE, 100, 100);
         return;
     }
 

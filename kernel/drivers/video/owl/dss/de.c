@@ -57,14 +57,14 @@ static bool 				de_boot_inited = false;
 
 /*===================={ internal interfaces======================*/
 
-bool de_channel_check_boot_inited(enum owl_channel path)
+bool de_channel_check_boot_inited(enum owl_de_path_id path)
 {
 	return de_ops->path_is_enabled(path);
 }
 
 /*****************TODO*********************/
 #define DECLK1_MAX		300000000
-#define DECLK2_MAX		300000000
+#define DECLK2_MAX		150000000
 #define DECLK_TARGET		300000000
 
 static void de_clk_init(void)
@@ -195,6 +195,8 @@ static irqreturn_t de_irq_handler(int irq, void *dev)
 	struct de_isr_data 	registered_isr[DE_MAX_NR_ISRS];
 	
 	irqstatus = de_ops->irq_status_get();
+	
+	//printk("de_irq_handler irqstatus 0x%x \n",irqstatus);
 
 	spin_lock(&de_pdata->irq_lock);
 
@@ -392,6 +394,8 @@ enum de_irq_type de_mgr_get_vsync_irq(enum owl_display_type type){
 			return DE_IRQ_DSI_PRE;
 		case OWL_DISPLAY_TYPE_HDMI:
 			return DE_IRQ_HDMI_PRE;
+		case	OWL_DISPLAY_TYPE_CVBS:
+			return DE_IRQ_CVBS_PRE;
 		default:
 			return DE_IRQ_LCD_PRE;
 	}
@@ -404,14 +408,14 @@ static void de_irq_wait_handler(enum de_irq_type irq, void *data)
 	complete((struct completion *)data);
 }
 
-void dehw_mgr_wait_for_go(enum owl_channel channel)
+void dehw_mgr_wait_for_go(enum owl_de_path_id path_id)
 {
 	ktime_t expires ,end ;
 	u32 val;
 	int i = 70;
 	ktime_t being = ktime_get();
 	do{				
-		val = de_ops->fcr_get(channel);
+		val = de_ops->fcr_get(path_id);
 		
 		if(val == 0 || i == 0){
 			break;
@@ -433,36 +437,30 @@ void dehw_mgr_wait_for_go(enum owl_channel channel)
 }
 
 
-int de_wait_for_irq_interruptible_timeout(enum de_irq_type irq, unsigned long timeout)
+int de_wait_for_irq_interruptible_timeout(enum de_irq_type irq,enum owl_de_path_id path_id, unsigned long timeout)
 {
 	int r;
-	enum owl_channel path;
-	//printk("de_wait_for_irq_interruptible_timeout %d \n",irq);
-	if(DE_IRQ_LCD_PRE == irq 
-		|| DE_IRQ_DSI_PRE == irq
-		|| DE_IRQ_EDP_PRE == irq){
-		path = OWL_DSS_CHANNEL_LCD;
-		r = owl_de_register_isr(irq, de_irq_wait_handler, &completion);
+	//DSSINFO("de_wait_for_irq_interruptible_timeout path_id %d  irq 0x%x  irq status 0x%x\n",path_id,irq,de_ops->irq_status_get());	
+	r = owl_de_register_isr(irq, de_irq_wait_handler, &completion);
 	
-		if (r) {
+	if (r) {
 			return r;
-		}
-	
-		timeout = wait_for_completion_interruptible_timeout(&completion, timeout);
-	
-		owl_de_unregister_isr(irq, de_irq_wait_handler, &completion);
-	
-		if (timeout == 0) {
-			return -ETIMEDOUT;
-		}
-	
-		if (timeout == -ERESTARTSYS) {
-			return -ERESTARTSYS;
-		}
-	}else{
-		path = OWL_DSS_CHANNEL_DIGIT;
 	}
-	dehw_mgr_wait_for_go(path);	
+	
+	timeout = wait_for_completion_interruptible_timeout(&completion, timeout);
+	
+	owl_de_unregister_isr(irq, de_irq_wait_handler, &completion);
+	
+	if (timeout == 0) {
+		return -ETIMEDOUT;
+	}
+	
+	if (timeout == -ERESTARTSYS) {
+		return -ERESTARTSYS;
+	}
+	
+	
+	dehw_mgr_wait_for_go(path_id);	
 	return 0;
 }
 
@@ -471,7 +469,7 @@ void owl_de_get_histogram_info(u32 * hist, u32 * totaly)
 }
 EXPORT_SYMBOL(owl_de_get_histogram_info);
 
-bool de_is_vb_valid(enum owl_channel path, enum owl_display_type type)
+bool de_is_vb_valid(enum owl_de_path_id path, enum owl_display_type type)
 {
 	u32 mask, vb_mask;
 
@@ -498,66 +496,79 @@ int owl_de_get_ictype(void)
 }
 EXPORT_SYMBOL(owl_de_get_ictype);
 
-void de_set_gamma_table(enum owl_channel channel, u32 *gamma)
+void de_set_gamma_table(enum owl_de_path_id channel, u32 *gamma)
 {
 	DSSDBG("set gamma\n");
 	de_ops->set_gamma_table(channel, gamma);
 }
 
-void de_get_gamma_table(enum owl_channel channel, u32 *gamma)
+void de_get_gamma_table(enum owl_de_path_id channel, u32 *gamma)
 {
 	de_ops->get_gamma_table(channel, gamma);
 }
 
-void de_enable_gamma_table(enum owl_channel channel, bool enable)
+void de_enable_gamma_table(enum owl_de_path_id channel, bool enable)
 {
 	DSSDBG("enable gamma, %d\n", enable);
 	de_ops->enable_gamma_table(channel, enable);
 }
 
 
-void de_mgr_set_path_size(enum owl_channel channel, u16 width, u16 height)
+void de_mgr_set_path_size(enum owl_de_path_id channel, u16 width, u16 height)
 {
 	de_ops->path_size_set(channel, width, height);
 }
 
-void de_mgr_set_device_type(enum owl_channel channel,enum owl_display_type type)
+void de_mgr_set_device_type(enum owl_de_path_id channel,enum owl_display_type type)
 {
 	/* TODO */
 	de_ops->display_type_set(channel, type);
 }
 
-void de_mgr_enable(enum owl_channel channel, bool enable)
+void de_mgr_enable(enum owl_de_path_id channel, bool enable)
 {
 	de_ops->path_enable(channel, enable);
 }
 
-void de_mgr_set_dither(enum owl_channel channel, enum owl_dither_mode mode)
+void de_mgr_set_dither(enum owl_de_path_id channel, enum owl_dither_mode mode)
 {
 	de_ops->dither_set(channel, mode);
 }
 
-void de_mgr_enable_dither(enum owl_channel channel, bool enable)
+void de_mgr_enable_dither(enum owl_de_path_id channel, bool enable)
 {
 	de_ops->dither_enable(channel, enable);
 }
 
-bool de_mgr_is_enabled(enum owl_channel channel)
+bool de_mgr_is_enabled(enum owl_de_path_id channel)
 {
 	return de_ops->path_is_enabled(channel);
 }
 
-void de_mgr_go(enum owl_channel channel)
+void de_mgr_go(enum owl_de_path_id channel)
 {
 	de_ops->fcr_set(channel);
 }
 
-void de_mgr_setup(enum owl_channel channel, struct owl_overlay_manager_info *info)
+void de_mgr_setup(enum owl_de_path_id channel, struct owl_overlay_manager_info *info)
 {
 	/* TODO */
 }	
 
-int de_ovl_setup(enum owl_channel channel, enum owl_plane plane,
+void de_mgr_cursor_setup(enum owl_de_path_id channel, struct owl_cursor_info *info)
+{
+	if(!info->enable){
+		de_ops->curosr_enable(channel,false);
+	}else{
+		printk("de_mgr_cursor_setup info->pos_x 0x%x info->pos_y 0x%x\n ",info->pos_x,info->pos_y);
+		de_ops->curosr_set_position(channel,info->pos_x,info->pos_y);
+		de_ops->curosr_set_addr(channel,info->paddr);
+		de_ops->curosr_set_str(channel,info->stride);
+		de_ops->curosr_enable(channel,true);
+	}	
+}	
+
+int de_ovl_setup(enum owl_de_path_id channel, enum owl_plane plane,
 	   	 struct owl_overlay_info *oi, bool ilace)
 {
     	bool mmu_enable = false;
@@ -765,7 +776,7 @@ int owl_de_mmu_enable(enum owl_plane plane, bool enable)
 	return de_ops->mmu_enable(plane, enable);
 }
 
-int de_ovl_enable(enum owl_channel channel, enum owl_plane plane, bool enable)
+int de_ovl_enable(enum owl_de_path_id channel, enum owl_plane plane, bool enable)
 {
     	de_ops->video_enable(channel, plane, enable);
 
@@ -816,8 +827,8 @@ void owl_de_resume(void)
 	de_ops->resume(de_pdata->pdev);
 
 	/* make sure gamma is disabled, awful design */
-	de_enable_gamma_table(OWL_DSS_CHANNEL_LCD, false);
-	de_enable_gamma_table(OWL_DSS_CHANNEL_DIGIT, false);
+	de_enable_gamma_table(OWL_DSS_PATH1_ID, false);
+	de_enable_gamma_table(OWL_DSS_PATH2_ID, false);
 
 	/* mini charger boot, set path0's FCR, TODO */
 	if (bootmode == 1)
@@ -880,7 +891,6 @@ static const struct of_device_id owl_de_match[] = {
 static int __init owl_de_probe(struct platform_device *pdev) {
 	struct device 			*dev = &pdev->dev;
 	struct resource 		*res;
-	void  				*noc_reg = 0;
 	int				ret = 0;
 
 	const struct of_device_id 	*match;
@@ -925,14 +935,13 @@ static int __init owl_de_probe(struct platform_device *pdev) {
 	}
 	DSSDBG("de base is 0x%p\n", de_pdata->base);
 	
-	de_boot_inited = de_channel_check_boot_inited(OWL_DSS_CHANNEL_LCD) 
-	                 | de_channel_check_boot_inited(OWL_DSS_CHANNEL_DIGIT);
+	de_boot_inited = de_channel_check_boot_inited(OWL_DSS_PATH1_ID) 
+	                 | de_channel_check_boot_inited(OWL_DSS_PATH2_ID);
 	
 	DSSINFO("DE INITED FROM UBOOT ?? %d \n", de_boot_inited);
 
 	if (!de_boot_inited) {
 		de_clk_init();
-		de_clk_reset();
 	}
 
 	ret = de_irq_init();

@@ -979,7 +979,7 @@ int owl_sd_init(int index, struct owl_mmc_host *host)
 	mmc = mmc_create(mmc_config,host);
 	
 	if(mmc_init(mmc)){
-		printf("slot:%d, error mmc_init\n",host->id);
+		pr_debug("slot:%d, error mmc_init\n",host->id);
 		return -1;
 	}
 	pr_debug("host->id:%d mmc_init OK\n",host->id);
@@ -1003,7 +1003,7 @@ int owl_mmc_init(int dev_index)
 	owl_host_init(dev_index, host);
 	ret = owl_sd_init(dev_index, host);
 	if(ret){
-		printf("error:%d,owl_sd_init fail\n",ret);
+		pr_debug("error:%d,owl_sd_init fail\n",ret);
 	}	
 
 	return ret;

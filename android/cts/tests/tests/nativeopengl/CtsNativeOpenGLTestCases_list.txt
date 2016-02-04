@@ -1,6 +1,0 @@
-EGLCleanupTest.
-  TestCorrect
-EGLCreateContextTest.
-  BadAttributeFails
-GLTest.
-  ClearColorTest

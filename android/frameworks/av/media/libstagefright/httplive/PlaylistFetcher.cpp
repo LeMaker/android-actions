@@ -46,9 +46,11 @@
 
 namespace android {
 
+/*ActionsCode(author:sunchengzhi,change kMinBufferedDurationUs and kMaxMonitorDelayUs for Loading speed optimization)*/
 // static
-const int64_t PlaylistFetcher::kMinBufferedDurationUs = 10000000ll;
-const int64_t PlaylistFetcher::kMaxMonitorDelayUs = 3000000ll;
+const int64_t PlaylistFetcher::kMinBufferedDurationUs = 3000000ll;
+const int64_t PlaylistFetcher::kMaxMonitorDelayUs = 2000000ll;
+
 // LCM of 188 (size of a TS packet) & 1k works well
 const int32_t PlaylistFetcher::kDownloadBlockSize = 47 * 1024;
 const int32_t PlaylistFetcher::kNumSkipFrames = 5;
@@ -659,7 +661,7 @@ void PlaylistFetcher::onMonitorQueue() {
     downloadMore = (bufferedDurationUs < durationToBufferUs);
 
     // signal start if buffered up at least the target size
-    if (!mPrepared && bufferedDurationUs > targetDurationUs && downloadMore) {
+    if (!mPrepared /*&& bufferedDurationUs > targetDurationUs && downloadMore*/) {
         mPrepared = true;
 
         ALOGV("prepared, buffered=%" PRId64 " > %" PRId64 "",
@@ -685,7 +687,9 @@ void PlaylistFetcher::onMonitorQueue() {
         msg->setInt32("what", kWhatTemporarilyDoneFetching);
         msg->post();
 
-        int64_t delayUs = mPrepared ? kMaxMonitorDelayUs : targetDurationUs / 2;
+     /*ActionsCode(author:sunchengzhi,delayUs should not exceed bufferedDurationUs)*/
+      //  int64_t delayUs = mPrepared ? kMaxMonitorDelayUs : bufferedDurationUs / 2;
+       int64_t delayUs = bufferedDurationUs / 2;
         ALOGV("pausing for %" PRId64 ", buffered=%" PRId64 " > %" PRId64 "",
                 delayUs, bufferedDurationUs, durationToBufferUs);
         // :TRICKY: need to enforce minimum delay because the delay to
@@ -1313,8 +1317,9 @@ status_t PlaylistFetcher::extractAndQueueAccessUnitsFromTs(const sp<ABuffer> &bu
                         timeUs = 0;
                     }
                 }
+ /*ActionsCode(author:sunchengzhi,seek optimization)*/
 
-                if (timeUs < mStartTimeUs) {
+                if (timeUs < mStartTimeUs && mSegmentStartTimeUs>=0) {
                     // buffer up to the closest preceding IDR frame
                     ALOGV("timeUs %" PRId64 " us < mStartTimeUs %" PRId64 " us",
                             timeUs, mStartTimeUs);
@@ -1334,10 +1339,11 @@ status_t PlaylistFetcher::extractAndQueueAccessUnitsFromTs(const sp<ABuffer> &bu
 
                     continue;
                 }
+
             }
 
             CHECK(accessUnit->meta()->findInt64("timeUs", &timeUs));
-            if (mStartTimeUsNotify != NULL && timeUs > mStartTimeUs) {
+            if (mStartTimeUsNotify != NULL /*&& timeUs > mStartTimeUs*/) {
                 int32_t firstSeqNumberInPlaylist;
                 if (mPlaylist->meta() == NULL || !mPlaylist->meta()->findInt32(
                             "media-sequence", &firstSeqNumberInPlaylist)) {
@@ -1651,6 +1657,7 @@ status_t PlaylistFetcher::extractAndQueueAccessUnits(
                     startTimeUs = 0;
                 }
             }
+
             if (startTimeUs < mStartTimeUs) {
                 continue;
             }

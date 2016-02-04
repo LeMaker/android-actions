@@ -103,4 +103,18 @@
         <intent
             android:action="android.settings.inetg3" />
     </PreferenceScreen>
+
+    <PreferenceScreen
+        android:key="eth0_device_restart_button"
+        android:title="@string/eth0_info" />
+
+    <PreferenceScreen
+        android:key="eth1_device_restart_button"
+        android:title="@string/eth1_info" />
+
+    <SwitchPreference
+        android:key="hdmi_audio_switch_button"
+        android:title="@string/hdmi_audio"
+	android:persistent="false"/>
+
 </PreferenceScreen>

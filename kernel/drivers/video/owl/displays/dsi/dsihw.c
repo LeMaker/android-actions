@@ -40,7 +40,7 @@
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/wait.h>
-
+#include <linux/fb.h>
 #include <linux/dmaengine.h> 
 #include <linux/dma-mapping.h> 
 #include <linux/dma-direction.h> 
@@ -615,6 +615,10 @@ static void dsihw_single_enable(struct platform_device *pdev, bool enable)
 		tmp = dsihw_read_reg(pdev,DSI_VIDEO_CFG);	
 		tmp &= (~0x01);
 		dsihw_write_reg(pdev,DSI_VIDEO_CFG, tmp);		
+		
+		tmp = dsihw_read_reg(pdev,DSI_PHY_CTRL);
+		tmp &= (~0x01<<24);
+		dsihw_write_reg(pdev,DSI_PHY_CTRL, tmp);
 	}
 
 }
@@ -937,7 +941,7 @@ void owl_dsi_select_video_timings(struct owl_dss_device *dssdev, u32 num,
 
     timings->x_res          = mode->xres;
     timings->y_res          = mode->yres;
-    timings->pixel_clock    = mode->pixclock;
+    timings->pixel_clock    = PICOS2KHZ(mode->pixclock);
     timings->hfp            = mode->left_margin;
     timings->hbp            = mode->right_margin;
     timings->vfp            = mode->upper_margin;

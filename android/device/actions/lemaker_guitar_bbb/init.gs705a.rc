@@ -6,6 +6,7 @@ import init.gs705a.usb.rc
 import init.wifi.rc
 import init.eth0.rc
 import init.mt6620.rc
+import init.recovery.gs705a.rc
 
 on early-init
     # fixme: disable hotplug by now

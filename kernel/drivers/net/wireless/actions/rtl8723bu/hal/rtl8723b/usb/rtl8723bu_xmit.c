@@ -182,7 +182,6 @@ static s32 update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem, s32 sz, u8 bag
 	struct mlme_priv	*pmlmepriv = &padapter->mlmepriv;		
 	struct pkt_attrib	*pattrib = &pxmitframe->attrib;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
-	struct dm_priv	*pdmpriv = &pHalData->dmpriv;
 
 	struct ht_priv		*phtpriv = &pmlmepriv->htpriv;
 	struct mlme_ext_priv	*pmlmeext = &padapter->mlmeextpriv;
@@ -193,12 +192,12 @@ static s32 update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem, s32 sz, u8 bag
 #endif //CONFIG_P2P
 #endif
 #ifndef CONFIG_USE_USB_BUFFER_ALLOC_TX
-	if((_FALSE == bagg_pkt) && (urb_zero_packet_chk(padapter, sz)==0))
-	{
-		ptxdesc = (struct tx_desc *)(pmem+PACKET_OFFSET_SZ);
+	if ((PACKET_OFFSET_SZ != 0)
+		&& (_FALSE == bagg_pkt)
+		&& (urb_zero_packet_chk(padapter, sz) == 0)) {
+		ptxdesc = (struct tx_desc *)(pmem + PACKET_OFFSET_SZ);
 		pull = 1;
 		pxmitframe->pkt_offset --;
-
 	}
 #endif	// CONFIG_USE_USB_BUFFER_ALLOC_TX
 
@@ -455,11 +454,12 @@ s32 rtl8723bu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv
 		pxmitframe->buf_addr = pxmitbuf->pbuf;
 		pxmitbuf->priv_data = pxmitframe;
 
-		//pxmitframe->agg_num = 1; // alloc xmitframe should assign to 1.
-		pxmitframe->pkt_offset = 1; // first frame of aggregation, reserve offset
+		/* pxmitframe->agg_num = 1; */ /* alloc xmitframe should assign to 1. */
+		/* pxmitframe->pkt_offset = 1; */ /* first frame of aggregation, reserve offset */
+		pxmitframe->pkt_offset = (PACKET_OFFSET_SZ/8);
 
 		if (rtw_xmitframe_coalesce(padapter, pxmitframe->pkt, pxmitframe) == _FALSE) {
-			DBG_871X("%s coalesce 1st xmitframe failed \n",__FUNCTION__);
+			DBG_871X("%s coalesce 1st xmitframe failed\n", __func__);
 			continue;
 		}
 
@@ -608,7 +608,8 @@ s32 rtl8723bu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv
 
 #ifndef CONFIG_USE_USB_BUFFER_ALLOC_TX
 	//3 3. update first frame txdesc
-	if ((pbuf_tail % bulkSize) == 0) {
+	if ((PACKET_OFFSET_SZ != 0)
+		&& (pbuf_tail % bulkSize) == 0) {
 		// remove pkt_offset
 		pbuf_tail -= PACKET_OFFSET_SZ;
 		pfirstframe->buf_addr += PACKET_OFFSET_SZ;
@@ -922,7 +923,7 @@ s32 rtl8723bu_hostap_mgnt_xmit_entry(_adapter *padapter, _pkt *pkt)
 	ptxdesc->txdw3 |= cpu_to_le32((8 <<28)); //set bit3 to 1. Suugested by TimChen. 2009.12.29.
 	
 
-	rtl8192cu_cal_txdesc_chksum(ptxdesc);
+	rtl8723b_cal_txdesc_chksum(ptxdesc);
 	// ----- end of fill tx desc -----
 
 	//
@@ -940,7 +941,7 @@ s32 rtl8723bu_hostap_mgnt_xmit_entry(_adapter *padapter, _pkt *pkt)
 	pipe = usb_sndbulkpipe(pdvobj->pusbdev, pHalData->Queue2EPNum[(u8)MGT_QUEUE_INX]&0x0f);
 	
 	usb_fill_bulk_urb(urb, pdvobj->pusbdev, pipe,
-			  pxmit_skb->data, pxmit_skb->len, rtl8192cu_hostap_mgnt_xmit_cb, pxmit_skb);
+			  pxmit_skb->data, pxmit_skb->len, rtl8723bu_hostap_mgnt_xmit_cb, pxmit_skb);
 	
 	urb->transfer_flags |= URB_ZERO_PACKET;
 	usb_anchor_urb(urb, &phostapdpriv->anchored);

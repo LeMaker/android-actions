@@ -204,6 +204,16 @@ struct uvc_control {
 	__u8 *uvc_data;
 };
 
+/**
+ * BUGFIX: Add specific usbcamera dropframes demand support .
+ *ActionsCode(author:liyuan, change_code)
+ */
+struct uvc_dropframes {
+	__u16		idVendor;
+	__u16		idProduct;
+	__u16       drop_nframes_needed;
+};
+
 struct uvc_format_desc {
 	char *name;
 	__u8 guid[16];
@@ -337,7 +347,14 @@ enum uvc_buffer_state {
 	UVC_BUF_STATE_DONE	= 4,
 	UVC_BUF_STATE_ERROR	= 5,
 };
-
+/*added for one frame split to two parts, or one frame with err data problems, ActionsCode(author:liyuan, change_code)*/
+enum uvc_buffer_err {
+	UVC_BUF_ERR_NONE	 = 0,
+	UVC_BUF_ERR_ISOFRAM_LOST = 1,
+	UVC_BUF_ERR_ISOFRAM_ERR	 = 2,
+	UVC_BUF_ERR_OVERFLOW	 = 3,
+	UVC_BUF_ERR_NOTFULL	 = 4,
+};
 struct uvc_buffer {
 	struct vb2_buffer buf;
 	struct list_head queue;
@@ -365,7 +382,8 @@ struct uvc_video_queue {
 
 	unsigned int flags;
 	unsigned int buf_used;
-
+	unsigned int framesdropped;
+    	int framestodrop;
 	spinlock_t irqlock;			/* Protects irqqueue */
 	struct list_head irqqueue;
 };
@@ -460,6 +478,8 @@ struct uvc_streaming {
 	struct uvc_video_queue queue;
 	void (*decode) (struct urb *urb, struct uvc_streaming *video,
 			struct uvc_buffer *buf);
+	int uvc_drop_nframes;
+
 
 	/* Context data used by the bulk completion handler. */
 	struct {
@@ -577,6 +597,8 @@ struct uvc_driver {
 #define UVC_TRACE_VIDEO		(1 << 10)
 #define UVC_TRACE_STATS		(1 << 11)
 #define UVC_TRACE_CLOCK		(1 << 12)
+/*added for one frame split to two parts, or one frame with err data problems, ActionsCode(author:liyuan, change_code)*/
+#define UVC_TRACE_FRAME_ERR	(1 << 13)
 
 #define UVC_WARN_MINMAX		0
 #define UVC_WARN_PROBE_DEF	1

@@ -92,7 +92,7 @@ int dss_feat_get_num_mgrs(void);
 int dss_feat_get_num_ovls(void);
 unsigned long dss_feat_get_param_min(enum dss_range_param param);
 unsigned long dss_feat_get_param_max(enum dss_range_param param);
-enum owl_display_type dss_feat_get_supported_displays(enum owl_channel channel);
+enum owl_display_type dss_feat_get_supported_displays(enum owl_de_path_id channel);
 enum owl_color_mode dss_feat_get_supported_color_modes(enum owl_plane plane);
 enum owl_overlay_caps dss_feat_get_overlay_caps(enum owl_plane plane);
 bool dss_feat_color_mode_supported(enum owl_plane plane,

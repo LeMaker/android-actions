@@ -70,11 +70,11 @@ static int check_recovery_cmd_file(void)
 	debug("part = %d\n", part);
 
 	if (get_partition_info(dev_desc, part, &info)) {
-		printf("** get_partition_info %s%d:%d\n",
+		debug("** get_partition_info %s%d:%d\n",
 				ifname, dev, part);
 
 		if (part != 0) {
-			printf("** Partition %d not valid on device %d **\n",
+			debug("** Partition %d not valid on device %d **\n",
 					part, dev_desc->dev);
 			return -1;
 		}

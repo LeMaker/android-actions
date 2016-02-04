@@ -1,0 +1,9 @@
+config VIDEO_OWL_CVBS
+	tristate "OWL cvbs support"
+	depends on ARCH_OWL
+	---help---
+	  Say Y here if you need cvbs controller in your system.
+
+	  If unsure, say Y.
+
+	  To compile this driver as a module, choose M here.

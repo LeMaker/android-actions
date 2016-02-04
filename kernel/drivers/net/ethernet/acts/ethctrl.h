@@ -108,20 +108,25 @@
 
 //#define EC_NOP __asm__ __volatile__ ("nop; nop; nop; nop" : :)
 #define EC_NOP
+#define PHY_ID_MASK 0xfffffff0
 
 enum eth_phy_model {
 	ETH_PHY_MODEL_NONE = 0,
 	ETH_PHY_MODEL_ATC2605, /* same as fdp110 */
 	ETH_PHY_MODEL_KSZ8041TL, /* Micrel KSZ8041TL */
-	ETH_PHY_MODEL_RTL8201, /* Realtek RTL8201 */
-	ETH_PHY_MODEL_SR8201G, /* Corechip SR8201G */
-	ETH_PHY_MODEL_MAX = ETH_PHY_MODEL_SR8201G,
+	ETH_PHY_MODEL_RTL8201_SR8201G, /* Realtek RTL8201/Corechip SR8201G*/
+	ETH_PHY_MODEL_MAX = ETH_PHY_MODEL_RTL8201_SR8201G,
 };
 
 enum eth_phy_mode {
 	ETH_PHY_MODE_RMII = 0,
 	ETH_PHY_MODE_SMII,
 	ETH_PHY_MODE_MAX,
+};
+
+enum eth_phy_id {
+	ETH_PHY_ID_RTL8201  = 0x001cc810,
+	ETH_PHY_ID_SR8201G = 0x001d2410,
 };
 
 typedef struct mac_list {
@@ -185,7 +190,7 @@ typedef struct dev_priv {
 #else
 	struct work_struct netphy_irq_handle_work;
 #endif
-    //int phy_id;
+    unsigned int  phy_id;
     int     phy_addr;
     int     speed;
     int     duplex;

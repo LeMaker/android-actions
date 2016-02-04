@@ -1,2 +1,0 @@
-Code completion in completionvalues1.xml for <item name="android:orientation">h^</item>:
-horizontal

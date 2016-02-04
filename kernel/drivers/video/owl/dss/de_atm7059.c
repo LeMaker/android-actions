@@ -53,16 +53,20 @@
 
 const static struct owl_de_path_pdata de_atm7059_paths[] = {
 	{
-		.id			= OWL_DSS_CHANNEL_LCD,
+		.id			= OWL_DSS_PATH1_ID,
 		.supported_displays	= OWL_DISPLAY_TYPE_LCD
 					| OWL_DISPLAY_TYPE_DSI
-					| OWL_DISPLAY_TYPE_EDP,
+					| OWL_DISPLAY_TYPE_EDP
+					| OWL_DISPLAY_TYPE_HDMI					
+					| OWL_DISPLAY_TYPE_CVBS,
 	},
 	{
-		.id			= OWL_DSS_CHANNEL_DIGIT,
+		.id			= OWL_DSS_PATH2_ID,
 		.supported_displays	= OWL_DISPLAY_TYPE_HDMI
 					| OWL_DISPLAY_TYPE_LCD
-					| OWL_DISPLAY_TYPE_DSI,
+					| OWL_DISPLAY_TYPE_DSI
+					| OWL_DISPLAY_TYPE_EDP
+					| OWL_DISPLAY_TYPE_CVBS,
 	},
 };
 
@@ -222,7 +226,7 @@ static int de_mmu_enable(enum owl_plane video, bool enable)
 }
 
 
-static void de_path_enable(enum owl_channel path, bool enable)
+static void de_path_enable(enum owl_de_path_id path, bool enable)
 {
 	u32 val;
 	
@@ -231,7 +235,7 @@ static void de_path_enable(enum owl_channel path, bool enable)
 	de_write_reg(DE_PATH_EN(path), val);
 }
 
-static bool de_path_is_enabled(enum owl_channel path)
+static bool de_path_is_enabled(enum owl_de_path_id path)
 {
 	u32 val;
 
@@ -241,7 +245,7 @@ static bool de_path_is_enabled(enum owl_channel path)
 	return val;
 }
 
-static void de_path_size_set(enum owl_channel path, u32 width, u32 height)
+static void de_path_size_set(enum owl_de_path_id path, u32 width, u32 height)
 {
 	u32 val;
 	BUG_ON((width > (1 << DE_SIZE_BIT_WIDTH)) || (height > (1 << DE_SIZE_BIT_WIDTH)));
@@ -252,50 +256,59 @@ static void de_path_size_set(enum owl_channel path, u32 width, u32 height)
 	de_write_reg(DE_PATH_SIZE(path), val);
 }
 	
-static void de_display_type_set(enum owl_channel path, enum owl_display_type type)
+static void de_display_type_set(enum owl_de_path_id path, enum owl_display_type type)
 {
-	u32 val;
+	u32 val,tmp;
+	u32 begin_bit,end_bit;
 	val = de_read_reg(DE_OUTPUT_CON);
+	tmp = de_read_reg(DE_PATH_EN(path));
+	//printk("@@@@@tmp = 0x%x\n",tmp);
+	if(path == OWL_DSS_PATH1_ID){
+		begin_bit = DE_OUTPUT_PATH1_DEVICE_BEGIN_BIT;
+		end_bit = DE_OUTPUT_PATH1_DEVICE_END_BIT;
+	}else{
+		begin_bit = DE_OUTPUT_PATH2_DEVICE_BEGIN_BIT;
+		end_bit = DE_OUTPUT_PATH2_DEVICE_END_BIT;
+	}
 
 	switch (type){
 	case OWL_DISPLAY_TYPE_CVBS:
-		val = REG_SET_VAL(val, 0, DE_OUTPUT_PATH2_DEVICE_END_BIT,
-				DE_OUTPUT_PATH2_DEVICE_BEGIN_BIT);
-        	break;            
+		tmp = REG_SET_VAL(tmp, 1, 11,11);
+		tmp = REG_SET_VAL(tmp, 1, 16,16);
+		val = REG_SET_VAL(val, 0, end_bit,begin_bit);
+    break;            
 	case OWL_DISPLAY_TYPE_HDMI:
-		val = REG_SET_VAL(val, 2, DE_OUTPUT_PATH2_DEVICE_END_BIT,
-                          DE_OUTPUT_PATH2_DEVICE_BEGIN_BIT);
+		val = REG_SET_VAL(val, 2, end_bit,begin_bit);
 		break;
 	case OWL_DISPLAY_TYPE_LCD:
-		val = REG_SET_VAL(val, 3, DE_OUTPUT_PATH1_DEVICE_END_BIT,
-                          DE_OUTPUT_PATH1_DEVICE_BEGIN_BIT);
+		val = REG_SET_VAL(val, 3, end_bit, begin_bit);
 		break;
 	case OWL_DISPLAY_TYPE_DSI:
-		val = REG_SET_VAL(val, 1, DE_OUTPUT_PATH1_DEVICE_END_BIT,
-		DE_OUTPUT_PATH1_DEVICE_BEGIN_BIT);
+		val = REG_SET_VAL(val, 1, end_bit,begin_bit);
 		break;
 	default:
     		BUG();
 	}
-
+	
+	de_write_reg(DE_PATH_EN(path), tmp);
 	de_write_reg(DE_OUTPUT_CON, val);
 }
 
 /* TODO */
-static void de_video_enable(enum owl_channel path, enum owl_plane video, bool enable)
+static void de_video_enable(enum owl_de_path_id path, enum owl_plane video, bool enable)
 {
 	u32 val;
 	if (enable) {
-		if (path == OWL_DSS_CHANNEL_LCD) {
-			val = de_read_reg(DE_PATH_CTL(OWL_DSS_CHANNEL_DIGIT));
+		if (path == OWL_DSS_PATH1_ID) {
+			val = de_read_reg(DE_PATH_CTL(OWL_DSS_PATH2_ID));
 			val = REG_SET_VAL(val, 0, DE_PANEL_ENABLE_BIT + video,
 						  DE_PANEL_ENABLE_BIT + video);
-                	de_write_reg(DE_PATH_CTL(OWL_DSS_CHANNEL_DIGIT), val);
+                	de_write_reg(DE_PATH_CTL(OWL_DSS_PATH2_ID), val);
         	} else {
-			val = de_read_reg(DE_PATH_CTL(OWL_DSS_CHANNEL_LCD));
+			val = de_read_reg(DE_PATH_CTL(OWL_DSS_PATH1_ID));
 			val = REG_SET_VAL(val, 0, DE_PANEL_ENABLE_BIT + video,
 						  DE_PANEL_ENABLE_BIT + video);
-			de_write_reg(DE_PATH_CTL(OWL_DSS_CHANNEL_LCD), val);
+			de_write_reg(DE_PATH_CTL(OWL_DSS_PATH1_ID), val);
 		}
 	}
 
@@ -305,7 +318,7 @@ static void de_video_enable(enum owl_channel path, enum owl_plane video, bool en
 	de_write_reg(DE_PATH_CTL(path), val);
 }
 
-static bool de_video_is_enabled(enum owl_channel path, enum owl_plane video)
+static bool de_video_is_enabled(enum owl_de_path_id path, enum owl_plane video)
 {
 	u32 val;
 
@@ -316,13 +329,13 @@ static bool de_video_is_enabled(enum owl_channel path, enum owl_plane video)
 	return val;
 }
 
-static void de_path_fcr_set(enum owl_channel path)
+static void de_path_fcr_set(enum owl_de_path_id path)
 {
 	u32 val;
 	int i = 0;
 	bool found_first_layer = true;
 	
-	if(path == OWL_DSS_CHANNEL_LCD){		
+	if(path == OWL_DSS_PATH1_ID){		
 		for(i = 3 ; i >= 0 ; i --){
 			val = de_read_reg(DE_OVL_COOR(path,i));		
 			if(((val  & 0xffff0000) == 0)
@@ -371,12 +384,12 @@ static void de_path_fcr_set(enum owl_channel path)
 	
 	val = de_read_reg(DE_OUTPUT_STAT);
 	if(val!= 0){
-	//	printk("fifo underflow 0x%x\n",val);
+		printk("fifo underflow 0x%x\n",val);
 		de_write_reg(DE_OUTPUT_STAT,val);
 	}
 }
 
-static bool de_path_fcr_get(enum owl_channel path)
+static bool de_path_fcr_get(enum owl_de_path_id path)
 {
 	u32 val;
 
@@ -386,7 +399,7 @@ static bool de_path_fcr_get(enum owl_channel path)
 	return val;
 }
 
-static void de_gamma_table_set(enum owl_channel path, u32 *gamma)
+static void de_gamma_table_set(enum owl_de_path_id path, u32 *gamma)
 {
 	bool is_busy;
 	u32 idx;
@@ -420,12 +433,12 @@ static void de_gamma_table_set(enum owl_channel path, u32 *gamma)
 	de_write_reg(DE_PATH_GAMMA_IDX(path), 0);
 }
 
-static void de_gamma_table_get(enum owl_channel path, u32 *gamma)
+static void de_gamma_table_get(enum owl_de_path_id path, u32 *gamma)
 {
 	/* TODO */
 }
 
-static void de_gamma_table_enable(enum owl_channel path, bool enable)
+static void de_gamma_table_enable(enum owl_de_path_id path, bool enable)
 {
 	u32 val;
 	
@@ -440,13 +453,13 @@ static void de_gamma_table_enable(enum owl_channel path, bool enable)
 	}
 }
 
-static void de_dither_enable(enum owl_channel path, bool enable)
+static void de_dither_enable(enum owl_de_path_id path, bool enable)
 {
         u32 val;
 	int dither_idx, dither_enable_bit;
 
 	/* only valid for LCD */
-	BUG_ON(OWL_DSS_CHANNEL_LCD != path);
+	BUG_ON(OWL_DSS_PATH1_ID != path);
 
 	if (owl_de_is_atm7059tc()) {
 		dither_idx = DE_PATH_CTL(0);
@@ -461,12 +474,12 @@ static void de_dither_enable(enum owl_channel path, bool enable)
 	de_write_reg(dither_idx, val);
 }
 
-static void de_dither_set(enum owl_channel path, enum owl_dither_mode mode)
+static void de_dither_set(enum owl_de_path_id path, enum owl_dither_mode mode)
 {
 	u32 val;
 	int dither_idx;
 
-	BUG_ON(OWL_DSS_CHANNEL_LCD != path);
+	BUG_ON(OWL_DSS_PATH1_ID != path);
 
 	if (owl_de_is_atm7059tc())
 		dither_idx = DE_PATH_CTL(0);
@@ -633,7 +646,7 @@ static void de_video_osize_set(enum owl_plane video, u32 width, u32 height)
 	de_write_reg(DE_OVL_OSIZE(video), val);
 }
 
-static void de_video_position_set(enum owl_channel path, enum owl_plane video,
+static void de_video_position_set(enum owl_de_path_id path, enum owl_plane video,
 				u32 x_pos, u32 y_pos)
 {
 	u32 val;
@@ -727,7 +740,7 @@ static void de_video_rotation_set(enum owl_plane video, u8 rotation)
 	de_write_reg(DE_OVL_CFG(video), val);
 }
 
-static void __video_enable_global_alpha(enum owl_channel path,
+static void __video_enable_global_alpha(enum owl_de_path_id path,
 				      enum owl_plane video, bool enable)
 {
 	u32 val;         
@@ -740,7 +753,7 @@ static void __video_enable_global_alpha(enum owl_channel path,
 	de_write_reg(DE_OVL_ALPHA_ENABLE(path, video), val);
 }
 
-static void de_video_alpha_set(enum owl_channel path, enum owl_plane video,
+static void de_video_alpha_set(enum owl_de_path_id path, enum owl_plane video,
 				u8 alpha_value,bool alpha_en, bool pre_mult_en)
 {
 	u32 val;         
@@ -808,10 +821,10 @@ static void de_video_str_set(enum owl_plane video,
 	de_write_reg(DE_OVL_STR(video), val); 
 }
 
-static void de_critical_set(enum owl_channel path,enum owl_plane video)
+static void de_critical_set(enum owl_de_path_id path,enum owl_plane video)
 {
 	/*u32 val;
-	if(path == OWL_DSS_CHANNEL_LCD){
+	if(path == OWL_DSS_PATH1_ID){
 		val = de_read_reg(DE_OVL_CFG(video));
 		if(video == 0){
 			val = REG_SET_VAL(val, 2, 
@@ -871,6 +884,71 @@ static void de_video_contrast_set(enum owl_plane video, u8 contrast)
 	val = REG_SET_VAL(val, contrast, DE_OVL_CFG_CONTRAST_END_BIT, DE_OVL_CFG_CONTRAST_BEGIN_BIT);
    
 	de_write_reg(DE_OVL_CFG(video), val);
+}
+
+static void de_curosr_enable(enum owl_de_path_id path, bool enable)
+{
+	u32 val;
+
+	val = de_read_reg(DE_PATH_CTL(path));
+	
+	val = REG_SET_VAL(val, enable, DE_PANEL_CURSOR_ENABLE_BIT, DE_PANEL_CURSOR_ENABLE_BIT);
+	
+    de_write_reg(DE_PATH_CTL(path), val);
+
+}
+
+static void de_curosr_set_position(enum owl_de_path_id path, int pos_x, int pos_y)
+{
+	u32 val;
+	
+	u32 screen_size_x = de_read_reg(DE_PATH_SIZE(path)) & 0xfff;
+	u32 screen_size_y = (de_read_reg(DE_PATH_SIZE(path)) >> 16 )& 0xfff;
+	
+	if(pos_x < 0)
+	{
+		pos_x = 0;
+	}
+	
+	if(pos_y < 0)
+	{
+		pos_y = 0;
+	}
+	
+	if(pos_x > screen_size_x)
+	{
+		pos_x = screen_size_x;
+	}
+	
+	if(pos_y > screen_size_y)
+	{
+		pos_y = screen_size_y;
+	}
+	
+	val = ((pos_y & 0xfff) << 16) | (pos_x & 0xfff);
+	
+    de_write_reg(DE_PATH_E_COOR(path), val);
+	
+}
+
+static void de_curosr_set_addr(enum owl_de_path_id path, void *paddr)
+{
+	u32 val;
+	
+	val = ((u32)paddr & 0xFFFFFFFc);
+  
+	de_write_reg(DE_PATH_CURSOR_FB(path), val);
+	
+	
+}
+
+static void de_curosr_set_str(enum owl_de_path_id path, u32 str)
+{
+	u32 val;
+	
+	val = (str & 0xFFF);
+  
+	de_write_reg(DE_PATH_CURSOR_STR(path), val);
 }
 
 static inline void __de_backup_reg(struct de_regs_t *p, int reg)
@@ -981,7 +1059,6 @@ static int de_resume(struct platform_device *pdev)
 
 	return 0;
 }
-
 
 
 static void de_dump_regs(void)
@@ -1121,6 +1198,13 @@ static const struct owl_de_hwops de_atm7059_ops = {
 	.lightness_set  =  de_video_lightness_set,
 	.saturation_set  =  de_video_saturation_set,
 	.contrast_set  =  de_video_contrast_set,
+	
+	/*hardware  cursor*/
+	.curosr_enable = de_curosr_enable,
+	.curosr_set_position = de_curosr_set_position,	
+	.curosr_set_addr = de_curosr_set_addr,	
+	.curosr_set_str = de_curosr_set_str,
+	
 	/* debug oprations */
 	.dump_regs		= de_dump_regs,
 	.write_regs		= de_write_regs,

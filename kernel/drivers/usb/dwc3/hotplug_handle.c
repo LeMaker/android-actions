@@ -41,7 +41,11 @@ static void dwc3_gadget_usb3_phy_suspend(struct dwc3 *dwc, int suspend);
 extern u32 reset_interrupt_occured ;
 extern void disable_bias(void);
 
-
+static int gadget_is_plugin =1;
+static int dwc3_gadget_is_plugin(void)
+{
+	return gadget_is_plugin;
+}
 
 
 static int dwc3_gadget_plugout(struct dwc3 *dwc,int s)
@@ -51,6 +55,7 @@ static int dwc3_gadget_plugout(struct dwc3 *dwc,int s)
        unsigned long	flags;
        
        spin_lock_irqsave(&dwc->lock, flags);
+       gadget_is_plugin =0;
        //--step1------Waits until the Core Idle bit in DSTS is set------
        while(--cnt>0)
        {
@@ -143,6 +148,8 @@ static int dwc3_gadget_plugin(struct dwc3 *dwc)
 	dwc3_gadget_resume(dwc);
     
 	dwc->gadget.speed = USB_SPEED_UNKNOWN;
+	gadget_is_plugin =1;
+    
        spin_unlock_irqrestore(&dwc->lock, flags);  
 	return 0;
 }
@@ -157,7 +164,6 @@ int dwc3_plug_out(struct dwc3	*dwc,int s)
 	if(s == PLUGSTATE_A_OUT){
 		dwc3_host_exit(dwc);
 	}
-	owl_powergate_power_off(OWL_POWERGATE_USB3);
 	return 0;
 }
 
@@ -215,6 +221,8 @@ int __dwc3_set_plugstate(struct dwc3	*dwc,int s)
 	if((s==PLUGSTATE_A_OUT)||(s==PLUGSTATE_B_OUT)||(s==PLUGSTATE_B_SUSPEND)){    
 		printk("\n----udc_set_plugstate--PLUGSTATE_OUT--\n");
         	dwc3_plug_out(dwc,s);
+		if(owl_powergate_is_powered(OWL_POWERGATE_USB3))
+			owl_powergate_power_off(OWL_POWERGATE_USB3);    
 		if(dwc3_clk_close)
 			dwc3_clk_close();
 		

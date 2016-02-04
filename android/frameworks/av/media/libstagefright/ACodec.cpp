@@ -803,7 +803,12 @@ status_t ACodec::configureOutputBuffersFromNativeWindow(
                 strerror(-err), -err);
         return err;
     }
-
+	/*ActionsCode(author:rongxing Optimize for 60fps video*/
+    // try to allocate two (2) additional buffers to reduce starvation from the consumer
+	if(!strcmp(mComponentName.c_str(), "OMX.Action.Video.Decoder") || !strcmp(mComponentName.c_str(), "OMX.Action.Video.Decoder.Deinterlace")){
+    	*minUndequeuedBuffers += 1;
+    }
+	ALOGE("minUndequeuedBuffers is %d",*minUndequeuedBuffers);
     // FIXME: assume that surface is controlled by app (native window
     // returns the number for the case when surface is not controlled by app)
     // FIXME2: This means that minUndeqeueudBufs can be 1 larger than reported

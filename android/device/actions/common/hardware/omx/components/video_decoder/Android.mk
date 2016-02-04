@@ -24,8 +24,6 @@ LOCAL_C_INCLUDES := \
 	$(TOP)/frameworks/native/include/media/hardware \
 	$(LOCAL_PATH)/../..\
 	$(LOCAL_PATH)/../osal\
-	$(LOCAL_PATH)/../omx_vce/include\
-	$(LOCAL_PATH)/../omx_vce/vce_resize\
 	$(LOCAL_PATH)/../../base\
 	$(TOP)/device/actions/common/hardware/libgralloc \
 
@@ -39,12 +37,13 @@ LOCAL_SHARED_LIBRARIES :=       \
         libui \
         libhardware\
         libdl \
+        libACT_VceResize \
         libgralloc
 
 LOCAL_STATIC_LIBRARIES :=       \
 		libActionsOMX_OSAL	\
 		libomxBellagio_base	\
-		libACT_VceResize \
+		
 
 LOCAL_MODULE_TAGS := eng optional
 
@@ -77,8 +76,6 @@ LOCAL_C_INCLUDES := \
 	$(TOP)/frameworks/native/include/media/hardware \
 	$(LOCAL_PATH)/../..\
 	$(LOCAL_PATH)/../osal\
-	$(LOCAL_PATH)/../omx_vce/include\
-	$(LOCAL_PATH)/../omx_vce/vce_resize\
 	$(LOCAL_PATH)/../../base\
 	$(TOP)/device/actions/common/hardware/libgralloc \
 
@@ -92,12 +89,13 @@ LOCAL_SHARED_LIBRARIES :=       \
         libui \
         libhardware\
         libdl \
-	      libgralloc
+        libACT_VceResize \
+        libgralloc
 
 LOCAL_STATIC_LIBRARIES :=       \
 		libomxBellagio_base	\
 		libActionsOMX_OSAL	\
-		libACT_VceResize \
+		
 
 LOCAL_MODULE_TAGS := eng optional
 

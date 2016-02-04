@@ -51,5 +51,6 @@ obj-$(CONFIG_VIDEO_OWL) += owl_dss.o videomodes.o
 obj-$(CONFIG_OWL_DISPLAY_LCD) += owl_lcd.o
 obj-$(CONFIG_OWL_DISPLAY_DSI) += owl_dsi.o owl_dsi_cmd.o
 obj-$(CONFIG_OWL_DISPLAY_HDMI) += owl_hdmi.o owl_hdmi_edid.o
+obj-$(CONFIG_OWL_DISPLAY_CVBS) += owl_cvbs.o 
 obj-$(CONFIG_OWL_PWM_BACKLIGHT) += owl_pwm_bl.o
 obj-$(CONFIG_VIDEO_BMP_LOGO) += owl_splash.o

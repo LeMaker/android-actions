@@ -566,7 +566,7 @@ int owl_backlight_is_on(void) {
     struct backlight_device *bl = owl_pwm_bl_device;
 
     if (NULL == bl) {
-        printk("%s/%s: get backlight failed!\n", __FILE__, __func__);
+        BL_PRINT("%s/%s: get backlight failed!\n", __FILE__, __func__);
         return 1;
     }
 

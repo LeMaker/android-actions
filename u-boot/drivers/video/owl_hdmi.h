@@ -9,7 +9,7 @@
 #define __OWL_HDMI_H__
 
 
-#define HDMI_DRV_DEBUG 1
+#define HDMI_DRV_DEBUG 0
 #if (HDMI_DRV_DEBUG == 1)
 #define HDMI_DRV_PRINT(fmt, args...)	\
 	do { printf("hdmi: " fmt, ##args); } while (0)
@@ -217,26 +217,10 @@ enum DATA_BLOCK_TYPE {
 	USE_EXTENDED_TAG = 7
 };
 
-struct fb_videomode1 {
-	const char *name;	/* optional */
-	int refresh;		/* optional */
-	int xres;
-	int yres;
-	int pixclock;
-	int left_margin;
-	int right_margin;
-	int upper_margin;
-	int lower_margin;
-	int hsync_len;
-	int vsync_len;
-	int sync;
-	int vmode;
-	int flag;
-	int vid;		/*optional*/
-};
 struct asoc_videomode{
 	int valid;
-	struct fb_videomode1 mode;
+	int vid;
+	struct fb_videomode mode;
 };
 
 struct sink_capabilities_t {
@@ -500,6 +484,7 @@ struct video_parameters_t video_parameters[] = {
 static const struct asoc_videomode hdmi_display_modes[] = {
 	[0] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_480P,
 		.mode = {
 			.name = "HDMI_720x480P_60_4VS3",
 			.refresh = 60,
@@ -515,11 +500,11 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_480P,
 		}
 	},
 	[1] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_576P,
 		.mode = {
 			.name = "HDMI720x576P_50_4VS3",
 			.refresh = 50,
@@ -535,11 +520,11 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_576P,
 		}
 	},	
 	[2] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_720P_50HZ,
 		.mode = {
 			.name = "HDMI_1280x720P_50_16VS9",
 			.refresh = 50,
@@ -555,11 +540,11 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_720P_50HZ,
 		}
 	},
 	[3] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_720P_60HZ,
 		.mode = {
 			.name = "HDMI_1280x720P_60_16VS9",
 			.refresh = 60,
@@ -575,11 +560,11 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_720P_60HZ,
 		}
 	},
 	[4] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_1080P_50HZ,
 		.mode = {
 			.name = "HDMI_1920x1080P_50_16VS9",
 			.refresh = 50,
@@ -595,12 +580,12 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_1080P_50HZ,
 		}
 	},
 	
 	[5] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_1080P_60HZ,
 		.mode = {
 			.name = "HDMI_1920x1080P_60_16VS9",
 			.refresh = 60,
@@ -616,11 +601,11 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_1080P_60HZ,
 		}
 	},	
 	[6] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_4K_30HZ,
 		.mode = {
 			.name = "VID3840x2160p_30_16VS9",
 			.refresh = 30,
@@ -636,11 +621,11 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_4K_30HZ,
 		}
 	},
 	[7] = {
 		.valid = 1,
+		.vid = OWL_TV_MOD_DVI,
 		.mode = {
 			.name = "HDMI_DVI_MOD",
 			.refresh = 60,
@@ -656,7 +641,6 @@ static const struct asoc_videomode hdmi_display_modes[] = {
 			.sync = 0,
 			.vmode = FB_VMODE_NONINTERLACED,
 			.flag = FB_MODE_IS_STANDARD,
-			.vid = OWL_TV_MOD_DVI,
 		}
 	},
 };

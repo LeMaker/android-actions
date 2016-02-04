@@ -24,18 +24,20 @@
 //config for bq27441
 #define TI_CONFIG_STATUS "okay"
 #define TI_CONFIG_REG 0x55
-#define TI_CONFIG_CAP 6000
-#define TI_CONFIG_TERMVOL 3200
-#define TI_CONFIG_TERMCUR 200
+#define TI_CONFIG_CAP 3500
+#define TI_CONFIG_TERMVOL 3400
+#define TI_CONFIG_TERMCUR 250
 #define TI_CONFIG_TAPERVOL 4200
-#define TI_CONFIG_QMAXCELL 17299
+#define TI_CONFIG_QMAXCELL 10369
 #define TI_CONFIG_LOADSEL 0x81
-#define TI_CONFIG_DESIGNENERGY 22200
-#define TI_CONFIG_DSGCUR 800
-#define TI_CONFIG_CHGCUR 800
-#define TI_CONFIG_QUITCUR 1000
-#define TI_CONFIG_UPDATAFLAG 0
-int TI_CONFIG_RATABLE[] = {99, 99, 98, 106, 71, 58, 61, 62, 52, 47, 59, 69, 139, 365, 583 };
+#define TI_CONFIG_DESIGNENERGY 12950
+#define TI_CONFIG_DSGCUR 333
+#define TI_CONFIG_CHGCUR 267
+#define TI_CONFIG_QUITCUR 500
+//#define TI_CONFIG_UPDATAFLAG 0
+
+int TI_CONFIG_RATABLE[] = {106, 106, 107, 119, 85, 72, 79, 85, 77, 73, 94, 116, 116, 291, 467};
+
 
 #ifdef TI_DEBUG 
 #define print_info(fmt, args...)   \
@@ -72,6 +74,16 @@ enum REGISTER_TYPE {
     TYPE_16Bit,
 };
 
+enum REG_TYPE
+{
+	PMU_SYS_CTL9,
+};
+
+static int register_atc2603c[] =
+{
+	0x09, /*0:PMU_SYS_CTL9*/
+};
+
 #if STORE_BQ27441_INFO
 struct bq27441_info {
 	int act_vol;		/* battery voltage */
@@ -91,6 +103,7 @@ struct bq27441_info {
 static struct bq27441_info bq27441_infos;
 static struct kobject *hw_gauge_kobj; 
 static int first_store_pmu_info_flag = 1;
+static bool ti_updataflag_config = false;
 
 static int bq27441_info_store_usb(struct bq27441_info* p_info);
 #endif
@@ -113,7 +126,7 @@ extern void act260x_set_get_hw_cur_point(void *ptr);
 extern void act260x_set_get_hw_temp_point(void *ptr);
 
 extern int pmu_reg_read(unsigned short reg);
-
+extern int pmu_reg_write(unsigned short reg, unsigned short val);
 
 static int bq27441_config(struct i2c_client *client);
 static int bq27441_config_check(void);
@@ -253,11 +266,36 @@ static int bq27441_set_subcmd(struct i2c_client *client, u8 sub_cmd)
 
 	ret = i2c_master_send(client, buffer, count);
 	if ( ret != count) {
-		print_info("[bq27441] set reg failed.\n");
+		pr_err("[bq27441] set reg failed.\n");
 		return -EFAULT;
 	}
 
 	return 0;
+}
+
+static void store_first_product(void)
+{
+	int data;	
+	data = pmu_reg_read(register_atc2603c[PMU_SYS_CTL9]);
+	data |= 0x8000;
+	pmu_reg_write(register_atc2603c[PMU_SYS_CTL9], data);
+}
+
+/*
+	get first product flag
+*/
+static bool get_first_product(void)
+{
+	int pmu_sys_ctl9 = pmu_reg_read(register_atc2603c[PMU_SYS_CTL9]);
+	printk(KERN_ERR "[%s]:pmu_sys_ctl9:0x%x\n", __func__, pmu_sys_ctl9);
+	if (pmu_sys_ctl9 & 0x8000)	
+	{
+		return false;
+	}
+	else 
+	{
+		return true;
+	}
 }
 
 /*
@@ -391,10 +429,6 @@ static int bq27441_get_Flags_FC(void){
 	return 0;
 
 }
-
-
-
-
 
 static int testTemp = 0;
 static int bq27441_get_real_temperature(void)
@@ -1000,7 +1034,7 @@ SET_BLOCK_FOUTH:
 		ret = bq27441_get_regs(client, 0x60, data, 1);
 		if (!ret) {
 			old_csum = data[0];
-			print_info("\n[bq27441] old csum_blk(89)= 0x%x\n", old_csum);
+			printk(KERN_ERR "\n[bq27441] old csum_blk(89)= 0x%x\n", old_csum);
 		} else {
 			pr_err("\n[bq27441] get csum_blk(89) failed\n");
 			goto ERROR; 
@@ -1029,8 +1063,9 @@ SET_BLOCK_FOUTH:
 		print_info("[bq27441] new csum_blk(89)=0x%x !\n", new_csum_third);
 
 		if (new_csum_third == old_csum) {
-			print_info("[bq27441] FW blk(89) have already configed!\n");
+			printk(KERN_ERR "[bq27441] FW blk(89) have already configed!\n");
 		} else {
+			printk(KERN_ERR "[bq27441] FW blk(89) not have configed!\n");
 			for (index = 0, addr = 0x40; index < 15; index++, addr+=2) {
 				print_info("[bq27441] set r_table index =%d\n", index);
 				mdelay(100);
@@ -1328,6 +1363,8 @@ static int bq27441_probe(struct i2c_client *client, const struct i2c_device_id *
 	u8 data[2];
 	struct device_node *node;
 
+	printk("[bq27441] %s is probing .......  \n", __func__);
+	
 	gauge_client = client;
 	node = client->dev.of_node;
 	print_info("[bq27441] probe in, address=0x%0x\n",  client->addr);
@@ -1337,6 +1374,9 @@ static int bq27441_probe(struct i2c_client *client, const struct i2c_device_id *
 		print_info("i2c_check_functionality err\n");
 		goto error;
 	}
+	
+	ti_updataflag_config = get_first_product();
+	store_first_product();
 	
 	/*check bq27441 device type*/
 	ret = bq27441_set_subcmd(client, DEVICE_TYPE);
@@ -1354,12 +1394,16 @@ static int bq27441_probe(struct i2c_client *client, const struct i2c_device_id *
 		print_info("[bq27441] dect success!\n");
 	}
 
+#if 0
 	#ifdef TI_CONFIG_UPDATAFLAG
 		updata_flag = TI_CONFIG_UPDATAFLAG;
 	#else
 		updata_flag = 0;
 	#endif
+#endif
 
+	updata_flag = ti_updataflag_config;
+	
 	pr_err("updata_flag = %d\n", updata_flag);
 
 
@@ -1379,11 +1423,11 @@ static int bq27441_probe(struct i2c_client *client, const struct i2c_device_id *
 	 
 	if ((flags & ITPOR) || (1 == updata_flag)) {
 		if(flags & ITPOR)
-			printk("[bq27441][RECONFIG] TI REG ITOP NEED TO RESET \n");
+			printk(KERN_ERR "[bq27441][RECONFIG] TI REG ITOP NEED TO RESET \n");
 		if(updata_flag == 1 )
-			printk("[bq27441][RECONFIG] SYSTEM SET TO RESET \n");
+			printk(KERN_ERR "[bq27441][RECONFIG] SYSTEM SET TO RESET \n");
 		
-		printk("[bq27441] first config!\n");
+		printk(KERN_ERR "[bq27441] first config!\n");
 		ret = bq27441_config(client);
 		if ( ret < 0) {
 			printk("[bq27441] first config failed\n");
@@ -1448,23 +1492,6 @@ error:
 	return ret;
 }
 
-static int bq27441_remove(struct i2c_client *client)
-{
-	int i;
-/*
-	for (i = 0; i < ARRAY_SIZE(bq27441_attrs); i++) {
-		device_remove_file(&(client->dev), &bq27441_attrs[i]);
-	}
-*/
-#ifdef DEPEND
-	act260x_set_get_hw_cap_point((void *)NULL);
-	act260x_set_get_hw_volt_point((void *)NULL);
-	act260x_set_get_hw_cur_point((void *)NULL); 
-	act260x_set_get_hw_temp_point((void *)NULL);
-#endif
-	return 0;
-}
-
 static int bq27441_suspend(struct i2c_client *client, pm_message_t mesg)
 {
 	return 0;
@@ -1508,20 +1535,6 @@ static const struct of_device_id atc260x_bq27441_match[] = {
 	{},
 };
 MODULE_DEVICE_TABLE(of, atc260x_bq27441_match);
-
-static struct i2c_driver bq27441_driver = {
-	.driver = {
-	    .owner = THIS_MODULE,
-	    .name = "bq27441",
-	},
-
-	.class = I2C_CLASS_HWMON,
-	.probe = bq27441_probe,
-	.remove = bq27441_remove,
-	.suspend = bq27441_suspend,
-	.resume = bq27441_resume,
-	.id_table = bq27441_id,
-};
 
 static struct i2c_client * pClient = NULL;
 
@@ -1799,17 +1812,50 @@ static struct attribute *hd_gauge_attributes[] = {
     NULL
 };
 
-
 static struct attribute_group hd_gauge_attribute_group = {
     .attrs = hd_gauge_attributes
+};
+
+static int bq27441_remove(struct i2c_client *client)
+{
+	int i;
+/*
+	for (i = 0; i < ARRAY_SIZE(bq27441_attrs); i++) {
+		device_remove_file(&(client->dev), &bq27441_attrs[i]);
+	}
+*/
+#ifdef DEPEND
+	act260x_set_get_hw_cap_point((void *)NULL);
+	act260x_set_get_hw_volt_point((void *)NULL);
+	act260x_set_get_hw_cur_point((void *)NULL); 
+	act260x_set_get_hw_temp_point((void *)NULL);
+#endif
+
+	sysfs_remove_group(hw_gauge_kobj,&hd_gauge_attribute_group);
+	return 0;
+}
+
+static struct i2c_driver bq27441_driver = {
+	.driver = {
+	    .owner = THIS_MODULE,
+	    .name = "bq27441",
+	},
+
+	.class = I2C_CLASS_HWMON,
+	.probe = bq27441_probe,
+	.remove = bq27441_remove,
+	.suspend = bq27441_suspend,
+	.resume = bq27441_resume,
+	.id_table = bq27441_id,
 };
 
 static int bq27441_driver_init(void)
 {
 	int ret;
 	struct i2c_client *client = NULL;
-      struct i2c_adapter *adap = i2c_get_adapter(2);
-
+    struct i2c_adapter *adap;
+	printk("[bq27441] %s is start .......  \n", __func__);
+	adap = i2c_get_adapter(2);
 	hw_gauge_kobj = kobject_create_and_add("HW_GAUGE", NULL);  
 	if(hw_gauge_kobj == NULL){  
 		ret = -ENOMEM;  
@@ -1817,7 +1863,7 @@ static int bq27441_driver_init(void)
 	}  
 
     	ret = sysfs_create_group(hw_gauge_kobj,&hd_gauge_attribute_group);
-
+	
 	print_info("[bq27441] %s version: %s, 2013-8-17\n", THIS_MODULE->name, THIS_MODULE->version);	
    	pClient = i2c_new_device(adap, &bq27441_device); 
 	ret = i2c_add_driver(&bq27441_driver);
@@ -1831,7 +1877,7 @@ static int bq27441_driver_init(void)
 static void  bq27441_driver_exit(void)
 {
 	struct i2c_client *client = NULL;
-
+	printk("[bq27441] %s is exit .......  \n", __func__);
 	i2c_del_driver(&bq27441_driver);
       i2c_unregister_device(pClient);
 }

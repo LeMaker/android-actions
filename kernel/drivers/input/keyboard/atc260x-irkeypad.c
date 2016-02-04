@@ -192,9 +192,11 @@ static void asoc_irkeypad_config(struct asoc_irkeypad * irkeypad)
 	atc260x_set_bits(atc260x_dev, ATC2603C_PMU_SYS_CTL0,
 		0x0020, 0x0020);
 
-	/*set IRC code mode,NEC default*/
+	switch(irkeypad->protocol) {
+
+	case IR_PROTOCOL_9012:
 	atc260x_set_bits(atc260x_dev, ATC2603C_IRC_CTL,
-		0x0003, 0x0001);
+			0x0003, 0x0000);
 	/*set IRC cc,NEC default*/
 	atc260x_set_bits(atc260x_dev, ATC2603C_IRC_CC,
 		0xffff, irkeypad->user_code);
@@ -202,50 +204,34 @@ static void asoc_irkeypad_config(struct asoc_irkeypad * irkeypad)
 	/*set IRC wakeup*/
 	atc260x_set_bits(atc260x_dev, ATC2603C_IRC_WK,
 		0xffff, ((~irkeypad->wk_code) << 8) | (irkeypad->wk_code));
-
-    /*set IRC filter*/
-    atc260x_set_bits(atc260x_dev, ATC2603C_IRC_FILTER,
-        0xffff,0x000b);
-
-#if 0
-	unsigned int user_code;
-	unsigned int wk_code;
-	user_code = irkeypad->user_code;
-	wk_code = irkeypad->wk_code;
-
-	switch(irkeypad->protocol) {
-
-	case IR_PROTOCOL_9012:
-	 	atc260x_set_bits(atc260x_dev, atc2603_IRC_CTL,
-			0x0003, 0x0000);
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_CC,
-			0xffff, (user_code << 8) | user_code);
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_WK,
-			0xffff, (~wk_code << 8) | user_code);
 		break;
 
 	case IR_PROTOCOL_NEC8:
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_CTL,
+		atc260x_set_bits(atc260x_dev, ATC2603C_IRC_CTL,
 			0x0003, 0x0001);
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_CC,
-			0xffff, (~user_code << 8) | user_code);
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_WK,
-			0xffff, (~wk_code << 8) | user_code);
+		atc260x_set_bits(atc260x_dev, ATC2603C_IRC_CC,
+			0xffff, irkeypad->user_code);
+		atc260x_set_bits(atc260x_dev, ATC2603C_IRC_WK,
+			0xffff, ((~irkeypad->wk_code) << 8) | (irkeypad->wk_code));
 		break;
 
 	case IR_PROTOCOL_RC5:
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_CTL,
+		atc260x_set_bits(atc260x_dev, ATC2603C_IRC_CTL,
 			0x0003, 0x0002);
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_CC,
-			0xffff, user_code & 0x001f);
-		atc260x_set_bits(atc260x_dev, atc2603_IRC_WK,
-			0xffff, wk_code & 0x003f);
+		atc260x_set_bits(atc260x_dev, ATC2603C_IRC_CC,
+			0xffff, (irkeypad->user_code) & 0x001f);
+		atc260x_set_bits(atc260x_dev, ATC2603C_IRC_WK,
+			0xffff, (irkeypad->wk_code) & 0x003f);
 		break;
 
 	default:
 		break;
 	}
-#endif
+
+    /*set IRC filter*/
+    atc260x_set_bits(atc260x_dev, ATC2603C_IRC_FILTER,
+        0xffff,0x000b);
+
 	GL5201_IRKEYPAD_INFO("[%s finished]\n",__func__);
 }
 
@@ -813,7 +799,6 @@ static int atc260x_irkeypad_probe(struct platform_device *pdev)
 
     atc260x_dev_global = atc260x_dev;
 
-	printk("[%s start]\n",__func__);
 	np = pdev->dev.of_node;
 
 	if(led_blink_enable){/*
@@ -878,7 +863,7 @@ static int atc260x_irkeypad_probe(struct platform_device *pdev)
 
 	/*get protocol*/
 	ret = of_property_read_u32(np, "protocol", &(irkeypad->protocol));
-	if ((ret) || (!irkeypad->protocol)) {
+	if (ret) {
 		dev_err(&pdev->dev, "Get protocol failed ret = %d \r\n", ret);
 		goto of_property_read_err;
 	}

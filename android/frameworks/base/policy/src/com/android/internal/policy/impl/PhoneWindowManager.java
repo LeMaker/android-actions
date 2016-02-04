@@ -333,6 +333,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     boolean mSystemReady;
     boolean mSystemBooted;
     boolean mHdmiPlugged;
+	boolean mCvbsPlugged;
     IUiModeManager mUiModeManager;
     int mUiMode;
     int mDockMode = Intent.EXTRA_DOCK_STATE_UNDOCKED;
@@ -643,6 +644,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         @Override
         public void onUEvent(UEventObserver.UEvent event) {
             setHdmiPlugged("1".equals(event.get("SWITCH_STATE")));
+			Slog.v(TAG, "Debug mHDMIObserver");
+        }
+    };
+	
+	private UEventObserver mCVBSObserver = new UEventObserver() {
+        @Override
+        public void onUEvent(UEventObserver.UEvent event) {
+			Slog.v(TAG, "Debug mCVBSObserver");
+            setCvbsPlugged("1".equals(event.get("SWITCH_STATE")));
         }
     };
 
@@ -1346,6 +1356,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         // Controls rotation and the like.
         initializeHdmiState();
+		
+		initializeCvbsState();
 
         // Match current screen state.
         if (!mPowerManager.isInteractive()) {
@@ -4426,6 +4438,55 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         setHdmiPlugged(!mHdmiPlugged);
     }
 
+	
+	//CVBS 
+	 void setCvbsPlugged(boolean plugged) {
+        if (mCvbsPlugged != plugged) {
+            mCvbsPlugged = plugged;
+            updateRotation(true, true);
+            Intent intent = new Intent(ACTION_CVBS_PLUGGED);
+            intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY_BEFORE_BOOT);
+            intent.putExtra(EXTRA_CVBS_PLUGGED_STATE, plugged);
+            mContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
+        }
+    }
+
+    void initializeCvbsState() {
+        boolean plugged = false;
+		Slog.w(TAG, "Debug $$$$$$$$$ initializeCvbsState");
+        // watch for CVBS plug messages if the cvbs switch exists
+        if (new File("/sys/devices/virtual/switch/cvbs/state").exists()) {
+            mCVBSObserver.startObserving("DEVPATH=/devices/virtual/switch/cvbs");
+
+            final String filename = "/sys/class/switch/cvbs/state";
+            FileReader reader = null;
+            try {
+                reader = new FileReader(filename);
+                char[] buf = new char[15];
+                int n = reader.read(buf);
+                if (n > 1) {
+                    plugged = 0 != Integer.parseInt(new String(buf, 0, n-1));
+                }
+            } catch (IOException ex) {
+                Slog.w(TAG, "Couldn't read cvbs state from " + filename + ": " + ex);
+            } catch (NumberFormatException ex) {
+                Slog.w(TAG, "Couldn't read cvbs state from " + filename + ": " + ex);
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException ex) {
+                    }
+                }
+            }
+        }
+        // This dance forces the code in setHdmiPlugged to run.
+        // Always do this so the sticky intent is stuck (to false) if there is no cvbs.
+        mCvbsPlugged = !plugged;
+        setCvbsPlugged(!mCvbsPlugged);
+    }
+	
+	
     final Object mScreenshotLock = new Object();
     ServiceConnection mScreenshotConnection = null;
 

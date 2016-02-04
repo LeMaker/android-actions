@@ -47,10 +47,17 @@ extern bool owlfb_debug;
 #define FB2OFB(fb_info) ((struct owlfb_info *)(fb_info->par))
 
 /* max number of overlays to which a framebuffer data can be direct */
-#define OWLFB_NUM_FBS        1
+#define OWLFB_NUM_FBS        2
 #define OWLFB_MAX_OVL_PER_FB 3
-#define OWLFB_NUM_BUFFERS_PER_FB 3
+#define OWLFB_NUM_BUFFERS_PER_FB 2
 
+#define OWLFB_BUFFERS_MAX_XRES 1920
+#define OWLFB_BUFFERS_MAX_YRES 1080
+
+#define OWLFB_MAX_OVL_MEM_RESERVE_PER_OVL  (2048 * 2048 * 3 / 2)
+#define OWLFB_MAX_OVL_MEM_RESERVE_NUM  1
+#define OWLFB_MAX_CURSOR_MEM_RESERVE  (64 * 64 * 4)
+#define OWLFB_CURSOR_OVL_ID 3
 struct owlfb_mem_region {
 	int             id;
 	u32		paddr;
@@ -69,7 +76,12 @@ struct owlfb_mem_region {
 struct owlfb_info {
 	int id;
 	struct owlfb_mem_region *region;
+	u32 overlay_mem_base;
+	u32 overlay_free_mem_off;
+	u32 overlay_free_mem_size;	
 	int num_overlays;
+	int used_overlay_mask;
+	struct owl_overlay_manager * manager;
 	struct owl_overlay *overlays[OWLFB_MAX_OVL_PER_FB];
 	struct owlfb_device *fbdev;
 	u8 rotation[OWLFB_MAX_OVL_PER_FB];
@@ -80,14 +92,13 @@ struct owlfb_display_data {
 	struct owlfb_device *fbdev;
 	struct owl_dss_device *dssdev;
 	u8 bpp_override;
-	enum owlfb_update_mode update_mode;
-	bool auto_update_work_enabled;
-	struct delayed_work auto_update_work;
+	bool connected;
 };
 
 struct owlfb_device {
 	struct device *dev;
 	struct mutex  mtx;
+	int mirror_fb_id;
 
 	u32 pseudo_palette[17];
 
@@ -105,6 +116,14 @@ struct owlfb_device {
 	struct owl_overlay_manager *managers[10];
 
 	struct workqueue_struct *auto_update_wq;
+	
+	struct owl_dss_device *def_display;
+	
+	int xres;
+	int yres;
+	int bpp;
+	int refresh;
+	
 };
 
 struct owlfb_colormode {

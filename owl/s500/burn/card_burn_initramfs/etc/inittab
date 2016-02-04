@@ -1,0 +1,7 @@
+# /etc/inittab
+::sysinit:/etc/init.d/rcS
+/dev/console::respawn:-/bin/sh
+/dev/ttyS2::respawn:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+

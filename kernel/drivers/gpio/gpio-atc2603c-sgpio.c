@@ -367,7 +367,7 @@ static int _atc2603c_sgpio_create_all_irq_mappings(struct atc2603c_sgpio_dev *at
 			return -ENXIO;
 		}
 		atc2603c_sgpio->irq_map_tbl[hwirq] = virq;
-		dev_info(atc2603c_sgpio->dev, "new IRQ mapping: hwirq%u -> virq%u\n",
+		dev_dbg(atc2603c_sgpio->dev, "new IRQ mapping: hwirq%u -> virq%u\n",
 			hwirq, virq);
 	}
 
@@ -622,7 +622,7 @@ static int atc2603c_sgpio_probe(struct platform_device *pdev)
 	struct atc2603c_sgpio_dev *atc2603c_sgpio;
 	int ret;
 
-	dev_info(&pdev->dev, "Probing...\n");
+	dev_dbg(&pdev->dev, "Probing...\n");
 
 	atc260x = atc260x_get_parent_dev(&pdev->dev);
 

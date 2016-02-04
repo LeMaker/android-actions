@@ -32,7 +32,7 @@ struct display_ops {
 extern const struct fb_videomode owl_mode_800_480;
 extern const struct fb_videomode owl_mode_1280_720;
 
-int owl_display_register(u32 display_id, struct display_ops *ops,
+int owl_display_register(u32 display_id, const char * name , struct display_ops *ops,
 		const struct fb_videomode *def_mode,int data_width,int rotate);
 
 /********************/

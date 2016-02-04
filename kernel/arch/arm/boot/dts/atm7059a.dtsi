@@ -72,13 +72,13 @@
 		      < 0xb0020100 0x0100 >;
 	};
 
-        pmu {
-                compatible = "arm,cortex-a9-pmu";
-                interrupts = <0 4 0x04
-                              0 5 0x04
-                              0 6 0x04
-                              0 7 0x04>;
-        };
+	pmu {
+		compatible = "arm,cortex-a9-pmu";
+		interrupts = <0 4 0x04
+							0 5 0x04
+							0 6 0x04
+							0 7 0x04>;
+	};
 
 	L2: cache-controller@b0022000 {
 		compatible = "arm,pl310-cache";
@@ -89,7 +89,14 @@
 		arm,tag-latency = <3 3 2>;
 		arm,data-latency = <5 3 3>;
 	};
-
+	
+	twd-watchdog@b0020600 {
+		compatible = "actions,atm7059-wdt";
+		reg = <0xb0020600 0x100>, <0xb0160000 0x20>;
+		interrupts = <1 14 0xf01>;
+		wd_type="soft";			//wd_type:"hard" and "soft"
+	};
+	
 	uart0: serial@b0120000 {
 		compatible = "actions,owl-uart", "actions,owl-uart-irc";
 		reg = <0xb0120000 0x2000>;

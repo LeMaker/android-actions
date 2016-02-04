@@ -65,10 +65,10 @@ static char *maximum_speed = "high";
 module_param(maximum_speed, charp, 0);
 MODULE_PARM_DESC(maximum_speed, "Maximum supported speed.");
 static int dwc3_slew_rate =-1;
-module_param(dwc3_slew_rate, uint, S_IRUGO | S_IWUSR);
+module_param(dwc3_slew_rate, int, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(dwc3_slew_rate, "dwc3_slew_rate");
 static int dwc3_tx_bias=-1;
-module_param(dwc3_tx_bias, uint, S_IRUGO | S_IWUSR);
+module_param(dwc3_tx_bias, int, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(dwc3_tx_bias, "dwc3_tx_bias");
 /* -------------------------------------------------------------------------- */
 #define DWC3_DEVS_POSSIBLE	32

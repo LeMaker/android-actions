@@ -86,7 +86,8 @@ static const char * const compat_names[COMPAT_COUNT] = {
 	COMPAT(ACTIONS_OWL_LCD, "actions,owl-lcd"),
 	COMPAT(ACTIONS_OWL_PWM_BACKLIGHT, "actions,owl-pwm-backlight"),
 	COMPAT(ACTIONS_OWL_DSI, "actions,owl-dsi"),
-	COMPAT(ACTIONS_OWL_HDMI, "actions,atm7059a-hdmi"),	
+	COMPAT(ACTIONS_OWL_HDMI, "actions,atm7059a-hdmi"),
+	COMPAT(ACTIONS_OWL_CVBS, "actions,atm7059a-cvbs"),	
 	COMPAT(ACTIONS_OWL_USB3_MONITOR, "actions,atm7059tc-usbmonitor"),
 	COMPAT(ACTIONS_OWL_PMU, "actions,atm7059tc-pmu"),
 };

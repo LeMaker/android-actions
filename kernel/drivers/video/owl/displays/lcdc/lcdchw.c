@@ -36,6 +36,7 @@
 #include <linux/slab.h>
 #include <linux/of.h>
 #include <linux/of_gpio.h>
+#include <linux/fb.h>
 
 #include <mach/hardware.h>
 
@@ -324,10 +325,10 @@ static void lcdchw_lvds_port_enable(struct platform_device *lcdcdev, bool enable
 	
     if(enable){        
         val = lcdchw_read_reg(lcdcdev,LCDCHW_LVDS_ALG_CTL0);
-                
-        val = REG_SET_VAL(val, 0, 30, 31);
-        
-        val = REG_SET_VAL(val, 0, 4, 5);
+               
+        val = REG_SET_VAL(val, 3, 31, 30);
+       
+        val = REG_SET_VAL(val, 3, 5, 4);
         
         lcdchw_write_reg(lcdcdev,LCDCHW_LVDS_ALG_CTL0, lcdc->lvds_alg_ctl0);
         
@@ -339,10 +340,10 @@ static void lcdchw_lvds_port_enable(struct platform_device *lcdcdev, bool enable
                     
     }else{
         val = lcdchw_read_reg(lcdcdev,LCDCHW_LVDS_ALG_CTL0);
-                
-        val = REG_SET_VAL(val, 0, 30, 31);
-        
-        val = REG_SET_VAL(val, 0, 4, 5);
+		        
+        val = REG_SET_VAL(val, 0, 31, 30);
+		   
+        val = REG_SET_VAL(val, 0, 5, 4);
         
         lcdchw_write_reg(lcdcdev,LCDCHW_LVDS_ALG_CTL0, val);
         
@@ -531,7 +532,7 @@ int owl_lcdc_display_enable(struct owl_dss_device *dssdev)
     if (r)
         goto err_mgr_enable;
     
-    if (lcdc->lcdc_enabled) {
+    if (!lcdc->lcdc_enabled) {
         lcdchw_power_enable(lcdcdev, true);
 
         lcdchw_display_init_lcdc(dssdev);
@@ -600,7 +601,7 @@ void owl_lcdc_select_video_timings(struct owl_dss_device *dssdev, u32 num,
 
     timings->x_res          = mode->xres;
     timings->y_res          = mode->yres;
-    timings->pixel_clock    = mode->pixclock;
+    timings->pixel_clock    = PICOS2KHZ(mode->pixclock);
     timings->hfp            = mode->left_margin;
     timings->hbp            = mode->right_margin;
     timings->vfp            = mode->upper_margin;
