@@ -1007,13 +1007,11 @@
 	usb@b0600000 { 
 		//vbus_otg_en_gpio = <&gpio 116 0>; /*GPIO D20*/ 
 		port0_host_plug_detect = <1>;
-		 status = "okay";
 	}; 
 
 	usb@b0700000 { 
 		//vbus_otg_en_gpio = <&gpio 36 0>; /*GPIO B4*/
 		port1_host_plug_detect = <1>;
-                      status = "okay";
 	};
 
 	monitor {
