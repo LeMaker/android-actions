@@ -337,9 +337,12 @@ DERIVEDCLASS(VIDDEC_COMPONENT_PRIVATE, omx_base_filter_PrivateType)
   OMX_CONFIG_RECTTYPE croprect;\
   Node* headNode;\
   tsem_t* PortDisableSem;\
+  OMX_U32 start_index; \
   pthread_mutex_t port_freebuffer_mutex;\
   OMX_BUFFERHEADERTYPE *last_buffer_header;\
-  OMX_BOOL output_portformat_inited;/* flash player compatible*/
+  OMX_BOOL output_portformat_inited;/* flash player compatible*/\
+  OMX_S64 firstTimestamp;\
+  OMX_BOOL bSetFrequency;
 ENDCLASS(VIDDEC_COMPONENT_PRIVATE)
 
 /* Component private entry points declaration */

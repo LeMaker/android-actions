@@ -237,6 +237,32 @@ OMX_S64 dequeueNode(Node *head,OMX_S64 nTimeStamp){
   
   return Timestampfound;
  }
+
+OMX_S64 dequeueH264Node(Node *head){  
+	if(NULL == head){  
+		return OMX_FALSE;  
+	}
+	Node*   q = head;
+	Node*   p = head->pNext;
+	Node*   temp = NULL;
+	Node*	last = head;
+	OMX_S64 Timestampfound = -1;
+	while(NULL != p){ 
+  		if(p->nTimeStamp < Timestampfound || -1 == Timestampfound ){
+  			temp = p;
+			last = q;
+  			Timestampfound = p->nTimeStamp;
+		}
+		q = p;
+		p = p->pNext; 
+	}
+	if(NULL != temp){
+		last->pNext = temp->pNext;
+  		actal_free(temp);
+	}
+	return Timestampfound;
+}
+
  
 void resetNodeList(Node *head){
 	if(head==NULL){
@@ -253,6 +279,19 @@ void resetNodeList(Node *head){
   head->pNext = NULL;
 }
  
+ OMX_U32 getNodeListNum(Node *head){
+	 if(head==NULL){
+	 	DEBUG(DEB_LEV_ERR,"++++NodeList has not created yet++++\n");
+		return -1;
+	 }
+	 OMX_U32 num = 0;
+	 Node* p = head->pNext;
+	 while(p != NULL){  
+	 	p = p->pNext;
+	 	++num;
+	 }
+	 return num;
+ }
 
 
 
@@ -372,7 +411,9 @@ OMX_ERRORTYPE OMX_ComponentInit(OMX_COMPONENTTYPE *openmaxStandComp,OMX_STRING c
 	pComponentPrivate->IsPortBufferRealloc =OMX_FALSE;
 	pComponentPrivate->bLowRam = OMX_FALSE;
 	pComponentPrivate->bHdeExsit = OMX_FALSE;
-	
+	pComponentPrivate->firstTimestamp = -1;
+	pComponentPrivate->bSetFrequency = OMX_FALSE;
+	 
 	hde_fd = open(d, O_RDWR);
 	if (hde_fd < 0){            		
 		d="/dev/mali1";
@@ -398,7 +439,7 @@ OMX_ERRORTYPE OMX_ComponentInit(OMX_COMPONENTTYPE *openmaxStandComp,OMX_STRING c
 	if(createNodeList(&pComponentPrivate->headNode)!=OMX_TRUE){
   	 return OMX_ErrorInsufficientResources;
   }
-    
+   	pComponentPrivate->start_index = 1; 
 	pComponentPrivate->CodecConfigPktLen=0;
 	pComponentPrivate->CodecConfigPkt = (OMX_U8*)actal_malloc(256*1024);
 	if(pComponentPrivate->CodecConfigPkt==NULL){
@@ -772,6 +813,7 @@ OMX_ERRORTYPE omx_videodec_component_actvideoInit(VIDDEC_COMPONENT_PRIVATE *pCom
 		DEBUG(DEB_LEV_ERR,"xFramerate is %d \n",(pPortFormat->xFramerate>>16));
 		//pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,DISCARD_FRAMES,1);
 		pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,EX_RESERVED2,1);
+		pComponentPrivate->bSetFrequency = OMX_TRUE;
 	}
 	
 	if(pComponentPrivate->bHdeExsit && pComponentPrivate->is_Thumbnail==OMX_FALSE){
@@ -1412,6 +1454,7 @@ void omx_videodec_component_BufferMgmtCallback(OMX_COMPONENTTYPE *openmaxStandCo
 	int naltype = 0;
 	int alignh = 15;
 	int costdown = 0;
+	int frameRate = 0;
 	
 	
 
@@ -1521,7 +1564,14 @@ void omx_videodec_component_BufferMgmtCallback(OMX_COMPONENTTYPE *openmaxStandCo
 				packet_header_t *pheader=(packet_header_t *)(pInputBuffer->pBuffer - sizeof(packet_header_t));
 			  memset(pheader,0,sizeof(packet_header_t));
 	  		pheader->header_type = VIDEO_PACKET;
-	  		pheader->packet_ts = pInputBuffer->nTimeStamp/1000;	  			  
+			if(pInPort->sVideoParam.eCompressionFormat == OMX_VIDEO_CodingAVC)
+	  			pheader->packet_ts = p->start_index++;
+			else
+				pheader->packet_ts = pInputBuffer->nTimeStamp/1000;
+			
+
+	  	  
+	  	  
 	  	  if(p->bComponentFlush==OMX_TRUE){
 	  	  	pheader->seek_reset_flag = 1;
 	  	  	p->bComponentFlush = OMX_FALSE;
@@ -1849,6 +1899,19 @@ DEC_PROBE:
 	  		}
     }
 	
+		if(p->bSetFrequency == OMX_FALSE){
+			if(p->firstTimestamp == -1)
+				p->firstTimestamp = pInputBuffer->nTimeStamp;
+			else{
+				p->bSetFrequency == OMX_TRUE;
+				if(pInputBuffer->nTimeStamp != p->firstTimestamp)
+					frameRate = 1E6/(pInputBuffer->nTimeStamp - p->firstTimestamp);
+				if(frameRate >= 50 && p->is_Thumbnail==OMX_FALSE && pPortDef->format.video.nStride* ((pPortDef->format.video.nFrameHeight+15)&(~15))>=1280*720 ){
+					DEBUG(DEB_LEV_ERR,"Framerate is %d \n",frameRate);
+					p->p_interface->ex_ops(p->p_handle,EX_RESERVED2,1);
+				}
+			}
+		}
 
 			
 		
@@ -1995,10 +2058,15 @@ void omx_videodec_getoutput(OMX_COMPONENTTYPE* openmaxStandComp,frame_buf_handle
 				pOutputBuffer->nFlags = OMX_BUFFERFLAG_ENDOFFRAME;
 				 /*---add time compensation for cts test---*/
 				if(pComponentPrivate->bthirdparty==OMX_TRUE){
-				 	timestampfound = dequeueNode(pComponentPrivate->headNode,timestamp);
-				  if(timestampfound>=0 ){
-				  	pOutputBuffer->nTimeStamp = timestampfound;
-				  }
+					if(pInPort->sVideoParam.eCompressionFormat == OMX_VIDEO_CodingAVC){
+				     	timestampfound = dequeueH264Node(pComponentPrivate->headNode);
+						if((pComponentPrivate->start_index % 1000 == 0 ) && getNodeListNum(pComponentPrivate->headNode) > 1000)
+							resetNodeList(pComponentPrivate->headNode);
+					}else
+				     	timestampfound = dequeueNode(pComponentPrivate->headNode,timestamp);
+					if(timestampfound>=0 ){
+						pOutputBuffer->nTimeStamp = timestampfound;
+					}
 				}
 				if(pComponentPrivate->is_Thumbnail==OMX_FALSE){
 					OMX_PTR phy_addr = 0;
@@ -2098,7 +2166,12 @@ int omx_videodec_output_relocation(OMX_COMPONENTTYPE* openmaxStandComp,OMX_BUFFE
 				     pBuffHead->nFlags=OMX_BUFFERFLAG_ENDOFFRAME;
 				     /*---add time compensation for cts test---*/
 				     if(p->bthirdparty==OMX_TRUE){
-				     	timestampfound = dequeueNode(p->headNode,timestamp);
+				     	if(pInPort->sVideoParam.eCompressionFormat == OMX_VIDEO_CodingAVC){
+				     		timestampfound = dequeueH264Node(p->headNode);
+							if((p->start_index % 1000 == 0 )  && getNodeListNum(p->headNode) > 1000)
+								resetNodeList(p->headNode);
+						}else
+				     		timestampfound = dequeueNode(p->headNode,timestamp);
 				     	if(timestampfound>=0 ){
 				     		pBuffHead->nTimeStamp = timestampfound;
 				     	}
@@ -2119,7 +2192,12 @@ int omx_videodec_output_relocation(OMX_COMPONENTTYPE* openmaxStandComp,OMX_BUFFE
 				   	 pBuffHead->nTimeStamp = timestamp*1000;
 				   	  /*---add time compensation for cts test---*/
 				     if(p->bthirdparty==OMX_TRUE){
-				     	timestampfound = dequeueNode(p->headNode,timestamp);
+					 	if(pInPort->sVideoParam.eCompressionFormat == OMX_VIDEO_CodingAVC){
+				     		timestampfound = dequeueH264Node(p->headNode);
+							if((p->start_index % 1000 == 0 ) && getNodeListNum(p->headNode) > 1000)
+								resetNodeList(p->headNode);
+						}else
+							timestampfound = dequeueNode(p->headNode,timestamp);
 				     	if(timestampfound>=0 ){
 				     		pBuffHead->nTimeStamp = timestampfound;
 				     	}

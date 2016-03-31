@@ -281,6 +281,8 @@ OMX_ERRORTYPE OMX_ComponentInit(OMX_COMPONENTTYPE *openmaxStandComp,OMX_STRING c
 	pComponentPrivate->CodecConfigPktLen=0;	
 	pComponentPrivate->OutPutThreadID=-1;
 	pComponentPrivate->bLowRam = OMX_FALSE;
+	pComponentPrivate->firstTimestamp = -1;
+	pComponentPrivate->bSetFrequency = OMX_FALSE;
 	if(!strcmp(memory_property,"true")){
   	 pComponentPrivate->bLowRam = OMX_TRUE;
   	 VIDDEC_DEFAULT_INPUT_BUFFER_NUM = 2;
@@ -586,8 +588,8 @@ OMX_ERRORTYPE omx_videodec_component_actvideoInit(VIDDEC_COMPONENT_PRIVATE *pCom
 		
    	if((pPortFormat->xFramerate>>16)>30 && pComponentPrivate->is_Thumbnail==OMX_FALSE && pPortDef->format.video.nStride* ((pPortDef->format.video.nFrameHeight+15)&(~15))>=640*360 ){
 		DEBUG(DEB_LEV_ERR,"xFramerate is %d \n",(pPortFormat->xFramerate>>16));
-		//pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,DISCARD_FRAMES,1);
 		pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,EX_RESERVED2,1);
+		pComponentPrivate->bSetFrequency = OMX_TRUE;
 	}
 	
 		if(pComponentPrivate->p_handle == NULL) {
@@ -1120,7 +1122,7 @@ void omx_videodec_component_BufferMgmtCallback(OMX_COMPONENTTYPE *openmaxStandCo
   	dec_buf_t *vo_frame;
 	int i;
 	int ret=0;
-
+	int frameRate = 0;
 	
 //第一个包为init_buf
 	if(pComponentPrivate->isFirstBuffer == 1)
@@ -1256,13 +1258,25 @@ void omx_videodec_component_BufferMgmtCallback(OMX_COMPONENTTYPE *openmaxStandCo
 			actal_cache_flush(bitstream_buf.vir_addr);
 		  	bitstream_buf.phy_addr=(unsigned char*)actal_get_phyaddr(bitstream_buf.vir_addr);
 	  }
-	
+	if(pComponentPrivate->bSetFrequency == OMX_FALSE){
+		if(pComponentPrivate->firstTimestamp == -1)
+			pComponentPrivate->firstTimestamp = pInputBuffer->nTimeStamp;
+		else{
+			pComponentPrivate->bSetFrequency == OMX_TRUE;
+			if(pInputBuffer->nTimeStamp != pComponentPrivate->firstTimestamp)
+				frameRate = 1E6/(pInputBuffer->nTimeStamp - pComponentPrivate->firstTimestamp);
+			if(frameRate >= 50 && pComponentPrivate->is_Thumbnail==OMX_FALSE && pPortDef->format.video.nStride* ((pPortDef->format.video.nFrameHeight+15)&(~15))>=640*360 ){
+				DEBUG(DEB_LEV_ERR,"Framerate is %d \n",frameRate);
+				pComponentPrivate->p_interface->ex_ops(pComponentPrivate->p_handle,EX_RESERVED2,1);
+			}
+		}
+	}
 
-		   int rt = pComponentPrivate->p_interface->decode_data(pComponentPrivate->p_handle, &bitstream_buf);
+	int rt = pComponentPrivate->p_interface->decode_data(pComponentPrivate->p_handle, &bitstream_buf);
 
 		
 			// h264解缩略图， 第一个包可能存在错误，这时候解码器报错，继续给数据进来。
-		 if (pComponentPrivate->is_Thumbnail==OMX_TRUE && rt == PLUGIN_RETURN_NOT_SUPPORT && pInPort->sVideoParam.eCompressionFormat == OMX_VIDEO_CodingAVC) {
+	if (pComponentPrivate->is_Thumbnail==OMX_TRUE && rt == PLUGIN_RETURN_NOT_SUPPORT && pInPort->sVideoParam.eCompressionFormat == OMX_VIDEO_CodingAVC) {
 		    DEBUG(DEB_LEV_FULL_SEQ,"*************** Thumbnail first packet not support***************\n");
             pComponentPrivate->is_cur_stream_buf = OMX_FALSE;
             pInputBuffer->nFilledLen = 0; 

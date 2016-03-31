@@ -333,8 +333,9 @@ DERIVEDCLASS(VIDDEC_COMPONENT_PRIVATE, omx_base_filter_PrivateType)
   int framebuffernum;\
   pthread_t OutPutThread; /** @param  OutPutThread This field contains the reference to the thread that output buffers for the components */ \
 	int OutPutThreadID; /** @param  OutPutThreadID The ID of the pthread that output buffers */ \
-  OMX_BOOL output_portformat_inited;/* flash player compatible*/
-  
+  OMX_BOOL output_portformat_inited;/* flash player compatible*/\
+  OMX_S64 firstTimestamp;\
+  OMX_BOOL bSetFrequency;
 ENDCLASS(VIDDEC_COMPONENT_PRIVATE)
 
 /* Component private entry points declaration */
