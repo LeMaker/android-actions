@@ -9,7 +9,7 @@
 #define __OWL_HDMI_H__
 
 
-#define HDMI_DRV_DEBUG 0
+#define HDMI_DRV_DEBUG 1
 #if (HDMI_DRV_DEBUG == 1)
 #define HDMI_DRV_PRINT(fmt, args...)	\
 	do { printf("hdmi: " fmt, ##args); } while (0)
@@ -689,5 +689,5 @@ void image_on(void);
 int cec_init(void);
 int send_message(unsigned char, unsigned char *, unsigned char);
 extern int hdmi_init(void);
-extern int check_hdmi_mode(int mode);
+extern int check_hdmi_mode(int mode,int i2cbus);
 #endif

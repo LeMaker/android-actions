@@ -247,6 +247,7 @@
 		compatible = "actions,owl-usb-2.0-0";
 		reg = <0xb0600000 0x1000>;
 		interrupts = < 0 24 0x4 >;
+		status = "disabled"; /*must disabled always although use it*/
 	};
 	
 	usb1: usb@b0700000 {
@@ -255,6 +256,7 @@
 		compatible = "actions,owl-usb-2.0-1";
 		reg = <0xb0700000 0x1000>;
 		interrupts = < 0 61 0x4 >;
+		status = "disabled"; /*must disabled always although use it*/
 	};
 
 	usb@b0400000 {
@@ -315,6 +317,10 @@
 	hdmi@b02c0000{
 		compatible = "actions,atm7059a-hdmi";
 		reg = <0xb02c0000 0x160>;
+	};
+	cvbs@b02b0000{
+		compatible = "actions,atm7059a-cvbs";
+		reg = <0xb02b0000 0x80>;
 	};
 	
 	de@b02e0000 {

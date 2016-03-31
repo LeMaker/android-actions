@@ -905,6 +905,8 @@ int owl_fdtdec_set_pinctrl(int offset)
 
 
 	pinctrl = fdtdec_find_pinctrl_dev(parent);
+	if(pinctrl == NULL)
+		return -1;
 
 	for (depth = 0; (offset >= 0) && (depth >= 0);
 		offset = fdt_next_node(gd->fdt_blob, offset, &depth)) {

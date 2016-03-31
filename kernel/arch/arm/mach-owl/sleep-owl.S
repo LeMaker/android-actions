@@ -39,11 +39,6 @@ _temp_arg_pool_end:
 	adrl    r12, _temp_arg_pool
 	stmia   r12, {r0-r3}
 
-	/* switch jtag */
-	ldr r0, =IO_ADDRESS(0xb01b0044)
-	ldr r1, =0x26000000
-	str r1, [r0]
-
 	bl  leopard_clean_dcache_all
 
 	/*
@@ -324,14 +319,42 @@ wait_for_spi_2:
 	bl print_char
 	b   wait_for_spi_2
 
-	/*---------------------------------------------*/
+	/* r4 :  cpu_type
+	 * r5 :  bus_iobase
+	 * r6 :  pmic_bus_addr
+	 * r7 :  pmic_type      
+	 * r8 :  i2c address
+	 * r9 : i2c_data send or receive(16bits)
+	 */
 i2c_pmic_enter_s2:
 	/* reset i2c0 module */
 	/*check clock source & pll*/
 
+	/*set reg address, PMU_DC2_CTL0 (same for 5307 & 5303), get and set bit5~6 to 0*/
+	mov r8, #0x14
+   bl i2c_rx
+   
+   ldr r0, =0xFF9F  //set dcdc2 to pfm mode
+   and r9, r0
+   bl i2c_tx
+
+	/*set reg address, PMU_SYS_CTL1 (same for 5307 & 5303), send data 0x0016*/
+	mov r8, #1
+	mov r9, #0x16
+   bl i2c_tx
+
+wait_for_enter_s2:
+	mov r0, #DBG_STAGE_PRINT_PMU_CLR_S1
+	bl print_char
+	b   wait_for_enter_s2
+ENDPROC(owl_finish_suspend)
+
+
+ENTRY(reset_i2c_and_set_address)
+	stmfd	sp!, {lr}
+
 reset_i2c:
 	mov r0, r5
-	ldr r4, =0x0
 	ldr r3, =0x30 @timeout 2us at 24M clk
 
 	ldr r2, =0x00
@@ -340,7 +363,7 @@ reset_i2c:
 	/* delay 2us */
 wait_for_i2c_reset:
 	sub r3, r3, #0x1
-	cmp r3, r4
+	cmp r3, #0
 	bne wait_for_i2c_reset
 
 	/*enable i2c and pull-up resistor.*/
@@ -355,22 +378,14 @@ wait_for_i2c_reset:
 	mov r2, r6, LSL #1
 	str r2, [r0, #0x10]
 	
-	/*set reg address, PMU_SYS_CTL1 (same for 5307 & 5303)*/
-	ldr r2, =0x01
-	str r2, [r0, #0x10]
+   /*set reg address*/
+	str r8, [r0, #0x10]
 	
-	/*set data, high bytes*/
-	ldr r2, =0x00
-	str r2, [r0, #0x10]
-	
-	/*set data, low bytes*/
-	ldr r2, =0x16
-	str r2, [r0, #0x10]
-	
-	/*write send cmd*/
-	ldr r2, =0x8d05
-	str r2, [r0, #0x18]
+	ldmfd	sp!, {pc}
+ENDPROC(reset_i2c_and_set_address)
 
+ENTRY(wait_i2c_complete)
+	stmfd	sp!, {lr}
 	ldr r3, =0x1d4c0      @timeout 5ms at 24M clk
 wait_for_i2c_1:
 	subs  r3, r3, #0x1
@@ -380,20 +395,63 @@ wait_for_i2c_1:
 	ands r1, r1, #0x1
 	beq  wait_for_i2c_1
 	nop
-	
-	/*disable i2c0*/
-	ldr r1, =0x0;
-	str r1, [r0]
-	nop
-	nop
-	nop
-	nop
+	ldmfd	sp!, {pc}
+ENDPROC(wait_i2c_complete)
 
-wait_for_i2c_2:
-	mov r0, #DBG_STAGE_PRINT_PMU_CLR_S1
-	bl print_char
-	b   wait_for_i2c_2
-ENDPROC(owl_finish_suspend)
+	/* r4 :  cpu_type
+	 * r5 :  bus_iobase
+	 * r6 :  pmic_bus_addr
+	 * r7 :  pmic_type      
+	 * r8 :  i2c address
+	 * r9 : i2c_data send(16bits)
+	 */
+ENTRY(i2c_tx)
+	stmfd	sp!, {lr}
+   bl  reset_i2c_and_set_address
+
+	/*set data, high bytes*/
+	mov r2, r9, LSR #8
+	str r2, [r0, #0x10]
+	
+	/*set data, low bytes*/
+	str r9, [r0, #0x10]
+	
+	/*write send cmd*/
+	ldr r2, =0x8d05
+	str r2, [r0, #0x18]
+
+   bl wait_i2c_complete
+	
+	ldmfd	sp!, {pc}
+ENDPROC(i2c_tx)
+
+	/* r4 :  cpu_type
+	 * r5 :  bus_iobase
+	 * r6 :  pmic_bus_addr
+	 * r7 :  pmic_type      
+	 * r8 :  i2c address
+	 * r9 : i2c_data return(16bits)
+	 */
+ENTRY(i2c_rx)
+	stmfd	sp!, {lr}
+
+   bl  reset_i2c_and_set_address
+
+   ldr r2, =0xcb
+	str r2, [r0, #0x10]
+
+	/*read send cmd*/
+	ldr r2, =0x8f35
+	str r2, [r0, #0x18]
+
+   bl wait_i2c_complete
+
+   ldr r2, [r0, #0x14]
+   ldr r9, [r0, #0x14]
+   orr r9, r2, LSL #8
+
+	ldmfd	sp!, {pc}
+ENDPROC(i2c_rx)
 
 ENTRY(print_char)
 	/* check clock before doing any thing! */
@@ -413,6 +471,8 @@ ENTRY(print_char)
 	str r0, [r1, #8]
 24:	mov	pc, lr
 ENDPROC(print_char)
+
+
 
 ENTRY(owl_cpu_resume)
 	/* goto cpu_resume */

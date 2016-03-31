@@ -575,40 +575,6 @@ static unsigned calc_offset_dma(const struct fb_var_screeninfo *var,
 	return offset;
 }
 
-static void owlfb_hotplug_notify(struct owl_dss_device *dssdev, int state)
-{
-	struct owl_overlay_manager *external_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_EXTERNAL);
-	int vid ;
-	if(external_mgr != NULL 
-		&& external_mgr->device != NULL 
-		&& external_mgr->mirror_context 
-		&& external_mgr->device->type == dssdev->type)
-	{
-		if(state == 1){
-			dssdev->driver->get_vid(dssdev,&vid);
-			dssdev->driver->set_vid(dssdev,vid);		
-			dssdev->driver->enable(dssdev);	
-		}else{
-			dssdev->driver->disable(dssdev);    	
-		}
-		if(external_mgr->link_fbi != NULL){
-			owlfb_get_mem_region(FB2OFB(external_mgr->link_fbi)->region);
-			owlfb_apply_changes(external_mgr->link_fbi, 0);
-			owlfb_put_mem_region(FB2OFB(external_mgr->link_fbi)->region);
-			DBG("owlfb_hotplug_notify  dssdev %s  state %d \n",dssdev->name,state);
-		}		
-	}	
-}
-
-static void owlfb_register_hotplug_notify(struct owl_dss_device *dssdev)
-{
-	if(dssdev && dssdev->driver){
-		if(!dssdev->driver->hot_plug_nodify){
-			dssdev->driver->hot_plug_nodify = owlfb_hotplug_notify;
-			DBG("owlfb_register_hotplug_notify  dssdev %s  \n",dssdev->name);
-		}
-	}
-}
 
 static void owlfb_calc_addr(const struct owlfb_info *ofbi,
 			     const struct fb_var_screeninfo *var,
@@ -963,6 +929,8 @@ static int owlfb_mmap(struct fb_info *fbi, struct vm_area_struct *vma)
 	unsigned long start;
 	u32 len;
 	int r = -EINVAL;
+	struct owl_dss_device * dssdev = ofbi->manager->device;
+	struct owl_overlay *ovl = ofbi->overlays[0];
 
 	if (vma->vm_end - vma->vm_start == 0)
 		return 0;
@@ -998,13 +966,31 @@ static int owlfb_mmap(struct fb_info *fbi, struct vm_area_struct *vma)
 	/* vm_ops.open won't be called for mmap itself. */
 	atomic_inc(&rg->map_count);
 
-	owlfb_put_mem_region(rg);
 
-	/* Apply overlay changes, SHOULD NOT be here, TODO */
-	if (ofbi->num_overlays > 0) {
-		struct owl_overlay *ovl = ofbi->overlays[0];
-		ovl->manager->apply(ovl->manager);
-	}
+DBG("Apply overlay changes ofbi->num_overlays %d \n", ofbi->num_overlays);
+	
+#if CONFIG_FB_MAP_TO_DE
+	if(ofbi->manager != NULL && ofbi->manager->device != NULL && ofbi->manager->device->driver != NULL)
+	{
+		
+		if(dssdev->driver->get_vid != 0 && dssdev->driver->set_vid != 0)
+		{
+			int vid = 0;
+			dssdev->driver->get_vid(dssdev,&vid);
+			dssdev->driver->set_vid(dssdev,vid);
+		}
+		if(dssdev->driver->enable){
+			dssdev->driver->enable(dssdev);	
+		}		
+
+	    r = owlfb_overlay_enable(ovl, 1);		
+		
+		r = owlfb_apply_changes(fbi, 0);
+ 	}
+#endif
+
+	owlfb_put_mem_region(rg);
+	
 
 	return 0;
 
@@ -1590,6 +1576,57 @@ err:
 	return r;
 }
 
+static void owlfb_hotplug_notify(struct owl_dss_device *dssdev, int state)
+{
+	
+	struct owl_overlay_manager *external_mgr = owl_dss_get_overlay_manager(OWL_DSS_OVL_MGR_EXTERNAL);
+	int vid ;		 
+	printk("owlfb_hotplug_notify %d ~~~~~~ \n",state);	
+	if(state == 1){
+		dssdev->driver->disable(dssdev);
+		dssdev->driver->get_vid(dssdev,&vid);
+		dssdev->driver->set_vid(dssdev,vid);
+		dssdev->driver->enable(dssdev);
+			
+	}else{
+		dssdev->driver->disable(dssdev);
+	}	
+#ifdef CONFIG_FB_MAP_TO_DE
+	printk("owlfb_hotplug_notify owlfb_apply_changes \n");
+	if(external_mgr != NULL && external_mgr->link_fbi != NULL){	
+		if(state)
+			{
+				struct owlfb_info *ofbi = FB2OFB(external_mgr->link_fbi);
+				struct owlfb_device *fbdev = ofbi->fbdev;
+				struct fb_info *fbi = fbdev->fbs[0];
+				
+				if(external_mgr->device->type == dssdev->type)
+				{
+					fbi=fbdev->fbs[1];
+					printk("external_mgr is fb1\n");
+				}
+				owlfb_build_modelist(fbi,dssdev);	
+			}	
+		
+			owlfb_get_mem_region(FB2OFB(external_mgr->link_fbi)->region);
+			owlfb_apply_changes(external_mgr->link_fbi, 0);
+			owlfb_put_mem_region(FB2OFB(external_mgr->link_fbi)->region);	
+	}
+#endif
+
+}
+
+static void owlfb_register_hotplug_notify(struct owl_dss_device *dssdev)
+{
+	if(dssdev && dssdev->driver){
+		if(!dssdev->driver->hot_plug_nodify){
+			dssdev->driver->hot_plug_nodify = owlfb_hotplug_notify;
+			DBG("owlfb_register_hotplug_notify  dssdev %s  \n",dssdev->name);
+		}
+	}
+}
+
+
 static void fbinfo_cleanup(struct owlfb_device *fbdev, struct fb_info *fbi)
 {
 	fb_dealloc_cmap(&fbi->cmap);
@@ -1680,17 +1717,15 @@ static int owlfb_create_framebuffers(struct owlfb_device *fbdev)
 		/* connected display to managers */
 		if(fbdev->def_display != NULL && i == 0){
 			ofbi->manager->set_device(ofbi->manager,fbdev->def_display);
+			owlfb_register_hotplug_notify(fbdev->def_display);
 		}else{
 			for( j = 0 ; j < fbdev->num_displays ; j++){
 				if(!fbdev->displays[j].connected){
 					fbdev->displays[j].connected = true;
 					ofbi->manager->set_device(ofbi->manager,fbdev->displays[j].dssdev);
-					
-					if(i != 0){
-						DBG("owlfb_register_hotplug_notify allocated %s \n",fbdev->displays[j].dssdev->name);
-						owlfb_register_hotplug_notify(fbdev->displays[j].dssdev);
-					}
-					
+
+					DBG("owlfb_register_hotplug_notify allocated %s \n",fbdev->displays[j].dssdev->name);
+					owlfb_register_hotplug_notify(fbdev->displays[j].dssdev);
 					break;
 				}
 			}			

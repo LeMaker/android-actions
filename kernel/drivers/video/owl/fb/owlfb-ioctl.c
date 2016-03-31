@@ -549,12 +549,12 @@ int owlfb_ioctl(struct fb_info *fbi, unsigned int cmd, unsigned long arg)
 			break;
 		}
 				
-		if(display->driver->get_resolution){
+		/*if(display->driver->get_resolution){
 			display->driver->get_resolution(display, &p.display_info.xres, &p.display_info.yres);
-		}else{
+		}else{*/
 			p.display_info.xres = fbdev->xres;
 			p.display_info.yres = fbdev->yres;
-		}
+		/*}*/
 		
 		p.display_info.virtual_xres = fbdev->xres;
 		p.display_info.virtual_yres = fbdev->yres;		
@@ -719,7 +719,7 @@ int owlfb_ioctl(struct fb_info *fbi, unsigned int cmd, unsigned long arg)
 	}
 	case OWLFB_CVBS_ON:{
 		struct owl_dss_device * device = owl_dss_find_device_by_type(OWL_DISPLAY_TYPE_CVBS);
-		
+		atomic_set(&want_close_external_devices,false);
 		if(!device || !device->driver){
 			dev_err(fbdev->dev, "device is NULL or no driver device %p \n",device);
 			r = -EFAULT;
@@ -729,10 +729,7 @@ int owlfb_ioctl(struct fb_info *fbi, unsigned int cmd, unsigned long arg)
 		if(device->driver->enable){
 			device->driver->enable(device);
 		}
-		atomic_set(&want_close_external_devices,false);
-		unlock_fb_info(fbi);
-		msleep(500);
-		lock_fb_info(fbi);
+		
 		break;
 	}	
 	case OWLFB_CVBS_OFF:{

@@ -347,100 +347,55 @@ static void ip_hdmi_reset(struct hdmi_ip_data *ip_data)
 */
 }
 
-static void ip_hdmi_pllpu(struct hdmi_ip_data *ip_data)
+static void ip_hdmi_pmds_ldo_enable(struct hdmi_ip_data *ip_data ,bool enable)
 {
-	/*u32 val;	
-	val = hdmi_read_reg(ip_data, HDMI_TX_2);
-	val = REG_SET_VAL(val ,1, 27, 27);
-	hdmi_write_reg(ip_data, HDMI_TX_2, val);
-	HDMI_DEBUG("[%s finished]\n", __func__);
-
-	val = hdmi_read_reg(ip_data, HDMI_TX_1);
-	val = REG_SET_VAL(val ,1, 23, 23);
-	hdmi_write_reg(ip_data, HDMI_TX_1, val);
-	HDMI_DEBUG("[%s finished]\n", __func__);*/
-	
-	if(hdmi.ip_data.txrx_cfg.drv_from_dts)
-	{
+	u32 val;
+	if(!enable){
+		
+		// tx pll power off
+	    val = hdmi_read_reg(ip_data, HDMI_TX_1);
+		val = REG_SET_VAL(val ,0, 23, 23);
+		hdmi_write_reg(ip_data, HDMI_TX_1, val);
+		
+		// tmds ldo power off
+	    val = hdmi_read_reg(ip_data, HDMI_TX_2);
+		val = REG_SET_VAL(val ,0, 27, 27);
+		hdmi_write_reg(ip_data, HDMI_TX_2, val);
+		
+	}else{
+		// only open tmds ldo power on 
+		val = 0x18f80f89;
+		
+		val = REG_SET_VAL(val ,0, 17, 17);	
+			
+		val = REG_SET_VAL(val ,0, 11, 8);
+				
+		hdmi_write_reg(ip_data, HDMI_TX_2,val);
+		
+		udelay(500);
+		
+		// tx pll power on
 		switch (ip_data->cfg.cm.code)
 		{
-			case VID640x480P_60_4VS3:
-				hdmi_write_reg(ip_data, HDMI_TX_1, hdmi.ip_data.txrx_cfg.vid480p_tx1);	
-				hdmi_write_reg(ip_data, HDMI_TX_2, hdmi.ip_data.txrx_cfg.vid480p_tx2&(0xfffff0ff));	
+			case VID640x480P_60_4VS3:			
+				hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
 				break;	
 			case VID720x576P_50_4VS3:
-			case VID720x480P_60_4VS3:
-				hdmi_write_reg(ip_data, HDMI_TX_1, hdmi.ip_data.txrx_cfg.vid576p_tx1);	
-				hdmi_write_reg(ip_data, HDMI_TX_2, hdmi.ip_data.txrx_cfg.vid576p_tx2&(0xfffff0ff));	
+			case VID720x480P_60_4VS3:					
+				hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
 				break;		
 			case VID1280x720P_60_16VS9:
 			case VID1280x720P_50_16VS9:
-			case VID1280x720P_60_DVI:
-				hdmi_write_reg(ip_data, HDMI_TX_1, hdmi.ip_data.txrx_cfg.vid720p_tx1);	
-				hdmi_write_reg(ip_data, HDMI_TX_2, hdmi.ip_data.txrx_cfg.vid720p_tx2&(0xfffff0ff));	
+			case VID1280x720P_60_DVI:						
+				hdmi_write_reg(ip_data, HDMI_TX_1, 0x81942983);	
 				break;
 			case VID1920x1080P_60_16VS9:
-			case VID1920x1080P_50_16VS9:
-				hdmi_write_reg(ip_data, HDMI_TX_1, hdmi.ip_data.txrx_cfg.vid1080p_tx1);	
-				hdmi_write_reg(ip_data, HDMI_TX_2, hdmi.ip_data.txrx_cfg.vid1080p_tx2&(0xfffff0ff));	
+			case VID1920x1080P_50_16VS9:						
+				hdmi_write_reg(ip_data, HDMI_TX_1, 0x81902983);
 				break;
 			default:
 				DEBUG_ERR("!!!no surpport this vid %d\n", ip_data->cfg.cm.code);
 		}		
-	}else{
-		if(hdmi.hdmihw_diff->ic_type == IC_TYPE_ATM7059A){	
-			switch (ip_data->cfg.cm.code)
-			{
-				case VID640x480P_60_4VS3:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
-					break;	
-				case VID720x576P_50_4VS3:
-				case VID720x480P_60_4VS3:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c2983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
-					break;		
-				case VID1280x720P_60_16VS9:
-				case VID1280x720P_50_16VS9:
-				case VID1280x720P_60_DVI:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81942983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
-					break;
-				case VID1920x1080P_60_16VS9:
-				case VID1920x1080P_50_16VS9:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81902983);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
-					break;
-				default:
-					DEBUG_ERR("!!!no surpport this vid %d\n", ip_data->cfg.cm.code);
-			}
-		}else{
-			switch (ip_data->cfg.cm.code)
-			{
-				case VID640x480P_60_4VS3:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c0986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
-					break;	
-				case VID720x576P_50_4VS3:
-				case VID720x480P_60_4VS3:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x819c0986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
-					break;		
-				case VID1280x720P_60_16VS9:
-				case VID1280x720P_50_16VS9:
-				case VID1280x720P_60_DVI:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81982986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);
-					break;
-				case VID1920x1080P_60_16VS9:
-				case VID1920x1080P_50_16VS9:
-					hdmi_write_reg(ip_data, HDMI_TX_1, 0x81940986);	
-					hdmi_write_reg(ip_data, HDMI_TX_2, 0x18f80f89&0xfffff0ff);	
-					break;
-				default:
-					DEBUG_ERR("!!!no surpport this vid %d\n", ip_data->cfg.cm.code);
-			}	
-		}
 	}
 }
 
@@ -717,15 +672,9 @@ static void ip_hdmi_phy_disable(struct hdmi_ip_data *ip_data)
 
 	// LDO_TMDS power off
     val = hdmi_read_reg(ip_data, HDMI_TX_2);
-	val = REG_SET_VAL(val ,0, 27, 27);
 	val = REG_SET_VAL(val ,0, 17, 17);
 	val = REG_SET_VAL(val ,0x0, 11, 8);
 	hdmi_write_reg(ip_data, HDMI_TX_2, val);	
-    // tx pll power off
-    val = hdmi_read_reg(ip_data, HDMI_TX_1);
-	val = REG_SET_VAL(val ,0, 23, 23);
-	hdmi_write_reg(ip_data, HDMI_TX_1, val);
-	
 }
 
 static void ip_hdmi_video_start(struct hdmi_ip_data *ip_data)
@@ -839,8 +788,7 @@ static void ip_hdmi_basic_configure(struct hdmi_ip_data *ip_data)
 
 	/* HDMI core */
 	struct hdmi_config *cfg = &ip_data->cfg;
-	/**/
-	ip_hdmi_pllpu(ip_data);
+
 	/* video config */
 	hdmi_video_init_format(&video_format, &video_timing, cfg);	
 
@@ -880,6 +828,7 @@ static const struct owl_hdmi_ip_ops owl_hdmi_functions = {
 	.hdmi_devclken		=	ip_hdmi_devclken,
 	.hdmi_clk24Men		=	ip_hdmi_clk24Men,
 	.hdmi_reset 		=   ip_hdmi_reset,
+	.pmds_ldo_enable    =   ip_hdmi_pmds_ldo_enable,
 	.pll_enable			=	ip_hdmi_pll_enable,
 	.pll_disable		=	ip_hdmi_pll_disable,
 	.read_reg 			=   ip_hdmi_read_reg,

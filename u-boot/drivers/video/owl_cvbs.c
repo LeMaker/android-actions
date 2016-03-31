@@ -139,7 +139,7 @@ static void configure_ntsc(void)//ntsc(480i),pll1:432M,pll0:594/1.001
 			   CVBS_AL_SEPO_ALSP(0x15),CVBS_AL_SEPO);	
 
 	writel((readl(CVBS_AL_SEPE) & (~CVBS_AL_SEPE_ALEPEF_MASK)) |
-			   CVBS_AL_SEPE_ALEPEF(0x20b),CVBS_AL_SEPE);
+			   CVBS_AL_SEPE_ALEPEF(0x205),CVBS_AL_SEPE);
 	writel((readl(CVBS_AL_SEPE) & (~CVBS_AL_SEPE_ALSPEF_MASK)) |
 			   CVBS_AL_SEPE_ALSPEF(0x11c),CVBS_AL_SEPE);
 

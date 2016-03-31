@@ -515,9 +515,13 @@ int read_edid(u8 * edid , int len)
 
 	if (len >= 128 * 2 && edid[0x7e] > 0) {
 		r = ddc_read(1,0x80,edid + 0x80);
-		if (r)
-			return r;
-		l += 128;
+		if (r<0)
+			{
+				printk("read ddc_read is error r=%d\n");
+				return r;
+			}
+
+		l = 256;
 	}
 	return l;
 	

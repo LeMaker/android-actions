@@ -41,6 +41,8 @@
 //#undef debug
 //#define debug printf
 
+static int ibus;
+
 #define HDMI_DDC_ADDR		(0x60 >> 1)
 #define DDC_EDID_ADDR		(0xa0 >> 1)
  
@@ -123,7 +125,7 @@ static int ddc_read(char segment_index, char segment_offset, char * pbuf)
 	int ret;
 	int retry_num = 0;
 
-	I2C_SET_BUS(3);
+	I2C_SET_BUS(ibus);
 	
 retry:
 	if (retry_num++ >= 3) {
@@ -590,10 +592,12 @@ err0:
 	return -1 ;
 }
 
-int check_hdmi_mode(int mode)
+int check_hdmi_mode(int mode,int i2cbus)
 {
 	int i=0;
 	i = MODE_COUNT;
+	ibus=i2cbus;
+	
 	
 	parse_edid(&edid);		
 	
@@ -606,10 +610,10 @@ int check_hdmi_mode(int mode)
 	}
 	for(i=0;i<MODE_COUNT;i++){
 		if(edid.video_formats[0]&(1<<hdmi_mode[i].vid)){
-			debug("find support mode %d \n", hdmi_mode[i].mode);
+			printf("find support mode %d \n", hdmi_mode[i].mode);
 			return hdmi_mode[i].mode;
 		}
 	}
 	
-	return OWL_TV_MOD_1080P_60HZ;
+	return OWL_TV_MOD_720P_60HZ;
 }

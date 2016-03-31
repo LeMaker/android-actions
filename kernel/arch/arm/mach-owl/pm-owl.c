@@ -133,6 +133,26 @@ void system_powerdown_withgpio(void)
 }
 EXPORT_SYMBOL_GPL(system_powerdown_withgpio);
 
+bool owl_pm_is_battery_connected(void)
+{
+	int ret;
+	struct power_supply *psy;
+	union power_supply_propval val;
+
+	/* Check if battery is known */
+	psy = power_supply_get_by_name("battery");
+	if (psy) {
+		ret = psy->get_property(psy, POWER_SUPPLY_PROP_PRESENT, &val);
+		if (!ret && val.intval) {
+			pr_info("find battery connect\n");
+			return true;
+		}
+	}
+	
+	pr_info("can not find battery connect\n");
+	return false;
+}
+
 void owl_pm_halt(void)
 {
 	int deep_pwrdn, wakeup_src;
@@ -144,9 +164,10 @@ void owl_pm_halt(void)
 	/* default sleep mode and wakeup source */
 	/* DO NOT add HARD_SWITCH source, we are here just because no batt switch. */
 	wakeup_src = OWL_PMIC_WAKEUP_SRC_RESET |
-		OWL_PMIC_WAKEUP_SRC_ONOFF_LONG/* |
-		OWL_PMIC_WAKEUP_SRC_WALL_IN |
-		OWL_PMIC_WAKEUP_SRC_VBUS_IN*/;
+		OWL_PMIC_WAKEUP_SRC_ONOFF_LONG;
+	
+	if(owl_pm_is_battery_connected())
+		wakeup_src |= OWL_PMIC_WAKEUP_SRC_WALL_IN | OWL_PMIC_WAKEUP_SRC_VBUS_IN;
 
 	/* if wall/usb is connect, cannot enter S4, only can enter S3 */
 	deep_pwrdn = 0;
@@ -669,6 +690,8 @@ int c_check_ddr_checksum(void)
 	return 0;
 }
 
+void owl_switch_jtag(void);
+
 static int owl_cpu_suspend(unsigned long cpu_state)
 {
 	static const ulong sc_i2c_iobase_tbl[] = {
@@ -684,7 +707,6 @@ static int owl_cpu_suspend(unsigned long cpu_state)
 	uint pmic_bus_num, pmic_addr, pmic_type;
 	ulong pmic_bus_iobase;
 
-//    switch_jtag();
 	c_check_ddr_checksum();
 	c_save_ddr_train_area();
 	
@@ -706,6 +728,9 @@ static int owl_cpu_suspend(unsigned long cpu_state)
 	default:
 		while(1);
 	}
+
+	/* switch jtag */
+   owl_switch_jtag();
 
 	memcpy((void *)func, (void *)owl_finish_suspend, 0x1000);
 	flush_cache_all();
@@ -839,6 +864,10 @@ static void owl_set_wakeup_source(void)
 			break;
 		}
 	}
+
+	if(!owl_pm_is_battery_connected())
+		wakeup_src &= ~(OWL_PMIC_WAKEUP_SRC_WALL_IN | OWL_PMIC_WAKEUP_SRC_WALL_OUT
+				| OWL_PMIC_WAKEUP_SRC_VBUS_IN | OWL_PMIC_WAKEUP_SRC_VBUS_OUT);
 
 	/* add onoff long press wakeup source enabled,
 	 *    when the adapter is plugged in and the battery is full.

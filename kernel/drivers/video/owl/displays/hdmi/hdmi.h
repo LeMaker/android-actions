@@ -310,6 +310,8 @@ struct hdmi_core{
 extern struct hdmi_core hdmi;
 
 struct owl_hdmi_ip_ops {
+	
+	void (*pmds_ldo_enable)(struct hdmi_ip_data *ip_data, bool enable);
 
 	void (*hdmi_devclken)(struct hdmi_ip_data *ip_data, bool enable);
 	

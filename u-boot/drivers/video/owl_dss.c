@@ -543,7 +543,7 @@ static void de_hw_output_config(struct owl_display * display,int * channel_id,in
     }
 	/* if this is default display */
 	if(dss.display && dss.display->display_id == display->display_id&&display->display_id!=TV_CVBS_DISPLAYER){
-		debug("display->name %s is a default display ,used channel 0 and layer 0 \n",display->name);
+		printf("display->name %s is a default display ,used channel 0 and layer 0 \n",display->name);
 		*channel_id = 0;
         *layer_id  = 0;
 	}
@@ -604,7 +604,16 @@ int de_hw_init(void)
     /*set noc priority */
     writel(0x0f, 0xb0500108);
     /*DE out standing to 0x1f*/
-    writel(0x1f0000, 0xb02e000c);    
+    writel(0x1f0000, 0xb02e000c);  
+    
+    /*main display always on path 0 ,we need force open path 0 */
+    if((readl(PATHx_CTL(0)) & PATH_CTL_PATH_ENABLE) == 0)
+    {
+    	writel(readl(PATHx_CTL(0)) | PATH_CTL_PATH_ENABLE |PATH_CTL_FCR, PATHx_CTL(0)); 
+    	writel(0x02cf04ff, PATHx_SIZE(0));  
+    }
+    
+
     return 0;
 }
 
@@ -651,7 +660,7 @@ int owl_display_register(u32 display_id,const char * name,
     int find_slot = 0;
     struct owl_display *display;
 
-    debug("OWL VIDEO: display 0x%x register def_mode %p\n", display_id,def_mode);
+    printf("OWL VIDEO: display 0x%x register def_mode %p\n", display_id,def_mode);
 
     for (i = 0; i < MAX_NUM_DISP_DEV; i++) {
         if (display_list[i].display_id == 0) {
@@ -672,7 +681,7 @@ int owl_display_register(u32 display_id,const char * name,
     } else {
         return -1;
     }
-    debug("OWL VIDEO: display 0x%x register ok\n", display_id);
+    printf("OWL VIDEO: display 0x%x register ok\n", display_id);
 
     return 0;
 }
@@ -695,7 +704,7 @@ int disp_enable(void)
             if(display->ops->enable){
                 r = display->ops->enable();
                 if (r){
-                   //printf("owl display enable error %d \n", display->display_id);
+                   printf(" owl display enable error %d \n", display->display_id);
                    return -1;
                 }
             }
@@ -824,11 +833,14 @@ static int allocate_buf(struct fb_addr *buf, u32 size, u32 bytes_align)
     
     rsv_size = get_fb_heap_size();
     
-    if(memory_size > 512 * 1024 * 1024)
-    {
-    	memory_size = 768 * 1024 * 1024 ;
-    }
-    
+    if(memory_size >1024*1024*1024)
+    	{
+    		memory_size = 768 * 1024 * 1024 ;
+    	}
+    else if(memory_size > 512 * 1024 * 1024)
+    	{
+    		memory_size = 760 * 1024 * 1024 ;
+    	} 
     addr = memory_size - rsv_size;
     
     debug(
@@ -958,7 +970,7 @@ int fdtdec_get_fb_par(struct owl_dss * dss)
 	
 	if(dss->display == NULL)
 	{
-	    debug("def_display_name  %s not found \n", def_display_name);
+	    printf("def_display_name  %s not found \n", def_display_name);
 	}
 	
     bpp = fdtdec_get_int(
@@ -968,21 +980,21 @@ int fdtdec_get_fb_par(struct owl_dss * dss)
 	
 	dss->bytespp = bpp;
 	
-	debug("bpp %d \n", bpp);
+	printf("bpp %d \n", bpp);
     dss->img_w = fdtdec_get_int(
             gd->fdt_blob, subnode, "xres", -1);
     if (dss->img_w <= 0 &&  dss->display != NULL){
 		dss->img_w = dss->display->mode->xres;
 	}
 	
-    debug("get fb dss, img_w = %d\n", dss->img_w);
+    printf("get fb dss, img_w = %d\n", dss->img_w);
 
     dss->img_h = fdtdec_get_int(
             gd->fdt_blob, subnode, "yres", -1);
     if (dss->img_h <= 0 &&  dss->display != NULL)
         dss->img_h =  dss->display->mode->yres;
 	
-	debug("get fb dss, img_h = %d\n", dss->img_h);
+	printf("get fb dss, img_h = %d\n", dss->img_h);
 	dss->img_par_required = 1;
 	
     arrange_name = fdt_getprop(
@@ -1063,7 +1075,7 @@ int owl_dss_init(struct owl_dss * dss)
 		else
 			return -1;
 		
-		debug("OWL VIDEO: dss init display id = 0x%x\n", display_id);
+		printf("OWL VIDEO: dss init display id = 0x%x\n", display_id);
 		
 		dss->display = get_display(display_id);
 		if (!dss->display)
@@ -1106,7 +1118,7 @@ static void owl_dss_power_on(void)
 {
     u32 tmp, i;
     
-    debug("OWL VIDEO: power on\n");
+    printf("OWL VIDEO: power on\n");
     
     /* 
     * 1. assert reset
@@ -1135,7 +1147,7 @@ static void owl_dss_power_on(void)
         /* bit 13 is DS ACK */
         mdelay(1);
     }
-    debug("OWL VIDEO: wait res %d, %x\n", i, readl(SPS_PG_CTL));
+    printf("OWL VIDEO: wait res %d, %x\n", i, readl(SPS_PG_CTL));
     
     
     /* 
@@ -1186,7 +1198,7 @@ void *video_hw_init(void)
     const char *options;
     unsigned int depth, freq, xres, yres;
 
-    debug("OWL VIDEO: video hw init\n");
+    printf("OWL VIDEO: video hw init\n");
 
 #if defined(CONFIG_ATM7059A)
     owl_dss_power_on();
@@ -1212,7 +1224,7 @@ void *video_hw_init(void)
     if (owl_dss_init(&dss))
         return NULL;
 
-    debug("owl_dss_init ok ,xres %d\n yres %d\n",xres,yres);
+    printf("owl_dss_init ok ,xres %d\n yres %d\n",xres,yres);
 
     /* fill in Graphic device struct */
 
@@ -1269,6 +1281,6 @@ void kinfo_init(void)
     
     rsv_size = get_owl_reserved_size();
     kinfo = (struct kernel_reserve_info *)(gd->ram_size - rsv_size);
-    debug("set kinfo addr = %p\n", kinfo);
+    printf("set kinfo addr = %p\n", kinfo);
 }
 /**********************/

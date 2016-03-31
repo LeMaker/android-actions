@@ -70,6 +70,10 @@ static ssize_t store_mirror_to_hdmi(struct device *dev,
 	r = strtobool(buf, &mirror_to_hdmi);
 	if (r)
 		return r;
+	if(ofbi->id != 0)
+	{
+		return r;
+	}
 
 	if (!lock_fb_info(fbi))
 		return -ENODEV;
@@ -87,9 +91,18 @@ static ssize_t store_mirror_to_hdmi(struct device *dev,
 				dssdev->driver->enable(dssdev);	
 			}
 		}else{
-			dssdev->driver->get_vid(dssdev,&vid);
-			dssdev->driver->set_vid(dssdev,vid);		
-			dssdev->driver->enable(dssdev);	
+			if(dssdev->driver->get_vid)
+			{
+				dssdev->driver->get_vid(dssdev,&vid);
+			}
+			if(dssdev->driver->set_vid)
+			{
+				dssdev->driver->set_vid(dssdev,vid);
+			}
+			if(dssdev->driver->enable)
+			{
+				dssdev->driver->enable(dssdev);
+			}
 		}		
 		external_mgr->link_fbi	= fbi;
 		

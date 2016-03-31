@@ -267,6 +267,11 @@
 		reg = <0xb02c0000 0x160>;
 	};
 	
+	cvbs@b02b0000{
+		compatible = "actions,atm7059a-cvbs";
+		reg = <0xb02b0000 0x80>;
+	};
+	
 	de@b02e0000 {
 		compatible = "actions,atm7059a-de";
 		reg = <0xb02e0000 0x100e>, <0xb0500108 0x4>;

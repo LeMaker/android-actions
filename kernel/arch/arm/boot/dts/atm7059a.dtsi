@@ -272,6 +272,7 @@
 		compatible = "actions,owl-usb-2.0-0";
 		reg = <0xb0600000 0x1000>;
 		interrupts = < 0 24 0x4 >;
+		status = "disabled"; /*must disabled always although use it*/
 	};
 	
 	usb1: usb@b0700000 {
@@ -280,6 +281,7 @@
 		compatible = "actions,owl-usb-2.0-1";
 		reg = <0xb0700000 0x1000>;
 		interrupts = < 0 61 0x4 >;
+		status = "disabled"; /*must disabled always although use it*/
 	};
 
 	usb@b0400000 {
