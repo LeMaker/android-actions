@@ -698,12 +698,12 @@ config USB_HCD_SSB
 
 	  If unsure, say N.
 	  
-config USB_AOTG_HCD
-	tristate "Actions usb2.0 HCD support"
-	default y
-	---help---
-	  The GL5206 and GL5209 chips both have USB2.0 host controllers. Enable
-	  this option if your board uses this chip. If unsure, say N.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called acts_hub.
+#config USB_AOTG_HCD
+#	tristate "Actions usb2.0 HCD support"
+#	default y
+#	---help---
+#	  The GL5206 and GL5209 chips both have USB2.0 host controllers. Enable
+#	  this option if your board uses this chip. If unsure, say N.
+#
+#	  To compile this driver as a module, choose M here: the
+#	  module will be called acts_hub.

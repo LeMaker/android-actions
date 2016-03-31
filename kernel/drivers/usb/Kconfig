@@ -144,9 +144,13 @@ source "drivers/usb/storage/Kconfig"
 
 source "drivers/usb/image/Kconfig"
 
+source "drivers/usb/aotg/Kconfig"
+
 endif
 
+
 source "drivers/usb/dwc3/Kconfig"
+
 
 source "drivers/usb/chipidea/Kconfig"
 

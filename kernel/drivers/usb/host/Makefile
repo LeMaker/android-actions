@@ -54,5 +54,5 @@ obj-$(CONFIG_USB_FSL_MPH_DR_OF)	+= fsl-mph-dr-of.o
 obj-$(CONFIG_USB_OCTEON2_COMMON) += octeon2-common.o
 obj-$(CONFIG_USB_HCD_BCMA)	+= bcma-hcd.o
 obj-$(CONFIG_USB_HCD_SSB)	+= ssb-hcd.o
-obj-$(CONFIG_USB_AOTG_HCD)	+= acts_hub.o
-acts_hub-y := aotg_debug.o aotg_ring.o aotg_hcd.o aotg_mon.o
+#obj-$(CONFIG_USB_AOTG_HCD)	+= acts_hub.o
+#acts_hub-y := aotg_debug.o aotg_ring.o aotg_hcd.o aotg_mon.o
