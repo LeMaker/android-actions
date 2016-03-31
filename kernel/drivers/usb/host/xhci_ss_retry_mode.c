@@ -152,11 +152,11 @@ void ss_retry_mode(void __iomem *base)
 	mdelay(5);
     	ss_mac_sample_edge_init(base ); 
 	ss_try_next_mode(base);	
-	mdelay(5);
+	mdelay(200);
     
 	usb_set_vbus_power(1);
     
-	mdelay(1);
+	mdelay(5);
     
     	val = 0x200;
 	writel(val,base+XHCI_PORT2_STATUS);	

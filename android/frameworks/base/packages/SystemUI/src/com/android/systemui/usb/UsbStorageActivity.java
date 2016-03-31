@@ -116,7 +116,11 @@ public class UsbStorageActivity extends Activity
         		//ActionsCode(author:fanguoyong, change_code)
         		if(path.equals(Environment.getFlashStorageDirectory().getPath())){
             		final boolean on = newState.equals(Environment.MEDIA_SHARED);
-            		switchDisplay(on);
+            		final boolean off = newState.equals(Environment.MEDIA_MOUNTED);
+                    // fix BUG00471217, stay busy status util on or off.
+                    if (on || off) {
+            		    switchDisplay(on);
+                    }
                     //ActionsCode(author:songzhining, fix BUG00233310)
                     mAsyncStorageHandler.removeCallbacks(mGcRunnable);
         		}
@@ -189,6 +193,12 @@ public class UsbStorageActivity extends Activity
             mBanner.setText(com.android.internal.R.string.usb_storage_title);
             mMessage.setText(com.android.internal.R.string.usb_storage_message);
         }
+    }
+
+    private void switchDisplayBusy() {
+        mUnmountButton.setVisibility(View.GONE);
+        mMountButton.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -277,10 +287,7 @@ public class UsbStorageActivity extends Activity
         mUIHandler.post(new Runnable() {
             @Override
             public void run() {
-                mUnmountButton.setVisibility(View.GONE);
-                mMountButton.setVisibility(View.GONE);
-
-                mProgressBar.setVisibility(View.VISIBLE);
+                switchDisplayBusy();
                 // will be hidden once USB mass storage kicks in (or fails)
             }
         });
@@ -345,6 +352,9 @@ public class UsbStorageActivity extends Activity
     }
 
     public void onClick(View v) {
+        // fix BUG00471217, switch to busy status
+        switchDisplayBusy();
+        
         if (v == mMountButton) {
            // Check for list of storage users and display dialog if needed.
             checkStorageUsers();

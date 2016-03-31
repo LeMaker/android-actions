@@ -172,13 +172,25 @@ void CameraService::onFirstRef()
 *ActionsCode(author:liyuan, change_code)
 */
 void CameraService::updateCameraNum(){
+        char value[PROPERTY_VALUE_MAX];
+        int id =0;
+
 	mNumberOfCameras = mModule->get_number_of_cameras();
 	if (mNumberOfCameras > MAX_CAMERAS) {
 		ALOGE("Number of cameras(%d) > MAX_CAMERAS(%d).",
 				mNumberOfCameras, MAX_CAMERAS);
 		mNumberOfCameras = MAX_CAMERAS;
 	}
-	
+        property_get("ro.camerahal.uvc_replacemode", value, "0");
+        ALOGD("ro.camerahal.uvc_replacemode=%s\n",value);
+        if(!strcmp(value, "1")||!strcmp(value, "2")){
+                Mutex::Autolock al(mServiceLock);
+                id = value[0]-'1';
+                ALOGD("clear cameraparam id=%d\n",id);
+                /* Remove cached parameters from shim cache */
+                mShimParams.removeItem(id);
+        }
+
 }
 void CameraService::event_handler(struct inotify_event *event){
     if(event){
