@@ -27,6 +27,11 @@
 
 #include "uvcvideo.h"  
 
+/*BUGFIX: recover the mmap buf usage for android vender uvc (author:liyuan,Add_code)*/
+extern  void *vb2_vmalloc_alloc(void *alloc_ctx, unsigned long size, gfp_t gfp_flags);
+extern  void vb2_vmalloc_put(void *buf_priv);
+extern  int vb2_vmalloc_mmap(void *buf_priv, struct vm_area_struct *vma);
+
 struct asoc_vb2_ion_buf {
 	void				*vaddr;
 	dma_addr_t			dma_addr;
@@ -120,6 +125,9 @@ struct vb2_mem_ops asoc_vb2_ion_memops=
 	.get_userptr	= asoc_vb2_ion_get_userptr,
 	.put_userptr	= asoc_vb2_ion_put_userptr,
 	.num_users	= asoc_vb2_ion_num_users,
+	.alloc		= vb2_vmalloc_alloc,
+	.put		= vb2_vmalloc_put,
+	.mmap		= vb2_vmalloc_mmap,
 };
 #endif
 

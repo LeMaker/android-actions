@@ -457,6 +457,8 @@ struct uvc_buffer *uvc_queue_next_buffer(struct uvc_video_queue *queue,
 	      queue->framestodrop > 0) {
 		if(queue->framestodrop > 0)
 			queue->framestodrop--;
+		if(buf->error)
+		    uvc_trace(UVC_TRACE_FRAME_ERR, "## Frame Error dropped. errno:%d, buf:%p\n",buf->error,buf);
 		queue->framesdropped++;
 		buf->error = 0;
 		buf->state = UVC_BUF_STATE_QUEUED;
