@@ -1,0 +1,148 @@
+
+uart6默认引脚是
+serial_6{
+				actions,groups = "mfp0_18_16_eth_txd0", "mfp0_18_16_eth_txd1";
+				actions,function = "uart6";
+			};
+
+和硬件人员确定 该位置并未引出 
+
+
+在mfp中搜索：
+
+MFP_CTL0
+
+
+						P_ETH_TXD0, P_ETH_TXD1 PAD multiplex select.
+						000:RMII_TXD0, RMII_TXD1
+18:16						001:SMII_TX, SMII_SYNC
+						010:SPI2_SCLK, SPI2_SS
+						011:UART6_RX, UART6_TX
+						100:PWM4,PWM5
+						others:Reserved
+
+
+***********************************************************************************************
+
+MFP_CTL3
+						
+						P_PCM1_SYNC PAD multiplex select.
+						00:PCM1_SYNC
+						01:SENS1_D1
+7:6						10:UART6_RX
+						11:TWI3_SCLK
+
+
+						P_PCM1_OUT PAD multiplex select.
+						00:PCM1_OUT
+5:4						01:SENS1_D0
+						10:UART6_TX
+						11:TWI3_SDATA
+
+
+
+所以采用"mfp3_7_6","mfp3_5_4"这一组
+
+
+	1.检查哪个模块在使用"mfp3_7_6","mfp3_5_4"   disable相应模块
+
+	检查该模块后发现没有被使用
+
+
+
+				
+	2.建立serial6配置文件
+
+	serial4_state_over_sensi: serial4_over_sensi{
+			serial_4{
+				actions,groups = "mfp3_11_10","mfp3_9_8";
+				actions,function = "uart4";
+			};
+		};
+	
+	2.启动uart6
+
+		serial@b012c000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&serial6_state_over_sens>;
+//		actions,enable-dma-rx;
+		//add by jjz   test
+		status = "okay";
+		//status = "disabled";
+	};
+
+	编译成dtb文件后 push到小机  不可以
+
+debug：
+	检查pin脚 功能
+	cat pinmux-pins
+
+			pin 124 (P_PCM1_IN): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 125 (P_PCM1_CLK): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 126 (P_PCM1_SYNC): b012c000.serial owl-gpio:126 function uart6 group mfp3_7_6
+			pin 127 (P_PCM1_OUT): b012c000.serial (GPIO UNCLAIMED) function uart6 group mfp3_5_4
+			pin 35 (P_KS_IN0): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+	可知126管脚被gpio占用
+	cat gpio确认
+		GPIOs 0-131, owl-gpio-chip:
+		 gpio-78  (actions,atm7059tc-us) out lo
+		 gpio-79  (pwdn-front-gpios    ) out hi
+		 gpio-80  (reset-gpios         ) out hi
+		 gpio-81  (pwdn-rear-gpios     ) out hi
+		 gpio-116 ([auto]              ) out hi
+		 gpio-117 (card_detect_gpio    ) in  hi
+		 gpio-126 (?                   ) in  lo
+
+		 可知126被注册
+
+
+	在dts文件中查找126
+	atc260x-audio{
+				compatible = "actions,atc2603c-audio";
+				status = "okay";
+                                pinctrl-names = "default";
+                                pinctrl-0 = <&i2s0_state_default>;				
+				//earphone_detect_gpios = <&gpio 21 0>; /*0: high, 1: low hr280ac GPIOA21 0*/
+				speaker_en_gpios = <&gpio 126 1>; /*hr280ac GPIOD(30) 0: high, 1: low*/
+				earphone_output_mode = <0>; /*0: direct mode, 1: undirect mode*/
+				、、、
+			};
+	dsi: dsi@b0220000 {
+				pinctrl-names = "default";
+				pinctrl-0 = <&dsi_state_default>;
+				//modified by jjz
+				//dsi_power_gpios = <&gpio 126 1>;    /*hr280ac GPIOD30*/
+				//dsi_reset_gpios = <&gpio 115 0>;   /*S500 GPIOD19*/	
+				port_type = "dsi";
+				、、、
+	}
+	注释掉之后编译 还是不行
+再次debug：
+	1.查看CMU_UART6CLK
+		busybox devmem 0xb01600bc 
+			
+			0x00000019 波特率设置正确
+	
+	2.查看是否enable uart
+
+		busybox devmem 0xb012c000 
+
+			0x00004003
+		 第15bit为0 未使能
+		
+	3.使能uart  busybox devmem 0xb012c000 32  0xc003
+			busybox devmem 0xb012c000 32  0x0004c003
+
+			还是不行 如果有时间 
+			1.查配置原因  可以对比uart6 和 uart3的各个寄存器的设置  
+			2.将rx tx设为gpio 控制寄存器
+
+
+找不到原因了 跳过
+
+  
+
+
+
+不编译网络相关的驱动 可以直接在driver下的Kconfig文件中直接删除 和make menuconfig的效果是一样的

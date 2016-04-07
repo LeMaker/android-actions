@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Külső SD kártya"</string>
+    <string name="storage_usb">"Belső SD kártya"</string>
+    <string name="storage_uhost">"USB Disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"USB Disk előkészítése"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Ellenőrzi a hibákat"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Üres USB Disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB Disk üres vagy a fájlrendszer nem támogatott"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USD Disk sérült"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USD Disk sérült. Újra formázni kell"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB Disk váratlanul eltávolított"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Unistall USB Disk mielőtt eltávolít az adatvesztés elkerülése érdekében "</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB Disk eltávolított biztonságosan"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Biztonságosan eltávolíthatja az USB Disk-ot."</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB Disk eltávolítottt"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB Disk eltávolítottt, helyezzen be egy újat"</string>
+    <string name="accelerometer_coordinate">"Gyorsulásmérő koordináta"</string>
+    <string name="accele_coord_default">"alapértelmezett koordináta"</string>
+    <string name="accele_coord_special">"Speciális koordináta egyes játékot támogat"</string>
+    <string name="global_action_reboot_to_recovery">"Újraindítás recovery-be"</string>
+    <string name="global_action_restart">"Újraindítás"</string>
+</resources>

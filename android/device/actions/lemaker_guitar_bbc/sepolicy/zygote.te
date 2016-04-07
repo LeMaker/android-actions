@@ -1,0 +1,4 @@
+allow zygote cpuctl_device:dir rw_dir_perms;
+allow zygote rootfs:file rw_file_perms;
+allow zygote init:fifo_file rw_file_perms;
+allow zygote init:unix_stream_socket  { read write };

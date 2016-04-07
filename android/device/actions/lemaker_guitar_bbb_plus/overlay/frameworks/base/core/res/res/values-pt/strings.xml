@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Cartão SD removível"</string>
+    <string name="storage_usb">"Cartão SD interno"</string>
+    <string name="storage_uhost">"Disco Usb"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Está a preparar o disco USB"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Está a examinar erros."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Disco USB vazio."</string>
+    <string name="uh_media_nofs_notification_message" product="default">"O Disco USB é vazio ou não é suportado pelo sistema de ficheiros"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Disco USB estragado"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"O Disco USB está estragado. Você tem que reformatá-lo."</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"O Disco USB é removido inesperadamente."</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Por favor primeiro desmonte o disco U, a seguir removê-lo, de modo a evitar a perda de dados"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"O disco U já está seguramente removido."</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Você pode remover seguramente o disco U"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Já removeu o disco U."</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"O disco U já está removido. Por favor insira um novo disco U."</string>
+    <string name="accelerometer_coordinate">"Sistema de coordenadas de acelerômetro"</string>
+    <string name="accele_coord_default">"Sistema de coordenadas pré-definido"</string>
+    <string name="accele_coord_special">"Coordenadas especiais a suportar alguns jogos"</string>
+    <string name="global_action_reboot_to_recovery">"Reinicializar e entrar no modo recovery"</string>
+    <string name="global_action_restart">"Reiniciar"</string>
+</resources>

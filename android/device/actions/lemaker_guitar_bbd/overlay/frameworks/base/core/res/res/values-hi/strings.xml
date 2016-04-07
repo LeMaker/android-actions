@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"रिमवबल एस.डी कार्ड"</string>
+    <string name="storage_usb">"अंतरी एस.डी कार्ड"</string>
+    <string name="storage_uhost">"यू.एस.बी डिस्क"</string>
+    <string name="uh_media_checking_notification_title" product="default">"यू.एस.बी डिस्क तैयार हो रहा है"</string>
+    <string name="uh_media_checking_notification_message" product="default">"गलती चेक हो रहा है"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"ब्लैंक यू.एस.बी डिस्क"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"ब्लैंक यू.एस.बी डिस्क या असपर्टिड फाइल सस्टम"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"खराब यू.एस.बी डिस्क"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"यू.एस.बी डिस्क खराब है। आप इस रिफर्मैंट करें."</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"यू.एस.बी डिस्क गलती से हटाना"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"पहले ही यू.एस.बी डिस्क हटाइए, ताकि डेटा न खोएगा"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"यू.एस.बी डिस्क रिमूव के लिए तैयार है"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"आप ठीक तरह से यू.एस.बी डिस्क रिमूल कर सकते हैं"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"रिमूविड यू.एस.बी डिस्क"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"यू.एस.बी डिस्क रिमूविड और नया यू.एस.बी डिस्क इनसर्ट कीजिए"</string>
+    <string name="accelerometer_coordinate">"ऐकसेंलरेमीटर कोओडिनेट करना"</string>
+    <string name="accele_coord_default">"डिफाल्ट कोओडिनेट करना"</string>
+    <string name="accele_coord_special">"कुछ सपोर्ट करने के लिए कोओडिनेट करना"</string>
+    <string name="global_action_reboot_to_recovery">"रिकावरि मोड में रिबूट करना"</string>
+    <string name="global_action_restart">"रिस्टार्ट"</string>
+</resources>

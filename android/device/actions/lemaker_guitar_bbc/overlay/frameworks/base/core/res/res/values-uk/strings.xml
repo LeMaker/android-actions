@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Зовнішня SD карта"</string>
+    <string name="storage_usb">"Встроєна SD карта"</string>
+    <string name="storage_uhost">"Usb диск"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Підготовка USB диску"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Перевірка помилок"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Порожній USB диск"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB диск порожній або не підтримується"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Пошкоджений USB диск"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"Пошкоджений USB диск. Необхіднпереформотувати"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB  диск було роптово видалено"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Виконайте безпечне видалення диску, для захисту данних"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB диск можна усунути"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Ви можете усунути USB диск"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Видалити USB диск"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB видалено. Вставте новий"</string>
+    <string name="accelerometer_coordinate">"Система координат акселерометра"</string>
+    <string name="accele_coord_default">"Координати за замовчуванням"</string>
+    <string name="accele_coord_special">"Спеціальні координати для підтримки деяких ігор"</string>
+    <string name="global_action_reboot_to_recovery">"Повернутися до режиму Відновлення"</string>
+    <string name="global_action_restart">"Перезапуск"</string>
+</resources>

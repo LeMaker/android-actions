@@ -1911,7 +1911,7 @@ static int ft5x06_probe(struct i2c_client *client,
     printk("ft5x06 probe v2.0 i file,FT5X0X_DOWNLOAD_FIRM=(%d)\n", FT5X0X_DOWNLOAD_FIRM);
 	#if (FT5X0X_DOWNLOAD_FIRM==1)
 printk("download !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-	//fts_ctpm_auto_upg(client);
+	fts_ctpm_auto_upg(client);
 	#endif
 //    set_bit(BTN_TOUCH, input->keybit);
 ///    input_set_abs_params(input, ABS_MT_POSITION_X, 0, ftdev->ftconfig->max.x, 0, 0);

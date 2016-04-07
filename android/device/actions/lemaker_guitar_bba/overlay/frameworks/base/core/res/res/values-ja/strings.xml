@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"外付けSDカード"</string>
+    <string name="storage_usb">"内付けSDカード"</string>
+    <string name="storage_uhost">"Uデスク"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Uデスクを準備中"</string>
+    <string name="uh_media_checking_notification_message" product="default">"エラーチェック中"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"ブランクUデスク"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"Uデスクはファイルシステム無し、又はファイルシステムは支持されない"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Uデスクダメージ"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"Uデスクダメージ。リフォマットする必要がある"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"Uデスクは正常に移出されてない"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"データ紛失を避けるように、Uデスクを先にアンロードして移出してください。"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"Uデスクは既に移出済み"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"現在は安全にUデスクを移出することができる"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Uデスクが移出済み"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"Uデスクが移出済み。ニューUデスクを差し込んでください"</string>
+    <string name="accelerometer_coordinate">"Gセンサー感応座標系"</string>
+    <string name="accele_coord_default">"デフォルト座標系"</string>
+    <string name="accele_coord_special">"一部分なゲームに適応できる特殊座標"</string>
+    <string name="global_action_reboot_to_recovery">"再起動してリカバリーモードに入る"</string>
+    <string name="global_action_restart">"リスタート"</string>
+</resources>

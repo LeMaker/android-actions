@@ -1,0 +1,2 @@
+actions.display                             u:object_r:system_server_service:s0
+bgcontrol                                 u:object_r:system_server_service:s0

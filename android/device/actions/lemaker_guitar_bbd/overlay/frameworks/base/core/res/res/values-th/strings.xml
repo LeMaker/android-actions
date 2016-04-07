@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"การ์ด SD ภายนอก"</string>
+    <string name="storage_usb">"การ์ด SD ภายใน"</string>
+    <string name="storage_uhost">"ดิสก์ U"</string>
+    <string name="uh_media_checking_notification_title" product="default">"กำลังจัดเตรียมดิสก์ U"</string>
+    <string name="uh_media_checking_notification_message" product="default">"กำลังตรวจหาข้อผิดพลาด"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"ดิสก์ U ที่ว่างเปล่า"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"ดิสก์ U ว่างหรือระบบไฟล์ไม่รับการรองรับ"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">" ดิสก์ U เสียหาย"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"ดิสก์ U เสียหาย   คุณอาจจะต้องฟอร์แมตใหม่"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">" ลบดิสก์ U ออกอย่างไม่เป็นปกติ"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"เลิกเมานท์ดิสก์ U ก่อน แล้วลบออกเพื่อหลีกเลี่ยงข้อมูลสูญหายไป"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"ลบดิสก์ U ออกอย่างมีความปลอดภัย "</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"คุณสามารถลบดิสก์ U ในขณะนี้"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"ลบดิสก์ U แล้ว"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"ลบดิสก์ Uแล้ว   โปรดแทรกดิสก์ Uใหม่"</string>
+    <string name="accelerometer_coordinate">"พิกัดแอคซิลีโรมิเตอร์"</string>
+    <string name="accele_coord_default">"ค่ามาตรฐานพิกัด"</string>
+    <string name="accele_coord_special">"พิกัดพิเศษเพื่อสนับสนุนบางเกม"</string>
+    <string name="global_action_reboot_to_recovery">"รีบูตระบบใหม่ เพื่อเข้าสู่โหมดrecovery"</string>
+    <string name="global_action_restart">"เริ่มต้นใหม่"</string>
+</resources>

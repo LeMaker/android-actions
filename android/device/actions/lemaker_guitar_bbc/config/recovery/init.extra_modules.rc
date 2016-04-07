@@ -1,0 +1,11 @@
+on post-fs
+    #tp
+  #  insmod /lib/modules/ctp_gsl1680f.ko
+	#	adckeypad
+   insmod /lib/modules/atc260x-adckeypad.ko
+   
+   write /sys/class/graphics/fb0/mirror_to_hdmi 1
+   chmod 0777  /sys/class/graphics/fb0/mirror_to_hdmi
+   chown system system  /sys/class/graphics/fb0/mirror_to_hdmi
+   
+   write /sys/devices/b02c0000.hdmi/vid 1

@@ -1,0 +1,131 @@
+
+uart4默认引脚是"uart4_dummy" 搜索不到这个关键字 应该无法使用
+
+在mfp中搜索：
+
+MFP_CTL0
+
+
+
+					P_ETH_CRS_DV PAD multiplex select.
+					000:RMII_CRS_DV
+22:20					001:SMII_RX
+					010:SPI2_MISO
+					011:UART4_RX
+					100:PWM4
+					Other Reserved
+
+
+					P_ETH_REF_CLK PAD multiplex select.
+					00:RMII_REF_CLK/SMII_CLK
+7:6					01:UART4_TX
+					10:SPI2_MOSI
+					11:Reserved
+Note:the IE/OE of this PAD is effected by MAC_CTL[8]:if it is 0, then the reference clock output from CMU and will be sent to PHY outside, so this PAD is output; If it is 1, then external reference clock is used, and this PAD is input.
+
+
+MFP_CTL3
+
+					P_PCM1_IN PAD multiplex select.
+					00:PCM1_IN
+11:10					01:SENS1_D3
+					10:UART4_RX
+					11:PWM4
+
+
+					P_PCM1_CLK PAD multiplex select.
+					00:PCM1_CLK
+9:8					01:SENS1_D2
+					10:UART4_TX
+					11:PWM5
+
+
+
+
+
+
+检查哪个模块在使用"mfp0_22_20","mfp0_7_6",或者"mfp3_11_10","mfp3_9_8"，disable相应模块
+
+决定使用"mfp3_11_10","mfp3_9_8"，检查后发现没有被使用
+
+
+因此
+				
+	1.建立serial4配置文件
+
+	serial4_state_over_sensi: serial4_over_sensi{
+			serial_4{
+				actions,groups = "mfp3_11_10","mfp3_9_8";
+				actions,function = "uart4";
+			};
+		};
+	
+	2.启动uart4
+
+		serial@b0128000 {
+			clock-frequency = <48000000>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&serial4_state_over_sensi>;
+	//		actions,enable-dma-rx;
+	//		status = "disabled";
+			status = "okay";
+		};
+
+编译成dtb文件后 push到小机 不行
+
+debug：
+1.检查配置是否正确
+	busybox  devmem 0xb01b004c             
+		0x40000A08   对比寄存器 配置正确
+
+2.是否RX TX 端口 被注册为GPIO
+	/sys/kernel/debug # cat gpio
+		GPIOs 0-131, owl-gpio-chip:
+		 gpio-78  (actions,atm7059tc-us) out lo
+		 gpio-79  (pwdn-front-gpios    ) out hi
+		 gpio-80  (reset-gpios         ) out hi
+		 gpio-81  (pwdn-rear-gpios     ) out hi
+		 gpio-116 ([auto]              ) out hi
+		 gpio-117 (card_detect_gpio    ) in  hi
+		 gpio-124 (?                   ) out hi
+		 gpio-126 (?                   ) in  lo
+		
+		D28 D29 (124 125)可以看出被注册了
+
+3.检查pin脚 功能
+		cat pinmux-pins                                                                      
+			pin 25 (P_SIRQ1): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 26 (P_SIRQ2): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 27 (P_I2S_D0): atc2603c-audio.0 (GPIO UNCLAIMED) function i2s0 group mfp0_5
+			pin 28 (P_I2S_BCLK0): atc2603c-audio.0 (GPIO UNCLAIMED) function i2s0 group mfp0_2_1_i2s0
+			pin 29 (P_I2S_LRCLK0): atc2603c-audio.0 (GPIO UNCLAIMED) function i2s0 group mfp0_4_3
+			pin 30 (P_I2S_MCLK0): atc2603c-audio.0 (GPIO UNCLAIMED) function i2s0 group mfp0_4_3
+			pin 31 (P_I2S_D1): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 32 (P_I2S_BCLK1): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 33 (P_I2S_LRCLK1): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 34 (P_I2S_MCLK1): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+			pin 124 (P_PCM1_IN): b0128000.serial owl-gpio:124 function uart4 group mfp3_11_10
+			pin 125 (P_PCM1_CLK): b0128000.serial (GPIO UNCLAIMED) function uart4 group mfp3_9_8
+			pin 126 (P_PCM1_SYNC): (MUX UNCLAIMED) owl-gpio:126
+	
+因此 可知原因是124脚被注册了   在dts搜索124
+			backlight {
+				/*1.pwm num; 2. period in ns; */
+				/*3.plarity, 0: high active, 1: low active*/
+				backlight_en_gpios = <&gpio 124 0>; /*S500 GPIOD28*/ 
+				//status = "disable";
+				pwms = <&pwm 0 50000 1>;
+				total_steps = <1024>;
+				min_brightness = <120>;
+				max_brightness = <450>;
+				dft_brightness = <300>;
+				delay_bf_pwm  = <200>;
+				delay_af_pwm  = <10>;	
+			};
+
+			被背光注册了 注释掉之后 生成dtb push到小机 还是不可以
+			后和国安一起检测 发现波特率 时钟都没有配置 通过寄存器直接配置后还是不可以  
+
+
+
+不编译网络相关的驱动 可以直接在driver下的Kconfig文件中直接删除 和make menuconfig的效果是一样的

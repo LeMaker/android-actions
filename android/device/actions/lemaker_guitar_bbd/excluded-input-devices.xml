@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Exclusive devices for gb5_wxga-->
+<devices>
+	<device name="bma250" />
+	<device name="bma250t" />
+	<device name="mma7660" />
+	<device name="mma8452" />
+	<device name="mc3210" />
+	<device name="mc3230" />
+	<device name="dmard10" />
+</devices>

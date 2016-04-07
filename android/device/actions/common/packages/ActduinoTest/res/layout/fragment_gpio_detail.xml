@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 定义一个TextView来显示标题 -->
+
+    <TextView
+        android:id="@+id/gpio_title"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp" />
+    <!-- 定义一个TextView来显示图书描述 -->
+
+ 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:layout_marginTop="90dp">
+
+        <ImageView
+            android:id="@+id/iv_led0"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="150dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lightbulb_off" />
+
+        <ImageView
+            android:id="@+id/iv_led1"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lightbulb_off" />
+
+        <ImageView
+            android:id="@+id/iv_led2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lightbulb_off" />
+
+        <ImageView
+            android:id="@+id/iv_led3"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lightbulb_off" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_on_off"
+        android:layout_width="400dp"
+        android:layout_height="200dp" 
+         android:layout_marginLeft="150dp"
+         android:digits="01"
+         android:maxLength="1"
+        android:hint="@string/pls_input_0_or_1"/>
+
+    <Button
+        android:id="@+id/btn_gpio_test"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="500dp"
+        android:layout_marginTop="50dp"
+        android:padding="10dp"
+        android:text="@string/test" />
+       <TextView
+        android:id="@+id/gpio_desc"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:padding="16dp" />
+
+</LinearLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+<TextView
+	style="?android:attr/textAppearanceLarge"
+	android:id="@+id/pwmadc_title"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
+<LinearLayout 
+    android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+	<TextView
+		style="?android:attr/textAppearanceMedium"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/zhankongbi"
+		android:padding="16dp"/>
+	<EditText 
+	    android:id="@+id/et_input_duty"
+		android:layout_width="100dp"
+		android:layout_height="wrap_content"
+		 android:digits="0123456789"
+         android:maxLength="2"
+		android:padding="16dp"/>
+
+</LinearLayout>
+<LinearLayout 
+    android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+	<TextView
+		style="?android:attr/textAppearanceMedium"
+		android:text="@string/period"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="16dp"/>
+	<EditText 
+	    android:id="@+id/et_input_period"
+		android:layout_width="100dp"
+		android:layout_height="wrap_content"
+				 android:digits="0123456789"
+         android:maxLength="4"
+		android:padding="16dp"/>
+
+</LinearLayout>
+<TextView
+	style="?android:attr/textAppearanceMedium"
+	android:id="@+id/result_ideal"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
+<TextView
+	style="?android:attr/textAppearanceMedium"
+	android:id="@+id/result_real"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
+<TextView
+	style="?android:attr/textAppearanceMedium"
+	android:id="@+id/pwmadc_desc"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
+<Button 
+    style="?android:attr/textAppearanceMedium"
+	android:id="@+id/btn_pwmadc_test"
+	android:text="@string/test"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
+</LinearLayout>

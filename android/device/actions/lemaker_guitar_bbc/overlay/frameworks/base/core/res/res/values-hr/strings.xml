@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Vanjski SD kartice"</string>
+    <string name="storage_usb">"Ugrađeni SD kartice"</string>
+    <string name="storage_uhost">"usb disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"USB  je u pripremi"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Traženje pogrešaka"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"prazni USB disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"U USB disku nema datotečni sustav ili datotečni sustav nije podržan"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB disk šteta"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB disk je oštećen. Možda ćete morati da ga formatirati"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB disk nije pravilno uklonjen"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Molimo deinstalirati USB disk, a zatim uklanjanja kako biste izbjegli gubitak podataka"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB disk je sigurno uklonjen"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Sada možete sigurno ukloniti USB disku"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB disk je uklonjen"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB disk je uklonjen. Umetnite novi USB disk"</string>
+    <string name="accelerometer_coordinate">"Gravitacija senzor koordinatni sustav"</string>
+    <string name="accele_coord_default">" zadani  koordinatni sustav"</string>
+    <string name="accele_coord_special">"Posebni koordinate za smještaj dijela igre"</string>
+    <string name="global_action_reboot_to_recovery">"Ponovno u recovery modu"</string>
+    <string name="global_action_restart">"pokrenuti"</string>
+</resources>

@@ -1,0 +1,9 @@
+ARCH=arm
+KERNEL_DTS=lemaker_guitar_bba
+KERNEL_DEFCONFIG=lemaker_guitar_bba_defconfig
+UBOOT_DEFCONFIG=lemaker_guitar_bba_defconfig
+
+MISC_IMAGE_SIZE=48
+RECOVERY_IMAGE_SIZE=48
+#unit:lba size:4G
+BURN_UDISK_SIZE=4194304

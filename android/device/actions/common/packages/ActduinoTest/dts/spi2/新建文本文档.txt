@@ -1,0 +1,129 @@
+spi2和RMII SMII_RX PWM4 PWM5 UART4 UART6都有复用关系，
+
+MFP_CTL0
+
+
+					P_ETH_CRS_DV PAD multiplex select.
+					000:RMII_CRS_DV
+22:20					001:SMII_RX
+					010:SPI2_MISO
+					011:UART4_RX
+					100:PWM4
+					Other Reserved
+
+
+
+					P_ETH_TXD0, P_ETH_TXD1 PAD multiplex select.
+					000:RMII_TXD0, RMII_TXD1
+					001:SMII_TX, SMII_SYNC
+18:16					010:SPI2_SCLK, SPI2_SS
+					011:UART6_RX, UART6_TX
+					100:PWM4,PWM5
+					others:Reserved
+
+
+					P_ETH_REF_CLK PAD multiplex select.
+					00:RMII_REF_CLK/SMII_CLK
+7:6					01:UART4_TX
+					10:SPI2_MOSI
+					11:Reserved
+
+MFP_CTL3
+					P_NAND_ALE, P_NAND_CLE, P_NAND_CEB0, P_NAND_CEB1 PAD multiplex select.
+2					0:NAND_ALE, NAND_CLE, NAND_CEB0, NAND_CEB1
+					1:SPI2_MISO, SPI2_MOSI, SPI2_SCLK, SPI2_SS
+
+检查哪个模块在使用"mfp0_22_20","mfp0_18_16","mfp0_7_6","mfp3_2"disable相应模块
+
+检查后发现为
+
+				ethernet_state_default: ethernet_default {
+						ethernet_smi { /* pins: MDC & MDIO */
+							actions,groups = "eth_smi_dummy";
+							actions,function = "eth_rmii";
+						};
+
+						ethernet_rmii_txd01 {
+							actions,groups = "mfp0_18_16_eth_txd0", "mfp0_18_16_eth_txd1";
+							actions,function = "eth_rmii";
+						};
+
+						ethernet_rmii_txen_rxer {
+							actions,groups = "mfp0_15_13_rmii_txen", "mfp0_15_13_rmii_rxen";
+							actions,function = "eth_rmii";
+						};
+
+						ethernet_rmii_crs_dv {
+							actions,groups = "mfp0_22_20";
+							actions,function = "eth_rmii";
+						};
+
+						ethernet_rmii_rxd10 {
+							actions,groups = "mfp0_10_8_rmii_rxd1", "mfp0_10_8_rmii_rxd0";
+							actions,function = "eth_rmii";
+						};
+
+						ethernet_rmii_ref_clk {
+							actions,groups = "mfp0_7_6";
+							actions,function = "eth_rmii";
+						};
+				}
+
+				isp0_state_csi_dvp: isp0_csi_dvp {
+						isp0_csi_dvp_mfp {
+							actions,groups = "mfp3_29_28", "mfp3_23_22", "mfp3_15_14", "mfp3_13_12";
+							actions,function = "sens0";
+						};
+						sens0_clk_out_pdrv{
+							 actions,groups = "paddrv2_13_12";
+							 actions,paddrv = <0>;/*level 1 ,range :0~2*/
+						};
+				};
+
+
+因此 disable该模块即可 如下：
+
+		ethernet@b0310000 {
+				pinctrl-names = "default";
+				pinctrl-0 = <&ethernet_state_default>;
+
+				phy-mode = "rmii";
+				phy-handle = <&phy0>;
+				phy-power-gpios = <&gpio 85 0>; /* GPIOC21 active  1:low  0:high*/		
+				phy-reset-gpios = <&gpio 84 0>; /* GPIOC20 active  1:low  0:high*/
+
+				 phy_addr = <1>;
+				address-bits = <48>;
+				local-mac-address = [ 00 18 fe 66 66 66 ];
+				max-frame-size = <1518>;
+
+				//status = "okay";
+				status = "disabled";
+				compatible = "actions,owl-ethernet";
+				
+				phy0: ethernet-phy@0 {
+					compatible = "micrel,ksz8041tl";
+					reg = <0>;
+				};
+			};
+				
+
+		sensors: isp-sensor {
+				compatible = "sensor_common";
+				bus_type = "dvp";  /* dvp or mipi */
+				data_type = "yuv";  /* yuv or raw */
+				host = <&isp0>; /* only isp0 if there is one host, isp0 or isp1 if two hosts */
+				i2c_adapter = <&i2c2>; /* 0-3 begin from enabled ones */
+				channel = <0>; /* 0: use channel_0, 1: use channel_1 */
+
+				pinctrl-names = "default";
+				pinctrl-0 = <&isp0_state_csi_dvp>;
+
+				status = "disabled";
+		};	
+
+
+
+
+
+不编译网络相关的驱动 可以直接在driver下的Kconfig文件中直接删除 和make menuconfig的效果是一样的

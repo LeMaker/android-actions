@@ -1,0 +1,6 @@
+
+config PWM_OWL_TEST
+        tristate "ActduinoTest:PWM OWL Test"
+        depends on y
+        help
+          This is ActduinoTest pwm testcase driver

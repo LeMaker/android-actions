@@ -1,0 +1,105 @@
+
+uart2默认引脚是"mfp2_23","mfp2_22","uart2_dummy" 检查后发现
+uart_dummy使用的引脚是GPIOD18 GPIOD19 而这个引脚又是在mmc中使用（负责显示部分）因此不能使用默认的引脚
+需要使用复用口，即
+
+
+MFP_CTL0
+
+
+			P_ETH_TX_EN, P_ETH_RX_ER PAD multiplex select.
+			000:RMII_TX_EN, RMII_RX_ER
+15:13			001:UART2_RX, UART2_TX
+			010:SPI3_SCLK, SPI3_MOSI
+			011:PWM0, PWM1
+			Other Reserved
+
+
+			P_ETH_RXD1, P_ETH_RXD0 PAD multiplex select.
+			000:RMII_RXD[1:0]
+			001:UART2_RTSB, UART2_CTSB
+10:8			010:SPI3_SS, SPI3_MISO
+			011:PWM2, PWM3
+			100:UART5_TX, UART5_RX
+			others:Reserved
+
+可知uart0和PWM0 PWM1 PWM2 PWM3 UART5 UART2 都有复用关系（这些功能可能不是用的这个端口 要确定是哪个功能在使用），
+
+
+
+检查哪个模块在使用"mfp0_15_13","mfp3_10_8"，disable相应模块
+
+检查后发现为
+
+				ethernet_state_default: ethernet_default {
+						ethernet_rmii_txen_rxer {
+							actions,groups = "mfp0_15_13_rmii_txen", "mfp0_15_13_rmii_rxen";
+							actions,function = "eth_rmii";
+						};
+
+						ethernet_rmii_crs_dv {
+							actions,groups = "mfp0_22_20";
+							actions,function = "eth_rmii";
+						};
+
+						ethernet_rmii_rxd10 {
+							actions,groups = "mfp0_10_8_rmii_rxd1", "mfp0_10_8_rmii_rxd0";
+							actions,function = "eth_rmii";
+						};
+
+				}
+
+因此
+	1.disable该模块 如下：
+
+		ethernet@b0310000 {
+				pinctrl-names = "default";
+				pinctrl-0 = <&ethernet_state_default>;
+
+				phy-mode = "rmii";
+				phy-handle = <&phy0>;
+				phy-power-gpios = <&gpio 85 0>; /* GPIOC21 active  1:low  0:high*/		
+				phy-reset-gpios = <&gpio 84 0>; /* GPIOC20 active  1:low  0:high*/
+
+				 phy_addr = <1>;
+				address-bits = <48>;
+				local-mac-address = [ 00 18 fe 66 66 66 ];
+				max-frame-size = <1518>;
+
+				//status = "okay";
+				status = "disabled";
+				compatible = "actions,owl-ethernet";
+				
+				phy0: ethernet-phy@0 {
+					compatible = "micrel,ksz8041tl";
+					reg = <0>;
+				};
+			};
+				
+	2.建立serial2配置文件
+
+	serial2_state_over_ethernet: serial2_over_ethernet{
+			serial_2_over_ethernet_mfp{
+				actions,groups = "mfp0_15_13_rmii_txen", "mfp0_15_13_rmii_rxen", "mfp0_10_8_rmii_rxd1", "mfp0_10_8_rmii_rxd0";
+				actions,function = "uart2";
+			};
+		};
+	
+	3.启动uart2
+
+	serial@b0124000 {
+		clock-frequency = <48000000>;
+		pinctrl-names = "default";
+		//pinctrl-0 = <&serial2_state_default>;
+		pinctrl-0 = <&serial2_state_over_ethernet>;
+//		actions,enable-dma-rx;
+		//add by jjz   test
+		status = "okay";
+		//status = "disabled";
+	};
+
+
+
+
+
+不编译网络相关的驱动 可以直接在driver下的Kconfig文件中直接删除 和make menuconfig的效果是一样的

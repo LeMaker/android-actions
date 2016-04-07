@@ -1,0 +1,6 @@
+
+config SPI_OWL_TEST
+        tristate "ActduinoTest:SPI OWL Test"
+        depends on y
+        help
+          This is ActduinoTest spi testcase driver

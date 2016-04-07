@@ -1,0 +1,2 @@
+require board=ATM702X
+require version-bootloader=3.34

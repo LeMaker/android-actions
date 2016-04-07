@@ -1,0 +1,12 @@
+#
+# ActduinoTest configuration
+#
+menu "ActduinoTest support"
+
+source "drivers/actduinotest/i2c_test/Kconfig"
+source "drivers/actduinotest/spi_test/Kconfig"
+source "drivers/actduinotest/gpio_test/Kconfig"
+source "drivers/actduinotest/adc_test/Kconfig"
+source "drivers/actduinotest/pwm_test/Kconfig
+
+endmenu

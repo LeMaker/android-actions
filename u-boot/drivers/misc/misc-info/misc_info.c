@@ -477,7 +477,7 @@ int read_mi_item(char *name, void *buf, unsigned int count)
 		PRINT_ERR("read Head failed\n");
 		goto OUT_FAILED;
 	}else if(ret == 0){
-		PRINT_DBG("read Head null\n");
+		PRINT_ERR("read Head null\n");
 		ret = -1;
 		goto OUT_FAILED;
 	}

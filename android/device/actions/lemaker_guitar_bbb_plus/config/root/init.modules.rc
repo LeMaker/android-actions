@@ -1,0 +1,9 @@
+on post-fs
+    # usb
+    wait /sys/monitor/usb_port/config/run
+    write /sys/monitor/usb_port/config/run 5
+  #  write /sys/monitor/usb_port/config/run 1
+
+# import board extra modules
+import init.extra_modules.rc
+

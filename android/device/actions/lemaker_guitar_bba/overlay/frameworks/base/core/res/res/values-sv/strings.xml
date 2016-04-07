@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Extern SD-kort"</string>
+    <string name="storage_usb">"Inbyggd SD-kort"</string>
+    <string name="storage_uhost">"U disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Förbereder U disk"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Söker efter fel."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Tom U disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"U disk har inget filsystem eller filsystem stöds inte"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"U disk Skadad"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"\"U disk är skadad. Du kan behöva formatera om den"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"U disk inte ordentligt bort"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Avinstallera U disk före ta bort det för att undvika dataförlust"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"U disk är säkert borttagen"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Nu kan du säkert ta bort U disk"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"U disk har tagits bort"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"U disk har tagits bort. Sätt i ett nytt U-disk"</string>
+    <string name="accelerometer_coordinate">"Tyngdkraft avkänning koordinatsystem"</string>
+    <string name="accele_coord_default">"Förvalda koordinatsystem"</string>
+    <string name="accele_coord_special">"Särskilda koordinater för att rymma en del av spelet"</string>
+    <string name="global_action_reboot_to_recovery">"Starta om i återställningsläge"</string>
+    <string name="global_action_restart">"Omstarta"</string>
+</resources>

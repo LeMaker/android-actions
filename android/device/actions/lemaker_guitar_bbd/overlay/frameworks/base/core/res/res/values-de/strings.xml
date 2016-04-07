@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Entnehmbare SD-Speicherkarte"</string>
+    <string name="storage_usb">"Interne SD-Speicherkarte "</string>
+    <string name="storage_uhost">"USB-Festplatte"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Bereitung von der USB-Festplatte"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Überprüfung auf Fehler"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Leere USB-Disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB-Disk ist leer oder Dateisystem wurde nicht terstützt"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Beschädigte USB-Disk"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB-Disk ist beschädigt. Möglicherweise ist es zu formatieren"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB-Disk wurde unbeabsichtigterweise entfernt"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Demontage USB-Disk vor der Entfernung, um Datenverlust zu vermeiden"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB-Festplatte wurde sicher entfernt"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Sie können USB-Disk sicher entfernen"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB-Disk ist entfernt"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB-Disk ist entfernt, und stecken Sie ein Neues ein"</string>
+    <string name="accelerometer_coordinate">"Koordinate von Schwerkraftsensor"</string>
+    <string name="accele_coord_default">"Standardkoordinate"</string>
+    <string name="accele_coord_special">"Besondere Koordinate, um einige Spiele zu unterstützen"</string>
+    <string name="global_action_reboot_to_recovery">"Recovery-Modus wieder zu starten"</string>
+    <string name="global_action_restart">"Neustart"</string>
+</resources>

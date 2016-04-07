@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Cardul detașabil de memorie SD"</string>
+    <string name="storage_usb">"Cardul intern de memorie SD"</string>
+    <string name="storage_uhost">"Stick-ul USB"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Se pregătește stick-ul USB."</string>
+    <string name="uh_media_checking_notification_message" product="default">"Se verifică dacă sunt erorile."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Stick-ul USB e gol."</string>
+    <string name="uh_media_nofs_notification_message" product="default">"Stick-ul USB e gol sau nu se acceptă sistemul fișierelor."</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Stick-ul USB e stricat."</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"Stick-ul USB e stricat și trebuie să-l reformatați."</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"Stick-ul USB e scos în mod neașteptat."</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Pentru evitarea pierderii datelor vă rugăm să demontați stick-ul USB înainte de a-l scoate."</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"Stick-ul USB e scos în siguranță."</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Puteți să scoateți stick-ul USB acum în siguranță."</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Stick-ul USB e scos."</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"Stick-ul USB e scos și vă rugăm să introduceți un stick USB nou."</string>
+    <string name="accelerometer_coordinate">"Coordinatele senzorului de gravitație "</string>
+    <string name="accele_coord_default">"Coordonatele implicite"</string>
+    <string name="accele_coord_special">"Coordonatele speciale pentru adaptare la unele jocuri"</string>
+    <string name="global_action_reboot_to_recovery">"Reporniți dispozitivul în modul ”Recuperare”."</string>
+    <string name="global_action_restart">"Reporniți"</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Здымная SD карта"</string>
+    <string name="storage_usb">"Унутраная SD карта"</string>
+    <string name="storage_uhost">"USB дыск"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Падрыхтоўка USB дыска"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Праверка на наяўнасць памылак."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Пусты USB дыск"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB дыск пусты або мае непадтрымоўвану файлавую сістэму"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB дыск пашкоджаны"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB дыск пашкоджаны. Магчыма вам прыйдзецца яго перафарматаваць"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB дыск нечакана адлучэн"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Адключыце USB дыск перад яго адлучэннем, каб пазбегнуць страты дадзеных"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB дыск бяспечна адлучэн"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"USB дыск можна адлучыць"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB дыск адлучэн"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB дыск адлучэн. Устаўце новы"</string>
+    <string name="accelerometer_coordinate">"Каардынаты акселерометра"</string>
+    <string name="accele_coord_default">"Каардынаты па змаўчанні"</string>
+    <string name="accele_coord_special">"Спецыяльныя каардынаты для падтрымкі некаторых гульняў"</string>
+    <string name="global_action_reboot_to_recovery">"Перазагрузка для аднаўлення"</string>
+    <string name="global_action_restart">"Перазапуск"</string>
+</resources>

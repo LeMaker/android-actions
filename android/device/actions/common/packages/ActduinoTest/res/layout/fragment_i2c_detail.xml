@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+<TextView
+	style="?android:attr/textAppearanceLarge"
+	android:id="@+id/i2c_title"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="16dp"/>
+ <TextView
+        android:id="@+id/tvShowReadi2c"
+		android:layout_width="720dp"
+		android:layout_height="240dp"
+		android:padding="10dp"
+		android:textSize="24sp"
+		android:background="#FFFFFF"
+		android:layout_marginBottom="20dp"
+		android:layout_marginLeft="20dp"
+         />
+<LinearLayout 
+    android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:layout_marginLeft="20dp">
+	
+	<EditText 
+	    android:id="@+id/input_paramenti2c"
+		android:layout_width="600dp"
+		android:layout_height="240dp"
+		
+		android:padding="10dp"
+		android:hint="@string/write_eeprom"/>
+	<Button
+        android:id="@+id/btn_i2c_test"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:padding="20dp" />
+
+</LinearLayout>
+<TextView
+        android:id="@+id/i2c_desc"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="720dp"
+        android:layout_height="300dp"
+        android:padding="16dp" 
+        android:layout_marginLeft="80dp"/>
+</LinearLayout>

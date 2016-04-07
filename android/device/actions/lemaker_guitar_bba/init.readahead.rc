@@ -1,0 +1,8 @@
+#on early_boot
+#    mount debugfs none /sys/kernel/debug
+# mount in init.gs705a.rc
+
+
+service areadaheadd /system/bin/treadahead
+    class core
+    oneshot

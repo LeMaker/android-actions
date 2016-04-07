@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Removable SD Card"</string>
+    <string name="storage_usb">"Internal SD Card"</string>
+    <string name="storage_uhost">"USB Disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Preparing USB Disk"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Checking for errors."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Blank USB Disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB Disk blank or has unsupported filesystem"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Damaged USB Disk"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB Disk damaged. You may have to reformat it"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB Disk unexpectedly removed"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Unmount USB Disk before removing to avoid data loss"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB Disk safe to remove"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"You can safely remove USB Disk"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Removed USB Disk"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB Disk removed. Insert a new one"</string>
+    <string name="accelerometer_coordinate">"Accelerometer coordinate"</string>
+    <string name="accele_coord_default">"Default coordinate"</string>
+    <string name="accele_coord_special">"Special coordinate to support some games"</string>
+    <string name="global_action_reboot_to_recovery">"Reboot to recovery"</string>
+    <string name="global_action_restart">"Restart"</string>
+</resources>

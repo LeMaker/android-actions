@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="baudrate">
+        <item>115200</item>
+        <item>9600</item>
+        
+    </string-array>
+    <string-array name="bit_data">
+        <item>8</item>
+        <item>7</item>
+    </string-array>
+    <string-array name="bit_check">
+        <item>None</item>
+        <item>Even</item>
+        <item>Odd</item>
+    </string-array>
+    <string-array name="bit_stop">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

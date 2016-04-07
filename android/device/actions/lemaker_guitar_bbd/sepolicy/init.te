@@ -1,0 +1,8 @@
+allow init self:capability { sys_module };
+
+allow init app_data_file:dir r_dir_perms;
+allow init app_data_file:file r_file_perms;
+allow init sdcard_external:dir r_dir_perms;
+allow init sdcard_external:file r_file_perms;
+allow init system_file:dir { r_dir_perms mounton };
+allow init system_file:file r_file_perms;

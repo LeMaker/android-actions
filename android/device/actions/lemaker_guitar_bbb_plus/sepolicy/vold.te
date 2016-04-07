@@ -1,0 +1,16 @@
+allow vold rootfs:file rwx_file_perms;
+allow vold cpuctl_device:dir rw_dir_perms;
+allow vold console_device:chr_file rwx_file_perms;
+allow vold proc:file rw_file_perms;
+allow vold usb_device:dir rw_dir_perms;
+allow vold usb_device:chr_file rw_file_perms;
+allow vold log_device:dir rw_dir_perms;
+
+allow vold self:capability { sys_module audit_write setgid setuid };
+allow vold fuse_device:chr_file { getattr open read write };
+allow vold unlabeled:filesystem { mount unmount remount };
+allow vold system_data_file:file create_file_perms;
+allow vold default_prop:property_service set;
+allow vold ctl_default_prop:property_service set;
+allow vold ctl_rildaemon_prop:property_service set;
+

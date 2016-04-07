@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Eksterne SD-kort"</string>
+    <string name="storage_usb">"Innebygd SD-kort"</string>
+    <string name="storage_uhost">"U disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Forbereder U disk"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Ser etter feil."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Tom U disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"U disk har ingen filsystemet eller filsystemer støttes ikke"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"U disk Skadet"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"\"U-disken er skadet. Du må kanskje formatere det"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"U disk er ikke riktig fjernet"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Avinstaller U disk før fjerner det for å unngå tap av data"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"U disk er trygt fjernes"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Du kan nå trygt ta av U disk"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"U disk er fjernet"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"U disk er fjernet. Sett inn en ny U-disk"</string>
+    <string name="accelerometer_coordinate">"Tyngdekraft forstand koordinatsystem"</string>
+    <string name="accele_coord_default">"Standard koordinatsystem"</string>
+    <string name="accele_coord_special">"Spesielle koordinater for å imøtekomme en del av spillet"</string>
+    <string name="global_action_reboot_to_recovery">"Restarte inn i Inndriving-modus"</string>
+    <string name="global_action_restart">"Omstarta"</string>
+</resources>

@@ -275,77 +275,37 @@
 
 	framebuffer {
 		compatible = "actions,framebuffer";
-
-		/*never creat platform device*/
-		status = "disabled";
+		def_display  = "hdmi";
+		xres=<1280>;
+		yres=<720>;
+		bpp = <4>; 
 	};
 
-	ovl_boot {
-		usage = "boot";
-		disp_dev = <&lcd0>;
-	};
-
-	ovl_extra {
-		usage = "extra";
-	};
 		
 	lcd0: lcd0@b02a0000 {
 		status = "disabled";
 	};
 
 	dsi: dsi@b0220000 {
-		pinctrl-names = "default";
-		pinctrl-0 = <&dsi_state_default>;
-		dsi_power_gpios = <&gpio 126 1>;    /*hr280ac GPIOD30*/
-		dsi_reset_gpios = <&gpio 119 0>;    /*S500 GPIOD19*/	
-		port_type = "dsi";	 
-		data_width = <1>;
-		videomode-0 = <&dsi_mode>;
-		hw-set = <&dsi_reg>;
-
-		dsi_reg:val{													
-			dsi_ctrl =< 0x1340>;
-			dsi_size = <0x3200000>;
-			dsi_color = <0xff0000>;
-			dsi_rgbht0 = <0x7878>;
-			dsi_rgbht1 = <0x3e8>;
-			dsi_rgbvt0 = <0x1f0c32c>;
-			dsi_rgbvt1 =<0xa>;
-			dsi_pack_cfg = <0x0>;
-			dsi_pack_header =<0xf00>;
-			dsi_vedio_cfg = <0x30c>;
-			dsi_phy_t0 = <0xa5a>;
-			dsi_phy_t1 =<0x1b12>;
-			dsi_phy_t2 = <0x2f05>;
-			dsi_phy_ctrl = <0xfc94>;
-			dsi_pin_map = <0x688>;
-			cmu_dsipll_clk = <0x12601>;
-		};
-		
-		dsi_mode:mode@800x1280p60 {
-			refresh = <60>;
-			xres = <1280>;
-			yres = <800>;
-			/*in pico second, 0.000 000 000 001s*/
-			pixclock = <15000>;
-			left_margin = <10>;
-			right_margin = <10>;
-			upper_margin = <3>;
-			lower_margin = <3>;
-			hsync_len = <30>;
-			vsync_len = <6>;
-			/*0: FB_VMODE_NONINTERLACED, 1:FB_VMODE_INTERLACED*/
-			vmode = <0>;
-		};
+		status = "disabled";
 	};
 
 	hdmi:hdmi@b02c0000{
 		hdcp_onoff = <0>;
 		channel_invert = <0>;
 		bit_invert = <0>;
+		bootable = <1>;
+		i2cbus = <3>; 
+		bootrotate = <0>;   
+		default_resolution = "auto";
+	};
+	
+	cvbs:cvbs@b02b0000{  
+		default_mode = "PAL";
 		bootable = <1>; 
-		bootrotate = <3>;   
-		default_resolution = "1080P60HZ";
+		bootrotate = <0>; 
+		hotplugable = <1>;
+		status="okay";
 	};
 
 	pwm: pwm@b01b0050 {

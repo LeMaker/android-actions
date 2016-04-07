@@ -275,19 +275,10 @@
 
 	framebuffer {
 		compatible = "actions,framebuffer";
-
-		/*never creat platform device*/
-		status = "disabled";
+		def_display  = "dsi";
+		bpp = <4>; 
 	};
 
-	ovl_boot {
-		usage = "boot";
-		disp_dev = <&lcd0>;
-	};
-
-	ovl_extra {
-		usage = "extra";
-	};
 		
 	lcd0: lcd0@b02a0000 {
 		status = "disabled";
@@ -343,9 +334,10 @@
 		hdcp_onoff = <0>;
 		channel_invert = <0>;
 		bit_invert = <0>;
-		bootable = <1>; 
+		bootable = <1>;
+		i2cbus = <3>; 
 		bootrotate = <3>;   
-		default_resolution = "1080P60HZ";
+		default_resolution = "auto";
 	};
 
 	pwm: pwm@b01b0050 {

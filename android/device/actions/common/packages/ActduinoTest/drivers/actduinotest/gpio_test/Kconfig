@@ -1,0 +1,6 @@
+
+config GPIO_OWL_TEST
+        tristate "ActduinoTest:GPIO OWL Test"
+        depends on y
+        help
+          This is ActduinoTest gpio testcase driver

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Zewnętrzna karta SD "</string>
+    <string name="storage_usb">"Wewnętrzna karta SD "</string>
+    <string name="storage_uhost">"Dysk USB"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Przygotowanie dysku USB"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Sprawdzanie błędów"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Pusty dysk USB"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"Pusty dysk USB lub nieobsługiwany system plików"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Uszkodzony dysk USB"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"Dysk USB uszkodzony. Być może trzeba sformatować"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"Dysk USB nieoczekiwanie usunięty"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Odinstaluj dysk USB przed wyjęciem, aby uniknąć utraty danych"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"Dysk USB można bezpiecznie usunąć"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Możesz bezpiecznie usunąć dysk USB"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Usunięty dysk USB"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"Dysk USB usunięty. Umieść nowy."</string>
+    <string name="accelerometer_coordinate">"Koordynacja akcelerometryczna"</string>
+    <string name="accele_coord_default">"Domyślny układ współrzędnych"</string>
+    <string name="accele_coord_special">"Szczególne współrzędne   dostosowane do gier"</string>
+    <string name="global_action_reboot_to_recovery">"Uruchom ponownie w trybie odzyskiwania"</string>
+    <string name="global_action_restart">"Restart"</string>
+</resources>

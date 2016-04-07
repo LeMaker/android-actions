@@ -1,0 +1,5 @@
+# add perm for sdcardd
+allow sdcardd system_data_file:dir create_dir_perms;
+allow sdcardd system_data_file:file create_file_perms;
+allow sdcardd unlabeled:dir rw_dir_perms;
+allow sdcardd unlabeled:file rw_file_perms;

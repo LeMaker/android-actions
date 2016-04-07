@@ -1,0 +1,11 @@
+# remote storage process (runs as nobody)
+type pvrsrvctl, domain;
+type pvrsrvctl_exec, exec_type, file_type;
+
+# Started by init
+init_daemon_domain(pvrsrvctl)
+
+allow pvrsrvctl sdcard_external:dir r_dir_perms;
+allow pvrsrvctl sdcard_external:file r_file_perms;
+allow pvrsrvctl system_file:dir r_dir_perms;
+allow pvrsrvctl system_file:file r_file_perms;

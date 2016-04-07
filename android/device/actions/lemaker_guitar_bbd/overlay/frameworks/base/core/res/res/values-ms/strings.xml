@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Kad SD luaran"</string>
+    <string name="storage_usb">"Kad SD dalaman"</string>
+    <string name="storage_uhost">"USB Disk "</string>
+    <string name="uh_media_checking_notification_title" product="default">"Menyiapkan USB Disk"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Menyemak kesalahan."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"USB Disk kosong"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB Disk kosong atau sistem fail tidak disokong"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB Disk rosak"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB Disk rosak. Anda mungkin perlu memformat ulangnya"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB Disk tidak dipadam dengan benar"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Sila uninstall USB Disk, dan kemudian memadamnya untuk mengelakkan kehilangan data"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB Disk telah dipadam secara aman"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Anda sekarang boleh memadam USB Disk secara aman"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB Disk dipadam"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB Disk dipadam. Masukkan USB Disk baru"</string>
+    <string name="accelerometer_coordinate">"Koordinat akselerometer "</string>
+    <string name="accele_coord_default">"Koordinat lalai "</string>
+    <string name="accele_coord_special">"Koordinat khusus untuk menyokong beberapa permainan"</string>
+    <string name="global_action_reboot_to_recovery">"Reboot ke dalam mode recovery"</string>
+    <string name="global_action_restart">"Restart"</string>
+</resources>

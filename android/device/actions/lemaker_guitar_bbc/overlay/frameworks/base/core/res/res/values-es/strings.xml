@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Tarjeta desprendible de SD"</string>
+    <string name="storage_usb">"Tarjeta interna de SD"</string>
+    <string name="storage_uhost">"Disco del Usb"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Preparación del disco de USB"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Comprobación para saber si hay errores."</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Disco en blanco de USB"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"El espacio en blanco del disco de USB o tiene sistema de ficheros sin apoyo"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Disco dañado de USB"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"Disco de USB dañado. Usted puede tener que cambiarlo formato"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"Disco de USB quitado inesperado"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Descargue el disco de USB antes de quitar para evitar pérdida de los datos"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"disco de USB es seguro de quitar"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Usted puede quitar con seguridad el disco de USB"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Disco quitado de USB"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"Disco de USB quitado. Inserte un nuevo"</string>
+    <string name="accelerometer_coordinate">"Coordenada del acelerómetro"</string>
+    <string name="accele_coord_default">"Coordenada del defecto"</string>
+    <string name="accele_coord_special">"Coordenada especial para apoyar algunos juegos"</string>
+    <string name="global_action_reboot_to_recovery">"Reiniciar  la recuperación"</string>
+    <string name="global_action_restart">"reanudar"</string>
+</resources>

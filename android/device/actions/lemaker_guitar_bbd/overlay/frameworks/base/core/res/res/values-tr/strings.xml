@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Çıkarılabilir SD Kart"</string>
+    <string name="storage_usb">"Dahili SD Kart"</string>
+    <string name="storage_uhost">"usb diski"</string>
+    <string name="uh_media_checking_notification_title" product="default">"usb diski hazırlanıyor"</string>
+    <string name="uh_media_checking_notification_message" product="default">"hataları kontrol ediliyor"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"boş USB diski"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB diskinde dosya sistemi yok, veya desteklenmiyor"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB diski bozuk"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB diski bozuk.  Bunu yeniden biçimlendirmek gerekebilir"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB Diski beklenmedik kaldırıldı"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">" USB Diskin verilerinin kaybını önlemek için çıkarmadan önce bağlantısını kesin"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB diski güvenli olarak çıkarıldı"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"USB diski güvenli olarak çıkarabilirsiniz"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB diski çıkarıldı"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB diski çıkarıldı, lütfen başka bir USB diski ekleyin "</string>
+    <string name="accelerometer_coordinate">"Yerçekimi sensörü koordinat sistemi"</string>
+    <string name="accele_coord_default">"Varsayılan koordinat sistemi"</string>
+    <string name="accele_coord_special">"Bazı oyunlar desteklemek için özel koordinat sistemi"</string>
+    <string name="global_action_reboot_to_recovery">"Kurtarma için yeniden başlatın"</string>
+    <string name="global_action_restart">"yeniden başlat"</string>
+</resources>

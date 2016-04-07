@@ -217,35 +217,24 @@ dtb-$(CONFIG_ARCH_VT8500) += vt8500-bv07.dtb \
 	wm8850-w70v2.dtb
 dtb-$(CONFIG_ARCH_ZYNQ) += zynq-zc702.dtb
 
-dtb-$(CONFIG_ARCH_OWL) += actduino_bubble_gum.dtb \
-	actduino_bubble_gum_sdboot.dtb \
-	actduino_s500_720p.dtb \
+dtb-$(CONFIG_ARCH_OWL) += actduino_s500_720p.dtb \
 	actduino_s500_1080p.dtb \
 	actduino_s500_lcd_1280x800.dtb \
 	actduino_s500_lcd_1280x800_uvc.dtb \
 	actduino_s500_lcd_768x1024.dtb \
 	actduino_s500_lcd_768x1024_uvc.dtb \
-	atm7059a_demo_86v.dtb \
-	atm7059a_demo_86v_costdown.dtb \
-	atm7059a_demo_86v_costdown_wvga_dpi120.dtb \
-	atm7059a_demo_86v_costdown_wvga_dpi160.dtb \
-	atm7059a_demo_86v_test.dtb \
-	atm7059a_evb.dtb \
-	atm7059a_hr820ac_8723bs.dtb \
-	atm7059a_hr820ac_ap6210.dtb \
-	atm7059c_demo_86v_costdown.dtb \
-	lemaker_guitar.dtb \
+	actduino_lemaker_guitar.dtb \
 	actduino_s500_lcd_1280x800_sdboot.dtb \
-	actduino_bubble_gum_linux.dtb \
-	actduino_bubble_gum_sdboot_linux.dtb \
 	actduino_s500_lcd_1280x800_linux.dtb \
 	actduino_s500_lcd_1280x800_sdboot_linux.dtb \
 	actduino_s500_lcd_768x1024_linux.dtb \
-	lemaker_guitar_linux.dtb \
-	actduino_bubble_gum_probatch.dtb \
+	actduino_lemaker_guitar_linux.dtb \
 	actduino_s500_probatch.dtb \
-	lemaker_guitar_rtl8723bs_lvds_1024x600.dtb \
-	lemaker_guitar_lcd_1024x600.dtb \
+    lemaker_guitar_bba.dtb \
+    lemaker_guitar_bbb.dtb \
+    lemaker_guitar_bbc.dtb \
+    lemaker_guitar_bbd.dtb \
+	lemaker_guitar_bbb_plus.dtb \
 	actduino_lemaker_guitar_probatch.dtb
 	
 ifeq ($(CONFIG_ARCH_OWL),y)

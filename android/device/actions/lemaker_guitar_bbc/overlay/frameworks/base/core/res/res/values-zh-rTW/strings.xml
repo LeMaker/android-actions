@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"外置SD卡"</string>
+    <string name="storage_usb">"內置SD卡"</string>
+    <string name="storage_uhost">"U盤"</string>
+    <string name="storage_uhost1" >"U盤1"</string>
+    <string name="storage_uhost2" >"U盤2"</string>
+    <string name="uh_media_checking_notification_title" product="default">"正在準備 U 盤"</string>
+    <string name="uh_media_checking_notification_message" product="default">"正在檢查是否有錯誤。"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"空 U 盤"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"U 盤無檔系統，或檔系統不受支援"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"U 盤受損"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"U 盤已損壞。您可能必須將其重新格式化"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"U 盤未正常移除"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"請先卸載 U 盤，再將其移除，以防資料丟失"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"U 盤已安全移除"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"您現在可以安全移除 U 盤"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"已移除 U 盤"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"U 盤已移除。請插入新的 U 盤"</string>    <string name="accelerometer_coordinate">"重力感應坐標系"</string>
+    <string name="accele_coord_default">"默認坐標系"</string>
+    <string name="accele_coord_special">"特殊座標以適應部分遊戲"</string>
+    <string name="global_action_reboot_to_recovery">"重啟進入recovery模式"</string>
+    <string name="global_action_restart">"重啟"</string>
+</resources>

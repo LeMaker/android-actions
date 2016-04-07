@@ -159,13 +159,9 @@
 		
 		lvds_state_default: lvds_default {
 			lvds_mux {
-				actions,groups = "mfp1_6_5", "mfp2_28_27";
+				actions,groups = "mfp1_22_21", "mfp1_6_5", "mfp2_28_27";
 				actions,function = "lvds";
 			};
-			lcd_mux {
-                                actions,groups = "mfp1_22_21";
-                                actions,function = "lcd0";
-                        };
 		};
 		rgb_state_default: rgb_default {
 			rgb_mux {
@@ -200,9 +196,21 @@
 			interrupt-controller;
 			#interrupt-cells = <1>;
 
+			atc260x-adckeypad{
+			    compatible = "actions,atc2603c-adckeypad";
+                            adc_channel_name = "AUX0";          /* the ADC channel used for sampling, valid names are REMCON AUX0 AUX1 AUX2 (AUX3) */
+                            keymapsize = <4>; /* number of ADC key */
+                            left_adc_val =  <0 90 175 270>;     /* for key code translator, each value defines a lower bound of ADC value of a key */
+                            right_adc_val = <30 120 220 320>;   /* for key code translator, each value defines a upper bound of ADC value of a key */
+                            key_val = <KEY_HOME KEY_MENU KEY_VOLUMEUP KEY_VOLUMEDOWN>; /* for key code translator, each value defines the key_code of a key */
+                        };
+
 			atc260x-power{
 				compatible = "actions,atc2603c-power";
-				support_adaptor_type = <3>;      /*1: DCIN  2: USB  3:DCIN+USB*/
+				support_adaptor_type = <2>;      /*1: DCIN  2: USB  3:DCIN+USB*/
+				gauge_bus_id = <2>;      /*gauge bus id: 0~n*/
+				gauge_id = <1>;      /*0:default gauge, 1:hwgauge*/
+				boot_cap_threshold = <7>;     /*7%,the lowest capacity permitted to boot*/ 
 				support_minicharger = < 1 >;	/* 1:support minicharer  0:do not support minicharger */  
 			};
 		};
@@ -213,17 +221,7 @@
 		clock-frequency = <400000>;
 		status = "okay";
 		pinctrl-names = "default";
-		pinctrl-0 = <&i2c3_state_over_spi0>;
-		eg2801_eeprom@14 {
-			compatible ="actions,eg2801_eeprom";
-			reg = <0x14>;
-		};
-
-		eg2801_ram@55 {
-			compatible ="actions,eg2801_ram";
-			reg = <0x55>;
-		};
-		
+		pinctrl-0 = <&i2c3_state_over_spi0>;	
 		hdmi_read_edid@30 {
 			compatible = "actions,hdmi_read_edid";
 			reg = <0x30>;
@@ -270,84 +268,68 @@
 
 	framebuffer {
 		compatible = "actions,framebuffer";
+		def_display  = "dsi";
+		bpp = <4>; 
+	};
 
-		/*never creat platform device*/
+		
+	lcd0: lcd0@b02a0000 {
 		status = "disabled";
 	};
 
-	ovl_boot {
-		usage = "boot";
-		disp_dev = <&lcd0>;
-	};
+	dsi: dsi@b0220000 {
+		pinctrl-names = "default";
+		pinctrl-0 = <&dsi_state_default>;
+		dsi_power_gpios = <&gpio 126 1>;    /*GPIOD30*/
+		port_type = "dsi";	 
+		data_width = <0>;
+		videomode-0 = <&dsi_mode>;
+		hw-set = <&dsi_reg>;
 
-	ovl_extra {
-		usage = "extra";
-	};
+		dsi_reg:val{													
+			dsi_ctrl =< 0x1340>;
+			dsi_size = <0x3200000>;
+			dsi_color = <0xff0000>;
+			dsi_rgbht0 = <0x7878>;
+			dsi_rgbht1 = <0x3e8>;
+			dsi_rgbvt0 = <0x1f0c32c>;
+			dsi_rgbvt1 =<0xa>;
+			dsi_pack_cfg = <0x0>;
+			dsi_pack_header =<0xf00>;
+			dsi_vedio_cfg = <0x30c>;
+			dsi_phy_t0 = <0xa5a>;
+			dsi_phy_t1 =<0x1b12>;
+			dsi_phy_t2 = <0x2f05>;
+			dsi_phy_ctrl = <0xfc94>;
+			dsi_pin_map = <0x688>;
+			cmu_dsipll_clk = <0x12601>;
+		};
 		
-	lcd0: lcd0@b02a0000 {
-                pinctrl-names = "default";
-                pinctrl-0 = <&lvds_state_default>;
-                lcd_power_gpios = <&gpio 36 0>;    /*GPIOB4*/
-                lcd_reset_gpios = <&gpio 49 0>; /*GPIOB17*/
-                port_type = "lvds";
-                data_width = <0>;               /* 0:24bit ,1:18bit */
-                videomode-0 = <&lcd_mode0>;
-                vsync_inversion = <0>;
-                hsync_inversion = <0>;
-                dclk_inversion = <0>;
-                lde_inversion = <0>;
-                lvds_ctl = <0x000a9523>;        /* last two bit: 3:8bit ,1:6bit */
-                lvds_alg_ctl0 = <0xc141a030>;
-                lightness = <128>;
-                saturation = <7>;
-                contrast = <5>;
-
-	/*
-                lcd_mode0:mode@1280x800p60 {
-                refresh = <60>;
-                        xres = <1280>; 
-                        yres = <800>;    
-                        pixclock = <20000>;
-                        left_margin = <80>;
-                        right_margin = <60>;
-                        upper_margin = <8>;
-                        lower_margin = <7>;
-                        hsync_len = <20>;
-                        vsync_len = <8>;
-                        vmode = <0>;
-                };
-                */
-                lcd_mode0:mode@1024x600p60 {
-                        refresh = <60>;
-                        xres = <1024>;
-                        yres = <600>;
-                        /*in pico second, 0.000 000 000 001s*/
-                        pixclock = <23333>;
-                        left_margin = <56>;
-                        right_margin = <60>;
-                        upper_margin = <13>;
-                        lower_margin = <18>;
-                        hsync_len = <4>;
-                        vsync_len = <4>;
-                        /*0: FB_VMODE_NONINTERLACED, 1:FB_VMODE_INTERLACED*/
-                        vmode = <0>;
-                };
-
-        };
-
-
-        dsi: dsi@b0220000 {
-                status = "disabled";
-        };
-
+		dsi_mode:mode@800x1280p60 {
+			refresh = <60>;
+			xres = <1280>;
+			yres = <800>;
+			/*in pico second, 0.000 000 000 001s*/
+			pixclock = <15000>;
+			left_margin = <10>;
+			right_margin = <10>;
+			upper_margin = <3>;
+			lower_margin = <3>;
+			hsync_len = <30>;
+			vsync_len = <6>;
+			/*0: FB_VMODE_NONINTERLACED, 1:FB_VMODE_INTERLACED*/
+			vmode = <0>;
+		};
+	};
 
 	hdmi:hdmi@b02c0000{
 		hdcp_onoff = <0>;
 		channel_invert = <0>;
 		bit_invert = <0>;
 		bootable = <1>; 
+		i2cbus = <3>;
 		bootrotate = <0>;   
-		default_resolution = "1080P60HZ";
+		default_resolution = "auto";
 	};
 
 	pwm: pwm@b01b0050 {
@@ -377,14 +359,14 @@
 		compatible = "actions,owl-ethernet";
 		phy_addr = <1>;
 		status = "okay";
-		phy-power-gpios = <&gpio 43 0>; /* GPIOB11 active  1:low  0:high*/
-                phy-reset-gpios = <&gpio 127 0>; /* GPIOD31 active  1:low  0:high*/
+		phy-power-gpios = <&gpio 85 0>;
+		phy-reset-gpios = <&gpio 84 1>;
 	};
 
 	backlight {
 		/*1.pwm num; 2. period in ns; */
 		/*3.plarity, 0: high active, 1: low active*/
-//		backlight_en_gpios = <&gpio 124 0>; /*GPIOD28*/ 
+		backlight_en_gpios = <&gpio 124 0>; /*GPIOD28*/ 
 		pwms = <&pwm 0 50000 1>;
 		total_steps = <1024>;
 		min_brightness = <120>;

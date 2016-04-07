@@ -614,9 +614,16 @@ int Volume::mountVol() {
         }
         //ActionsCode(huoysh,Unmount the volumes if disk had been removed)
         if (getState() == Volume::State_NoMedia) {
+NO_MEDIA_HANDLE:			
             errno = ENODEV;
             SLOGE("Disk removed after mounted (%s)", strerror(errno));
             umount(mpoint);
+            //ActionsCode(huoysh, umount fuse mountpoint)
+            //check if fuse mountpoint is mounted ;if so , need to umount it
+            if (isMountpointMounted(getFuseMountpoint())){
+                SLOGE(" FuseMountpoint  (%s) is mounted;do a umount", getFuseMountpoint());
+                umount(getFuseMountpoint());
+            }
             snprintf(errmsg, sizeof(errmsg),
                      "Volume %s %s mount failed - no media",
                      getLabel(), mpoint);
@@ -651,8 +658,9 @@ int Volume::mountVol() {
             //ActionsCode(hmwei, wait fuse service finish)
             memset(&stat, 0, sizeof(struct statfs));
             do {
-                if(mIsDiskPlugOut){
+                if(mIsDiskPlugOut ||(getState() == Volume::State_NoMedia)){
                     SLOGD(" while waiting fuse service disk pluged out,exit!! \n");
+                    property_set("ctl.stop", service);
                     break;			
                 }
                 statfs(getFuseMountpoint(), &stat);
@@ -661,6 +669,9 @@ int Volume::mountVol() {
                 timeout_cnt++;
             } while((stat.f_blocks == 0) && (timeout_cnt != 50));
         }
+        if (getState() == Volume::State_NoMedia) {
+		goto NO_MEDIA_HANDLE;		
+        }		
         multiPartMountedNum++;
         mCurrentlyMountedKdev = deviceNodes[i];
         if (i == n - 1) {

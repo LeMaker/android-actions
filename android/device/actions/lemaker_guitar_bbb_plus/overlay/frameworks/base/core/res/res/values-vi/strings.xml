@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Thẻ SD ngoài"</string>
+    <string name="storage_usb">"Thẻ SD trong"</string>
+    <string name="storage_uhost">"USB"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Đang chuẩn bị USB"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Đang kiểm tra lỗi"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"USB trống"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"USB không có tệp hệ thống, hoặc không hỗ trợ tệp hệ thống"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB bị hỏng"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"\"USB đã hỏng. Có thể bạn phải định dạng lại"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"Rút USB bất thường"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Hãy thoát USB trước, rồi hãy rút, để tránh mất dữ liệu"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB đã được rút an toàn"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Giờ bạn có thể rút USB an toàn"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"Đã rút USB"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"Đã rút USB. Hãy cắm USB mới"</string>
+    <string name="accelerometer_coordinate">"Hệ tọa độ cảm ứng trọng lực"</string>
+    <string name="accele_coord_default">"Hệ tọa độ mặc định"</string>
+    <string name="accele_coord_special">"Tọa độ đặc biệt để thích ứng với một số trò chơi"</string>
+    <string name="global_action_reboot_to_recovery">"Khởi động lại vào kiểu recovery"</string>
+    <string name="global_action_restart">"Khởi động lại"</string>
+</resources>

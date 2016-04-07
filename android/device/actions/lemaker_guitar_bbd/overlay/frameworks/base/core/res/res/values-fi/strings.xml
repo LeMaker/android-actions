@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Poistettava SD-kortti"</string>
+    <string name="storage_usb">"Sisäinen SD-kortti"</string>
+    <string name="storage_uhost">"USB-levyke"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Valmistelee USB-levykettä"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Tarkistaa virheitten varalle"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Tyhjä USB-disketti"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"Tyhjä USB-levyke tai tiedostojärjestelmää ei tueta"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"Vaurioitunut USB-levyke"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB-levyke on vaurioitunut. Formatoi levyke"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB-levyke poistettu väärin"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Poista USB-levyke käytöstä ennen sen irroittamista tietojen häviämisen välttämiseksi"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB-levyke valmis irrotettavaksi"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Voit nyt irrottaa USB-levykkeen turvallisesti"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB-levyke poistettu "</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB-levyke irrotettu. Asenna uusi levyke"</string>
+    <string name="accelerometer_coordinate">"Kiihtyvyysanturin koordinaatit"</string>
+    <string name="accele_coord_default">"Oletus koordinaatit"</string>
+    <string name="accele_coord_special">"Erikois koordinaatit tiettyjen pelien tukemiseksi"</string>
+    <string name="global_action_reboot_to_recovery">"Palauta käynnistämällä laite uudelleen"</string>
+    <string name="global_action_restart">"Uudelleenaloitus"</string>
+</resources>

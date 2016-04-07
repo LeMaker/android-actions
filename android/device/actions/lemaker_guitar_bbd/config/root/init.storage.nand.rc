@@ -1,0 +1,11 @@
+on early-init
+    # insmod flash driver
+    insmod /lib/modules/nandcore.ko
+    insmod /lib/modules/virnand.ko
+    insmod /lib/modules/nandunit.ko
+    insmod /lib/modules/nandreq.ko
+    insmod /lib/modules/nanddisk.ko
+	# insmod miscinfo driver
+	insmod /lib/modules/miscinfos.ko
+	
+

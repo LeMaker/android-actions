@@ -1,0 +1,4 @@
+allow surfaceflinger system_data_file:dir create_dir_perms;
+allow surfaceflinger system_data_file:file create_file_perms;
+allow surfaceflinger sysfs:file rw_file_perms;
+allow surfaceflinger device:chr_file rw_file_perms;

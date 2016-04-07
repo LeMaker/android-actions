@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Спољни СД картица"</string>
+    <string name="storage_usb">"Уграђен СД картицу"</string>
+    <string name="storage_uhost">"УСБ Диск"</string>
+    <string name="uh_media_checking_notification_title" product="default">"УСБ диску је у припреми"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Провера грешака"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"празни УСБ Диск"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"У УСБ диску нема фајл система или система датотека није подржана"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"УСБ диск оштећења"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"УСБ диск је оштећен. Можда ћете морати да је форматирате"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"УСБ диск  није правилно уклоњен"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Молимо деинсталирате УСБ диск, а затим уклонити да се избегне губитак података"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"УСБ диск је безбедно уклоњен"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Сада можете безбедно уклонити УСБ диск"</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"УСБ диск је уклоњен"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"УСБ диск је уклоњен. Поставите нови УСБ диск"</string>
+    <string name="accelerometer_coordinate">"Гравитација Сензор координатни систем"</string>
+    <string name="accele_coord_default">"Подразумевано координатни систем"</string>
+    <string name="accele_coord_special">"Посебне координате за смештај део игре"</string>
+    <string name="global_action_reboot_to_recovery">"Поново у режим рецоверy"</string>
+    <string name="global_action_restart">"покренути"</string>
+</resources>

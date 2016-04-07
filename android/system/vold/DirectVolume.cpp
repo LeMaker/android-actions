@@ -438,8 +438,16 @@ void DirectVolume::handleDiskRemoved(const char * /*devpath*/,
             minor = MINOR(mCurrentlyMountedKdev);
             SLOGE("Disk removed but still mounted, umount it again (%d:%d)", major, minor);
         } else {
-            setState(Volume::State_NoMedia);
-            return;
+            //ActionsCode(huoysh, umount fuse mountpoint)        
+            //setState(Volume::State_NoMedia);
+            SLOGD("\nmulti partition volume is mounting ( waiting for fuse service) ,wait for exit fuse checking\n");
+            /* if vol is mounting & waiting for fuse mounted, wait for exit fuse checking */
+            usleep(200000);
+            if(getState() == Volume::State_Mounted){
+                minor = MINOR(mCurrentlyMountedKdev);
+                SLOGD("\n after wait 200ms-State_Mounted\n");
+            }
+            //return;
         }
     }
     

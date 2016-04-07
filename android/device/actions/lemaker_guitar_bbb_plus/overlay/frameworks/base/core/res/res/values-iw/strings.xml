@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"כרטיס SD נשלף"</string>
+    <string name="storage_usb">"כרטיס SD הפנימי"</string>
+    <string name="storage_uhost">"דיסק USB"</string>
+    <string name="uh_media_checking_notification_title" product="default">"הכנת דיסק USB"</string>
+    <string name="uh_media_checking_notification_message" product="default">"בדיקה לאיתור שגיאות"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"דיסק USB ריק"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"הדיסק USB ריק או מערכת קבצים שלו אינה נתמכת"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"ה-USB דיסק פגום"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"ה-USB דיסק פגום. ייתכן שתצטרכו לאתחל אותו"</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"ה-USB דיסק הוסר באופן בלתי צפוי"</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"נתקו USB דיסק לפני הסרתו כדי למנוע אובדן נתונים"</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"ה-USB דיסק הוסר בצורה בטוחה"</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"ה-USB דיסק אפשר להסיר בצורה בטוחה "</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"ה-USB דיסק הוסר"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"ה-USB דיסק הוסר. הכניסו חדש"</string>
+    <string name="accelerometer_coordinate">"קואורדינטות של מד תאוצה"</string>
+    <string name="accele_coord_default">"קואורדינטות לפי ברירת מחדל"</string>
+    <string name="accele_coord_special">"קואורדינטות מיוחדות לתמיכת משחקים מסוימים"</string>
+    <string name="global_action_reboot_to_recovery">"לאתחל בשביל השחזור "</string>
+    <string name="global_action_restart">"הפעלה מחדש"</string>
+</resources>

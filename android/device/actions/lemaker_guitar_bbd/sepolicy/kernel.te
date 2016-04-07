@@ -1,0 +1,8 @@
+allow kernel self:capability { sys_module mknod };
+allow kernel fuse:dir create_dir_perms;
+allow kernel fuse:file create_file_perms;
+allow kernel sdcard_type:dir create_dir_perms;
+allow kernel sdcard_type:file create_file_perms;
+allow kernel self:process { setexec setfscreate setsockcreate };
+
+allow kernel debugfs:filesystem { mount remount unmount };

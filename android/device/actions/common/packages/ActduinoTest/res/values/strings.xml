@@ -1,0 +1,41 @@
+<resources>
+
+    <string name="app_name">ActDuinoTest</string>
+    <string name="default_baudrate">115200</string>
+    <string name="default_data">8</string>
+    <string name="default_check">ActDuinoTest</string>
+    <string name="default_stop">1</string>
+    <string name="baudrate_prompt">请选择波特率</string>
+    <string name="data_prompt">请选择数据位</string>
+    <string name="check_prompt">请选择检校位</string>
+    <string name="stop_prompt">请选择停止位</string>
+    <string name="GPIO_TEST">GPIO TEST</string>
+    <string name="result_sucess">检测结果：PASS</string>
+    <string name="result_fail">检测结果：FAIL</string>
+    <string name="pls_push_the_button">请点击按钮进行测试</string>
+     <string name="pls_check_ttySx_exsit">请检查串口设备文件存在</string>
+    <string name="pls_wait">正在检测 请等待</string>
+    <string name="value_real">真实值：</string>
+    <string name="value_ideal">理想值：</string>
+    <string name="WELCOME">欢迎使用 请点击左侧选择测试项目</string>
+    <string name="warning_empty">写入内容不能为空</string>
+     <string name="warning_format">请按规范填写周期：20~511 占空比1~99</string>
+    <string name="write_eeprom">请输入写入EEPROM的内容</string>
+    <string name="write_flash">请输入写入FLASH的内容</string>
+    <string name="serial_con">串口设置</string>
+    <string name="baudrate">波特率</string>
+    <string name="data">数据位</string>
+    <string name="check">校验位</string>
+    <string name="stop">停止位</string>
+    <string name="send">请输入发送的内容</string>
+    <string name="test">TEST</string>
+    <string name="period">周    期：</string>
+    <string name="zhankongbi">占空比：</string>
+    <string name="pls_input_0_or_1">请输入0或1 关闭或打开LED</string>
+    <string name="warning_mixed_encoding">输入字符串中含有不识别的字符 请尽量输入数字或字母</string> 
+    <string name="check_device_was_installed">请检测子板是否安装</string>
+    <string name="file_created_fail">文件创建失败 请清理后在使用</string>
+
+    <drawable name="headerbackground">#FAFAFA</drawable>
+
+</resources>

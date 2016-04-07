@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="storage_sd_card">"Flytbare SD Kort"</string>
+    <string name="storage_usb">"Interne SD Kort"</string>
+    <string name="storage_uhost">"USB Disk"</string>
+    <string name="uh_media_checking_notification_title" product="default">"Forbereder USB Disk"</string>
+    <string name="uh_media_checking_notification_message" product="default">"Kontrollerer fejl"</string>
+    <string name="uh_media_nofs_notification_title" product="default">"Blank USB Disk"</string>
+    <string name="uh_media_nofs_notification_message" product="default">"Blank USB Disk eller ukendte filsystem"</string>
+    <string name="uh_media_unmountable_notification_title" product="default">"USB Disk beskadiget"</string>
+    <string name="uh_media_unmountable_notification_message" product="default">"USB Disk beskadiget. Du må formatere den."</string>
+    <string name="uh_media_badremoval_notification_title" product="default">"USB Disk blev fjernet uventet."</string>
+    <string name="uh_media_badremoval_notification_message" product="default">"Afslut programmer før du fjerner USB Disk, for at undgå data tab. "</string>
+    <string name="uh_media_safe_unmount_notification_title" product="default">"USB Disk blev fjernet sikkert."</string>
+    <string name="uh_media_safe_unmount_notification_message" product="default">"Du kan fjerne USB Disk nu."</string>
+    <string name="uh_media_nomedia_notification_title" product="default">"USB Disk fjernet"</string>
+    <string name="uh_media_nomedia_notification_message" product="default">"USB Disk fjernet. Indsæt en ny USB Disk."</string>
+    <string name="accelerometer_coordinate">"G-Sensor koordination"</string>
+    <string name="accele_coord_default">"Default koordination"</string>
+    <string name="accele_coord_special">"Speciel koordination for nogen spil"</string>
+    <string name="global_action_reboot_to_recovery">"Genstart for at gå til Recovery mode"</string>
+    <string name="global_action_restart">"Genstart  "</string>
+</resources>

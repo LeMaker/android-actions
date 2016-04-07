@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests>
+    <gpio out="GPIOC27" in="GPIOD24"></gpio>
+    <gpio out="GPIOC26" in="GPIOD25"></gpio>
+    <gpio out="GPIOD31" in="GPIOB4"></gpio>
+    <gpio out="GPIOD29" in="GPIOB3"></gpio>
+    <uart>ttyS3</uart>
+    <spi>spidev0</spi>
+    <i2c>i2c2</i2c>
+    <adc>REMCON</adc>
+    <pwm>PMU_PWM0</pwm>
+</tests>

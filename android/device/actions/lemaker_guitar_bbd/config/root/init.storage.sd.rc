@@ -1,0 +1,7 @@
+on early-init
+    # insmod tsd driver
+    #insmod /lib/modules/mmc_core.ko
+    #insmod /lib/modules/tsd_mmc_block.ko
+    #insmod /lib/modules/gl520x_mmc.ko
+    # insmod miscinfo driver
+    #insmod /lib/modules/miscinfos.ko

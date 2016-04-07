@@ -363,7 +363,7 @@ public class AppUpgrader extends SettingsUpgrader {
         if (camera != -1) {
             List<Size> supported = CameraPictureSizesCacher.getSizesForCamera(camera, context, refresh);
             if (supported != null) {
-                Size size = SettingsUtil.getPhotoSize(pictureSize, supported, camera);
+                Size size = SettingsUtil.getPhotoSize(pictureSize, supported, camera,refresh);
                 settingsManager.set(SettingsManager.SCOPE_GLOBAL, key,
                         SettingsUtil.sizeToSetting(size));
             }

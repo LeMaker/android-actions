@@ -1,0 +1,6 @@
+
+config ADC_OWL_TEST
+        tristate "ActduinoTest:ADC OWL Test"
+        depends on y
+        help
+          This is ActduinoTest adc testcase driver
