@@ -81,7 +81,7 @@
 
 		serial5_state_default: serial5_default{
 			serial_5{
-				actions,groups = "mfp2_21","mfp2_20";
+				actions,groups = "mfp2_19_17","mfp2_16_14";
 				actions,function = "uart5";
 			};
 		};
@@ -171,12 +171,6 @@
 			sd0_d0_d3_cmd_clk_paddrv  {
 				actions,groups  = "paddrv1_19_18","paddrv1_17_16";
 				actions,paddrv  = <1>; /*level 1，范围0~3*/ 			
-			};
-			
-			// 如果以后使用uart2请修改这个地方到uart2配置，现在默认是uart5
-			serial_5 {
-				actions,groups = "mfp2_19_17","mfp2_16_14";
-				actions,function = "uart5";   
 			};
 		};
 		
@@ -967,7 +961,7 @@
 
 		card_type = "memory";  /* only: "memory", "wifi", or "emmc" */
 		card_detect_mode = "gpio";  /* only: "sirq", "gpio", or "command" */
-		card_detect_gpios = <&gpio 66 0>; /*86v S500 GPIOC2 */  
+		card_detect_gpios = <&gpio 66 1>; /*86v S500 GPIOC2 */  
 		interrupts = < 0 42 0x4 >;
 
 		status = "okay";
@@ -991,6 +985,7 @@
 		pinctrl-0 = <&mmc2_state_default>;
 		card_type = "emmc";  /* only: "memory", "wifi", or "emmc" */
 		status = "okay";
+//		status = "disabled";
 	};
 
 	usb@b02b8000 {
@@ -1004,19 +999,19 @@
 		status = "disabled"; /* don't create platform-device */
 	};
 
-	usb@b0600000 {
-		aotg_udc_enable = <0>;
-		port0_host_plug_detect = <3>;
-	};
-	
-	usb@b0700000 {
-		port1_host_plug_detect = <3>;
-	};
-
 	usb@b0400000 {
 		usb_serialnumber_config = <1>; /* config serialnumber string format, 0: unified ascii; 1:unified unicode; 2:nounified unicode; 3: nounified ascii*/
 		usb_hs_output_strength = <2>; /*defaut:2,range:0~7; 0:min,7:max;usb high speed(2.0)transmitter output strength*/
 		status = "okay";
+	};
+	usb@b0600000 { 
+		//vbus_otg_en_gpio = <&gpio 116 0>; /*GPIO D20*/ 
+		port0_host_plug_detect = <1>;
+	}; 
+
+	usb@b0700000 { 
+		//vbus_otg_en_gpio = <&gpio 36 0>; /*GPIO B4*/
+		port1_host_plug_detect = <1>;
 	};
 
 	monitor {
@@ -1154,14 +1149,14 @@ lcd0: lcd0@b02a0000 {
 		bit_invert = <0>;
 		hotplugable = <1>;
 		bootable = <1>; 
-		bootrotate = <0>;   
+		bootrotate = <3>;   
 		default_resolution = "auto";
 	};
 
 	cvbs:cvbs@b02b0000{  
 		default_mode = "PAL";
 		bootable = <1>; 
-		bootrotate = <0>;  
+		bootrotate = <3>; 
 		hotplugable = <1>;
 		status="disabled";
 	};

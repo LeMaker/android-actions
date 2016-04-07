@@ -1,5 +1,5 @@
 /*
- * gl520x_mmc.c - GL5203 SD/MMC driver
+ * gl520x_mmc.c - GL5203 SD/MMC driver 
  *
  * Copyright (C) 2012, Actions Semiconductor Co. LTD.
  *
@@ -1767,14 +1767,14 @@ static int __init acts_mmc_probe(struct platform_device *pdev)
 		mmc->caps |= MMC_CAP_MAX_CURRENT_800;
 	}
 
-/*	
+	
 	if(owl_requeset_share_uart_sd0_pinctr(mmc)){
 			ret = -1;
 			dev_err(&pdev->dev,
 			"proble requeset share uart sd0 pinctr fail\n");
 			goto out_free_dma;
 	}
-*/
+
 	if (mmc_card_expected_mem(host->type_expected)) {
 		res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
 		if (!res) {
