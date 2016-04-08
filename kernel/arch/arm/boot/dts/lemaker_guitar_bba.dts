@@ -867,7 +867,7 @@
 	i2c@b017c000 {
 		i2c_num = <3>;
 		clock-frequency = <400000>;
-		status = "disabled";
+		status = "okay";
 		pinctrl-names = "default";
 		pinctrl-0 = <&i2c3_state_over_spi0>;
 		eg2801_eeprom@14 {
@@ -883,7 +883,7 @@
 	};
 
 	spi@b0200000 {
-		status = "okay";
+		status = "disabled";
 		compatible = "actions,owl-spi";
 		pinctrl-names = "default";
 		pinctrl-0 = <&spi0_state_default>;
@@ -1035,9 +1035,9 @@
 		dvdd-regulator-scope = <1800000 1810000>;  /* uV */
 
 		sensors = "dual"; /* "dual", "front" or "rear" */		
-		pwdn-rear-gpios = <&gpio 124 0>; /* GPIOC17 */
-		pwdn-front-gpios = <&gpio 120 0>; /* GPIOC15 */
-		reset-gpios = <&gpio 121 1>; /*:GPIOC16*/
+		pwdn-rear-gpios = <&gpio 124 0>; /* GPIOD28 */
+		pwdn-front-gpios = <&gpio 71 0>; /* GPIOC07 */
+		reset-gpios = <&gpio 73 1>; /*:GPIOC09*/
 
 
 		status = "okay"; /* create platform-device */
