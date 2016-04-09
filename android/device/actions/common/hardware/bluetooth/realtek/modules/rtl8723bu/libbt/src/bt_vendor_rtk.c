@@ -122,7 +122,7 @@ int set_bluetooth_power(int on)
          }
     }
 
-    strcpy(rfkill_state_path, "/proc/acts_hub");
+    //strcpy(rfkill_state_path, "/proc/acts_hub");
 
     fd = open(rfkill_state_path, O_WRONLY);
     if (fd < 0) {

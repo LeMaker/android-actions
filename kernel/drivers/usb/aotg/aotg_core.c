@@ -583,6 +583,7 @@ int aotg_device_init(int dev_id, enum aotg_mode_e mode)
 	mutex_lock(&aotg_onoff_mutex);
 	if (aotg_initialized[dev_id][mode]) {
 		aotg_initialized[dev_id][mode]++;
+        //dump_stack();
 		printk("aotg%d initialized already! cnt:%d\n", dev_id, aotg_initialized[dev_id][mode]);
 		mutex_unlock(&aotg_onoff_mutex);
 		return 0;
