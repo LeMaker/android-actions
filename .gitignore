@@ -1,0 +1,10 @@
+android/out*
+owl/out*
+.git
+.config
+*.bak
+android/device/actions/lemaker_guitar_bbb/bootbin
+android/device/actions/lemaker_guitar_bbb_plus/bootbin
+.config
+android/device/actions/common/packages/AndroidPcba
+
