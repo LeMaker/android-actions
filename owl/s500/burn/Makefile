@@ -35,6 +35,7 @@ all: kernel burn_card_kernel u-boot upramfs card_burn_upramfs
 	$(Q)mkdir -p $(BURN_DIR)
 	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/uImage $(BURN_DIR)
 	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/dts/$(KERNEL_BURN_DTS).dtb $(BURN_DIR)/kernel.dtb
+	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/dts/lemaker_guitar_bb*.dtb $(BURN_DIR)/
 	$(Q)cp $(UBOOT_OUT_DIR)/u-boot-dtb.img $(BURN_DIR)/u-boot-dtb-burn.img
 	
 	$(Q)cp $(CUR_DIR)/adfudec/adfudec.bin $(BURN_DIR)/

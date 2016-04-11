@@ -40,7 +40,7 @@
                     android:targetPackage="com.android.settings"
                     android:targetClass="com.android.settings.deviceinfo.Status" />
         </PreferenceScreen>
-
+ 
         <!-- Legal Information -->
         <PreferenceScreen
                 android:key="container"
@@ -147,4 +147,9 @@
                 android:title="@string/selinux_status"
                 android:summary="@string/selinux_status_enforcing"/>
 
+        <!-- Lemaker boards version -->
+        <Preference android:key="lemaker_boards" 
+                style="?android:preferenceInformationStyle"
+                android:title="@string/lemaker_boards"
+                android:summary="@string/lemaker_boards_default"/>        
 </PreferenceScreen>

@@ -1285,4 +1285,12 @@
         <item>Pink</item>
         <item>Red</item>
     </string-array>
+    
+    <string-array name="hobby">  
+        <item>LeMaker Guitar Base Board Rev.A</item>  
+        <item>LeMaker Guitar Base Board Rev.B</item>  
+        <item>LeMaker Guitar Base Board Rev.B Plus</item>  
+        <item>LeMaker Guitar Base Board Rev.C</item>  
+        <item>LeMaker Guitar Base Board Rev.D</item>         
+    </string-array>  
 </resources>

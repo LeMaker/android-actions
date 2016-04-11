@@ -17,6 +17,7 @@
 package com.android.settings;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -52,6 +53,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import android.app.Activity;  
+import android.app.AlertDialog;  
+import android.app.Dialog;  
+import android.app.AlertDialog.Builder;  
+import android.content.DialogInterface;  
+import android.os.Bundle;  
+import android.util.Log;  
+import android.view.View;  
+import android.widget.Button;  
+import android.widget.EditText; 
 
 public class DeviceInfoSettings extends SettingsPreferenceFragment implements Indexable {
 
@@ -70,6 +81,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String PROPERTY_SELINUX_STATUS = "ro.build.selinux";
     private static final String KEY_KERNEL_VERSION = "kernel_version";
     private static final String KEY_BUILD_NUMBER = "build_number";
+    private static final String KEY_LEMAKER_BOARDS = "lemaker_boards";
     private static final String KEY_DEVICE_MODEL = "device_model";
     private static final String KEY_DEVICE_SERIALNO = "device_serialno";
     private static final String KEY_SELINUX_STATUS = "selinux_status";
@@ -101,6 +113,23 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         setValueSummary(KEY_DEVICE_SERIALNO, "ro.serialno");
         setStringSummary(KEY_DEVICE_MODEL, Build.MODEL);
         setStringSummary(KEY_BUILD_NUMBER, Build.DISPLAY);
+			
+        String lemakeboard = SystemProperties.get("ro.product.board");	
+ 				Log.e(LOG_TAG, lemakeboard+"111111111111111111111");       			
+				if(lemakeboard.equals("lemaker_guitar_bba"))
+       			setStringSummary(KEY_LEMAKER_BOARDS, "LeMaker Guitar Base Board Rev.A");
+        else if(lemakeboard.equals("lemaker_guitar_bbb"))
+       			setStringSummary(KEY_LEMAKER_BOARDS, "LeMaker Guitar Base Board Rev.B");
+        else if(lemakeboard.equals("lemaker_guitar_bbb_plus"))
+       			setStringSummary(KEY_LEMAKER_BOARDS, "LeMaker Guitar Base Board Rev.B Plus");
+        else if(lemakeboard.equals("lemaker_guitar_bbc"))
+       			setStringSummary(KEY_LEMAKER_BOARDS, "LeMaker Guitar Base Board Rev.C");
+        else if(lemakeboard.equals("lemaker_guitar_bbd"))
+       			setStringSummary(KEY_LEMAKER_BOARDS, "LeMaker Guitar Base Board Rev.D");  
+       	else
+       			setStringSummary(KEY_LEMAKER_BOARDS, "Have not match LeMaker Guitar Base Board");     			       			       			        
+        findPreference(KEY_LEMAKER_BOARDS).setEnabled(true);
+                     
         findPreference(KEY_BUILD_NUMBER).setEnabled(true);
         findPreference(KEY_KERNEL_VERSION).setSummary(getFormattedKernelVersion());
 
@@ -193,6 +222,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     	TelephonyManager phMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
     	return phMgr.getDataState();
     }
+
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference.getKey().equals(KEY_FIRMWARE_VERSION)) {
@@ -252,6 +282,18 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
             }
         } else if (preference.getKey().equals(KEY_DEVICE_FEEDBACK)) {
             sendFeedback();
+        }else if (preference.getKey().equals(KEY_LEMAKER_BOARDS)) {
+								Intent mIntent = new Intent( );
+								ComponentName comp = new ComponentName("com.android.settings", "com.android.settings.ChangeBoaeBoardVersionActivity");    
+								mIntent.setComponent(comp);
+								mIntent.setAction("android.intent.action.VIEW");
+			
+            try {
+            	//Log.e(LOG_TAG, "start activity ChangeBoaeBoardVersionActivity");
+                startActivity(mIntent);
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Unable to start activity " + mIntent.toString());
+            }
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

@@ -370,6 +370,7 @@ PRODUCT_COPY_FILES += \
 	device/actions/lemaker_guitar_bbb/config/root/insmod_ctp.sh:root/insmod_ctp.sh \
 	device/actions/lemaker_guitar_bbb/config/root/LMKNetwork.sh:root/LMKNetwork.sh \
 	device/actions/lemaker_guitar_bbb/config/root/insmod_gsensor.sh:root/insmod_gsensor.sh \
+	device/actions/lemaker_guitar_bbb/config/root/LMKBoardSelect.sh:root/LMKBoardSelect.sh \
 	device/actions/lemaker_guitar_bbb/config/root/usbmond.sh:root/usbmond.sh
 
 PRODUCT_COPY_FILES += \
@@ -402,6 +403,11 @@ PRODUCT_COPY_FILES += \
 	device/actions/lemaker_guitar_bbb/config/system/wallpaper_010_small.png:system/etc/wallpaper/wallpaper_010_small.png \
 	device/actions/lemaker_guitar_bbb/config/system/wallpaper_011_small.png:system/etc/wallpaper/wallpaper_011_small.png \
 	device/actions/lemaker_guitar_bbb/config/system/wallpaper_012_small.png:system/etc/wallpaper/wallpaper_012_small.png \
+	device/actions/lemaker_guitar_bbb/config/root/build_bba.prop:system/build_bba.prop \
+	device/actions/lemaker_guitar_bbb/config/root/build_bbb.prop:system/build_bbb.prop \
+	device/actions/lemaker_guitar_bbb/config/root/build_bbb_plus.prop:system/build_bbb_plus.prop \
+	device/actions/lemaker_guitar_bbb/config/root/build_bbc.prop:system/build_bbc.prop \
+	device/actions/lemaker_guitar_bbb/config/root/build_bbd.prop:system/build_bbd.prop \
 	device/actions/lemaker_guitar_bbb/config/system/gslX680.idc:system/usr/idc/gslX680.idc
 
 ADDITIONAL_BUILD_PROPERTIES += \
@@ -462,6 +468,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.browser.search_engin=baidu \
 	ro.skia.img.decode.standard=ACTIONS \
 	ro.phone.mode=PHONE 
+    
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.device.model=S500 \

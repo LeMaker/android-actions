@@ -1,7 +1,10 @@
 rm android/out
 rm owl/out
-ln -s android/out-master android/out
-ln -s owl/out-master owl/out
+cd android
+ln -s out-master out
+cd ../owl/
+ln -s out-master out
+cd ..
 ./autobuild.sh config
 ./autobuild.sh u-boot
 ./autobuild.sh kernel

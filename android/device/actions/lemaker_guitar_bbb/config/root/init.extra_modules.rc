@@ -75,6 +75,26 @@ service insmod_gsensor /insmod_gsensor.sh
     class modules
     oneshot
 
+service bbaSelect /LMKBoardSelect.sh bba
+    class modules
+    oneshot
+
+service bbbSelect /LMKBoardSelect.sh bbb
+    class modules
+    oneshot
+
+service bbbplusSelect /LMKBoardSelect.sh bbbplus
+    class modules
+    oneshot
+
+service bbcSelect /LMKBoardSelect.sh bbc
+    class modules
+    oneshot
+
+service bbdSelect /LMKBoardSelect.sh bbd
+    class modules
+    oneshot
+
 service insmod_camera /insmod_camera.sh
     class modules
     oneshot

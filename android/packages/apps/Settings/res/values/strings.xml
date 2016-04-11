@@ -39,6 +39,7 @@
     <!-- Device Info --> <skip />
     <!-- Device Info screen. Used for a status item's value when the proper value is not known -->
     <string name="device_info_default">Unknown</string>
+    <string name="lemaker_boards_default">lemakerbbb</string>   
     <!-- [CHAR LIMIT=NONE] Device Info screen. Countdown for user taps to enable development settings -->
     <plurals name="show_dev_countdown">
         <item quantity="one">You are now <xliff:g id="step_count">%1$d</xliff:g> step away from being a developer.</item>
@@ -159,7 +160,9 @@
     <string name="medium_font">Medium</string>
     <!-- choice for the font size spinner -->
     <string name="large_font">Large</string>
-
+    <string name="display_preview_label11"> 	    If you want to change the base board version, please click the below button. after you select your board and click the confirm button, then system will reboot to change your base board version</string>
+    <string name="display_preview_label22">Change Your Base Board Version</string>  
+    <string name="display_preview_label33">Note:</string>       
     <!-- Do not translate. label for font size preview.  Does not need to be translated. -->
     <string name="font_size_preview_text">Servez à ce monsieur une bière et des kiwis.</string>
     <!-- Button. Chosen when they want to save the chosen text size. -->
@@ -2163,6 +2166,7 @@
     <string name="kernel_version">Kernel version</string>
     <!-- About phone screen,  setting option name  [CHAR LIMIT=40] -->
     <string name="build_number">Build number</string>
+    <string name="lemaker_boards">LeMaker base board version</string>   
     <!-- About phone screen,  setting option name  [CHAR LIMIT=40] -->
     <string name="selinux_status">SELinux status</string>
 

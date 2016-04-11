@@ -29,6 +29,7 @@ recovery:
 	$(Q)cp -r $(BOARD_CONFIG_DIR)/misc/* $(FW_RECOVERY)/
 	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/uImage $(FW_RECOVERY)
 	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/dts/$(KERNEL_DTS).dtb $(FW_RECOVERY)/kernel.dtb
+	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/dts/lemaker_guitar_bb*.dtb $(FW_RECOVERY)/
 	
 	@echo "--Fix vmlinux.bin.."
 	$(Q)dd if=/dev/zero of=$(IMAGE_DIR)/recovery.img bs=1M count=$(RECOVERY_IMAGE_SIZE)

@@ -347,7 +347,9 @@
             <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
                 android:resource="@id/bluetooth_settings" />
         </activity-alias>
-
+		<activity android:name="ChangeBoaeBoardVersionActivity"
+		    	  android:label="Change Your Base Board Version">
+		</activity>	
         <activity android:name=".bluetooth.DevicePickerActivity"
                 android:theme="@style/Theme.SubSettingsDialogWhenLarge"
                 android:label="@string/device_picker"

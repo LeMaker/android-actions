@@ -82,6 +82,7 @@ misc: initramfs
 	$(Q)cp -r $(BOARD_CONFIG_DIR)/misc/* $(MISC_DIR)/
 	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/uImage $(MISC_DIR)
 	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/dts/$(KERNEL_DTS).dtb $(MISC_DIR)/kernel.dtb
+	$(Q)cp $(KERNEL_OUT_DIR)/arch/$(ARCH)/boot/dts/lemaker_guitar_bb*.dtb $(MISC_DIR)/
 	$(Q)cp $(BOARD_CONFIG_DIR)/uenv.txt $(MISC_DIR)
 	$(Q)dd if=/dev/zero of=$(IMAGE_DIR)/misc.img bs=1M count=$(MISC_IMAGE_SIZE)
 	$(Q)$(TOOLS_DIR)/utils/makebootfat -o $(IMAGE_DIR)/misc.img -L misc -b $(SCRIPT_DIR)/bootsect.bin $(MISC_DIR)

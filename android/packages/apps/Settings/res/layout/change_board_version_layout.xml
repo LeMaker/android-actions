@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout  
+  xmlns:android="http://schemas.android.com/apk/res/android"  
+  android:orientation="vertical"  
+  android:layout_width="fill_parent"  
+  android:layout_height="wrap_content" 
+  android:gravity="center|center_horizontal|center_vertical" >  
+  
+  <TextView
+      android:id="@+id/editTextlemaker"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="left"
+      android:text="@string/display_preview_label33"
+      android:textSize="25dp"
+      android:textStyle="bold" />
+
+    <TextView  
+    android:layout_width="wrap_content"  
+    android:layout_height="wrap_content" 
+    android:textSize="20dp" 
+    android:text="@string/display_preview_label11"  
+  /> 
+  <Button android:id="@+id/buttonlemaker"  
+    android:layout_width="wrap_content"  
+    android:layout_height="wrap_content" 
+    android:textSize="20dp" 
+    android:text="@string/display_preview_label22"  
+    android:textAllCaps="false"
+  />  
+</LinearLayout>  
