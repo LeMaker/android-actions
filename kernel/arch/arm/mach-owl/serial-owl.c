@@ -416,11 +416,11 @@ static void handle_tx(struct uart_port *port)
  */
 static irqreturn_t owl_uart_irq(int irq, void *dev_id)
 {
-	unsigned long flags;
+	//unsigned long flags;
 	struct uart_port *port = dev_id;
 	unsigned int stat;
 
-	spin_lock_irqsave(&port->lock, flags);
+	//spin_lock_irqsave(&port->lock, flags);
 	stat = owl_read(port, UART_STAT);
 
 	/*when using DMA, handle_rx will never be called*/
@@ -434,7 +434,7 @@ static irqreturn_t owl_uart_irq(int irq, void *dev_id)
 	stat |= UART_STAT_RIP | UART_STAT_TIP;
 	owl_write(port, stat, UART_STAT);
 
-	spin_unlock_irqrestore(&port->lock, flags);
+	//spin_unlock_irqrestore(&port->lock, flags);
 
 	return IRQ_HANDLED;
 }
