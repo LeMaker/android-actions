@@ -111,11 +111,19 @@ service eth0_up /LMKNetwork.sh eth0 start
     class modules
     oneshot
 
+service eth0_up_static /LMKNetwork.sh eth0  start_static
+    class modules
+    oneshot
+
 service eth0_down /LMKNetwork.sh eth0 down
     class modules
     oneshot
 
 service eth1_up /LMKNetwork.sh eth1 start
+    class modules
+    oneshot
+
+service eth1_up_static /LMKNetwork.sh eth1  start_static
     class modules
     oneshot
 

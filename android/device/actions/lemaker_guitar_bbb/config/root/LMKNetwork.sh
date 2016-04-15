@@ -13,11 +13,17 @@ else
         echo "Not find ethernet devices."
 fi
 
+
 if [ $2 == "start" ];then
 	sleep 2
 	netcfg $1 dhcp
+elif  [ $2 == "start_static" ]; then
+    sleep 2
+     netcfg $1 up
+      echo "ethernet static ip up."	
 else
-	netcfg $1 down
+        sleep 2
+        netcfg $1 down
 fi
 
 else

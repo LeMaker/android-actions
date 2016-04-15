@@ -112,6 +112,7 @@ import com.android.settings.wifi.AdvancedWifiSettings;
 import com.android.settings.wifi.SavedAccessPointsWifiSettings;
 import com.android.settings.wifi.WifiSettings;
 import com.android.settings.wifi.p2p.WifiP2pSettings;
+import com.android.settings.ethernet.EthernetSettings;
 import android.os.SystemProperties;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -206,6 +207,7 @@ public class SettingsActivity extends Activity
     private static final String EMPTY_QUERY = "";
 
     private static boolean sShowNoHomeNotice = false;
+    private static boolean mTelevision;
 
     private String mFragmentClass;
 
@@ -216,6 +218,7 @@ public class SettingsActivity extends Activity
     private int[] SETTINGS_FOR_RESTRICTED = {
             R.id.wireless_section,
             R.id.wifi_settings,
+            R.id.ethernet_settings,
             R.id.bluetooth_settings,
             R.id.data_usage_settings,
             R.id.sim_settings,
@@ -245,6 +248,7 @@ public class SettingsActivity extends Activity
     private static final String[] ENTRY_FRAGMENTS = {
             WirelessSettings.class.getName(),
             WifiSettings.class.getName(),
+            EthernetSettings.class.getName(),
             AdvancedWifiSettings.class.getName(),
             SavedAccessPointsWifiSettings.class.getName(),
             BluetoothSettings.class.getName(),
@@ -490,6 +494,9 @@ public class SettingsActivity extends Activity
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
 
+        mTelevision = getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEVISION) 
+                || getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK);
+                
         // Should happen before any call to getIntent()
         getMetaData();
 
@@ -978,6 +985,7 @@ public class SettingsActivity extends Activity
     private void buildDashboardCategories(List<DashboardCategory> categories) {
         categories.clear();
         loadCategoriesFromResource(R.xml.dashboard_categories, categories);
+
         updateTilesList(categories);
     }
 
@@ -1008,6 +1016,7 @@ public class SettingsActivity extends Activity
             }
 
             Bundle curBundle = null;
+
 
             final int outerDepth = parser.getDepth();
             while ((type=parser.next()) != XmlPullParser.END_DOCUMENT
@@ -1053,6 +1062,12 @@ public class SettingsActivity extends Activity
                             tile.id = sa.getResourceId(
                                     com.android.internal.R.styleable.PreferenceHeader_id,
                                     (int)TILE_ID_UNDEFINED);
+                                    
+                            //ActionsCode(phchen, new feature), 
+                            if (tile.id == R.id.security_settings && mTelevision) {
+                                continue;
+                            }
+                           
                             tv = sa.peekValue(
                                     com.android.internal.R.styleable.PreferenceHeader_title);
                             if (tv != null && tv.type == TypedValue.TYPE_STRING) {
@@ -1228,10 +1243,10 @@ public class SettingsActivity extends Activity
                         removeTile = true;
                     }
                 } else if (id == R.id.development_settings) {
-                   /* if (!showDev || um.hasUserRestriction(
+                    if (!showDev || um.hasUserRestriction(
                             UserManager.DISALLOW_DEBUGGING_FEATURES)) {
                         removeTile = true;
-                    }*/
+                    }
                 }
 
                 if (UserHandle.MU_ENABLED && UserHandle.myUserId() != 0

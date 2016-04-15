@@ -5525,6 +5525,30 @@
 
     <!-- Text to display in regulatory info screen (from device overlay). -->
     <string name="regulatory_info_text"></string>
+    <string name="eth_driver_failed">Please connect the network card!!!</string>
+	<string name="ethernet_settings">Ethernet</string>
+    <string name="ethernet_settings_title">Ethernet</string>
+    <string name="ethernet_conf_title">Ethernet configuration</string>
+    <string name="ethernet_conf_summary">Configure Ethernet</string>
+    <string name="pppoe_conf_title">Pppoe configuration</string>
+    <string name="pppoe_conf_summary">Configure Pppoe</string>
+	<string name="eth_con_type">Connection Type</string>
+    <string name="eth_con_type_dhcp">DHCP</string>
+    <string name="eth_con_type_manual">Static IP</string>
+    <string name="eth_dns">DNS address</string>
+    <string name="eth_dns_err_summary">DNS address is offsize,connect fail...</string>    
+    <string name="eth_gw">Gateway address</string>
+    <string name="eth_gw_err_summary">GateWay address is offsize,connect fail...</string>   
+    <string name="eth_ipaddr">IP address</string>
+    <string name="eth_ipaddr_err_summary">IP address is offsize, connect fail...</string>      
+    <string name="eth_mask">Netmask</string>
+    <string name="eth_mask_err_summary">IP mask is offsize,connect fail...</string>        
+	<string name="ethernet_menu_config">Configure Ethernet</string>
+	<string name="pppoe_menu_config">Configure Pppoe</string>
+	 
+    <string name="note_connecting">Connecting...</string>
+    <string name="note_eth_conf">Please fill up the configuration</string>
+    <string name="note_user_passwd">Please type in username and password</string>
 
     <!-- Title for SIM card settings during Setup Wizard.  [CHAR LIMIT=40] -->
     <string name="sim_setup_wizard_title">SIM cards</string>
