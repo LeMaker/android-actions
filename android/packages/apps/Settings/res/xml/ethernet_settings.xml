@@ -37,7 +37,17 @@
           android:title="@string/pppoe_conf_title"
           android:summary="@string/pppoe_conf_summary" />
        
+	    <SwitchPreference
+	        android:key="eth0_device_restart_button"
+	        android:title="@string/eth0_info" 
+	        android:defaultValue="true"
+		  android:persistent="false" />
 
+	    <SwitchPreference
+	        android:key="eth1_device_restart_button"
+	        android:title="@string/eth1_info" 
+	        android:defaultValue="true"
+	        android:persistent="false" />
 
 </PreferenceScreen>
 

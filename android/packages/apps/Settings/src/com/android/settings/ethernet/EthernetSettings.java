@@ -36,6 +36,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.SystemProperties;
+import android.preference.SwitchPreference;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
@@ -45,7 +46,8 @@ public class EthernetSettings extends SettingsPreferenceFragment implements
   private static final String TAG = "EthernetSettings";
   private static final String KEY_ETH_CONF = "ethernet_conf";
   private static final String KEY_PPPOE_CONF = "pppoe_conf";
-    
+  private static final String KEY_LEMAKER_NETWORK_ETH0 = "eth0_device_restart_button";
+  private static final String KEY_LEMAKER_NETWORK_ETH1 = "eth1_device_restart_button";    
   private static final int ETHERNET_DIALOG_ID = 1;
 
   private final IntentFilter mFilter;
@@ -62,7 +64,8 @@ public class EthernetSettings extends SettingsPreferenceFragment implements
   private boolean isLoadDriver = false;
   private String current_using_key = KEY_ETH_CONF;
   
-
+  private SwitchPreference mLeMakerEth0Preference;
+  private SwitchPreference mLeMakerEth1Preference;
   private TextView mEmptyView;
 
 
@@ -86,9 +89,23 @@ public class EthernetSettings extends SettingsPreferenceFragment implements
     
     mEthConfigPref = (Preference) findPreference(KEY_ETH_CONF);
     mPppoeConfigPref = (Preference) findPreference(KEY_PPPOE_CONF);
+    mLeMakerEth0Preference = (SwitchPreference) findPreference(KEY_LEMAKER_NETWORK_ETH0);
+    mLeMakerEth1Preference = (SwitchPreference) findPreference(KEY_LEMAKER_NETWORK_ETH1);	
     getPreferenceScreen().removePreference(mPppoeConfigPref);
    
     mEthManager = (EthernetManager)getSystemService(Context.ETHERNET_SERVICE);
+
+ 
+	String eth0 = SystemProperties.get("ro.settings.eth0","yes");
+        if (!"yes".equals(eth0.toLowerCase()) && !"true".equals(eth0.toLowerCase())) {
+            getPreferenceScreen().removePreference(findPreference(KEY_LEMAKER_NETWORK_ETH0));
+        }
+
+	String eth1 = SystemProperties.get("ro.settings.eth1","yes");
+        if (!"yes".equals(eth1.toLowerCase()) && !"true".equals(eth1.toLowerCase())) {
+            getPreferenceScreen().removePreference(findPreference(KEY_LEMAKER_NETWORK_ETH1));
+        }
+
  
     super.onActivityCreated(savedInstanceState);
   }
@@ -115,12 +132,26 @@ public class EthernetSettings extends SettingsPreferenceFragment implements
             current_using_key = preference.getKey();
             Log.d(TAG,"current_using_key: " + current_using_key);
 
-            if(mDialog != null || mPdialog != null){
-                removeDialog(ETHERNET_DIALOG_ID);
-                mDialog = null;
-                mPdialog = null;
-            }
-            showDialog(ETHERNET_DIALOG_ID);
+		if(current_using_key.equals(KEY_ETH_CONF)){
+	            if(mDialog != null || mPdialog != null){
+	                removeDialog(ETHERNET_DIALOG_ID);
+	                mDialog = null;
+	                mPdialog = null;
+	            }
+	            showDialog(ETHERNET_DIALOG_ID);
+		}else if(current_using_key.equals(KEY_LEMAKER_NETWORK_ETH0)){
+		      	if(mLeMakerEth0Preference.isChecked()){
+		      		SystemProperties.set("ctl.start", "eth0_up_static");
+		      	} else {
+		      		SystemProperties.set("ctl.start", "eth0_down");
+		      	}	           		
+        	}else if(current_using_key.equals(KEY_LEMAKER_NETWORK_ETH1)){
+			  if(mLeMakerEth1Preference.isChecked()){
+			          SystemProperties.set("ctl.start", "eth1_up_static");
+			  } else {
+			          SystemProperties.set("ctl.start", "eth1_down");
+			  }           
+       	 }
 
         return super.onPreferenceTreeClick(screen, preference);
    }
@@ -149,7 +180,7 @@ public class EthernetSettings extends SettingsPreferenceFragment implements
 					}
         }else if(current_using_key.equals(KEY_PPPOE_CONF)){
            
-        }
+        } 
     }else if(button == DialogInterface.BUTTON_NEGATIVE){
     }
   }

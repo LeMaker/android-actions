@@ -467,6 +467,8 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.config.hdmi_secure_check=0 \
 	ro.browser.search_engin=baidu \
 	ro.skia.img.decode.standard=ACTIONS \
+	ro.settings.eth0=true \
+        ro.settings.eth1=false \
 	ro.phone.mode=PHONE 
     
 

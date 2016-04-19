@@ -29,7 +29,7 @@
     <!-- Strings for Dialog deny button -->
     <string name="deny">Deny</string>
 
-    <string name="eth0_info">LeMaker Eth0 restart</string>
+    <string name="eth0_info">LeMaker Eth0 ON/OFF</string>
 
     <string name="eth1_info">LeMaker Eth1 ON/OFF</string>
 
