@@ -13,9 +13,9 @@ ro.build.type=userdebug
 ro.build.user=bruce
 ro.build.host=lemaker
 ro.build.tags=release-keys
-ro.build.flavor=lemaker_guitar_bbb_plus-userdebug
+ro.build.flavor=lemaker_guitar_bbd-userdebug
 ro.product.model=guitar
-ro.product.board=lemaker_guitar_bbb_plus
+ro.product.board=lemaker_guitar_bbd
 # ro.product.cpu.abi and ro.product.cpu.abi2 are obsolete,
 # use ro.product.cpu.abilist instead.
 ro.product.cpu.abi=armeabi-v7a
@@ -26,14 +26,14 @@ ro.product.cpu.abilist64=
 ro.wifi.channels=
 ro.board.platform=S500
 # ro.build.product is obsolete; use ro.product.device
-ro.build.product=lemaker_guitar_bbb_plus
+ro.build.product=lemaker_guitar_bbd
 # Do not try to parse description, fingerprint, or thumbprint
-ro.build.description=lemaker_guitar_bbb_plus-userdebug 5.1.1 LMY47V eng.bruce.20160412.201351 release-keys
-ro.build.fingerprint=Actions/lemaker_guitar_bbb_plus/lemaker_guitar_bbb_plus:5.1.1/LMY47V/bruce04122017:userdebug/release-keys
+ro.build.description=lemaker_guitar_bbd-userdebug 5.1.1 LMY47V eng.bruce.20160412.201351 release-keys
+ro.build.fingerprint=Actions/lemaker_guitar_bbd/lemaker_guitar_bbd:5.1.1/LMY47V/bruce04122017:userdebug/release-keys
 ro.build.characteristics=tablet
 # end build properties
 #
-# from device/actions/lemaker_guitar_bbb_plus/system.prop
+# from device/actions/lemaker_guitar_bbd/system.prop
 #
 # Actions gs705a config
 #wifi.supplicant_scan_interval=120
@@ -168,8 +168,6 @@ ro.airplanemode.display=true
 ro.settings.support.ethernet=true
 ro.settings.compatibility=false
 ro.settings.support.gps=false
-ro.settings.eth0=true
-ro.settings.eth1=false
 ro.camerahal.hangle0=100.0
 ro.camerahal.hangle1=100.0
 ro.sf.hwrotation=270
@@ -192,7 +190,7 @@ ro.product.model=guitar
 ro.product.brand=Actions
 ro.product.name=Demo
 ro.product.device=guitar
-ro.product.board=lemaker_guitar_bbb_plus
+ro.product.board=lemaker_guitar_bbd
 ro.product.manufacturer=Actions
 ro.build.display.id=TAG_AD500A_5110_160412
 ro.product.locale.language=en
