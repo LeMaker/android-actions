@@ -217,20 +217,7 @@ dtb-$(CONFIG_ARCH_VT8500) += vt8500-bv07.dtb \
 	wm8850-w70v2.dtb
 dtb-$(CONFIG_ARCH_ZYNQ) += zynq-zc702.dtb
 
-dtb-$(CONFIG_ARCH_OWL) += actduino_s500_720p.dtb \
-	actduino_s500_1080p.dtb \
-	actduino_s500_lcd_1280x800.dtb \
-	actduino_s500_lcd_1280x800_uvc.dtb \
-	actduino_s500_lcd_768x1024.dtb \
-	actduino_s500_lcd_768x1024_uvc.dtb \
-	actduino_lemaker_guitar.dtb \
-	actduino_s500_lcd_1280x800_sdboot.dtb \
-	actduino_s500_lcd_1280x800_linux.dtb \
-	actduino_s500_lcd_1280x800_sdboot_linux.dtb \
-	actduino_s500_lcd_768x1024_linux.dtb \
-	actduino_lemaker_guitar_linux.dtb \
-	actduino_s500_probatch.dtb \
-    lemaker_guitar_bba.dtb \
+dtb-$(CONFIG_ARCH_OWL) += lemaker_guitar_bba.dtb \
     lemaker_guitar_bbb.dtb \
     lemaker_guitar_bbc.dtb \
     lemaker_guitar_bbd.dtb \

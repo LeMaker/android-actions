@@ -921,7 +921,7 @@ static int __init aotg_init(void)
 	aotg_udc_add();
 	start_mon_wq = create_singlethread_workqueue("aotg_start_mon_wq");
 	INIT_DELAYED_WORK(&start_mon_wker, aotg_uhost_mon_init);
-	queue_delayed_work(start_mon_wq, &start_mon_wker, msecs_to_jiffies(10000));
+	queue_delayed_work(start_mon_wq, &start_mon_wker, msecs_to_jiffies(8000));
 	return 0;	
 }
 

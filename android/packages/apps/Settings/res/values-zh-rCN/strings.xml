@@ -2420,6 +2420,26 @@
     <string name="emergency_tone_vibrate" msgid="8281126443204950847">"振动"</string>
     <string name="manage_notification_access_title" msgid="7510080164564944891">"通知使用权"</string>
     <string name="manage_notification_access_summary_zero" msgid="2409912785614953348">"应用无法读取通知"</string>
+    <string name="ethernet_settings_title">以太网</string>
+    <string name="ethernet_conf_title">以太网配置</string>
+    <string name="ethernet_conf_summary">配置以太网</string>
+    <string name="pppoe_conf_title">Pppoe配置</string>
+    <string name="pppoe_conf_summary">配置Pppoe</string>
+	<string name="eth_con_type">连接类型</string>
+    <string name="eth_con_type_dhcp">DHCP</string>
+    <string name="eth_con_type_manual">静态IP</string>
+    <string name="eth_dns">DNS</string>
+    <string name="eth_dns_err_summary">DNS address is offsize,connect fail...</string>    
+    <string name="eth_gw">网关</string>
+    <string name="eth_gw_err_summary">GateWay address is offsize,connect fail...</string>   
+    <string name="eth_ipaddr">IP地址</string>
+    <string name="eth_ipaddr_err_summary">IP address is offsize, connect fail...</string>      
+    <string name="eth_mask">掩码</string>
+    <string name="eth_mask_err_summary">IP mask is offsize,connect fail...</string>        
+	<string name="ethernet_menu_config">配置Ethernet</string>
+	<string name="pppoe_menu_config">配置Pppoe</string>
+	 
+    <string name="note_connecting">连接中...</string>
   <plurals name="manage_notification_access_summary_nonzero">
     <item quantity="one" msgid="8344183614159211585">"%d个应用可以读取通知"</item>
     <item quantity="other" msgid="980049191810249052">"%d个应用可以读取通知"</item>
