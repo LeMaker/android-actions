@@ -1197,9 +1197,9 @@ lcd0: lcd0@b02a0000 {
 		backlight_en_gpios = <&gpio 49 0>; /*S500 GPIOD28*/ 
 		pwms = <&pwm 0 50000 1>;
 		total_steps = <1024>;
-		min_brightness = <250>;
+		min_brightness = <100>;
 		max_brightness = <1000>;
-		dft_brightness = <600>;
+		dft_brightness = <500>;
 		delay_bf_pwm  = <200>;
 		delay_af_pwm  = <10>;	
 	};

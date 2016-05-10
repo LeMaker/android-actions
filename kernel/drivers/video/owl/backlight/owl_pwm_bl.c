@@ -162,7 +162,7 @@ static int owl_pwm_bl_update_status(struct backlight_device *bl) {
         BL_PRINT("period_ns = %x\n", pb->period);
 
         pwm_set_polarity(pb->pwm, pb->polarity_inversed);
-        pwm_config(pb->pwm, brightness * pb->period / total_steps,
+        pwm_config(pb->pwm, (total_steps - brightness) * pb->period / total_steps,
                    pb->period);
         pwm_enable(pb->pwm);
 
@@ -608,7 +608,7 @@ void owl_backlight_set_onoff(int onoff) {
     if (NULL == bl) {
         printk("ERROR! backlight is no exist!\n");
     }
-    pb = dev_get_drvdata(&bl->dev)
+    pb = dev_get_drvdata(&bl->dev);
 
     BL_PRINT("%s: onoff = %d\n", __func__, onoff); 
 
