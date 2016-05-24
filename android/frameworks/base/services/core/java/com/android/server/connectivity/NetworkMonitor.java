@@ -292,6 +292,12 @@ public class NetworkMonitor extends StateMachine {
                 Settings.Global.CAPTIVE_PORTAL_SERVER);
         if (mServer == null) mServer = DEFAULT_SERVER;
 
+        //bruce add start
+        mServer = "www.265.com";
+        //settings put global captive_portal_server www.265.com
+        //settings put global captive_portal_detection_enabled 0
+        //bruce add end      
+
         mLingerDelayMs = SystemProperties.getInt(LINGER_DELAY_PROPERTY, DEFAULT_LINGER_DELAY_MS);
         mReevaluateDelayMs = SystemProperties.getInt(REEVALUATE_DELAY_PROPERTY,
                 DEFAULT_REEVALUATE_DELAY_MS);
