@@ -201,7 +201,13 @@ read_choice(){
     cat $selected_ic/boards/$selected_os/$selected_board/config > .config
     echo IC_NAME=$selected_ic >> .config
 		echo OS_NAME=$selected_os >> .config
+		BOARD_NAME=$selected_board
 		echo BOARD_NAME=$selected_board >> .config
+ 		rm config-mode.sh
+ 		touch config-mode.sh	
+ 		chmod 777 config-mode.sh	
+ 		echo BOARD_NAME=$selected_board >> config-mode.sh
+ 		#sed -e "/1/a BOARD_NAME=$BOARD_NAME" -i config-mode.sh
 		rm -f out/$selected_ic"_"$selected_os"_"$selected_board/kernel/.config
 		echo "$selected_ic $selected_os $selected_board configured."
 }

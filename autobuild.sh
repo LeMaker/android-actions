@@ -34,6 +34,28 @@ elif [ "$BUILD_MODULE" = "rootfs" ]; then
 elif [ "$BUILD_MODULE" = "sd_boot" ]; then
         cd $TOP_DIR/owl
         make sd_boot
+
+elif [ "$BUILD_MODULE" = "user" ]; then
+	cd $TOP_DIR/owl
+	#cp config-user.sh config-mode.sh
+	cat config-user.sh >> config-mode.sh
+	./config-mode.sh
+	exit
+
+elif [ "$BUILD_MODULE" = "userdebug" ]; then
+	cd $TOP_DIR/owl
+	#cp config-userdebug.sh config-mode.sh
+	cat config-userdebug.sh >> config-mode.sh
+	./config-mode.sh
+	exit
+
+elif [ "$BUILD_MODULE" = "eng" ]; then
+	cd $TOP_DIR/owl
+	#cp config-eng.sh config-mode.sh
+	cat config-eng.sh >> config-mode.sh
+	./config-mode.sh
+	exit
+
 else
 	cd $TOP_DIR/owl
 	make

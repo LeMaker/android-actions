@@ -1,0 +1,83 @@
+# Actions gs705a config
+#wifi.supplicant_scan_interval=120
+#wifi.interface=wlan0
+
+ro.ota.autorecovery=enable
+ro.recovery.wipe=false
+
+ro.opengles.version = 131072
+ro.config.softopengles = 0
+ro.config.used_hw_vsync = 1
+#force to tabletui: navigatbar move to statubar 
+#ro.config.forcetabletui =1
+
+
+dalvik.vm.dexopt-flags=m=y
+dalvik.vm.checkjni=false
+
+ro.settings.config.hdmi=off
+ro.soundrecorder.format=amr
+ro.systemui.volumekey=enable
+ro.systemui.capture=enable
+ro.launcher.swipe=disable
+ro.launcher.config.cling=enable
+ro.launcher.hideAPP=disable
+ro.launcher.hideactivity=disable
+ro.launcher.allapp.landX=0
+ro.launcher.allapp.landY=0
+ro.launcher.allapp.portX=0
+ro.launcher.allapp.portY=0
+ro.launcher.workspace.landX=0
+ro.launcher.workspace.landY=0
+ro.launcher.workspace.portX=0
+ro.launcher.workspace.portY=0
+ro.launcher.hotseatcellcount=0
+ro.launcher.hotseatallappsindex=0
+ro.launcher.hotseat.landY=0
+ro.launcher.hotseat.portY=0
+ro.launcher.transparent=disable
+ro.product.usbdevice.VID=10d6
+ro.product.usbdevice.PID=fffe
+ro.product.mtpdevice.PID=4e41
+ro.product.ptpdevice.PID=4e43
+
+ro.shutmenu.recovery=disable
+ro.shutmenu.planemode=disable
+ro.shutmenu.restart=enable
+
+ro.usb.descriptor=actions,leopard,3.00
+
+ro.usbdevice.volumelabel=guitar
+ro.serialno=4512482adf0feeee
+
+ro.config.quickboot = 0
+ro.settings.quickboot = 0
+ro.im.keysounddefenable=true
+ro.support.gpswithwifi=1
+
+# add by phchen
+# for wifi signal level,if not need them,only set 0
+ro.wifi.signal.level.1=-70
+ro.wifi.signal.level.2=-65
+ro.wifi.signal.level.3=-60
+ro.wifi.signal.level.4=-55
+
+#for certification of some apk
+ro.product.pribrand=actions   
+ro.product.primodel=owlx1
+
+# for browser
+#ro.browser.forcescale=0
+ro.browser.maxtabs=8
+
+
+ro.config.shutdown.screenoff=0
+ro.sf.lowpoer_backlight=20
+ro.sf.lowpower_backlight_en=enable
+ro.sf.lowpower_threshold=15
+ro.camera.lowpower_threshold=15
+
+ro.customer.browser.plugin=disable
+
+# default wallpaper config
+ro.config.wallpaper=/system/etc/wallpaper/default_wallpaper.png

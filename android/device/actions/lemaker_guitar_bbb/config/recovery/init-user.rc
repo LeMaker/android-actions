@@ -1,0 +1,168 @@
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+import /init.storage.${ro.bootdev}.rc
+#import /init.recovery.${ro.hardware}.rc
+
+on early-init
+    # Apply strict SELinux checking of PROT_EXEC on mmap/mprotect calls.
+    write /sys/fs/selinux/checkreqprot 0
+
+    # Set the security context for the init process.
+    # This should occur before anything else (e.g. ueventd) is started.
+    setcon u:r:init:s0
+    
+    start ueventd
+
+    # create mountpoints
+    mkdir /mnt 0775 root system
+
+on init
+    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
+    export ANDROID_ROOT /system
+    export ANDROID_ASSETS /system/app
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export TFCARD_STORAGE /mnt/sd-ext
+    symlink /system/etc /etc
+    
+    symlink /sbin/busybox /sbin/insmod
+    symlink /sbin/busybox /sbin/rmmod
+    symlink /sbin/busybox /sbin/cat
+
+    
+    mkdir /mnt
+    mkdir /mnt/sdcard
+    mkdir /mnt/sd-ext
+    mkdir /sdcard
+    mkdir /system
+    mkdir /system/bin
+    symlink /sbin/busybox /system/bin/sh
+    mkdir /data
+    mkdir /cache 0777 system cache
+    mkdir /config 0500 root root
+    mount /tmp /tmp tmpfs
+
+    chown root shell /tmp
+    chmod 0775 /tmp 
+
+	#usb
+	write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+
+on fs
+    wait /dev/block/mmcblk0p3
+
+    # mount disks
+    mkdir /misc
+
+    wait /dev/block/mmcblk0p5
+    start do_fsck_acte
+    
+    mount debugfs none /sys/kernel/debug
+
+    wait /dev/ttyS0
+    wait /dev/graphics/fb0
+
+on post-fs 
+# pmic
+  
+#   hwclock -s
+    #add power&charger related
+    insmod /lib/modules/atc260x_cap_gauge.ko
+    #sndrv
+    insmod /lib/modules/snd-soc-atv5302.ko
+    insmod /lib/modules/snd-soc-atv5203-pcm.ko
+    insmod /lib/modules/snd-soc-atv5203-hdmi.ko
+    insmod /lib/modules/snd-soc-atv5203-dai.ko
+    insmod /lib/modules/snd-soc-atv5203-link.ko
+
+    # mmc build in kernel
+    #insmod /lib/modules/mmc_core.ko
+    #insmod /lib/modules/gl520x_mmc.ko
+    #insmod /lib/modules/mmc_block.ko
+# Mount filesystems and start core system services.
+on late-init
+    trigger early-fs
+    trigger fs
+    trigger post-fs
+    trigger post-fs-data
+
+    # Load properties from /system/ + /factory after fs mount. Place
+    # this in another action so that the load will be scheduled after the prior
+    # issued fs triggers have completed.
+    trigger load_all_props_action
+
+    # Remove a file to wake up anything waiting for firmware.
+    trigger firmware_mounts_complete
+
+    trigger early-boot
+    trigger boot
+
+on boot
+
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    class_start default
+
+service insmod_ctp /insmod_ctp.sh
+    class modules
+    oneshot
+
+service do_fsck_acte /sbin/e2fsck -p /dev/block/mmcblk0p5
+    critical
+    oneshot
+
+service ueventd /sbin/ueventd
+    critical
+    seclabel u:r:ueventd:s0
+
+service console /sbin/sh
+    console
+    user root
+    
+on property:ro.debuggable=0
+    start console
+
+service recovery /sbin/recovery
+    user root
+    seclabel u:r:recovery:s0
+
+service adbd /sbin/adbd --root_seclabel=u:r:su:s0 --device_banner=recovery
+    disabled
+    socket adbd stream 660 system system
+    seclabel u:r:adbd:s0
+
+# Always start adbd on userdebug and eng builds
+on property:ro.debuggable=0
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 10d6
+    write /sys/class/android_usb/android0/idProduct 0c01
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+#    setprop sys.usb.state adb
+	
+#on property:sys.usb.config=mass_storage,adb
+#    write /sys/class/android_usb/android0/enable 0
+#    write /sys/class/android_usb/android0/idVendor 10d6
+#    write /sys/class/android_usb/android0/idProduct 0c02
+#    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+#    write /sys/class/android_usb/android0/enable 1
+#    start adbd
+#    setprop sys.usb.state ${sys.usb.config}	
+
+# Restart adbd so it can run as root
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
+    
+# import board extra modules
+import /init.extra_modules.rc
