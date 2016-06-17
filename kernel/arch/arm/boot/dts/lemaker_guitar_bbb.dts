@@ -1164,10 +1164,7 @@ lcd0: lcd0@b02a0000 {
 	
 	framebuffer {
 		compatible = "actions,framebuffer";  
-		def_display  = "hdmi";
-		xres = <1280>;
-		yres = <720>;
-		bpp = <4>;
+        def_display  = "lcd";
 	};
 
 	pwm: pwm@b01b0050 {
