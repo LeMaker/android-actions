@@ -63,7 +63,7 @@
         <item name="android:gravity">center_horizontal</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
-        <item name="android:textSize">@dimen/workspace_icon_text_size</item>
+        <item name="android:textSize">14sp</item> <!-- workspace_icon_text_size -->
         <item name="android:textColor">@color/workspace_icon_text_color</item>
         <item name="android:shadowRadius">2.0</item>
         <item name="android:shadowColor">#B0000000</item>
