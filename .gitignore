@@ -5,10 +5,13 @@ owl/out*
 *.bak
 android/device/actions/lemaker_guitar_bbb/bootbin
 android/device/actions/lemaker_guitar_bbb_plus/bootbin
+android/device/actions/lemaker_guitar_bbc/bootbin
 owl/s500/burn/burn.bin
+android/device/actions/lemaker_guitar_bbb/config/recovery/atc260x-adckeypad.ko
 android/device/actions/lemaker_guitar_bbb_plus/config/recovery/atc260x-adckeypad.ko
+android/device/actions/lemaker_guitar_bbc/config/recovery/atc260x-adckeypad.ko
 .config
 android/device/actions/common/packages/AndroidPcba
 android/device/actions/lemaker_guitar_pax_d820
 owl/config-mode.sh
-android/device/actions/lemaker_guitar_bbb/config/recovery/atc260x-adckeypad.ko
+
