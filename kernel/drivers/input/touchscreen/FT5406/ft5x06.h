@@ -12,9 +12,12 @@
 #define TP_YREVERT 0
 #define TP_XYSWAP 0
 
+//if add the tp fw upgrade,only open below three comment line.-----------start
 //#define FT5X06_MAX_POINT  ( 5 )
 //#define FT5X0X_DOWNLOAD_FIRM  ( 1 )
 //#define UPGRADE_ID2   ( 0x3 )
+//if add the tp fw upgrade,only open below three comment line.-----------end
+
 //#define FIRM_I_FILE_NAME  "NOVO7_VER0X0E_20130124_app.i"
 
 #if CFG_FT_USE_CONFIG
