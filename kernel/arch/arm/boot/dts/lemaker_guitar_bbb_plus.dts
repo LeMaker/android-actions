@@ -546,15 +546,15 @@
                                 pinctrl-0 = <&i2s0_state_default>;				
 				//earphone_detect_gpios = <&gpio 21 0>; /*0: high, 1: low hr280ac GPIOA21 0*/
 				//speaker_en_gpios = <&gpio 126 1>; /*hr280ac GPIOD(30) 0: high, 1: low*/
-				earphone_output_mode = <0>; /*0: direct mode, 1: undirect mode*/
+				earphone_output_mode = <1>; /*0: direct mode, 1: undirect mode*/
 				mic_num = <1>; /*just suport 1, 2*/
 				mic0_gain = < 0xf 0xf >; /*<Lchannel,Rchannel> [0x0~0xF]*/
 				speaker_gain = < 0xaa 0xaa >; /*<Lchannel,Rchannel>[0x00~0xbebe]*/
 				earphone_gain = < 0xbe 0xbe >; /*<Lchannel,Rchannel>[0x00~0xbebe]*/
 				mic_mode = <1>; /* 1: differential,  2: single end*/
 				earphone_detect_method = <2>; /*0:gpio, 1:irq, 2:adc*/	
-				adc_plugin_threshold = <200>; /*adc earphone detect plugin threshold value*/		
-				adc_level = <0>; /*adc plugin level, 1:high vol when plugin; 0:low vol when plug in*/
+				adc_plugin_threshold = <700>; /*adc earphone detect plugin threshold value*/		
+				adc_level = <1>; /*adc plugin level, 1:high vol when plugin; 0:low vol when plug in*/
 			};
 
 			atc260x-hwmon{
