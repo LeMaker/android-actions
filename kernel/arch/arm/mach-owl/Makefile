@@ -15,5 +15,5 @@ obj-$(CONFIG_HIBERNATION) += swsusp-owl.o processor-owl.o
 obj-$(CONFIG_PM) += pm-owl.o sleep-owl.o
 obj-$(CONFIG_HOTPLUG_OWL) += hotplug-owl.o
 
-#obj-y += libcidop 
-
+obj-y += usb-libcidop.o
+obj-y += libcidop

@@ -121,6 +121,57 @@ void (*dwc3_clk_close)(void );
 EXPORT_SYMBOL_GPL(dwc3_set_usb_clk_ops);
 #endif
 
+extern unsigned int read_current_uref2(void);
+
+/*
+ *	usb current calibration reference table:
+ *
+ *	3'b000 14.25 <= cur_uref < 15.75 Swing=6/7/8
+ *	3'b001 15.75 <= cur_uref < 16.50 Swing=6/7/8
+ *	3'b010 16.50 <= cur_uref < 17.25 swing=3/4/5
+ *	3'b011 17.25 <= cur_uref < 18.75 swing=3/4/5
+ *	3'b100 18.75 <= cur_uref < 19.50 Swing=2/3
+ *	3'b101 19.50 <= cur_uref < 20.25 Swing=2/3
+ *	3'b110 20.25 <= cur_uref < 21.00 Swing=0/1/2
+ *	3'b111 21.00 <= cur_uref < 22.50 Swing=0/1/2
+ */
+static unsigned int usb_current_calibrate(void)
+{
+	unsigned int val;
+	unsigned int ret;
+
+	ret = read_current_uref2();
+	if (ret > 7) {
+		pr_info("current_uref error: %d, set Swing default 0x04\n", ret);
+		return 0x04;
+	}
+
+	switch (ret) {
+	case 0:
+	case 1:
+		val = 0x7;
+		break;
+	case 2:
+	case 3:
+		val = 0x4;
+		break;
+	case 4:
+	case 5:
+		val = 0x3;
+		break;
+	case 6:
+	case 7:
+		val = 0x1;
+		break;
+	default:
+		val = 0x4;
+		break;
+	}
+
+	pr_info("current_uref: %d, USB3PHY2 Swing value: 0x%x\n", ret, val);
+	return val;
+}
+
 int dwc3_get_device_id(void)
 {
 	int		id;
@@ -473,22 +524,24 @@ static int dwc3_get_slewrate_config(void)
 void dwc3_phy_init(u8 mode, unsigned char port_num)
 {
 	unsigned char val_u8,slew_rate;
-    
-       slew_rate= dwc3_get_slewrate_config();
-       if((port_num!= 0)&&(port_num!= 1)){
-		port_num = 0;
-        }        
-	if(g_ic_type == IC_ATM7039C){
-		setphy(0xe7,0x0b, port_num);
-		udelay(100);
-		setphy(0xe7,0x0f, port_num);
-		udelay(100);
-		setphy(0xe2,0x74, port_num); 
-		udelay(100);
-	}
-	else if(g_ic_type == IC_ATM7059A){
+	unsigned int value;
 
-		if(mode == DWC3_MODE_DEVICE) {
+	slew_rate = dwc3_get_slewrate_config();
+	if ((port_num != 0) && (port_num != 1))
+		port_num = 0;
+
+	if (g_ic_type == IC_ATM7039C) {
+		setphy(0xe7, 0x0b, port_num);
+		udelay(100);
+		setphy(0xe7, 0x0f, port_num);
+		udelay(100);
+		setphy(0xe2, 0x74, port_num);
+		udelay(100);
+	} else if (g_ic_type == IC_ATM7059A) {
+		/* device-mode & host-mode use the same calibration value */
+		value = usb_current_calibrate();
+
+		if (mode == DWC3_MODE_DEVICE) {
 			printk(" GS705A phy init for dwc3 gadget %s\n", __TIME__ );
 			val_u8 =(1<<7) |(1<<5)|(1<<4)|(2<<2)|(3<<0);//select page1
 			setphy(0xf4, val_u8, port_num);
@@ -512,10 +565,11 @@ void dwc3_phy_init(u8 mode, unsigned char port_num)
             
 			val_u8 = (1<<7) |(0<<5)|(1<<4)|(2<<2)|(3<<0);
 			setphy(0xf4, val_u8, port_num);
-			val_u8 = (9<<4)|(7<<0);                               //hstx current lower
+
+			/* hstx current calibration */
+			val_u8 = (9<<4)|(value<<0);
 			setphy(0xe4, val_u8, port_num);
-		}
-		else {
+		} else {
 			printk(" GS705A phy init for xhci %s\n", __TIME__ );
 			val_u8 =(1<<7) |(1<<5)|(1<<4)|(2<<2)|(3<<0);//select page1
 			setphy(0xf4, val_u8, port_num);
@@ -547,10 +601,9 @@ void dwc3_phy_init(u8 mode, unsigned char port_num)
             
 			val_u8 = (1<<7) |(0<<5)|(1<<4)|(2<<2)|(3<<0); // elect page0
 			setphy(0xf4, val_u8, port_num);
-			if((dwc3_tx_bias >=0) &&(dwc3_tx_bias <= 15))
-				val_u8 = (0xf<<4)|(dwc3_tx_bias<<0);                                  //adjust hshd threshold and hstx current
-			else
-				val_u8 = (0xf<<4)|(4<<0);                                  //adjust hshd threshold and hstx current
+
+			/* hstx current calibration */
+			val_u8 = (0xf<<4)|(value<<0);
 			setphy(0xe4, val_u8, port_num);
 
 			val_u8 = (1<<7) |(1<<6) |(1<<5)|(1<<4)|(1<<3)|(1<<2)|(0<<1)|(0<<0);

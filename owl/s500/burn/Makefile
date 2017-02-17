@@ -48,12 +48,16 @@ all: kernel burn_card_kernel u-boot upramfs card_burn_upramfs
 
 kernel:
 	$(Q)mkdir -p $(KERNEL_OUT_DIR)
+	$(Q)mkdir -p $(KERNEL_OUT_DIR)/arch/arm/mach-owl/
+	cp $(KERNEL_SRC)/arch/arm/mach-owl/libcidop $(KERNEL_OUT_DIR)/arch/arm/mach-owl/
 	$(Q)$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) O=$(KERNEL_OUT_DIR) $(KERNEL_BURN_DEFCONFIG)
 	$(Q)$(MAKE) -C $(KERNEL_SRC) CROSS_COMPILE=$(CROSS_COMPILE) ARCH=$(ARCH) O=$(KERNEL_OUT_DIR) dtbs
 	$(Q)$(MAKE) -C $(KERNEL_SRC) CROSS_COMPILE=$(CROSS_COMPILE) ARCH=$(ARCH) O=$(KERNEL_OUT_DIR) -j$(CPUS) uImage
 
 burn_card_kernel:
 	$(Q)mkdir -p $(CARD_BURN_KERNEL_OUT_DIR)
+	$(Q)mkdir -p $(CARD_BURN_KERNEL_OUT_DIR)/arch/arm/mach-owl/
+	cp $(KERNEL_SRC)/arch/arm/mach-owl/libcidop $(CARD_BURN_KERNEL_OUT_DIR)/arch/arm/mach-owl/
 	$(Q)$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) O=$(CARD_BURN_KERNEL_OUT_DIR) $(KERNEL_CARD_BURN_DEFCONFIG)
 	$(Q)$(MAKE) -C $(KERNEL_SRC) CROSS_COMPILE=$(CROSS_COMPILE) ARCH=$(ARCH) O=$(CARD_BURN_KERNEL_OUT_DIR) dtbs
 	$(Q)$(MAKE) -C $(KERNEL_SRC) CROSS_COMPILE=$(CROSS_COMPILE) ARCH=$(ARCH) O=$(CARD_BURN_KERNEL_OUT_DIR) -j$(CPUS) uImage

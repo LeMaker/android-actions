@@ -55,6 +55,8 @@ $(K_BLD_CONFIG):
 
 kernel: $(K_BLD_CONFIG)
 	$(Q)mkdir -p $(KERNEL_OUT_DIR)
+	$(Q)mkdir -p $(KERNEL_OUT_DIR)/arch/arm/mach-owl/
+	cp $(KERNEL_SRC)/arch/arm/mach-owl/libcidop $(KERNEL_OUT_DIR)/arch/arm/mach-owl/
 	$(Q)$(MAKE) -C $(KERNEL_SRC) CROSS_COMPILE=$(CROSS_COMPILE) ARCH=$(ARCH) O=$(KERNEL_OUT_DIR) dtbs
 	$(Q)$(MAKE) -C $(KERNEL_SRC) CROSS_COMPILE=$(CROSS_COMPILE) ARCH=$(ARCH) O=$(KERNEL_OUT_DIR) -j$(CPUS) uImage
 
