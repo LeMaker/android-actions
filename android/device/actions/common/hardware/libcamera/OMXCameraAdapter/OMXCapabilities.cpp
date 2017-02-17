@@ -1493,6 +1493,8 @@ status_t OMXCameraAdapter::insertPreviewSizes(CameraProperties::Properties* para
         {
             CameraResCfg resItem = prevSupportedRes.itemAt(i);
             ALOGD("previewsize=%dx%d\n", resItem.width, resItem.height);
+            if((resItem.width==800)&&(resItem.height=600))
+                 continue;
             memset(&tmpBuffer, 0, sizeof(tmpBuffer));
             snprintf(tmpBuffer, sizeof(tmpBuffer),"%ux%u,",(unsigned int)resItem.width,(unsigned int)resItem.height);
             strncat(supported, tmpBuffer, MAX_PROP_NAME_LENGTH);
