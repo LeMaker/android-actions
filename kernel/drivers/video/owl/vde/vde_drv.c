@@ -452,6 +452,12 @@ static int vde_query_interval(unsigned int reg4)
 {
     unsigned int mb_w = (reg4 >> 23)&0x1ff;
     unsigned int mb_h = (reg4 >> 15)&0xff;
+    if( 0 == vde_pre_freq)
+    {
+	printk("[vde] avoid freq == 0\n"); 
+	return 5;
+    }	
+
     unsigned int r = (mb_w *mb_h * 300)/(1000 * vde_pre_freq);
     if(r < 5) {
 	r = 5;
