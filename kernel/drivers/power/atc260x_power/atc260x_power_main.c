@@ -1165,6 +1165,7 @@ static void turn_off_charger_if_needed(struct atc260x_charger *charger)
 	// ywwang  todo
 	if (charger->extern_power_online && (charger->cur_bat_cap < 100)) 
 	{
+		if(charger->charge_on) 
 		led_state_charge(charger);
 	} 
 	else 
